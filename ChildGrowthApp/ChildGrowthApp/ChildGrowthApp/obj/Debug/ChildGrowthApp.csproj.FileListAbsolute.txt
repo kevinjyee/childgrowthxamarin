@@ -1,0 +1,15 @@
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp\bin\Debug\ChildGrowthApp.dll
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp\bin\Debug\ChildGrowthApp.pdb
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp\bin\Debug\Xamarin.Forms.Core.dll
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp\bin\Debug\Xamarin.Forms.Platform.dll
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp\bin\Debug\Xamarin.Forms.Xaml.dll
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp\bin\Debug\Xamarin.Forms.Core.pdb
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp\bin\Debug\Xamarin.Forms.Core.xml
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp\bin\Debug\Xamarin.Forms.Platform.pdb
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp\bin\Debug\Xamarin.Forms.Xaml.pdb
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp\bin\Debug\Xamarin.Forms.Xaml.xml
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp\obj\Debug\ChildGrowthApp.csproj.CoreCompileInputs.cache
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp\obj\Debug\ChildGrowthApp.MainPage.xaml.g.cs
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp\obj\Debug\ChildGrowthApp.App.xaml.g.cs
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp\obj\Debug\ChildGrowthApp.dll
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp\obj\Debug\ChildGrowthApp.pdb
