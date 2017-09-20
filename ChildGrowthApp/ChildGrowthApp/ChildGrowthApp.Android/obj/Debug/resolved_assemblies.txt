@@ -23,8 +23,8 @@ C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\Chil
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp.Android\obj\Debug\android\assets\System.Runtime.dll
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp.Android\obj\Debug\android\assets\System.ComponentModel.Composition.dll
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp.Android\obj\Debug\android\assets\System.Resources.ResourceManager.dll
-C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp.Android\obj\Debug\android\assets\System.Diagnostics.Tools.dll
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp.Android\obj\Debug\android\assets\System.Diagnostics.Debug.dll
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp.Android\obj\Debug\android\assets\System.Diagnostics.Tools.dll
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp.Android\obj\Debug\android\assets\System.Threading.Tasks.dll
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp.Android\obj\Debug\android\assets\System.Collections.dll
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp.Android\obj\Debug\android\assets\System.ObjectModel.dll

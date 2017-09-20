@@ -13,3 +13,5 @@ C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\Chil
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp\obj\Debug\ChildGrowthApp.App.xaml.g.cs
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp\obj\Debug\ChildGrowthApp.dll
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp\obj\Debug\ChildGrowthApp.pdb
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp\obj\Debug\ChildGrowthApp.csprojResolveAssemblyReference.cache
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp\obj\Debug\ChildGrowthApp.CallHistoryPage.xaml.g.cs

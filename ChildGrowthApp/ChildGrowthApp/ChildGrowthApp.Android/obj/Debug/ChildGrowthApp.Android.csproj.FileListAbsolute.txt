@@ -41,3 +41,11 @@ C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\Chil
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp.Android\obj\Debug\res\values\styles.xml
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp.Android\obj\Debug\R.cs.flag
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp.Android\obj\Debug\uploadflags.txt
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp.Android\bin\Debug\ChildGrowthApp.dll.mdb
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp.Android\bin\Debug\ChildGrowthApp.Android.dll.mdb
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp.Android\obj\Debug\android\assets\ChildGrowthApp.Android.dll.mdb
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp.Android\obj\Debug\android\assets\ChildGrowthApp.dll.mdb
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp.Android\obj\Debug\android\assets\FormsViewGroup.dll.mdb
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp.Android\obj\Debug\android\assets\Xamarin.Forms.Core.dll.mdb
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp.Android\obj\Debug\android\assets\Xamarin.Forms.Platform.Android.dll.mdb
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowthApp\ChildGrowthApp\ChildGrowthApp.Android\obj\Debug\android\assets\Xamarin.Forms.Xaml.dll.mdb
