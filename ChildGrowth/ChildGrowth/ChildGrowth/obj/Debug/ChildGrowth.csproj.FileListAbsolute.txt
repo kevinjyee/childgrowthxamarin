@@ -20,3 +20,6 @@ C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowt
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth\bin\Debug\OxyPlot.Xamarin.Forms.dll
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth\bin\Debug\OxyPlot.Xamarin.Forms.pdb
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth\bin\Debug\OxyPlot.Xamarin.Forms.xml
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth\obj\Debug\ChildGrowth.MasterDetailPageMain.xaml.g.cs
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth\obj\Debug\ChildGrowth.MasterDetailPageMainMaster.xaml.g.cs
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth\obj\Debug\ChildGrowth.MasterDetailPageMainDetail.xaml.g.cs
