@@ -18,7 +18,7 @@ namespace ChildGrowth
         public MainPage()
         {
             InitializeComponent();
-            LineModel = InitializeLineChart("Height");
+            LineModel = InitializeLineChart("Weight");
             plotView.Model = LineModel;
         }
 

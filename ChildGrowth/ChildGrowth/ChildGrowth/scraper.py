@@ -6,13 +6,15 @@ def readInCSV():
 
     #const
     sexChoice = 2
-    type = "Weight"
+    type = "Height"
 
-    df = pd.read_csv("data/wtageinf.csv");
+    df = pd.read_csv("data/lenageinf.csv");
+
     percentileCols = ["P3",	"P5","P10",	"P25",	"P50",	"P75",	"P90",	"P95", "P97"]
 
     for item in percentileCols:
-        dataList = df.loc[df['Sex'] == sexChoice, item].tolist();
+        dataList = df.loc[df['Sex'] == str(sexChoice), item].tolist();
+        #print dataList
         print formatList(sexChoice, dataList, item, type)
 
 def formatList(sexChoice, list, percentileCols, type):
