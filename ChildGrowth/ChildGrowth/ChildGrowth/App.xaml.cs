@@ -16,6 +16,7 @@ namespace ChildGrowth
             MainPage = new ChildGrowth.MainPage();
         }
 
+
         protected override void OnStart()
         {
             // Handle when your app starts

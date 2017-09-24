@@ -6,6 +6,14 @@ ChildGrowth.Droid.Splash, ChildGrowth.Android;md55bfae92515c0b5799b919ceafc2f4cc
 ChildGrowth.Droid.Splash, ChildGrowth.Android, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md55bfae92515c0b5799b919ceafc2f4cc8.Splash
 ChildGrowth.Droid.Splash;md55bfae92515c0b5799b919ceafc2f4cc8.Splash
 childgrowth.droid.Splash;md55bfae92515c0b5799b919ceafc2f4cc8.Splash
+OxyPlot.Xamarin.Android.PlotView, OxyPlot.Xamarin.Android;md576548fdf6897b70553b6b405e9653aa0.PlotView
+OxyPlot.Xamarin.Android.PlotView, OxyPlot.Xamarin.Android, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md576548fdf6897b70553b6b405e9653aa0.PlotView
+OxyPlot.Xamarin.Android.PlotView;md576548fdf6897b70553b6b405e9653aa0.PlotView
+oxyplot.xamarin.android.PlotView;md576548fdf6897b70553b6b405e9653aa0.PlotView
+OxyPlot.Xamarin.Forms.Platform.Android.PlotViewRenderer, OxyPlot.Xamarin.Forms.Platform.Android;md5c8feee4b08a9919828f8d567dfe427a4.PlotViewRenderer
+OxyPlot.Xamarin.Forms.Platform.Android.PlotViewRenderer, OxyPlot.Xamarin.Forms.Platform.Android, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md5c8feee4b08a9919828f8d567dfe427a4.PlotViewRenderer
+OxyPlot.Xamarin.Forms.Platform.Android.PlotViewRenderer;md5c8feee4b08a9919828f8d567dfe427a4.PlotViewRenderer
+oxyplot.xamarin.forms.platform.android.PlotViewRenderer;md5c8feee4b08a9919828f8d567dfe427a4.PlotViewRenderer
 Android.Support.Design.Widget.Snackbar/SnackbarActionClickImplementor, Xamarin.Android.Support.Design;android.support.design.widget.Snackbar_SnackbarActionClickImplementor
 Android.Support.Design.Widget.Snackbar+SnackbarActionClickImplementor, Xamarin.Android.Support.Design, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;android.support.design.widget.Snackbar_SnackbarActionClickImplementor
 Android.Support.Design.Widget.Snackbar.SnackbarActionClickImplementor;android.support.design.widget.Snackbar_SnackbarActionClickImplementor

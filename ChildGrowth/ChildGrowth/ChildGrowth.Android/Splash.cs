@@ -18,8 +18,13 @@ namespace ChildGrowth.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            // Create your application here  
+            
+
+            // This will push the application to the main activity
             StartActivity(typeof(MainActivity));
+
+           
+
         }
     }
 }

@@ -13,3 +13,10 @@ C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowt
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth\obj\Debug\ChildGrowth.App.xaml.g.cs
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth\obj\Debug\ChildGrowth.dll
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth\obj\Debug\ChildGrowth.pdb
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth\bin\Debug\OxyPlot.dll
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth\bin\Debug\OxyPlot.pdb
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth\bin\Debug\OxyPlot.xml
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth\obj\Debug\ChildGrowth.csprojResolveAssemblyReference.cache
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth\bin\Debug\OxyPlot.Xamarin.Forms.dll
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth\bin\Debug\OxyPlot.Xamarin.Forms.pdb
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth\bin\Debug\OxyPlot.Xamarin.Forms.xml

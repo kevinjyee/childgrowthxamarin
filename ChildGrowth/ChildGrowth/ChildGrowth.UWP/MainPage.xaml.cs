@@ -20,7 +20,7 @@ namespace ChildGrowth.UWP
         public MainPage()
         {
             this.InitializeComponent();
-
+            OxyPlot.Xamarin.Forms.Platform.UWP.PlotViewRenderer.Init();
             LoadApplication(new ChildGrowth.App());
         }
     }
