@@ -20,6 +20,7 @@ namespace ChildGrowthApp.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            //comment
             LoadApplication(new App());
         }
     }
