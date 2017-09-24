@@ -20,7 +20,6 @@ namespace ChildGrowth
 
         class WeightData
         {
-
             //see scraper.py for autoformatted data cleaner
             public static List<double> P3MaleWeight = new List<double>(new double[] { 2.355450986, 2.799548641, 3.614688072, 4.34234145, 4.992897896, 5.575169066, 6.096775274, 6.564430346, 6.984123338, 7.361236116, 7.700624405, 8.006677447, 8.283364855, 8.534275028, 8.762648582, 8.971407287, 9.163180317, 9.340328068, 9.504964014, 9.658974787, 9.804039109, 9.941644878, 10.07310549, 10.19957488, 10.32206165, 10.4414422, 10.55847309, 10.67380261, 10.78798156, 10.90147346, 11.01466395, 11.12786972, 11.24134752, 11.3552982, 11.46987977, 11.58520959, 11.70137143, 11.75978387 });
             public static List<double> P5MaleWeight = new List<double>(new double[] { 2.52690402, 2.964655655, 3.774848862, 4.503255345, 5.157411653, 5.744751566, 6.272175299, 6.745992665, 7.171952393, 7.555286752, 7.90075516, 8.212683538, 8.494999555, 8.751264252, 8.984701111, 9.198222429, 9.394453831, 9.575756968, 9.744250626, 9.901830339, 10.05018686, 10.19082308, 10.32507004, 10.45410181, 10.57894925, 10.70051298, 10.81957536, 10.93681171, 11.05280067, 11.168034, 11.28292555, 11.3978197, 11.51299966, 11.62869248, 11.74507947, 11.86229971, 11.98045644, 12.03991048 });
@@ -51,12 +50,31 @@ namespace ChildGrowth
                 Dictionary<Percentile, List<double>> percentileDictFemale = new Dictionary<Percentile, List<double>>();
 
                 percentileDictMale.Add(Percentile.P3,P3MaleWeight);
+                percentileDictMale.Add(Percentile.P5, P5MaleWeight);
+                percentileDictMale.Add(Percentile.P10, P10MaleWeight);
+                percentileDictMale.Add(Percentile.P25, P25MaleWeight);
+                percentileDictMale.Add(Percentile.P50, P50MaleWeight);
+                percentileDictMale.Add(Percentile.P75, P75MaleWeight);
+                percentileDictMale.Add(Percentile.P90, P90MaleWeight);
+                percentileDictMale.Add(Percentile.P95, P95MaleWeight);
+                percentileDictMale.Add(Percentile.P97, P97MaleWeight);
+
                 percentileDictFemale.Add(Percentile.P3, P3FemaleWeight);
+                percentileDictFemale.Add(Percentile.P5, P5FemaleWeight);
+                percentileDictFemale.Add(Percentile.P10, P10FemaleWeight);
+                percentileDictFemale.Add(Percentile.P25, P25FemaleWeight);
+                percentileDictFemale.Add(Percentile.P50, P50FemaleWeight);
+                percentileDictFemale.Add(Percentile.P75, P75FemaleWeight);
+                percentileDictFemale.Add(Percentile.P90, P90FemaleWeight);
+                percentileDictFemale.Add(Percentile.P95, P95FemaleWeight);
+                percentileDictFemale.Add(Percentile.P97, P97FemaleWeight);
 
                 weightPercentile.Add(Sex.Male, percentileDictMale);
                 weightPercentile.Add(Sex.Female, percentileDictFemale);
                 return weightPercentile;
             }
         }
+
+
     }   
 }
