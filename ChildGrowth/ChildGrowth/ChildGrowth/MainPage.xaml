@@ -9,4 +9,8 @@
     <Grid>
         <oxy:PlotView x:Name="plotView" />
     </Grid>
+<<<<<<< HEAD
 </ContentPage>
+=======
+</ContentPage>  
+>>>>>>> kevinsbranch
