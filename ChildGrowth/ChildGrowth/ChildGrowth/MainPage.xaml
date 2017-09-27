@@ -9,4 +9,4 @@
     <Grid>
         <oxy:PlotView x:Name="plotView" />
     </Grid>
-</ContentPage>
+</ContentPage>  
