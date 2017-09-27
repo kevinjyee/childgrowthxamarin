@@ -1,4 +1,1 @@
-bin/
-obj/
-*.userprefs
-.packages
+.ide

@@ -32,7 +32,6 @@ namespace ChildGrowth
             return model;
         }
 
-
         void addWeights(PlotModel weightChart)
         {
             var lineSeries = new LineSeries();
@@ -45,12 +44,17 @@ namespace ChildGrowth
             weightByGender.TryGetValue(WHOData.Percentile.P3, out weightList);
 
 
-            for(int i = 0; i < weightData.ageList.Count(); i++)
+            for (int i = 0; i < weightData.ageList.Count(); i++)
             {
                 lineSeries.Points.Add(new DataPoint(weightData.ageList[i], weightList[i]));
             }
 
             weightChart.Series.Add(lineSeries);
+        }
+
+        void DatePicker_DateSelected(object sender, DateChangedEventArgs e)
+        {
+            //MainLable.Text = e.NewDate.ToString();
         }
     }
 }
