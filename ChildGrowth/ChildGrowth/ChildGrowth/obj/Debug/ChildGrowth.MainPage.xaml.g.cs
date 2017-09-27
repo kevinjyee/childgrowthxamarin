@@ -19,9 +19,13 @@ namespace ChildGrowth {
         private global::OxyPlot.Xamarin.Forms.PlotView plotView;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
+        private global::Xamarin.Forms.DatePicker currentDate;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
         private void InitializeComponent() {
             global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(MainPage));
             plotView = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::OxyPlot.Xamarin.Forms.PlotView>(this, "plotView");
+            currentDate = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.DatePicker>(this, "currentDate");
         }
     }
 }

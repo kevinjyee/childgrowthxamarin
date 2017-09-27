@@ -5,8 +5,18 @@
 
              xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms"
 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             
              x:Class="ChildGrowth.MainPage">
-    <Grid>
-        <oxy:PlotView x:Name="plotView" />
-    </Grid>
+    <ScrollView>
+
+        
+        <Grid>
+            <oxy:PlotView x:Name="plotView" 
+                          Grid.Row="0" Grid.ColumnSpan="2"/>  
+            <DatePicker x:Name ="currentDate" DateSelected="DatePicker_DateSelected" Grid.Row= "1" Grid.Column="0"/>
+
+        </Grid>
+    </ScrollView>
 </ContentPage>
+    
