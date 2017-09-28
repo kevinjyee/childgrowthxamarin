@@ -65,6 +65,15 @@
     <Reference Include="OxyPlot.Xamarin.Forms.Platform.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\OxyPlot.Xamarin.Forms.1.0.0\lib\MonoAndroid10\OxyPlot.Xamarin.Forms.Platform.Android.dll</HintPath>
     </Reference>
+    <Reference Include="Syncfusion.Calculate.Portable, Version=15.3451.0.29, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Xamarin.Calculate.15.3.0.29\lib\portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Syncfusion.Calculate.Portable.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfChart.XForms, Version=15.3451.0.29, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Xamarin.SfChart.15.3.0.29\lib\MonoAndroid10\Syncfusion.SfChart.XForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfChart.XForms.Android, Version=15.3451.0.29, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Xamarin.SfChart.15.3.0.29\lib\MonoAndroid10\Syncfusion.SfChart.XForms.Android.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.ObjectModel" />

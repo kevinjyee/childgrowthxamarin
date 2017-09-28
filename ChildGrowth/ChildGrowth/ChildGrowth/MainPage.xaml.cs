@@ -1,40 +1,31 @@
-﻿using OxyPlot;
-using OxyPlot.Series;
-using OxyPlot.Xamarin.Forms;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-
+using Syncfusion.SfChart.XForms;
+using System.Collections.ObjectModel;
 
 namespace ChildGrowth
 {
     public partial class MainPage : ContentPage
     {
-        public PlotModel LineModel { get; set; }
-
+        
+        public ObservableCollection<ChartDataPoint> BarData { get; set; }
+        public ObservableCollection<ChartDataPoint> Data { get; set; }
         public MainPage()
         {
             InitializeComponent();
-            LineModel = InitializeLineChart("Weight");
-            plotView.Model = LineModel;
+            
         }
 
-        PlotModel InitializeLineChart(string title)
-        {
-            var model = new PlotModel
-            {
-                Title = title
-            };
-            addWeights(model);
-            return model;
-        }
 
-        void addWeights(PlotModel weightChart)
+        void InitializeData()
         {
-            var lineSeries = new LineSeries();
+            Data = new ObservableCollection<ChartDataPoint>();
+            
             WHOData weightData = new WHOData();
 
             Dictionary<WHOData.Percentile, List<double>> weightByGender;
@@ -43,18 +34,47 @@ namespace ChildGrowth
             weightData.weightPercentile.TryGetValue(WHOData.Sex.Male, out weightByGender);
             weightByGender.TryGetValue(WHOData.Percentile.P3, out weightList);
 
+            for (int i = 0; i < weightData.ageList.Count(); i++)
+            {
+                Data.Add(new ChartDataPoint(weightData.ageList[i], weightList[i]));
+            }
+
+        }
+        
+        }
+
+    public class Points
+    {
+        public double Age { get; set; }
+
+        public double Value { get; set; }
+
+        public Points(double age, double val)
+        {
+            this.Age = age;
+            this.Value = val;
+        }
+    }
+
+    public class ViewModel
+    {
+        public List<Points> LineData { get; set; }
+
+        public ViewModel()
+        {
+            LineData = new List<Points>();
+            WHOData weightData = new WHOData();
+
+            Dictionary<WHOData.Percentile, List<double>> weightByGender;
+            List<Double> weightList;
+
+            weightData.weightPercentile.TryGetValue(WHOData.Sex.Male, out weightByGender);
+            weightByGender.TryGetValue(WHOData.Percentile.P3, out weightList);
 
             for (int i = 0; i < weightData.ageList.Count(); i++)
             {
-                lineSeries.Points.Add(new DataPoint(weightData.ageList[i], weightList[i]));
+                LineData.Add(new Points(weightData.ageList[i],weightList[i]));
             }
-
-            weightChart.Series.Add(lineSeries);
-        }
-
-        void DatePicker_DateSelected(object sender, DateChangedEventArgs e)
-        {
-            //MainLable.Text = e.NewDate.ToString();
         }
     }
 }

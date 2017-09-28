@@ -62,6 +62,12 @@
     <Reference Include="OxyPlot.Xamarin.Forms, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\OxyPlot.Xamarin.Forms.1.0.0\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10\OxyPlot.Xamarin.Forms.dll</HintPath>
     </Reference>
+    <Reference Include="Syncfusion.Calculate.Portable, Version=15.3451.0.29, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Xamarin.Calculate.15.3.0.29\lib\portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Syncfusion.Calculate.Portable.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfChart.XForms, Version=15.3451.0.29, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Xamarin.SfChart.15.3.0.29\lib\portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Syncfusion.SfChart.XForms.dll</HintPath>
+    </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.2.3.4.247\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Core.dll</HintPath>
     </Reference>

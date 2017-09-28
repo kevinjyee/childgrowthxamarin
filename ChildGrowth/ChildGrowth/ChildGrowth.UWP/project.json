@@ -3,6 +3,8 @@
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
     "OxyPlot.Core": "1.0.0",
     "OxyPlot.Xamarin.Forms": "1.0.0",
+    "Syncfusion.Xamarin.Calculate": "15.3.0.29",
+    "Syncfusion.Xamarin.SfChart": "15.3.0.29",
     "Xamarin.Forms": "2.3.4.224"
   },
   "frameworks": {

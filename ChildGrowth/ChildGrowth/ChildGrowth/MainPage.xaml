@@ -2,11 +2,45 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-
-             xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms"
-
+            
+             xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
+             xmlns:local="clr-namespace: ChildGrowth;assembly=ChildGrowth"
              x:Class="ChildGrowth.MainPage">
+
+    <ContentPage.BindingContext>
+
+        <local:ViewModel></local:ViewModel>
+
+    </ContentPage.BindingContext>
+
     <Grid>
-        <oxy:PlotView x:Name="plotView" />
+    <chart:SfChart>
+        
+        <chart:SfChart.Title>
+
+            <chart:ChartTitle Text="Weight"/>
+
+        </chart:SfChart.Title>
+        
+        <chart:SfChart.PrimaryAxis>
+
+            <chart:CategoryAxis>
+
+            </chart:CategoryAxis>
+
+        </chart:SfChart.PrimaryAxis>
+
+        <chart:SfChart.SecondaryAxis>
+
+            <chart:NumericalAxis>
+
+            </chart:NumericalAxis>
+
+        </chart:SfChart.SecondaryAxis>
+        <chart:LineSeries ItemsSource ="{Binding LineData}" XBindingPath="Age"
+	YBindingPath="Value"/>
+        
+    </chart:SfChart>
+        <Entry x:Name="phoneNumberText" Text="1-855-XAMARIN" />
     </Grid>
 </ContentPage>  

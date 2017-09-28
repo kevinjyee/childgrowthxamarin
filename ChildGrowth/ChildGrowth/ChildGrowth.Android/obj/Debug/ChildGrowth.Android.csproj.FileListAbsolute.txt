@@ -66,3 +66,8 @@ C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowt
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\bin\Debug\OxyPlot.Xamarin.Forms.Platform.Android.dll.mdb
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\obj\Debug\android\assets\OxyPlot.Xamarin.Forms.dll.mdb
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\obj\Debug\android\assets\OxyPlot.Xamarin.Forms.Platform.Android.dll.mdb
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\bin\Debug\Syncfusion.Calculate.Portable.dll
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\bin\Debug\Syncfusion.Calculate.Portable.xml
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\bin\Debug\Syncfusion.SfChart.XForms.Android.dll
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\bin\Debug\Syncfusion.SfChart.XForms.dll
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\bin\Debug\Syncfusion.SfChart.XForms.xml

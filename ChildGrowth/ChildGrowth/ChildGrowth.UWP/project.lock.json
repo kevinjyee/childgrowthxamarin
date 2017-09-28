@@ -346,6 +346,31 @@
           "lib/netstandard1.0/_._": {}
         }
       },
+      "Syncfusion.Xamarin.Calculate/15.3.0.29": {
+        "type": "package",
+        "compile": {
+          "lib/portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Syncfusion.Calculate.Portable.dll": {}
+        },
+        "runtime": {
+          "lib/portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Syncfusion.Calculate.Portable.dll": {}
+        }
+      },
+      "Syncfusion.Xamarin.SfChart/15.3.0.29": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "2.3.3.180"
+        },
+        "compile": {
+          "lib/uap10.0/Syncfusion.SfChart.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Syncfusion.SfChart.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.dll": {}
+        }
+      },
       "System.AppContext/4.1.0": {
         "type": "package",
         "dependencies": {
@@ -2797,6 +2822,31 @@
           "runtimes/win8-arm/native/clrcompression.dll": {}
         }
       },
+      "Syncfusion.Xamarin.Calculate/15.3.0.29": {
+        "type": "package",
+        "compile": {
+          "lib/portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Syncfusion.Calculate.Portable.dll": {}
+        },
+        "runtime": {
+          "lib/portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Syncfusion.Calculate.Portable.dll": {}
+        }
+      },
+      "Syncfusion.Xamarin.SfChart/15.3.0.29": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "2.3.3.180"
+        },
+        "compile": {
+          "lib/uap10.0/Syncfusion.SfChart.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Syncfusion.SfChart.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.dll": {}
+        }
+      },
       "System.AppContext/4.1.0": {
         "type": "package",
         "dependencies": {
@@ -5138,6 +5188,31 @@
           "runtimes/win8-arm-aot/native/_._": {}
         }
       },
+      "Syncfusion.Xamarin.Calculate/15.3.0.29": {
+        "type": "package",
+        "compile": {
+          "lib/portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Syncfusion.Calculate.Portable.dll": {}
+        },
+        "runtime": {
+          "lib/portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Syncfusion.Calculate.Portable.dll": {}
+        }
+      },
+      "Syncfusion.Xamarin.SfChart/15.3.0.29": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "2.3.3.180"
+        },
+        "compile": {
+          "lib/uap10.0/Syncfusion.SfChart.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Syncfusion.SfChart.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.dll": {}
+        }
+      },
       "System.AppContext/4.1.0": {
         "type": "package",
         "dependencies": {
@@ -7450,6 +7525,31 @@
         },
         "runtime": {
           "runtimes/win/lib/netcore50/System.Private.Uri.dll": {}
+        }
+      },
+      "Syncfusion.Xamarin.Calculate/15.3.0.29": {
+        "type": "package",
+        "compile": {
+          "lib/portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Syncfusion.Calculate.Portable.dll": {}
+        },
+        "runtime": {
+          "lib/portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Syncfusion.Calculate.Portable.dll": {}
+        }
+      },
+      "Syncfusion.Xamarin.SfChart/15.3.0.29": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "2.3.3.180"
+        },
+        "compile": {
+          "lib/uap10.0/Syncfusion.SfChart.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Syncfusion.SfChart.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.dll": {}
         }
       },
       "System.AppContext/4.1.0": {
@@ -9802,6 +9902,31 @@
           "runtimes/aot/lib/netcore50/System.Private.Uri.dll": {}
         }
       },
+      "Syncfusion.Xamarin.Calculate/15.3.0.29": {
+        "type": "package",
+        "compile": {
+          "lib/portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Syncfusion.Calculate.Portable.dll": {}
+        },
+        "runtime": {
+          "lib/portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Syncfusion.Calculate.Portable.dll": {}
+        }
+      },
+      "Syncfusion.Xamarin.SfChart/15.3.0.29": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "2.3.3.180"
+        },
+        "compile": {
+          "lib/uap10.0/Syncfusion.SfChart.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Syncfusion.SfChart.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.dll": {}
+        }
+      },
       "System.AppContext/4.1.0": {
         "type": "package",
         "dependencies": {
@@ -12114,6 +12239,31 @@
         },
         "runtime": {
           "runtimes/win/lib/netcore50/System.Private.Uri.dll": {}
+        }
+      },
+      "Syncfusion.Xamarin.Calculate/15.3.0.29": {
+        "type": "package",
+        "compile": {
+          "lib/portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Syncfusion.Calculate.Portable.dll": {}
+        },
+        "runtime": {
+          "lib/portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Syncfusion.Calculate.Portable.dll": {}
+        }
+      },
+      "Syncfusion.Xamarin.SfChart/15.3.0.29": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "2.3.3.180"
+        },
+        "compile": {
+          "lib/uap10.0/Syncfusion.SfChart.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Syncfusion.SfChart.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.dll": {}
         }
       },
       "System.AppContext/4.1.0": {
@@ -14464,6 +14614,31 @@
         },
         "runtime": {
           "runtimes/aot/lib/netcore50/System.Private.Uri.dll": {}
+        }
+      },
+      "Syncfusion.Xamarin.Calculate/15.3.0.29": {
+        "type": "package",
+        "compile": {
+          "lib/portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Syncfusion.Calculate.Portable.dll": {}
+        },
+        "runtime": {
+          "lib/portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Syncfusion.Calculate.Portable.dll": {}
+        }
+      },
+      "Syncfusion.Xamarin.SfChart/15.3.0.29": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "2.3.3.180"
+        },
+        "compile": {
+          "lib/uap10.0/Syncfusion.SfChart.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Syncfusion.SfChart.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.UWP.dll": {},
+          "lib/uap10.0/Syncfusion.SfChart.XForms.dll": {}
         }
       },
       "System.AppContext/4.1.0": {
@@ -17532,6 +17707,71 @@
         "runtime.win8-arm.runtime.native.system.io.compression.4.0.1.nupkg.sha512",
         "runtime.win8-arm.runtime.native.system.io.compression.nuspec",
         "runtimes/win8-arm/native/clrcompression.dll"
+      ]
+    },
+    "Syncfusion.Xamarin.Calculate/15.3.0.29": {
+      "sha512": "veG4nxSxgw9y1PF39cHU33Re9YvaXc8HrvjkQcnaGJEvoH4WbFii+Blab4dw4OmwT8G9Lge1h/tKnWRW9OR0Lg==",
+      "type": "package",
+      "path": "syncfusion.xamarin.calculate/15.3.0.29",
+      "files": [
+        "lib/portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Syncfusion.Calculate.Portable.XML",
+        "lib/portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Syncfusion.Calculate.Portable.dll",
+        "syncfusion.xamarin.calculate.15.3.0.29.nupkg.sha512",
+        "syncfusion.xamarin.calculate.nuspec"
+      ]
+    },
+    "Syncfusion.Xamarin.SfChart/15.3.0.29": {
+      "sha512": "vJBPvz8DD6wbnFhkVM1/JzbeW9YnIytedULiuOBraORjj8+5G4NUh3UOsJDvgHp4yzoAHlQi3cvTb82vu0JjQg==",
+      "type": "package",
+      "path": "syncfusion.xamarin.sfchart/15.3.0.29",
+      "files": [
+        "lib/MonoAndroid10/Syncfusion.SfChart.XForms.Android.dll",
+        "lib/MonoAndroid10/Syncfusion.SfChart.XForms.dll",
+        "lib/MonoAndroid10/Syncfusion.SfChart.XForms.xml",
+        "lib/Xamarin.iOS10/Syncfusion.SfChart.XForms.dll",
+        "lib/Xamarin.iOS10/Syncfusion.SfChart.XForms.iOS.dll",
+        "lib/Xamarin.iOS10/Syncfusion.SfChart.XForms.xml",
+        "lib/portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Syncfusion.SfChart.XForms.dll",
+        "lib/portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Syncfusion.SfChart.XForms.xml",
+        "lib/uap10.0/Syncfusion.SfChart.UWP.dll",
+        "lib/uap10.0/Syncfusion.SfChart.UWP.pri",
+        "lib/uap10.0/Syncfusion.SfChart.UWP.xml",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/3D/ChartArea/Themes/SfChart3D.xaml",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/3D/ChartArea/Themes/SfChart3D.xbf",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/3D/ChartSeries/Themes/ChartSeries.xaml",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/3D/ChartSeries/Themes/ChartSeries.xbf",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/ChartArea/Themes/ChartArea.xaml",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/ChartArea/Themes/ChartArea.xbf",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/ChartAxis/Themes/ChartAxis.xaml",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/ChartAxis/Themes/ChartAxis.xbf",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/ChartSeries/Themes/ChartSeries.xaml",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/ChartSeries/Themes/ChartSeries.xbf",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/Controls/Themes/ChartToolBar.xaml",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/Controls/Themes/ChartToolBar.xbf",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/Controls/Themes/ResizableScrollBar.xaml",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/Controls/Themes/ResizableScrollBar.xbf",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/Controls/Themes/Resizer.xaml",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/Controls/Themes/Resizer.xbf",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/Controls/Themes/SfRangeNavigator.xaml",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/Controls/Themes/SfRangeNavigator.xbf",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/Properties/Syncfusion.SfChart.UWP_2015.rd.xml",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/Sparkline/Themes/Sparkline.xaml",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/Sparkline/Themes/Sparkline.xbf",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/Syncfusion.SfChart.UWP.xml",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/Syncfusion.SfChart.UWP.xr.xml",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/Themes/Generic.Common.xaml",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/Themes/Generic.Common.xbf",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/Themes/Generic.Legend.xaml",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/Themes/Generic.Legend.xbf",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/Themes/Generic.Symbol.xaml",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/Themes/Generic.Symbol.xbf",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/Themes/generic.xaml",
+        "lib/uap10.0/Syncfusion.SfChart.UWP/Themes/generic.xbf",
+        "lib/uap10.0/Syncfusion.SfChart.XForms.UWP.dll",
+        "lib/uap10.0/Syncfusion.SfChart.XForms.dll",
+        "lib/uap10.0/Syncfusion.SfChart.XForms.xml",
+        "syncfusion.xamarin.sfchart.15.3.0.29.nupkg.sha512",
+        "syncfusion.xamarin.sfchart.nuspec"
       ]
     },
     "System.AppContext/4.1.0": {
@@ -22604,6 +22844,8 @@
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.2.2",
       "OxyPlot.Core >= 1.0.0",
       "OxyPlot.Xamarin.Forms >= 1.0.0",
+      "Syncfusion.Xamarin.Calculate >= 15.3.0.29",
+      "Syncfusion.Xamarin.SfChart >= 15.3.0.29",
       "Xamarin.Forms >= 2.3.4.224"
     ],
     "UAP,Version=v10.0.10586": []
@@ -22626,6 +22868,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "http://nuget.syncfusion.com/nuget_xamarin/nuget/getsyncfusionpackages/xamarin/": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -22642,6 +22885,8 @@
       "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
       "OxyPlot.Core": "1.0.0",
       "OxyPlot.Xamarin.Forms": "1.0.0",
+      "Syncfusion.Xamarin.Calculate": "15.3.0.29",
+      "Syncfusion.Xamarin.SfChart": "15.3.0.29",
       "Xamarin.Forms": "2.3.4.224"
     },
     "frameworks": {
