@@ -26,6 +26,9 @@ namespace ChildGrowth.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.Id.agentWebView = global::ChildGrowth.Droid.Resource.Id.agentWebView;
+			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.Layout.WebAuthenticationBroker = global::ChildGrowth.Droid.Resource.Layout.WebAuthenticationBroker;
+			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.String.ApplicationName = global::ChildGrowth.Droid.Resource.String.ApplicationName;
 			global::Syncfusion.SfChart.XForms.Droid.Resource.Animation.abc_fade_in = global::ChildGrowth.Droid.Resource.Animation.abc_fade_in;
 			global::Syncfusion.SfChart.XForms.Droid.Resource.Animation.abc_fade_out = global::ChildGrowth.Droid.Resource.Animation.abc_fade_out;
 			global::Syncfusion.SfChart.XForms.Droid.Resource.Animation.abc_grow_fade_in_from_bottom = global::ChildGrowth.Droid.Resource.Animation.abc_grow_fade_in_from_bottom;
@@ -4097,6 +4100,9 @@ namespace ChildGrowth.Droid
 			// aapt resource value: 0x7f07003d
 			public const int activity_chooser_view_content = 2131165245;
 			
+			// aapt resource value: 0x7f0700af
+			public const int agentWebView = 2131165359;
+			
 			// aapt resource value: 0x7f070049
 			public const int alertTitle = 2131165257;
 			
@@ -4832,6 +4838,9 @@ namespace ChildGrowth.Droid
 			// aapt resource value: 0x7f03003c
 			public const int Toolbar = 2130903100;
 			
+			// aapt resource value: 0x7f03003d
+			public const int WebAuthenticationBroker = 2130903101;
+			
 			static Layout()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -4844,6 +4853,9 @@ namespace ChildGrowth.Droid
 		
 		public partial class String
 		{
+			
+			// aapt resource value: 0x7f08002e
+			public const int ApplicationName = 2131230766;
 			
 			// aapt resource value: 0x7f08000f
 			public const int abc_action_bar_home_description = 2131230735;

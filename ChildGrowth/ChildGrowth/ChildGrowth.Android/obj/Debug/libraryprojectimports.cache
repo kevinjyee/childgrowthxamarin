@@ -2,6 +2,7 @@
 <Paths>
   <Jars></Jars>
   <ResolvedResourceDirectories>
+    <ResolvedResourceDirectory>C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\obj\Debug\__library_projects__\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform\library_project_imports\res</ResolvedResourceDirectory>
     <ResolvedResourceDirectory>C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\obj\Debug\__library_projects__\OxyPlot.Xamarin.Android\library_project_imports\res</ResolvedResourceDirectory>
     <ResolvedResourceDirectory>C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\obj\Debug\__library_projects__\OxyPlot.Xamarin.Forms.Platform.Android\library_project_imports\res</ResolvedResourceDirectory>
     <ResolvedResourceDirectory>C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\obj\Debug\__library_projects__\Syncfusion.SfChart.XForms.Android\library_project_imports\res</ResolvedResourceDirectory>
@@ -9,6 +10,7 @@
     <ResolvedResourceDirectory>C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\obj\Debug\__library_projects__\Xamarin.Forms.Platform\library_project_imports\res</ResolvedResourceDirectory>
   </ResolvedResourceDirectories>
   <ResolvedAssetDirectories>
+    <ResolvedAssetDirectory>obj\Debug\__library_projects__\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform\library_project_imports\assets</ResolvedAssetDirectory>
     <ResolvedAssetDirectory>obj\Debug\__library_projects__\OxyPlot.Xamarin.Android\library_project_imports\assets</ResolvedAssetDirectory>
     <ResolvedAssetDirectory>obj\Debug\__library_projects__\OxyPlot.Xamarin.Forms.Platform.Android\library_project_imports\assets</ResolvedAssetDirectory>
     <ResolvedAssetDirectory>obj\Debug\__library_projects__\Syncfusion.SfChart.XForms.Android\library_project_imports\assets</ResolvedAssetDirectory>
@@ -17,6 +19,7 @@
   </ResolvedAssetDirectories>
   <ResolvedEnvironmentFiles />
   <ResolvedResourceDirectoryStamps>
+    <ResolvedResourceDirectoryStamp>C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\obj\Debug\__library_projects__\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.stamp</ResolvedResourceDirectoryStamp>
     <ResolvedResourceDirectoryStamp>C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\obj\Debug\__library_projects__\OxyPlot.Xamarin.Android.stamp</ResolvedResourceDirectoryStamp>
     <ResolvedResourceDirectoryStamp>C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\obj\Debug\__library_projects__\OxyPlot.Xamarin.Forms.Platform.Android.stamp</ResolvedResourceDirectoryStamp>
     <ResolvedResourceDirectoryStamp>C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\obj\Debug\__library_projects__\Syncfusion.SfChart.XForms.Android.stamp</ResolvedResourceDirectoryStamp>

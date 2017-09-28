@@ -101,6 +101,8 @@ class MonoPackageManager_Resources {
 		"ChildGrowth.Android.dll",
 		"ChildGrowth.dll",
 		"FormsViewGroup.dll",
+		"Microsoft.IdentityModel.Clients.ActiveDirectory.dll",
+		"Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll",
 		"OxyPlot.dll",
 		"OxyPlot.Xamarin.Android.dll",
 		"OxyPlot.Xamarin.Forms.dll",
