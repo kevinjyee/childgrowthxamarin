@@ -90,6 +90,7 @@ namespace ChildGrowth
                 "OK");
         }
 
+        //TODO STEFAN: Prompt a change of graph
         async void OnWeightClicked(object sender, EventArgs args)
         {
             Button button = (Button)sender;
@@ -98,6 +99,7 @@ namespace ChildGrowth
                 "OK");
         }
 
+        //TODO STEFAN: Prompt a change of graph
         async void OnHeightClicked(object sender, EventArgs args)
         {
             Button button = (Button)sender;
@@ -106,18 +108,13 @@ namespace ChildGrowth
                 "OK");
         }
 
+        //TODO STEFAN: Prompt a change of graph
         async void OnHeadClicked(object sender, EventArgs args)
         {
             Button button = (Button)sender;
             await DisplayAlert("Clicked!",
                 "The button labeled '" + button.Text + "' has been clicked",
                 "OK");
-        }
-        void onClick_cancelEntry(object sender, EventArgs e)
-        {
-
-            Navigation.PopModalAsync();
-
         }
     }
 
