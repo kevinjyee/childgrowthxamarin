@@ -74,3 +74,4 @@ C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowt
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\obj\Debug\res\drawable\milestones.png
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\obj\Debug\res\drawable\vaccinations.png
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\obj\Debug\res\drawable\education.png
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\obj\Debug\res\drawable\submit.png

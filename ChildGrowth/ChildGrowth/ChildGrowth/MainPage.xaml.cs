@@ -12,20 +12,21 @@ namespace ChildGrowth
 {
     public partial class MainPage : ContentPage
     {
-        
+
         public ObservableCollection<ChartDataPoint> BarData { get; set; }
         public ObservableCollection<ChartDataPoint> Data { get; set; }
         public MainPage()
         {
             InitializeComponent();
-            
         }
 
-
+        /// <summary>
+        /// Initializes WHO Data
+        /// </summary>
         void InitializeData()
         {
             Data = new ObservableCollection<ChartDataPoint>();
-            
+
             WHOData weightData = new WHOData();
 
             Dictionary<WHOData.Percentile, List<double>> weightByGender;
@@ -38,31 +39,85 @@ namespace ChildGrowth
             {
                 Data.Add(new ChartDataPoint(weightData.ageList[i], weightList[i]));
             }
-
         }
 
-        void test(object sender, EventArgs e)
+        /// <summary>
+        /// Clears the values of Height, Weight, Head
+        /// </summary>
+        void OnCancelClicked(object sender, EventArgs args)
         {
-
+            HeightEntry.Text = "";
+            WeightEntry.Text = "";
+            HeadEntry.Text = "";
         }
 
-        void OnClicksaveEntry(object sender, EventArgs e)
+        /// <summary>
+        /// Submit Height, Weight, and HeadC
+        /// </summary>
+        async void OnSubmitClicked(object sender, EventArgs args)
         {
+            int Height = 0;
+            int Weight = 0;
+            int HeadC = 0;
+
+            try
+            {
+                Height = int.Parse(HeightEntry.Text);
+            }
+            catch
+            {
+            }
+            try
+            {
+                Weight = int.Parse(WeightEntry.Text);
+            }
+            catch
+            {
+            }
+            try
+            {
+                HeadC = int.Parse(HeadEntry.Text);
+            }
+            catch
+            {
+            }
+
+            Button button = (Button)sender;
+
+            //TODO STEFAN: Replace this with an await call to SQLite
+            await DisplayAlert("Clicked!",
+                "The button labeled '" + button.Text + "' has been clicked",
+                "OK");
         }
 
-        async void OnButtonClicked(object sender, EventArgs args)
-{
-    Button button = (Button)sender;
-    await DisplayAlert("Clicked!",
-        "The button labeled '" + button.Text + "' has been clicked",
-        "OK");
-}
+        async void OnWeightClicked(object sender, EventArgs args)
+        {
+            Button button = (Button)sender;
+            await DisplayAlert("Clicked!",
+                "The button labeled '" + button.Text + "' has been clicked",
+                "OK");
+        }
 
+        async void OnHeightClicked(object sender, EventArgs args)
+        {
+            Button button = (Button)sender;
+            await DisplayAlert("Clicked!",
+                "The button labeled '" + button.Text + "' has been clicked",
+                "OK");
+        }
+
+        async void OnHeadClicked(object sender, EventArgs args)
+        {
+            Button button = (Button)sender;
+            await DisplayAlert("Clicked!",
+                "The button labeled '" + button.Text + "' has been clicked",
+                "OK");
+        }
         void onClick_cancelEntry(object sender, EventArgs e)
         {
-            
+
             Navigation.PopModalAsync();
-            
+
         }
     }
 
@@ -96,7 +151,7 @@ namespace ChildGrowth
 
             for (int i = 0; i < weightData.ageList.Count(); i++)
             {
-                LineData.Add(new Points(weightData.ageList[i],weightList[i]));
+                LineData.Add(new Points(weightData.ageList[i], weightList[i]));
             }
         }
     }
