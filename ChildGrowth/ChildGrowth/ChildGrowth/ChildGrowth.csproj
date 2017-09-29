@@ -43,6 +43,7 @@
     <Compile Include="Converters\IndustryLabelBooleanToColorConverter.cs" />
     <Compile Include="Converters\InvertedBooleanConverter.cs" />
     <Compile Include="Converters\LoadingLabelHeightConverter.cs" />
+    <Compile Include="Converters\NonNullToBooleanConverter.cs" />
     <Compile Include="Converters\ShortDatePatternConverter.cs" />
     <Compile Include="Converters\ToUpperConverter.cs" />
     <Compile Include="Converters\WholePercentToDecimalPercent.cs" />
@@ -59,6 +60,9 @@
     <Compile Include="CsvFileReader.cs" />
     <Compile Include="Pages\Base\ModelBoundContentPage.cs" />
     <Compile Include="Pages\Base\ModelBoundTabbedPage.cs" />
+    <Compile Include="Pages\Master\TabbedPage1.xaml.cs">
+      <DependentUpon>TabbedPage1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Splash\SplashPage.xaml.cs">
       <DependentUpon>SplashPage.xaml</DependentUpon>
     </Compile>
@@ -73,6 +77,7 @@
     <Compile Include="Statics\Thickness.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\Splash\SplashViewModel.cs" />
+    <Compile Include="Views\Base\ModelBoundContentView.cs" />
     <Compile Include="WHOData.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -118,9 +123,18 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Pages\Splash\SplashPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\Customers\" />
+    <Folder Include="ViewModels\Master\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Master\TabbedPage1.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

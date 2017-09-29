@@ -7,7 +7,7 @@ using ChildGrowth.Pages;
 using Xamarin.Forms;
 using ChildGrowth.Localization;
 using ChildGrowth.Services;
-
+using ChildGrowth.Pages.Master;
 namespace ChildGrowth
 {
     public partial class App : Application
@@ -48,11 +48,13 @@ namespace ChildGrowth
         {
             if (Device.OS == TargetPlatform.iOS)
             {
-                CurrentApp.MainPage = new MainPage();
+                //CurrentApp.MainPage = new MainPage();
+                CurrentApp.MainPage = new TabbedPage1();
             }
             else
             {
-                CurrentApp.MainPage = new MainPage();
+                //CurrentApp.MainPage = new MainPage();
+                CurrentApp.MainPage = new TabbedPage1();
             }
         }
 

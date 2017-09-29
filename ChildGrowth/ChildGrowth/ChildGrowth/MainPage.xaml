@@ -1,21 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            
              xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
              xmlns:local="clr-namespace: ChildGrowth;assembly=ChildGrowth"
+             xmlns:statics="clr-namespace:ChildGrowth.Statics" 
+             xmlns:converters="clr-namespace:ChildGrowth.Converters" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              x:Class="ChildGrowth.MainPage">
 
     <ContentPage.BindingContext>
-
         <local:ViewModel></local:ViewModel>
-
     </ContentPage.BindingContext>
-
-    <Grid>
+    <StackLayout Spacing="0">
     <chart:SfChart>
-        
+        <chart:SfChart.HeightRequest>
+            <OnPlatform x:TypeArguments="x:Double" iOS="160" Android="190" WinPhone="150" />
+        </chart:SfChart.HeightRequest>
+        <chart:SfChart.BackgroundColor>
+            <OnPlatform x:TypeArguments="Color" Android="Transparent" />
+        </chart:SfChart.BackgroundColor>
         <chart:SfChart.Title>
 
             <chart:ChartTitle Text="Weight"/>
@@ -38,9 +41,42 @@
 
         </chart:SfChart.SecondaryAxis>
         <chart:LineSeries ItemsSource ="{Binding LineData}" XBindingPath="Age"
-	YBindingPath="Value"/>
-        
+	    YBindingPath="Value"/>
     </chart:SfChart>
-        <Entry x:Name="phoneNumberText" Text="1-855-XAMARIN" />
-    </Grid>
+        <TableView Intent="Form">
+
+            <TableSection Title="Date and Time">
+
+                <!-- Date of the Entry -->
+
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Entry Date: " TextColor="White" VerticalOptions="Center" Margin="15, 0, 0, 0" WidthRequest="150"/>
+                        <DatePicker x:Name="entryDate" Date="{x:Static sys:DateTime.Now}" Format="MMM d yyyy" MaximumDate="{x:Static sys:DateTime.Now}" VerticalOptions="Center" WidthRequest="200"/>
+                    </StackLayout>
+                </ViewCell>
+
+
+            </TableSection>
+            <TableSection Title="Corrections">
+                
+                <!-- Height -->
+
+                <EntryCell x:Name="HeightEntry" Label="Height (cm): "  Keyboard="Numeric"/>
+
+                <!-- Weight -->
+
+                <EntryCell x:Name="WeightEntry" Label="Weight (oz): " Keyboard="Numeric"/>
+                
+                <!-- Head Circumference -->
+
+                <EntryCell x:Name="HeadEntry" Label="Head Circumeference: " Keyboard="Numeric"/>
+
+            </TableSection>
+
+        </TableView>
+        <Button x:Name="cancelButton" Grid.Column="1" Grid.Row="0" Text="Cancel" Clicked="OnButtonClicked"/>
+    </StackLayout>
+    
+
 </ContentPage>  

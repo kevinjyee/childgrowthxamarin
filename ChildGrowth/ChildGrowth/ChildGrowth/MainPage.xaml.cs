@@ -40,8 +40,31 @@ namespace ChildGrowth
             }
 
         }
-        
+
+        void test(object sender, EventArgs e)
+        {
+
         }
+
+        void OnClicksaveEntry(object sender, EventArgs e)
+        {
+        }
+
+        async void OnButtonClicked(object sender, EventArgs args)
+{
+    Button button = (Button)sender;
+    await DisplayAlert("Clicked!",
+        "The button labeled '" + button.Text + "' has been clicked",
+        "OK");
+}
+
+        void onClick_cancelEntry(object sender, EventArgs e)
+        {
+            
+            Navigation.PopModalAsync();
+            
+        }
+    }
 
     public class Points
     {

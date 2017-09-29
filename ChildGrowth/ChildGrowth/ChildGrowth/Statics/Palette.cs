@@ -90,7 +90,7 @@ namespace ChildGrowth.Statics
         public static readonly Color _016 = Color.FromHex("C06F18");
 
         /// <summary>
-        /// The pastel red color used for the grouping header for closed orders.
+        /// The pastel red color used for the grouping header
         /// </summary>
         public static readonly Color _017 = Color.FromHex("E28D8D");
 

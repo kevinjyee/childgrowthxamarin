@@ -28,7 +28,7 @@ namespace ChildGrowth.Pages.Splash
                     NumberOfTapsRequired = 1,
                     Command = new Command(SignInButtonTapped)
                 });
-
+            
             SkipSignInButton.GestureRecognizers.Add(
                 new TapGestureRecognizer()
                 {
