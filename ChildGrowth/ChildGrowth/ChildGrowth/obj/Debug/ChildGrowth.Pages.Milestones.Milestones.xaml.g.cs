@@ -8,16 +8,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ChildGrowth.Pages.Master {
+namespace ChildGrowth.Pages.Milestones {
     
     
     [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("C:\\Users\\kevjy\\Documents\\Fall2017\\childgrowth\\ChildGrowth\\ChildGrowth\\ChildGrowth" +
-        "\\Pages\\Master\\TabbedPage1.xaml")]
-    public partial class TabbedPage1 : global::Xamarin.Forms.TabbedPage {
+        "\\Pages\\Milestones\\Milestones.xaml")]
+    public partial class Milestones : global::Xamarin.Forms.ContentPage {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
         private void InitializeComponent() {
-            global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(TabbedPage1));
+            global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(Milestones));
         }
     }
 }

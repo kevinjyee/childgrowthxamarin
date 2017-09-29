@@ -7,15 +7,14 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace ChildGrowth.Pages.Master
+namespace ChildGrowth.Pages.Insights
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class TabbedPage1 : TabbedPage
+    public partial class Insights : ContentPage
     {
-        public TabbedPage1()
+        public Insights()
         {
             InitializeComponent();
-            Children.Add(new MainPage() { Icon = "measurements.png" });
         }
     }
 }

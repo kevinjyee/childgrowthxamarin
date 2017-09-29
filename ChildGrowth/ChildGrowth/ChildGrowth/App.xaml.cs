@@ -49,12 +49,12 @@ namespace ChildGrowth
             if (Device.OS == TargetPlatform.iOS)
             {
                 //CurrentApp.MainPage = new MainPage();
-                CurrentApp.MainPage = new TabbedPage1();
+                CurrentApp.MainPage = new MasterTab();
             }
             else
             {
                 //CurrentApp.MainPage = new MainPage();
-                CurrentApp.MainPage = new TabbedPage1();
+                CurrentApp.MainPage = new MasterTab();
             }
         }
 

@@ -48,11 +48,6 @@
     <Compile Include="Converters\ToUpperConverter.cs" />
     <Compile Include="Converters\WholePercentToDecimalPercent.cs" />
     <Compile Include="Localization\ILocalize.cs" />
-    <Compile Include="Localization\TextResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TextResources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Localization\TranslateExtension.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -60,11 +55,23 @@
     <Compile Include="CsvFileReader.cs" />
     <Compile Include="Pages\Base\ModelBoundContentPage.cs" />
     <Compile Include="Pages\Base\ModelBoundTabbedPage.cs" />
-    <Compile Include="Pages\Master\TabbedPage1.xaml.cs">
-      <DependentUpon>TabbedPage1.xaml</DependentUpon>
+    <Compile Include="Pages\Education\Education.xaml.cs">
+      <DependentUpon>Education.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Insights\Insights.xaml.cs">
+      <DependentUpon>Insights.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Master\MasterTab.xaml.cs">
+      <DependentUpon>MasterTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Milestones\Milestones.xaml.cs">
+      <DependentUpon>Milestones.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Splash\SplashPage.xaml.cs">
       <DependentUpon>SplashPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Vaccinations\Vaccinations.xaml.cs">
+      <DependentUpon>Vaccinations.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IAuthenticationServices.cs" />
@@ -81,10 +88,6 @@
     <Compile Include="WHOData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Localization\TextResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>TextResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -130,11 +133,34 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Pages\Customers\" />
     <Folder Include="ViewModels\Master\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Pages\Master\TabbedPage1.xaml">
+    <EmbeddedResource Include="Pages\Master\MasterTab.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Milestones\Milestones.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Vaccinations\Vaccinations.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Insights\Insights.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Education\Education.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

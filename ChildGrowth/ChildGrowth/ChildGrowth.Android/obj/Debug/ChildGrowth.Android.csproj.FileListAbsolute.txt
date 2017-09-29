@@ -70,3 +70,7 @@ C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowt
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\obj\Debug\android\assets\ChildGrowth.Android.dll.mdb
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\obj\Debug\android\assets\ChildGrowth.dll.mdb
 C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\obj\Debug\res\drawable\measurements.png
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\obj\Debug\res\drawable\insights.png
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\obj\Debug\res\drawable\milestones.png
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\obj\Debug\res\drawable\vaccinations.png
+C:\Users\kevjy\Documents\Fall2017\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth.Android\obj\Debug\res\drawable\education.png
