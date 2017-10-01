@@ -47,12 +47,16 @@
     <Compile Include="Converters\ShortDatePatternConverter.cs" />
     <Compile Include="Converters\ToUpperConverter.cs" />
     <Compile Include="Converters\WholePercentToDecimalPercent.cs" />
+    <Compile Include="Factory\DataFactory.cs" />
+    <Compile Include="Infrastructure\Grouping.cs" />
     <Compile Include="Localization\ILocalize.cs" />
     <Compile Include="Localization\TranslateExtension.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="CsvFileReader.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Item.cs" />
     <Compile Include="Pages\Base\ModelBoundContentPage.cs" />
     <Compile Include="Pages\Base\ModelBoundTabbedPage.cs" />
     <Compile Include="Pages\Education\Education.xaml.cs">
@@ -64,6 +68,8 @@
     <Compile Include="Pages\Master\MasterTab.xaml.cs">
       <DependentUpon>MasterTab.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Milestones\MilestonesInfo.cs" />
+    <Compile Include="Pages\Milestones\MilestonesInfoRepository.cs" />
     <Compile Include="Pages\Milestones\Milestones.xaml.cs">
       <DependentUpon>Milestones.xaml</DependentUpon>
     </Compile>
@@ -110,8 +116,20 @@
     <Reference Include="Syncfusion.Calculate.Portable, Version=15.3451.0.29, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Syncfusion.Xamarin.Calculate.15.3.0.29\lib\portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Syncfusion.Calculate.Portable.dll</HintPath>
     </Reference>
+    <Reference Include="Syncfusion.Core.XForms, Version=15.3451.0.33, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Xamarin.Core.15.3.0.33\lib\portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Syncfusion.Core.XForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.DataSource.Portable, Version=15.3451.0.33, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Xamarin.DataSource.15.3.0.33\lib\portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Syncfusion.DataSource.Portable.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.GridCommon.Portable, Version=15.3451.0.33, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Xamarin.GridCommon.15.3.0.33\lib\portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Syncfusion.GridCommon.Portable.dll</HintPath>
+    </Reference>
     <Reference Include="Syncfusion.SfChart.XForms, Version=15.3451.0.29, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Syncfusion.Xamarin.SfChart.15.3.0.29\lib\portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Syncfusion.SfChart.XForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfListView.XForms, Version=15.3451.0.33, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Xamarin.SfListView.15.3.0.33\lib\portable-win+net45+wp80+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Syncfusion.SfListView.XForms.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.2.3.4.247\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Core.dll</HintPath>

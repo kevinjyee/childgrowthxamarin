@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Syncfusion.Core.XForms</name>
+    </assembly>
+    <members>
+        <member name="M:Syncfusion.Core.XForms.IPullToRefresh.Pulling(System.Double,System.Boolean@)">
+            <summary>
+            Signals the pulling is start        
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Core.XForms.IPullToRefresh.Refreshing">
+            <summary>
+            Signals the view refreshing is start        
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Core.XForms.IPullToRefresh.Refreshed">
+            <summary>
+            Signals the view is get refreshed    
+            </summary>
+        </member>
+        <member name="M:Syncfusion.Core.XForms.IPullToRefresh.PullingCancelled">
+            <summary>
+            Signals the pulling is not completed 
+            </summary>
+        </member>
+    </members>
+</doc>

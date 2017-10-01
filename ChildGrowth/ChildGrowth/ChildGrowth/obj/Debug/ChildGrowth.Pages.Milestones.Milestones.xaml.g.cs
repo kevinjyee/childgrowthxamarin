@@ -11,13 +11,17 @@
 namespace ChildGrowth.Pages.Milestones {
     
     
-    [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("C:\\Users\\kevjy\\Documents\\Fall2017\\childgrowth\\ChildGrowth\\ChildGrowth\\ChildGrowth" +
-        "\\Pages\\Milestones\\Milestones.xaml")]
+    [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("C:\\Users\\kevjy\\Documents\\childgrowth\\ChildGrowth\\ChildGrowth\\ChildGrowth\\Pages\\Mi" +
+        "lestones\\Milestones.xaml")]
     public partial class Milestones : global::Xamarin.Forms.ContentPage {
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
+        private global::Syncfusion.ListView.XForms.SfListView listView;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
         private void InitializeComponent() {
             global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(Milestones));
+            listView = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Syncfusion.ListView.XForms.SfListView>(this, "listView");
         }
     }
 }
