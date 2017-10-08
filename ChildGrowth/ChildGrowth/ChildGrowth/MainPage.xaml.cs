@@ -116,6 +116,35 @@ namespace ChildGrowth
                 "The button labeled '" + button.Text + "' has been clicked",
                 "OK");
         }
+
+ 
+
+
+        void Handle_FabClicked(object sender, System.EventArgs e)
+
+        {
+
+            this.DisplayAlert("Floating Action Button", "You clicked the FAB!", "Awesome!");
+
+        }
+
+
+
+        private void UpdateButtonColor(Color color)
+
+        {
+
+            var normal = color;
+
+            var disabled = color.MultiplyAlpha(0.25);
+
+
+
+            fabBtn.NormalColor = normal;
+
+            fabBtn.DisabledColor = disabled;
+
+        }
     }
 
     public class Points
