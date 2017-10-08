@@ -16,21 +16,37 @@ public class Child
     [Indexed]
     public string Name { get; set; }
 
+    public DateTime Birthday { get { return _birthday; } set { _birthday = value; } }
+    public Gender ChildGender { get { return _childGender; } set { _childGender = value; } }
+    public MilestoneResponses Milestones { get { return _milestones; } set { _milestones = value; } }
+    public GrowthData Measurements { get { return _measurements; } set { _measurements = value; } }
+    public VaccinationHistory VaccineHistory { get { return _vaccineHistory; } set { _vaccineHistory = value; } }
+
     [TextBlob("BirthdayBlobbed")]
-    public DateTime Birthday { get; set; }
+    private DateTime _birthday { get; set; }
     public string BirthdayBlobbed { get; set; }
 
+    [TextBlob("GenderBlobbed")]
+    public Gender _childGender { get; set; }
+    public string GenderBlobbed { get; set; }
+
     [TextBlob("MilestonesBlobbed")]
-    public MilestoneResponses Milestones { get; set; }
+    public MilestoneResponses _milestones { get; set; }
     public string MilestonesBlobbed { get; set; }
 
     [TextBlob("MeasurementsBlobbed")]
-    public GrowthData Measurements { get; set; }
+    public GrowthData _measurements { get; set; }
     public string MeasurementsBlobbed { get; set; }
 
     [TextBlob("VaccineHistoryBlobbed")]
-    public VaccinationHistory VaccineHistory { get; set; }
+    public VaccinationHistory _vaccineHistory { get; set; }
     public string VaccineHistoryBlobbed { get; set; }
+
+    public enum Gender
+    {
+        MALE,
+        FEMALE
+    }
 
 	public Child(string name)
 	{
@@ -51,18 +67,28 @@ public class Child
      * Reads a measurement for the given date and MeasurementType.
      * Returns null if no measurement found.
      **/
-    public GrowthMeasurement GetMeasurementForDateAndType(DateTime date, MeasurementType measurementType)
+    public async Task<GrowthMeasurement> GetMeasurementForDateAndType(DateTime date, MeasurementType measurementType)
     {
-        return Measurements.GetMeasurementForDateAndType(date, measurementType);
+        Task<GrowthMeasurement> thread = new Task<GrowthMeasurement>(() =>
+        {
+            return Measurements.GetMeasurementForDateAndType(date, measurementType);
+        });
+        thread.Start();
+        return await thread;
     }
 
     /**
      * Read out any saved measurements for the given MeasurementType.
      * Return null if no measurements found.
      **/
-    public List<GrowthMeasurement> GetSortedMeasurementListByType(MeasurementType measurementType)
+    public async Task<List<GrowthMeasurement>> GetSortedMeasurementListByType(MeasurementType measurementType)
     {
-        return Measurements.GetSortedMeasurementList(measurementType);
+        Task<List<GrowthMeasurement>> thread = new Task<List<GrowthMeasurement>>(() =>
+        {
+            return Measurements.GetSortedMeasurementList(measurementType);
+        });
+        thread.Start();
+        return await thread;
     }
 
     /** 

@@ -13,9 +13,9 @@ namespace ChildGrowth
         protected DateTime _dateRecorded;
         protected double _value;
 
-        protected DateTime DateRecorded { get { return _dateRecorded; } set { ; } }
+        public DateTime DateRecorded { get { return _dateRecorded; } set { _dateRecorded = value; } }
 
-        public double Value { get { return _value; } set { ; } }
+        public double Value { get { return _value; } set { _value = value; } }
 
     }
 }

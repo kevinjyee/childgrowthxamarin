@@ -1,12 +1,8 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using Android.App;
-using Android.Widget;
-using Android.OS;
+﻿using System.IO;
 using SQLite.Net.Platform.XamarinAndroid;
-using XamarinSQLite.PCL;
 using ChildGrowth.Droid.Persistence;
+using ChildGrowth.Persistence;
+using SQLite.Net.Interop;
 
 [assembly: Xamarin.Forms.Dependency(typeof(AndroidSQLiteConnectionInputGenerator))]
 namespace ChildGrowth.Droid.Persistence
@@ -19,7 +15,7 @@ namespace ChildGrowth.Droid.Persistence
             return Path.Combine(documentsPath, fileName);
         }
 
-        public ISQLitePlatform GetSQLitePlatform()
+        ISQLitePlatform ISQLiteConnectionInputGenerator.GetSQLitePlatform()
         {
             return new SQLitePlatformAndroid();
         }

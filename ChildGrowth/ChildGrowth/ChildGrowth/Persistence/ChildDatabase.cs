@@ -12,7 +12,7 @@ namespace ChildGrowth.Persistence
         private SQLiteAsyncConnection _connection;
         private Boolean _isConnected = false;
 
-        public Boolean IsConnected { get { return _isConnected; } set { ; } }
+        public Boolean IsConnected { get { return _isConnected; } set { _isConnected = value; } }
 
         // Must call InitializeAsync before using any accessor methods.
         public async Task InitializeAsync()
