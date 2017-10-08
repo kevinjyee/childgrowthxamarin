@@ -137,6 +137,7 @@
 
        
     </StackLayout>
+        
         <fab:FloatingActionButton
 				x:Name="fabBtn"
 				Source="plus.png"

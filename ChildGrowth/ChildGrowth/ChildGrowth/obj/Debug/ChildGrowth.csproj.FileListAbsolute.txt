@@ -51,3 +51,4 @@ C:\Users\kevjy\Documents\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth\bin\Deb
 C:\Users\kevjy\Documents\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth\bin\Debug\Xamarin.Forms.Xaml.xml
 C:\Users\kevjy\Documents\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth\bin\Debug\FAB.Forms.dll
 C:\Users\kevjy\Documents\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth\bin\Debug\FAB.Forms.xml
+C:\Users\kevjy\Documents\childgrowth\ChildGrowth\ChildGrowth\ChildGrowth\obj\Debug\ChildGrowth.Pages.Child.ChildEntry.xaml.g.cs

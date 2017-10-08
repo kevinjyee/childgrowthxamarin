@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Syncfusion.SfChart.XForms;
 using System.Collections.ObjectModel;
+using ChildGrowth.Pages.Child;
 
 namespace ChildGrowth
 {
@@ -120,11 +121,15 @@ namespace ChildGrowth
  
 
 
-        void Handle_FabClicked(object sender, System.EventArgs e)
+        async void Handle_FabClicked(object sender, System.EventArgs e)
 
         {
+           
 
-            this.DisplayAlert("Floating Action Button", "You clicked the FAB!", "Awesome!");
+            var leadDetailPage = new ChildEntry();
+
+            await Navigation.PushModalAsync(leadDetailPage);
+            
 
         }
 
