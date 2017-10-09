@@ -25,7 +25,7 @@
                 <Image />
         </Frame>
         <Button Text="&gt;" Grid.Row="2" Grid.Column ="3" Grid.RowSpan="2" />
-        <Button Text="No" TextColor="White" BackgroundColor="#06a5bd" Grid.Row="4" Grid.Column="1" />
+        <Button x:Name="NoButton" onClicked="NoClicked" Text="No" TextColor="White" BackgroundColor="#06a5bd" Grid.Row="4" Grid.Column="1" />
         <Button Text="Yes" TextColor="White" BackgroundColor="#06a5bd" Grid.Row="4" Grid.Column="2" />
         <Button Text="Submit" BackgroundColor="Silver" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan ="2" />
 
