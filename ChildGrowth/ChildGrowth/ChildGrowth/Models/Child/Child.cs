@@ -110,9 +110,9 @@ public class Child
     /** 
      * Removes a measurement from a Child profile. This will update the Child's entry in the database to reflect the change.
      **/
-    public async Task<Boolean> RemoveMeasurementForDateAndType(DateTime date, MeasurementType measurementType, ChildDatabase childDatabase)
+    public async Task<Boolean> RemoveMeasurementForDateAndType(DateTime date, MeasurementType measurementType, ChildDatabaseAccess childDatabase)
     {
-        ChildDatabase childDB = CheckChildDatabaseConnection(childDatabase).Result;
+        ChildDatabaseAccess childDB = CheckChildDatabaseConnection(childDatabase).Result;
         Boolean data_removed = this.Measurements.RemoveMeasurementForDateAndType(date, measurementType);
         if (data_removed)
         {
@@ -125,9 +125,9 @@ public class Child
     /** 
      * Adds a measurement to a Child profile. This will update the Child's entry in the local database to reflect the change.
      **/
-    public async Task<Boolean> AddMeasurementForDateAndType(DateTime date, MeasurementType measurementType, Units currentUnits, double value, ChildDatabase childDatabase)
+    public async Task<Boolean> AddMeasurementForDateAndType(DateTime date, MeasurementType measurementType, Units currentUnits, double value, ChildDatabaseAccess childDatabase)
     {
-        ChildDatabase childDB = CheckChildDatabaseConnection(childDatabase).Result;
+        ChildDatabaseAccess childDB = CheckChildDatabaseConnection(childDatabase).Result;
         Measurements.AddMeasurementForDateAndType(date, measurementType, currentUnits, value);
         await childDB.SaveUserChildAsync(this);
         return true;
@@ -137,11 +137,11 @@ public class Child
      * Checks a ChildDatabase object to see if it is null or is unconnected. Creates new ChildDatabase and/or initialize connection
      *  as necessary.
      **/
-    private async Task<ChildDatabase> CheckChildDatabaseConnection(ChildDatabase childDatabase)
+    private async Task<ChildDatabaseAccess> CheckChildDatabaseConnection(ChildDatabaseAccess childDatabase)
     {
         if (null == childDatabase)
         {
-            childDatabase = new ChildDatabase();
+            childDatabase = new ChildDatabaseAccess();
         }
         if (!childDatabase.IsConnected)
         {
