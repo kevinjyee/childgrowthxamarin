@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Syncfusion.SfChart.XForms;
 using System.Collections.ObjectModel;
+
 using ChildGrowth.Persistence;
+
+using ChildGrowth.Pages.Child;
+
 
 namespace ChildGrowth
 {
@@ -144,6 +148,7 @@ namespace ChildGrowth
                 "OK");
         }
 
+
         // TODO: Change this to get current child from session data.
         private Child GetCurrentChild()
         {
@@ -164,6 +169,39 @@ namespace ChildGrowth
         }
 
         private static int DEFAULT_MEASUREMENT_VALUE = -1;
+
+
+
+        async void Handle_FabClicked(object sender, System.EventArgs e)
+
+        {
+           
+
+            var leadDetailPage = new ChildEntry();
+
+            await Navigation.PushModalAsync(leadDetailPage);
+            
+
+        }
+
+
+
+        private void UpdateButtonColor(Color color)
+
+        {
+
+            var normal = color;
+
+            var disabled = color.MultiplyAlpha(0.25);
+
+
+
+            fabBtn.NormalColor = normal;
+
+            fabBtn.DisabledColor = disabled;
+
+        }
+
     }
 
     public class Points

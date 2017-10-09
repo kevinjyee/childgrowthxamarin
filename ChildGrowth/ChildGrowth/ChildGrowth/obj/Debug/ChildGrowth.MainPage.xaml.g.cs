@@ -11,8 +11,8 @@
 namespace ChildGrowth {
     
     
-    [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("C:\\Users\\kevjy\\Documents\\Fall2017\\childgrowth\\ChildGrowth\\ChildGrowth\\ChildGrowth" +
-        "\\MainPage.xaml")]
+    [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("C:\\Users\\kevjy\\Documents\\childgrowth\\ChildGrowth\\ChildGrowth\\ChildGrowth\\MainPage" +
+        ".xaml")]
     public partial class MainPage : global::Xamarin.Forms.ContentPage {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
@@ -43,6 +43,9 @@ namespace ChildGrowth {
         private global::Xamarin.Forms.Button cancelButton;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
+        private global::FAB.Forms.FloatingActionButton fabBtn;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
         private void InitializeComponent() {
             global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(MainPage));
             WeightButton = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Button>(this, "WeightButton");
@@ -54,6 +57,7 @@ namespace ChildGrowth {
             HeadEntry = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.EntryCell>(this, "HeadEntry");
             submitButton = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Button>(this, "submitButton");
             cancelButton = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Button>(this, "cancelButton");
+            fabBtn = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::FAB.Forms.FloatingActionButton>(this, "fabBtn");
         }
     }
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    xmlns:local="clr-namespace:ChildGrowth.Pages.Milestones;assembly=ChildGrowth"
+    xmlns:data="clr-namespace:Syncfusion.DataSource;assembly=Syncfusion.DataSource.Portable"          
+    x:Class="ChildGrowth.Pages.Milestones.MilestonesDescriptionPage">
+    <ContentPage.BindingContext>
+        <local:MilestonesInfoRepository />
+    </ContentPage.BindingContext>
+    <Grid RowSpacing="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="80" />
+            <RowDefinition Height="160" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Text="Question:" TextColor="White" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" BackgroundColor="#06a5bd" />
+
+        <Label Text="More Explanation:" FontAttributes="Italic" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan ="4"/>
+        <Button Text="&lt;" Grid.Row="2" Grid.Column ="0" Grid.RowSpan="2" /> 
+        <Frame Grid.Row="2" Grid.Column="1" Grid.RowSpan ="2" Grid.ColumnSpan="2" BackgroundColor="Silver" >
+                <Image />
+        </Frame>
+        <Button Text="&gt;" Grid.Row="2" Grid.Column ="3" Grid.RowSpan="2" />
+        <Button x:Name="NoButton" onClicked="NoClicked" Text="No" TextColor="White" BackgroundColor="#06a5bd" Grid.Row="4" Grid.Column="1" />
+        <Button Text="Yes" TextColor="White" BackgroundColor="#06a5bd" Grid.Row="4" Grid.Column="2" />
+        <Button Text="Submit" BackgroundColor="Silver" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan ="2" />
+
+
+    </Grid>
+    
+
+
+	
+</ContentPage>

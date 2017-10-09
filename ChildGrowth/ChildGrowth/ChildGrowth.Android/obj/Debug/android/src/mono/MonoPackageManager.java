@@ -100,6 +100,8 @@ class MonoPackageManager_Resources {
 		/* We need to ensure that "ChildGrowth.Android.dll" comes first in this list. */
 		"ChildGrowth.Android.dll",
 		"ChildGrowth.dll",
+		"FAB.Droid.dll",
+		"FAB.Forms.dll",
 		"FormsViewGroup.dll",
 		"Microsoft.IdentityModel.Clients.ActiveDirectory.dll",
 		"Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll",
