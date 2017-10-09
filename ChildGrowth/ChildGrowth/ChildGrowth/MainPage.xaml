@@ -6,11 +6,13 @@
              xmlns:statics="clr-namespace:ChildGrowth.Statics" 
              xmlns:converters="clr-namespace:ChildGrowth.Converters" 
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms"
              x:Class="ChildGrowth.MainPage">
 
     <ContentPage.BindingContext>
         <local:ViewModel></local:ViewModel>
     </ContentPage.BindingContext>
+    <RelativeLayout>
     <StackLayout Spacing="0">
         <Grid>
 
@@ -130,11 +132,19 @@
                 </ViewCell>
 
             </TableSection>
+            
         </TableView>
 
        
-        
     </StackLayout>
-    
-
+        
+        <fab:FloatingActionButton
+				x:Name="fabBtn"
+				Source="plus.png"
+				Size="Normal"
+				Clicked="Handle_FabClicked"
+				RippleColor="Gray"
+				RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-60}"
+				RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-60}" />
+    </RelativeLayout>
 </ContentPage>  
