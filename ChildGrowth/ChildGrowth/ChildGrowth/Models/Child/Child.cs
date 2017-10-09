@@ -54,9 +54,11 @@ public class Child
         FEMALE
     }
 
-	public Child(string name)
+	public Child(string name, DateTime birthday, Gender gender)
 	{
         this.Name = name;
+        this.Birthday = birthday;
+        this.ChildGender = gender;
         this.Measurements = new GrowthData();
         this.Milestones = new MilestoneResponses();
         this.VaccineHistory = new VaccinationHistory();
