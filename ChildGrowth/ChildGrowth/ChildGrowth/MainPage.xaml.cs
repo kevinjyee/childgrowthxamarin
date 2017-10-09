@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Syncfusion.SfChart.XForms;
 using System.Collections.ObjectModel;
+
+using ChildGrowth.Persistence;
+
 using ChildGrowth.Pages.Child;
+
 
 namespace ChildGrowth
 {
@@ -57,27 +61,27 @@ namespace ChildGrowth
         /// </summary>
         async void OnSubmitClicked(object sender, EventArgs args)
         {
-            int Height = 0;
-            int Weight = 0;
-            int HeadC = 0;
+            Double Height = DEFAULT_MEASUREMENT_VALUE;
+            Double Weight = DEFAULT_MEASUREMENT_VALUE;
+            Double HeadC = DEFAULT_MEASUREMENT_VALUE;
 
             try
             {
-                Height = int.Parse(HeightEntry.Text);
+                Height = Double.Parse(HeightEntry.Text);
             }
             catch
             {
             }
             try
             {
-                Weight = int.Parse(WeightEntry.Text);
+                Weight = Double.Parse(WeightEntry.Text);
             }
             catch
             {
             }
             try
             {
-                HeadC = int.Parse(HeadEntry.Text);
+                HeadC = Double.Parse(HeadEntry.Text);
             }
             catch
             {
@@ -86,6 +90,32 @@ namespace ChildGrowth
             Button button = (Button)sender;
 
             //TODO STEFAN: Replace this with an await call to SQLite
+            ChildDatabaseAccess childDatabase = new ChildDatabaseAccess();
+            Child currentChild = GetCurrentChild();
+            DateTime selectedDate = GetSelectedDate();
+            Units currentUnits = GetCurrentUnits();
+            try
+            {
+                await childDatabase.InitializeAsync();
+                if (DEFAULT_MEASUREMENT_VALUE != Height)
+                {
+                    await currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.HEIGHT, currentUnits, Height, childDatabase);
+                }
+                if (DEFAULT_MEASUREMENT_VALUE != Weight)
+                {
+                    await currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.WEIGHT, currentUnits, Weight, childDatabase);
+                }
+                if (DEFAULT_MEASUREMENT_VALUE != HeadC)
+                {
+                    await currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.HEIGHT, currentUnits, HeadC, childDatabase);
+                }
+                await childDatabase.SaveUserChildAsync(currentChild);
+                              
+            }
+            catch(Exception e)
+            {
+
+            }
             await DisplayAlert("Clicked!",
                 "The button labeled '" + button.Text + "' has been clicked",
                 "OK");
@@ -118,7 +148,28 @@ namespace ChildGrowth
                 "OK");
         }
 
- 
+
+        // TODO: Change this to get current child from session data.
+        private Child GetCurrentChild()
+        {
+            // Replace this with load method
+            return new Child("Test_Child", DateTime.MinValue, Child.Gender.MALE);
+        }
+
+        // TODO: Set this DateTime from date selected via a calendar widget.
+        private DateTime GetSelectedDate()
+        {
+            return DateTime.Now;
+        }
+
+        // TODO: Set these Units from units selected via settings.
+        private Units GetCurrentUnits()
+        {
+            return new Units(DistanceUnits.IN, WeightUnits.OZ);
+        }
+
+        private static int DEFAULT_MEASUREMENT_VALUE = -1;
+
 
 
         async void Handle_FabClicked(object sender, System.EventArgs e)
@@ -150,6 +201,7 @@ namespace ChildGrowth
             fabBtn.DisabledColor = disabled;
 
         }
+
     }
 
     public class Points
