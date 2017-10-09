@@ -9,6 +9,21 @@ public class GrowthData
 
     public GrowthData()
     {
+        heightData = new Dictionary<DateTime, HeightMeasurement>();
+        weightData = new Dictionary<DateTime, WeightMeasurement>();
+        headCircumferenceData = new Dictionary<DateTime, HeadCircumferenceMeasurement>();
+        /*
+        measurementData = new List<KeyValuePair<MeasurementType, Dictionary<DateTime, GrowthMeasurement>>>()
+        {
+            new KeyValuePair<MeasurementType, Dictionary<DateTime, GrowthMeasurement>>(MeasurementType.HEIGHT, heightData),
+            new KeyValuePair<MeasurementType, Dictionary<DateTime, GrowthMeasurement>>(MeasurementType.WEIGHT, weightData),
+            new KeyValuePair<MeasurementType, Dictionary<DateTime, GrowthMeasurement>>(MeasurementType.HEAD_CIRCUMFERENCE,
+                headCircumferenceData)
+        };
+        measurementTypeMap = ImmutableDictionary<MeasurementType, Dictionary<DateTime, GrowthMeasurement>>.Empty
+            .AddRange(measurementData);
+        */
+
     }
 
     /**
@@ -16,10 +31,22 @@ public class GrowthData
         */
     public void AddMeasurementForDateAndType(DateTime date, MeasurementType measurementType, Units currentUnits, double value)
     {
-        Dictionary<DateTime, GrowthMeasurement> measurementDictionary = measurementTypeMap[measurementType];
+        //Dictionary<DateTime, GrowthMeasurement> measurementDictionary = measurementTypeMap[measurementType];
         MeasurementFactory measurementFactory = new MeasurementFactory();
         GrowthMeasurement measurement = measurementFactory.CreateMeasurement(date, measurementType, currentUnits, value);
-        measurementDictionary.Add(date, measurement);
+        //measurementDictionary.Add(date, measurement);
+        switch (measurementType)
+        {
+            case MeasurementType.HEIGHT:
+                heightData.Add(date, (HeightMeasurement) measurement);
+                break;
+            case MeasurementType.WEIGHT:
+                weightData.Add(date, (WeightMeasurement) measurement);
+                break;
+            case MeasurementType.HEAD_CIRCUMFERENCE:
+                headCircumferenceData.Add(date, (HeadCircumferenceMeasurement) measurement);
+                break;
+        }
     }
 
     /**
@@ -30,6 +57,7 @@ public class GrowthData
     {
         // TODO: [Stefan 09/25/2017] Make measurement retrieval convert values to given units.
         // Check if measurement exists for date/type and update value of "measurement".
+        /*
         Boolean measurement_exists_for_date = measurementTypeMap[measurementType].TryGetValue(date, out GrowthMeasurement measurement);
         if (measurement_exists_for_date)
         {
@@ -39,6 +67,21 @@ public class GrowthData
         {
             return null;
         }
+        */
+
+        switch (measurementType)
+        {
+            case MeasurementType.HEIGHT:
+                heightData.TryGetValue(date, out HeightMeasurement heightMeasurement);
+                return heightMeasurement;
+            case MeasurementType.WEIGHT:
+                weightData.TryGetValue(date, out WeightMeasurement weightMeasurement);
+                return weightMeasurement;
+            case MeasurementType.HEAD_CIRCUMFERENCE:
+                headCircumferenceData.TryGetValue(date, out HeadCircumferenceMeasurement headCircumferenceMeasurement);
+                return headCircumferenceMeasurement;
+        }
+        return null;
     }
 
     /**
@@ -47,6 +90,7 @@ public class GrowthData
         */
     public Boolean RemoveMeasurementForDateAndType(DateTime date, MeasurementType measurementType)
     {
+        /*
         Dictionary<DateTime, GrowthMeasurement> measurementDictionary = measurementTypeMap[measurementType];
         if (null != measurementDictionary && measurementDictionary.ContainsKey(date))
         {
@@ -57,6 +101,32 @@ public class GrowthData
         {
             return false;
         }
+        */
+        switch (measurementType)
+        {
+            case MeasurementType.HEIGHT:
+                if (null != heightData && heightData.ContainsKey(date))
+                {
+                    heightData.Remove(date);
+                    return true;
+                }
+                break;
+            case MeasurementType.WEIGHT:
+                if (null != weightData && weightData.ContainsKey(date))
+                {
+                    weightData.Remove(date);
+                    return true;
+                }
+                break;
+            case MeasurementType.HEAD_CIRCUMFERENCE:
+                if (null != headCircumferenceData && headCircumferenceData.ContainsKey(date))
+                {
+                    headCircumferenceData.Remove(date);
+                    return true;
+                }
+                break;
+        }
+        return false;
     }
 
     /**
@@ -66,45 +136,42 @@ public class GrowthData
         */
     public List<GrowthMeasurement> GetSortedMeasurementList(MeasurementType measurementType)
     {
-        Dictionary<DateTime, GrowthMeasurement> measurementDictionary = measurementTypeMap[measurementType];
+        //Dictionary<DateTime, GrowthMeasurement> measurementDictionary = measurementTypeMap[measurementType];
         List<GrowthMeasurement> measurements = new List<GrowthMeasurement>();
 
-        if (null != measurementDictionary)
+        switch(measurementType)
         {
-            measurements.AddRange(measurementDictionary?.Values);
-            if (EMPTY == measurements.Count)
-            {
-                return null;
-            }
-            measurements?.Sort();
-            return measurements;
+            case MeasurementType.HEIGHT:
+                measurements.AddRange(heightData?.Values);
+                break;
+            case MeasurementType.WEIGHT:
+                measurements.AddRange(weightData?.Values);
+                break;
+            case MeasurementType.HEAD_CIRCUMFERENCE:
+                measurements.AddRange(headCircumferenceData?.Values);
+                break;
         }
-        else
+        if (EMPTY == measurements.Count)
         {
             return null;
         }
+        measurements?.Sort();
+        return measurements;
     }
 
-    private static Dictionary<DateTime, GrowthMeasurement> heightData = new Dictionary<DateTime, GrowthMeasurement>();
+    public Dictionary<DateTime, HeightMeasurement> heightData;
 
-    private static Dictionary<DateTime, GrowthMeasurement> weightData = new Dictionary<DateTime, GrowthMeasurement>();
+    public Dictionary<DateTime, WeightMeasurement> weightData;
 
-    private static Dictionary<DateTime, GrowthMeasurement> headCircumferenceData = new Dictionary<DateTime, GrowthMeasurement>();
+    public Dictionary<DateTime, HeadCircumferenceMeasurement> headCircumferenceData;
 
+    /*
     // Key value pairs for all measurement lists.
-    private static IEnumerable<KeyValuePair<MeasurementType, Dictionary<DateTime, GrowthMeasurement>>> measurementData =
-        new List<KeyValuePair<MeasurementType, Dictionary<DateTime, GrowthMeasurement>>>()
-        {
-            new KeyValuePair<MeasurementType, Dictionary<DateTime, GrowthMeasurement>>(MeasurementType.HEIGHT, heightData),
-            new KeyValuePair<MeasurementType, Dictionary<DateTime, GrowthMeasurement>>(MeasurementType.WEIGHT, weightData),
-            new KeyValuePair<MeasurementType, Dictionary<DateTime, GrowthMeasurement>>(MeasurementType.HEAD_CIRCUMFERENCE, 
-                headCircumferenceData)
-        };
+    public IEnumerable<KeyValuePair<MeasurementType, Dictionary<DateTime, GrowthMeasurement>>> measurementData;
 
     // Build an immutable dictionary from measurement type to the three types of measurement dictionaries.
-    private static ImmutableDictionary<MeasurementType, Dictionary<DateTime, GrowthMeasurement>> measurementTypeMap =
-        ImmutableDictionary<MeasurementType, Dictionary<DateTime, GrowthMeasurement>>.Empty
-            .AddRange(measurementData);
+    public ImmutableDictionary<MeasurementType, Dictionary<DateTime, GrowthMeasurement>> measurementTypeMap;
+    */
 
-    private int EMPTY = 0;
+    public int EMPTY = 0;
 }

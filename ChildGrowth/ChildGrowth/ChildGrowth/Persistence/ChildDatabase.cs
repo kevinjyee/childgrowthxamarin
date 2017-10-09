@@ -44,6 +44,11 @@ namespace ChildGrowth.Persistence
             return WriteOperations.DeleteAsync(_connection, child, true);
         }
 
+        public Task DeleteAllUserChildrenAsync(List<Child> children)
+        {
+            return WriteOperations.DeleteAllAsync(_connection, children);
+        }
+
         private readonly string CHILD_DB_FILE_NAME = "ChildDatabase.db3";
 
     }

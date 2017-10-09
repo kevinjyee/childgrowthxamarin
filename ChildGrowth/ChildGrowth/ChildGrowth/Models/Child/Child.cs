@@ -5,6 +5,7 @@ using ChildGrowth.Persistence;
 using System.Threading.Tasks;
 using ChildGrowth;
 using System.Collections.Generic;
+using SQLite.Net.Attributes;
 
 [Table("Child")]
 public class Child
@@ -16,10 +17,15 @@ public class Child
     [Indexed]
     public string Name { get; set; }
 
+    [Ignore]
     public DateTime Birthday { get { return _birthday; } set { _birthday = value; } }
+    [Ignore]
     public Gender ChildGender { get { return _childGender; } set { _childGender = value; } }
+    [Ignore]
     public MilestoneResponses Milestones { get { return _milestones; } set { _milestones = value; } }
+    [Ignore]
     public GrowthData Measurements { get { return _measurements; } set { _measurements = value; } }
+    [Ignore]
     public VaccinationHistory VaccineHistory { get { return _vaccineHistory; } set { _vaccineHistory = value; } }
 
     [TextBlob("BirthdayBlobbed")]
@@ -51,7 +57,15 @@ public class Child
 	public Child(string name)
 	{
         this.Name = name;
+        this.Measurements = new GrowthData();
+        this.Milestones = new MilestoneResponses();
+        this.VaccineHistory = new VaccinationHistory();
 	}
+
+    public Child()
+    {
+
+    }
 
     public int GetID()
     {
