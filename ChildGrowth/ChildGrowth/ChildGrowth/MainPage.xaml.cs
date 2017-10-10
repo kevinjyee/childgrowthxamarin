@@ -8,7 +8,7 @@ using Xamarin.Forms;
 using Syncfusion.SfChart.XForms;
 using System.Collections.ObjectModel;
 using ChildGrowth.Persistence;
-using ChildGrowth.Pages.Child;
+using ChildGrowth.Pages.AddChild;
 
 namespace ChildGrowth
 {

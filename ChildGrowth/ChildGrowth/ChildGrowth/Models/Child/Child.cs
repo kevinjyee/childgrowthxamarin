@@ -51,7 +51,8 @@ public class Child
     public enum Gender
     {
         MALE,
-        FEMALE
+        FEMALE,
+        UNSPECIFIED // This is used on the "add child" page. No added child can have this value, as the app will block addition of a child with unspecified gender.
     }
 
 	public Child(string name, DateTime birthday, Gender gender)
