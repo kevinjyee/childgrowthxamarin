@@ -8,10 +8,16 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms"
              x:Class="ChildGrowth.MainPage">
-
+<!--
     <ContentPage.BindingContext>
-        <local:ViewModel></local:ViewModel>
+        <local:ViewModel x:Name="viewModel"/>
     </ContentPage.BindingContext>
+-->
+    
+    <StackLayout.BindingContext>
+        <local:ViewModel x:Name="viewModel"/>
+    </StackLayout.BindingContext>
+    
     <RelativeLayout>
     <StackLayout Spacing="0">
         <Grid>
@@ -45,30 +51,26 @@
         <chart:SfChart.BackgroundColor>
             <OnPlatform x:TypeArguments="Color" Android="Transparent" />
         </chart:SfChart.BackgroundColor>
-        <chart:SfChart.Title>
+                <chart:SfChart.Title>
+                    <chart:ChartTitle Text="{Binding ChartTitle}"/>
+                </chart:SfChart.Title>
 
-            <chart:ChartTitle Text="Weight"/>
+                <chart:SfChart.PrimaryAxis>
+                    <chart:CategoryAxis />
+                </chart:SfChart.PrimaryAxis>
+                <chart:SfChart.SecondaryAxis>
+                    <chart:NumericalAxis/>
+                </chart:SfChart.SecondaryAxis>
 
-        </chart:SfChart.Title>
-        
-        <chart:SfChart.PrimaryAxis>
+                <chart:SfChart.Series>
+                    <chart:LineSeries StrokeWidth="2" ListenPropertyChange="True" ItemsSource ="{Binding LineData}" XBindingPath="Age"
+	    YBindingPath="Val" x:Name="series1"/>
 
-            <chart:CategoryAxis>
-
-            </chart:CategoryAxis>
-
-        </chart:SfChart.PrimaryAxis>
-
-        <chart:SfChart.SecondaryAxis>
-
-            <chart:NumericalAxis>
-
-            </chart:NumericalAxis>
-
-        </chart:SfChart.SecondaryAxis>
-        <chart:LineSeries ItemsSource ="{Binding LineData}" XBindingPath="Age"
-	    YBindingPath="Value"/>
-    </chart:SfChart>
+                <chart:LineSeries ListenPropertyChange="True" ItemsSource ="{Binding InputData}"  XBindingPath="Age"
+	    YBindingPath="Val"/>
+            
+                </chart:SfChart.Series>
+            </chart:SfChart>
         <TableView Intent="Form">
 
             <TableSection Title="Date and Time">

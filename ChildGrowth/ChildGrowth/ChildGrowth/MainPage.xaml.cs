@@ -8,38 +8,19 @@ using Xamarin.Forms;
 using Syncfusion.SfChart.XForms;
 using System.Collections.ObjectModel;
 using ChildGrowth.Pages.Child;
+using System.ComponentModel;
 
 namespace ChildGrowth
 {
     public partial class MainPage : ContentPage
     {
 
-        public ObservableCollection<ChartDataPoint> BarData { get; set; }
-        public ObservableCollection<ChartDataPoint> Data { get; set; }
+        
+
         public MainPage()
         {
             InitializeComponent();
-        }
-
-        /// <summary>
-        /// Initializes WHO Data
-        /// </summary>
-        void InitializeData()
-        {
-            Data = new ObservableCollection<ChartDataPoint>();
-
-            WHOData weightData = new WHOData();
-
-            Dictionary<WHOData.Percentile, List<double>> weightByGender;
-            List<Double> weightList;
-
-            weightData.weightPercentile.TryGetValue(WHOData.Sex.Male, out weightByGender);
-            weightByGender.TryGetValue(WHOData.Percentile.P3, out weightList);
-
-            for (int i = 0; i < weightData.ageList.Count(); i++)
-            {
-                Data.Add(new ChartDataPoint(weightData.ageList[i], weightList[i]));
-            }
+            
         }
 
         /// <summary>
@@ -51,33 +32,35 @@ namespace ChildGrowth
             WeightEntry.Text = "";
             HeadEntry.Text = "";
         }
-
+        double ageW = 1.0;
+        double ageH = 1.0;
+        
         /// <summary>
         /// Submit Height, Weight, and HeadC
         /// </summary>
-        async void OnSubmitClicked(object sender, EventArgs args)
+        void OnSubmitClicked(object sender, EventArgs args)
         {
-            int Height = 0;
-            int Weight = 0;
-            int HeadC = 0;
+            Double Height = 0;
+            Double Weight = 0;
+            Double HeadC = 0;
 
             try
             {
-                Height = int.Parse(HeightEntry.Text);
+                Height = Double.Parse(HeightEntry.Text);
             }
             catch
             {
             }
             try
             {
-                Weight = int.Parse(WeightEntry.Text);
+                Weight = Double.Parse(WeightEntry.Text);
             }
             catch
             {
             }
             try
             {
-                HeadC = int.Parse(HeadEntry.Text);
+                HeadC = Double.Parse(HeadEntry.Text);
             }
             catch
             {
@@ -85,28 +68,51 @@ namespace ChildGrowth
 
             Button button = (Button)sender;
 
-            //TODO STEFAN: Replace this with an await call to SQLite
-            await DisplayAlert("Clicked!",
-                "The button labeled '" + button.Text + "' has been clicked",
-                "OK");
+           ageW += 0.5;
+           var result = new Points(ageW,Weight);
+           viewModel.InputData.Add(result);
         }
 
         //TODO STEFAN: Prompt a change of graph
         async void OnWeightClicked(object sender, EventArgs args)
         {
-            Button button = (Button)sender;
-            await DisplayAlert("Clicked!",
-                "The button labeled '" + button.Text + "' has been clicked",
-                "OK");
+            viewModel.ChartTitle = "Weight";
+            viewModel.LineData.Clear();
+            WHOData weightData = new WHOData();
+
+            Dictionary<WHOData.Percentile, List<double>> weightByGender;
+            List<Double> weightList;
+
+            weightData.weightPercentile.TryGetValue(WHOData.Sex.Male, out weightByGender);
+            weightByGender.TryGetValue(WHOData.Percentile.P3, out weightList);
+
+            for (int i = 0; i < weightData.ageList.Count(); i++)
+            {
+                viewModel.LineData.Add(new Points(weightData.ageList[i], weightList[i]));
+            }
         }
 
         //TODO STEFAN: Prompt a change of graph
-        async void OnHeightClicked(object sender, EventArgs args)
+        void OnHeightClicked(object sender, EventArgs args)
         {
-            Button button = (Button)sender;
-            await DisplayAlert("Clicked!",
-                "The button labeled '" + button.Text + "' has been clicked",
-                "OK");
+            viewModel.ChartTitle = "Height";
+            viewModel.LineData.Clear();
+            WHOData heightData = new WHOData();
+
+            Dictionary<WHOData.Percentile, List<double>> heightByGender;
+            List<Double> heightList;
+
+            heightData.heightPercentile.TryGetValue(WHOData.Sex.Male, out heightByGender);
+            heightByGender.TryGetValue(WHOData.Percentile.P3, out heightList);
+
+            for (int i = 0; i < heightData.ageList.Count(); i++)
+            {
+                if (heightData.ageList.Count() == heightList.Count)
+                {
+                    var result = new Points(heightData.ageList[i], heightList[i]);
+                    viewModel.LineData.Add(result);
+                }
+            }
         }
 
         //TODO STEFAN: Prompt a change of graph
@@ -118,19 +124,12 @@ namespace ChildGrowth
                 "OK");
         }
 
- 
-
-
         async void Handle_FabClicked(object sender, System.EventArgs e)
 
         {
-           
-
             var leadDetailPage = new ChildEntry();
 
             await Navigation.PushModalAsync(leadDetailPage);
-            
-
         }
 
 
@@ -152,26 +151,76 @@ namespace ChildGrowth
         }
     }
 
-    public class Points
+    public class Points : INotifyPropertyChanged
     {
-        public double Age { get; set; }
-
-        public double Value { get; set; }
-
         public Points(double age, double val)
         {
-            this.Age = age;
-            this.Value = val;
+            Age = age;
+            Val = val;
+        }
+
+        private double age;
+        private double val;
+
+        public double Age {
+            get {
+                return age;
+            }
+            set
+            {
+                age = value;
+                NotifyPropertyChanged("Age");
+            }
+        }
+
+        public double Val
+        {
+            get
+            {
+                return val;
+            }
+            set
+            {
+                val = value;
+               NotifyPropertyChanged("Val");
+            }
+        }
+ 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged(String propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 
+
     public class ViewModel
     {
-        public List<Points> LineData { get; set; }
+
+        public String ChartTitle { get; set; }
+
+        private ObservableCollection<Points> lineData;
+
+        public ObservableCollection<Points> LineData
+        {
+            get { return lineData; }
+            set { lineData = value; }
+        }
+
+
+        private ObservableCollection<Points> inputData;
+
+        public ObservableCollection<Points> InputData
+        {
+            get { return inputData; }
+            set { inputData = value; }
+        }
 
         public ViewModel()
         {
-            LineData = new List<Points>();
+            ChartTitle = "Weight";
+            LineData = new ObservableCollection<Points>();
             WHOData weightData = new WHOData();
 
             Dictionary<WHOData.Percentile, List<double>> weightByGender;
@@ -184,6 +233,15 @@ namespace ChildGrowth
             {
                 LineData.Add(new Points(weightData.ageList[i], weightList[i]));
             }
+
+            InputData = new ObservableCollection<Points>();
+            List<Double> weightList2;
+            weightByGender.TryGetValue(WHOData.Percentile.P90, out weightList2);
+            for (int i = 0; i < weightData.ageList.Count(); i++)
+            {
+                //InputData.Add(new Points(weightData.ageList[i], weightList2[i]));
+            }
+            InputData.Add(new Points(1, 1));
         }
     }
 }

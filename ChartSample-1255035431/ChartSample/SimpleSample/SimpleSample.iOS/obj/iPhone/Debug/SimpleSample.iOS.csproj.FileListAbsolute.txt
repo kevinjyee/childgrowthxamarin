@@ -1,0 +1,6 @@
+C:\Users\kevjy\Documents\childgrowth\ChartSample-1255035431\ChartSample\SimpleSample\SimpleSample.iOS\obj\iPhone\Debug\ibtool\_BundleResourceWithLogicalName.items
+C:\Users\kevjy\Documents\childgrowth\ChartSample-1255035431\ChartSample\SimpleSample\SimpleSample.iOS\obj\iPhone\Debug\actool\_PartialAppManifest.items
+C:\Users\kevjy\Documents\childgrowth\ChartSample-1255035431\ChartSample\SimpleSample\SimpleSample.iOS\obj\iPhone\Debug\actool\_BundleResourceWithLogicalName.items
+C:\Users\kevjy\Documents\childgrowth\ChartSample-1255035431\ChartSample\SimpleSample\SimpleSample.iOS\obj\iPhone\Debug\optimized\
+C:\Users\kevjy\Documents\childgrowth\ChartSample-1255035431\ChartSample\SimpleSample\SimpleSample.iOS\obj\iPhone\Debug\SimpleSample.iOS.csprojResolveAssemblyReference.cache
+C:\Users\kevjy\Documents\childgrowth\ChartSample-1255035431\ChartSample\SimpleSample\SimpleSample.iOS\obj\iPhone\Debug\SimpleSample.iOS.csproj.CoreCompileInputs.cache

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
+             xmlns:local="clr-namespace:SimpleSample;assembly=SimpleSample"
+             x:Class="SimpleSample.Sample" Padding="5,15,5,5">
+
+<ContentPage.Content>
+<StackLayout >
+
+<StackLayout.BindingContext>
+	<local:ViewModel x:Name="viewModel"/>
+</StackLayout.BindingContext>
+
+<chart:SfChart x:Name="Chart" VerticalOptions ="FillAndExpand">
+			<chart:SfChart.PrimaryAxis>
+				<chart:CategoryAxis />
+			</chart:SfChart.PrimaryAxis>
+			<chart:SfChart.SecondaryAxis>
+				<chart:NumericalAxis/>
+			</chart:SfChart.SecondaryAxis>
+
+			<chart:SfChart.Series>
+				<chart:LineSeries StrokeWidth="2" ListenPropertyChange="True"
+				ItemsSource="{Binding Models}" XBindingPath="ProductName" YBindingPath="Year2013" x:Name="series1" />
+
+				<chart:LineSeries StrokeWidth="2" ListenPropertyChange="True"
+				ItemsSource="{Binding Models}" XBindingPath="ProductName" YBindingPath="Year2014" x:Name="series2"/>
+			</chart:SfChart.Series>
+</chart:SfChart>
+<StackLayout Orientation="Horizontal" >
+<Button Text="EditValue" Clicked="But_Clicked"></Button>
+<Button Text="AddNewData" Clicked="But1_Clicked"></Button>
+</StackLayout >
+
+</StackLayout>
+
+</ContentPage.Content>
+
+</ContentPage>
