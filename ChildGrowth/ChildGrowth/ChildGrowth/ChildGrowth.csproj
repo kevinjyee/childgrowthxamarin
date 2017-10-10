@@ -96,6 +96,7 @@
     <Compile Include="Pages\Vaccinations\Vaccinations.xaml.cs">
       <DependentUpon>Vaccinations.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Persistence\MilestonesDatabase.cs" />
     <Compile Include="Persistence\SQLiteConnectionException.cs" />
     <Compile Include="Persistence\ChildDatabase.cs" />
     <Compile Include="Persistence\ISQLite.cs" />
