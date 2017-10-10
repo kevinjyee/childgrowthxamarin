@@ -51,7 +51,8 @@ public class Child
     public enum Gender
     {
         MALE,
-        FEMALE
+        FEMALE,
+        UNSPECIFIED // This is used on the "add child" page. No added child can have this value, as the app will block addition of a child with unspecified gender.
     }
 
 	public Child(string name, DateTime birthday, Gender gender)
@@ -83,28 +84,33 @@ public class Child
      * Reads a measurement for the given date and MeasurementType.
      * Returns null if no measurement found.
      **/
-    public async Task<GrowthMeasurement> GetMeasurementForDateAndType(DateTime date, MeasurementType measurementType)
+    public GrowthMeasurement GetMeasurementForDateAndType(DateTime date, MeasurementType measurementType)
     {
-        Task<GrowthMeasurement> thread = new Task<GrowthMeasurement>(() =>
-        {
-            return Measurements.GetMeasurementForDateAndType(date, measurementType);
-        });
-        thread.Start();
-        return await thread;
+        return Measurements.GetMeasurementForDateAndType(date, measurementType);
     }
 
     /**
      * Read out any saved measurements for the given MeasurementType.
      * Return null if no measurements found.
      **/
-    public async Task<List<GrowthMeasurement>> GetSortedMeasurementListByType(MeasurementType measurementType)
+    public List<Points> GetSortedMeasurementListByType(MeasurementType measurementType)
     {
+        /*
         Task<List<GrowthMeasurement>> thread = new Task<List<GrowthMeasurement>>(() =>
         {
             return Measurements.GetSortedMeasurementList(measurementType);
         });
         thread.Start();
         return await thread;
+        */
+        List<GrowthMeasurement> measurements = Measurements.GetSortedMeasurementList(measurementType);
+        List<Points> series = new List<Points>();
+        foreach (GrowthMeasurement measurement in measurements)
+        {
+            series.Add(new Points(GetMeasurementAge(measurement), measurement.Value));
+        }
+        return series;
+
     }
 
     /** 
@@ -149,4 +155,14 @@ public class Child
         }
         return childDatabase;
     }
+
+    private double GetMeasurementAge(GrowthMeasurement measurement)
+    {
+        DateTime measurementDate = measurement.DateRecorded;
+        TimeSpan diff = measurementDate - this.Birthday;
+        return diff.TotalDays / approx_days_per_month;
+
+    }
+
+    private double approx_days_per_month = 30.4;
 }

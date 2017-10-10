@@ -66,9 +66,8 @@
             </chart:NumericalAxis>
 
         </chart:SfChart.SecondaryAxis>
-        <chart:LineSeries ItemsSource ="{Binding LineData}" XBindingPath="Age"
-	    YBindingPath="Value"/>
-    </chart:SfChart>
+        <chart:LineSeries ItemsSource ="{Binding LineData}" XBindingPath="Age" YBindingPath="Value"/>
+        </chart:SfChart>
         <TableView Intent="Form">
 
             <TableSection Title="Date and Time">
@@ -78,7 +77,8 @@
                 <ViewCell>
                     <StackLayout Orientation="Horizontal">
                         <Label Text="Entry Date: " TextColor="White" VerticalOptions="Center" Margin="15, 0, 0, 0" WidthRequest="150"/>
-                        <DatePicker x:Name="entryDate" Date="{x:Static sys:DateTime.Now}" Format="MMM d yyyy" MaximumDate="{x:Static sys:DateTime.Now}" VerticalOptions="Center" WidthRequest="200"/>
+                            <DatePicker x:Name="EntryDate" Date="{x:Static sys:DateTime.Today}" Format="MMM d yyyy" MaximumDate="{x:Static sys:DateTime.Today}" VerticalOptions="Center" WidthRequest="200" IsEnabled="{Binding DateEnabled}" DateSelected="EntryDate_DateSelected" />
+                            <Picker x:Name="ChildPicker" Title="Select a child" ItemsSource="{Binding Children}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedChild}" SelectedIndexChanged="ChildPicker_SelectedIndexChanged"/>
                     </StackLayout>
                 </ViewCell>
 
@@ -88,15 +88,15 @@
                 
                 <!-- Height -->
 
-                <EntryCell x:Name="HeightEntry" Label="Height (cm): "  Keyboard="Numeric"/>
+                <EntryCell x:Name="HeightEntry" Label="Height (cm): "  Keyboard="Numeric" IsEnabled="{Binding MeasurementsEnabled}"/>
 
                 <!-- Weight -->
 
-                <EntryCell x:Name="WeightEntry" Label="Weight (oz): " Keyboard="Numeric"/>
+                <EntryCell x:Name="WeightEntry" Label="Weight (oz): " Keyboard="Numeric" IsEnabled="{Binding MeasurementsEnabled}"/>
                 
                 <!-- Head Circumference -->
 
-                <EntryCell x:Name="HeadEntry" Label="Head Circumeference: " Keyboard="Numeric"/>
+                <EntryCell x:Name="HeadEntry" Label="Head Circumeference (cm): " Keyboard="Numeric" IsEnabled="{Binding MeasurementsEnabled}"/>
 
             </TableSection>
 
@@ -130,13 +130,12 @@
                     </Grid>
 
                 </ViewCell>
-
+                
             </TableSection>
             
         </TableView>
-
-       
-    </StackLayout>
+        
+        </StackLayout>
         
         <fab:FloatingActionButton
 				x:Name="fabBtn"

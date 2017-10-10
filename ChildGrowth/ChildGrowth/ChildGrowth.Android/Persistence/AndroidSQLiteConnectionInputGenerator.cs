@@ -7,7 +7,7 @@ using SQLite.Net.Interop;
 [assembly: Xamarin.Forms.Dependency(typeof(AndroidSQLiteConnectionInputGenerator))]
 namespace ChildGrowth.Droid.Persistence
 {
-    class AndroidSQLiteConnectionInputGenerator : ChildGrowth.Persistence.ISQLiteConnectionInputGenerator
+    class AndroidSQLiteConnectionInputGenerator : ISQLiteConnectionInputGenerator
     {
         public string GetSQLiteDBPath(string fileName)
         {
