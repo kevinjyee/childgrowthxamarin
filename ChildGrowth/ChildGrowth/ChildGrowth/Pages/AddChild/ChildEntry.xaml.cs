@@ -17,7 +17,8 @@ namespace ChildGrowth.Pages.AddChild
 		public ChildEntry ()
 		{
 			InitializeComponent ();
-		}
+        }
+
         async void AddChildButton_Clicked(object sender, EventArgs e)
         {
 
@@ -70,5 +71,13 @@ namespace ChildGrowth.Pages.AddChild
         }
 
         private static Gender newChildGender = Gender.UNSPECIFIED;
+
+        private async void DeleteAllChildrenButton_Clicked(object sender, EventArgs e)
+        {
+            ChildDatabaseAccess childDatabase = new ChildDatabaseAccess();
+            await childDatabase.InitializeAsync();
+            List<Child> children = childDatabase.GetAllUserChildrenAsync().Result;
+            await childDatabase.DeleteAllUserChildrenAsync(children);
+        }
     }
 }

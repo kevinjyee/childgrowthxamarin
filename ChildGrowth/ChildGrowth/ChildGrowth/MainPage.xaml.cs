@@ -20,6 +20,8 @@ namespace ChildGrowth
         public MainPage()
         {
             InitializeComponent();
+            UpdateChildPicker();
+            UpdateDateSelectionEnabledStatus(false);
         }
 
         /// <summary>
@@ -91,27 +93,30 @@ namespace ChildGrowth
             Child currentChild = GetCurrentChild();
             DateTime selectedDate = GetSelectedDate();
             Units currentUnits = GetCurrentUnits();
-            try
+            if (currentChild != null)
             {
-                await childDatabase.InitializeAsync();
-                if (DEFAULT_MEASUREMENT_VALUE != Height)
+                try
                 {
-                    await currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.HEIGHT, currentUnits, Height, childDatabase);
-                }
-                if (DEFAULT_MEASUREMENT_VALUE != Weight)
-                {
-                    await currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.WEIGHT, currentUnits, Weight, childDatabase);
-                }
-                if (DEFAULT_MEASUREMENT_VALUE != HeadC)
-                {
-                    await currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.HEIGHT, currentUnits, HeadC, childDatabase);
-                }
-                await childDatabase.SaveUserChildAsync(currentChild);
-                              
-            }
-            catch(Exception e)
-            {
+                    await childDatabase.InitializeAsync();
+                    if (DEFAULT_MEASUREMENT_VALUE != Height)
+                    {
+                        await currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.HEIGHT, currentUnits, Height, childDatabase);
+                    }
+                    if (DEFAULT_MEASUREMENT_VALUE != Weight)
+                    {
+                        await currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.WEIGHT, currentUnits, Weight, childDatabase);
+                    }
+                    if (DEFAULT_MEASUREMENT_VALUE != HeadC)
+                    {
+                        await currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.HEAD_CIRCUMFERENCE, currentUnits, HeadC, childDatabase);
+                    }
+                    await childDatabase.SaveUserChildAsync(currentChild);
 
+                }
+                catch (Exception e)
+                {
+
+                }
             }
             await DisplayAlert("Clicked!",
                 "The button labeled '" + button.Text + "' has been clicked",
@@ -149,14 +154,25 @@ namespace ChildGrowth
         private Child GetCurrentChild()
         {
             // Replace this with load method
-            return new Child("Test_Child", DateTime.MinValue, Child.Gender.MALE);
+            int selectedIndex = this.ChildPicker.SelectedIndex;
+
+            if (selectedIndex != -1)
+            {
+                return (Child)this.ChildPicker.ItemsSource[selectedIndex];
+            }
+            else
+            {
+                return null;
+            }
         }
 
         // TODO: Set this DateTime from date selected via a calendar widget.
         private DateTime GetSelectedDate()
         {
-            return DateTime.Now;
+            return this.EntryDate.Date;
         }
+
+
 
         // TODO: Set these Units from units selected via settings.
         private Units GetCurrentUnits()
@@ -169,13 +185,62 @@ namespace ChildGrowth
         async void Handle_FabClicked(object sender, System.EventArgs e)
 
         {
-           
+
 
             var leadDetailPage = new ChildEntry();
 
             await Navigation.PushModalAsync(leadDetailPage);
-            
 
+
+        }
+
+        override
+        protected void OnAppearing()
+        {
+            UpdateChildPicker();
+            UpdateGraph();
+        }
+
+        private async void UpdateChildPicker()
+        {
+            ChildDatabaseAccess childDatabase = new ChildDatabaseAccess();
+            await childDatabase.InitializeAsync();
+            List<Child> children = childDatabase.GetAllUserChildrenAsync().Result;
+            this.ChildPicker.ItemsSource = children;
+        }
+
+        private async void UpdateGraph()
+        {
+
+        }
+
+        private void UpdateDateSelectionEnabledStatus(Boolean isEnabled)
+        {
+            this.EntryDate.IsEnabled = isEnabled;
+            UpdateMeasurementsEnabledStatus(isEnabled);
+        }
+
+        private void UpdateMeasurementsEnabledStatus(Boolean isEnabled)
+        {
+            this.HeightEntry.IsEnabled = isEnabled;
+            this.WeightEntry.IsEnabled = isEnabled;
+            this.HeadEntry.IsEnabled = isEnabled;
+        }
+
+        void ChildPicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var picker = (Picker)sender;
+            int selectedIndex = picker.SelectedIndex;
+
+            if (selectedIndex != -1)
+            {
+                Child currentChild = (Child)picker.ItemsSource[selectedIndex];
+                UpdateDateSelectionEnabledStatus(true);
+            }
+            else
+            {
+                UpdateDateSelectionEnabledStatus(true);
+            }
         }
 
 
@@ -196,6 +261,60 @@ namespace ChildGrowth
 
         }
 
+        private void EntryDate_DateSelected(object sender, DateChangedEventArgs e)
+        {
+            Picker picker = this.ChildPicker;
+            int selectedIndex = picker.SelectedIndex;
+            if (selectedIndex != -1)
+            {
+                Child currentChild = (Child)picker.ItemsSource[selectedIndex];
+                if (currentChild != null)
+                {
+                    TryLoadingMeasurementDataForDateAndChild(this.EntryDate.Date, currentChild);
+                }
+            }
+        }
+
+        private void TryLoadingMeasurementDataForDateAndChild(DateTime date, Child currentChild)
+        {
+            if(date == null || currentChild == null)
+            {
+                return;
+            }
+            ChildDatabaseAccess childDatabaseAccess = new ChildDatabaseAccess();
+            GrowthMeasurement height = currentChild.GetMeasurementForDateAndType(date, MeasurementType.HEIGHT);
+            if(height != null)
+            {
+                HeightEntry.Text = height.Value.ToString();
+            }
+            else
+            {
+                HeightEntry.Text = "";
+            }
+            GrowthMeasurement weight = currentChild.GetMeasurementForDateAndType(date, MeasurementType.WEIGHT);
+            if(weight != null)
+            {
+                WeightEntry.Text = weight.Value.ToString();
+            }
+            else
+            {
+                WeightEntry.Text = "";
+            }
+            GrowthMeasurement headC = currentChild.GetMeasurementForDateAndType(date, MeasurementType.HEAD_CIRCUMFERENCE);
+            if(headC != null)
+            {
+                HeadEntry.Text = headC.Value.ToString();
+            }
+            else
+            {
+                HeadEntry.Text = "";
+            }
+        }
+
+        private void EntryDate_Unfocused(object sender, FocusEventArgs e)
+        {
+
+        }
     }
 
     public class Points

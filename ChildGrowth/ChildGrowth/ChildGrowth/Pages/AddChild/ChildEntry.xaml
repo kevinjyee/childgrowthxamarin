@@ -26,9 +26,10 @@
 
             </DatePicker>
 
-        <Button x:Name="MaleButton" Text="Male" Clicked="MaleButton_Clicked"/>
-        <Button x:Name="FemaleButton" Text="Female" Clicked="FemaleButton_Clicked"/>
-        <Button x:Name="AddChildButton"  Text="Add Child" Clicked="AddChildButton_Clicked"/>
+            <Button x:Name="MaleButton" Text="Male" Clicked="MaleButton_Clicked"/>
+            <Button x:Name="FemaleButton" Text="Female" Clicked="FemaleButton_Clicked"/>
+            <Button x:Name="AddChildButton"  Text="Add Child" Clicked="AddChildButton_Clicked"/>
+            <Button x:Name="DeleteAllChildrenButton" Text="Delete All Children" Clicked="DeleteAllChildrenButton_Clicked"/>
 
         </StackLayout>
   
