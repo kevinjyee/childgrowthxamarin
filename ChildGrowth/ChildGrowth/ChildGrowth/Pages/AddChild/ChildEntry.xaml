@@ -4,32 +4,33 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              x:Class="ChildGrowth.Pages.AddChild.ChildEntry">
 
-        <StackLayout>
+    <StackLayout>
 
-            <Label Text="Name:" FontSize="Medium" Margin="20, 20, 0, 0"/>
+        <Label Text="Name:" FontSize="Medium" Margin="20, 20, 0, 0"/>
 
-            <Entry x:Name="nameEntry" Margin="20, 0"/>
+        <Entry x:Name="nameEntry" Margin="20, 0"/>
 
-            <Label Text="Date of Birth:" FontSize="Medium" Margin="20, 20, 0, 0"/>
+        <Label Text="Date of Birth:" FontSize="Medium" Margin="20, 20, 0, 0"/>
 
-            <DatePicker x:Name="birthdayEntry" Margin="20, 0" Date="{x:Static sys:DateTime.Now}" Format="MMM d yyyy" MaximumDate="{x:Static sys:DateTime.Now}">
+        <DatePicker x:Name="birthdayEntry" Margin="20, 0" Date="{x:Static sys:DateTime.Now}" Format="MMM d yyyy" MaximumDate="{x:Static sys:DateTime.Now}">
 
-                <DatePicker.MinimumDate>
+            <DatePicker.MinimumDate>
 
-                    <sys:DateTime x:FactoryMethod="Parse">
-                        <x:Arguments>
-                            <x:String>Jan 1 1900</x:String>
-                        </x:Arguments>
-                    </sys:DateTime>
+                <sys:DateTime x:FactoryMethod="Parse">
+                    <x:Arguments>
+                        <x:String>Jan 1 1900</x:String>
+                    </x:Arguments>
+                </sys:DateTime>
 
-                </DatePicker.MinimumDate>
+            </DatePicker.MinimumDate>
 
-            </DatePicker>
+        </DatePicker>
 
         <Button x:Name="MaleButton" Text="Male" Clicked="MaleButton_Clicked"/>
         <Button x:Name="FemaleButton" Text="Female" Clicked="FemaleButton_Clicked"/>
         <Button x:Name="AddChildButton"  Text="Add Child" Clicked="AddChildButton_Clicked"/>
+        <Button x:Name="DeleteAllChildrenButton" Text="Delete All Children" Clicked="DeleteAllChildrenButton_Clicked"/>
 
-        </StackLayout>
-  
+    </StackLayout>
+
 </ContentPage>

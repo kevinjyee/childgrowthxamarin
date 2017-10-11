@@ -38,13 +38,13 @@ public class GrowthData
         switch (measurementType)
         {
             case MeasurementType.HEIGHT:
-                heightData.Add(date, (HeightMeasurement) measurement);
+                heightData[date] = (HeightMeasurement) measurement;
                 break;
             case MeasurementType.WEIGHT:
-                weightData.Add(date, (WeightMeasurement) measurement);
+                weightData[date] = (WeightMeasurement) measurement;
                 break;
             case MeasurementType.HEAD_CIRCUMFERENCE:
-                headCircumferenceData.Add(date, (HeadCircumferenceMeasurement) measurement);
+                headCircumferenceData[date] = (HeadCircumferenceMeasurement) measurement;
                 break;
         }
     }

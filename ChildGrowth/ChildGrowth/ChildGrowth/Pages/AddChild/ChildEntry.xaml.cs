@@ -11,13 +11,14 @@ using static Child;
 
 namespace ChildGrowth.Pages.AddChild
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ChildEntry : ContentPage
-	{
-		public ChildEntry ()
-		{
-			InitializeComponent ();
-		}
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class ChildEntry : ContentPage
+    {
+        public ChildEntry()
+        {
+            InitializeComponent();
+        }
+
         async void AddChildButton_Clicked(object sender, EventArgs e)
         {
 
@@ -44,7 +45,7 @@ namespace ChildGrowth.Pages.AddChild
                 await DisplayAlert("Failed", "Please Enter your child's sex.", "OK");
                 missingInfo = true;
             }
-            if(missingInfo)
+            if (missingInfo)
             {
                 return;
             }
@@ -70,5 +71,13 @@ namespace ChildGrowth.Pages.AddChild
         }
 
         private static Gender newChildGender = Gender.UNSPECIFIED;
+
+        private async void DeleteAllChildrenButton_Clicked(object sender, EventArgs e)
+        {
+            ChildDatabaseAccess childDatabase = new ChildDatabaseAccess();
+            await childDatabase.InitializeAsync();
+            List<Child> children = childDatabase.GetAllUserChildrenAsync().Result;
+            await childDatabase.DeleteAllUserChildrenAsync(children);
+        }
     }
 }

@@ -13,131 +13,130 @@
         <local:ViewModel></local:ViewModel>
     </ContentPage.BindingContext>
     <RelativeLayout>
-    <StackLayout Spacing="0">
-        <Grid>
+        <StackLayout Spacing="0">
+            <Grid>
 
-            <Grid.RowDefinitions>
+                <Grid.RowDefinitions>
 
-                <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
 
-            </Grid.RowDefinitions>
+                </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
 
-                <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
 
-                <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
 
-            </Grid.ColumnDefinitions>
+                </Grid.ColumnDefinitions>
 
-            <Button x:Name="WeightButton" Grid.Column="0" Grid.Row="0" Text="Weight" Clicked="OnWeightClicked"/>
-          
-            <Button x:Name="HeightButton" Grid.Column="1" Grid.Row="0" Text="Height" Clicked="OnHeightClicked"/>
+                <Button x:Name="WeightButton" Grid.Column="0" Grid.Row="0" Text="Weight" Clicked="OnWeightClicked"/>
 
-            <Button x:Name="HeadButton" Grid.Column="2" Grid.Row="0" Text="Head" Clicked="OnHeadClicked"/>
+                <Button x:Name="HeightButton" Grid.Column="1" Grid.Row="0" Text="Height" Clicked="OnHeightClicked"/>
 
-        </Grid>
-        
-        <chart:SfChart>
-        <chart:SfChart.HeightRequest>
-            <OnPlatform x:TypeArguments="x:Double" iOS="160" Android="190" WinPhone="150" />
-        </chart:SfChart.HeightRequest>
-        <chart:SfChart.BackgroundColor>
-            <OnPlatform x:TypeArguments="Color" Android="Transparent" />
-        </chart:SfChart.BackgroundColor>
-        <chart:SfChart.Title>
+                <Button x:Name="HeadButton" Grid.Column="2" Grid.Row="0" Text="Head" Clicked="OnHeadClicked"/>
 
-            <chart:ChartTitle Text="Weight"/>
+            </Grid>
 
-        </chart:SfChart.Title>
-        
-        <chart:SfChart.PrimaryAxis>
+            <chart:SfChart>
+                <chart:SfChart.HeightRequest>
+                    <OnPlatform x:TypeArguments="x:Double" iOS="160" Android="190" WinPhone="150" />
+                </chart:SfChart.HeightRequest>
+                <chart:SfChart.BackgroundColor>
+                    <OnPlatform x:TypeArguments="Color" Android="Transparent" />
+                </chart:SfChart.BackgroundColor>
+                <chart:SfChart.Title>
 
-            <chart:CategoryAxis>
+                    <chart:ChartTitle Text="Weight"/>
 
-            </chart:CategoryAxis>
+                </chart:SfChart.Title>
 
-        </chart:SfChart.PrimaryAxis>
+                <chart:SfChart.PrimaryAxis>
 
-        <chart:SfChart.SecondaryAxis>
+                    <chart:CategoryAxis>
 
-            <chart:NumericalAxis>
+                    </chart:CategoryAxis>
 
-            </chart:NumericalAxis>
+                </chart:SfChart.PrimaryAxis>
 
-        </chart:SfChart.SecondaryAxis>
-        <chart:LineSeries ItemsSource ="{Binding LineData}" XBindingPath="Age"
-	    YBindingPath="Value"/>
-    </chart:SfChart>
-        <TableView Intent="Form">
+                <chart:SfChart.SecondaryAxis>
 
-            <TableSection Title="Date and Time">
+                    <chart:NumericalAxis>
 
-                <!-- Date of the Entry -->
+                    </chart:NumericalAxis>
 
-                <ViewCell>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="Entry Date: " TextColor="White" VerticalOptions="Center" Margin="15, 0, 0, 0" WidthRequest="150"/>
-                        <DatePicker x:Name="entryDate" Date="{x:Static sys:DateTime.Now}" Format="MMM d yyyy" MaximumDate="{x:Static sys:DateTime.Now}" VerticalOptions="Center" WidthRequest="200"/>
-                    </StackLayout>
-                </ViewCell>
+                </chart:SfChart.SecondaryAxis>
+                <chart:LineSeries ItemsSource ="{Binding LineData}" XBindingPath="Age" YBindingPath="Value"/>
+            </chart:SfChart>
+            <TableView Intent="Form">
+
+                <TableSection Title="Date and Time">
+
+                    <!-- Date of the Entry -->
+
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Entry Date: " TextColor="White" VerticalOptions="Center" Margin="15, 0, 0, 0" WidthRequest="150"/>
+                            <DatePicker x:Name="EntryDate" Date="{x:Static sys:DateTime.Today}" Format="MMM d yyyy" MaximumDate="{x:Static sys:DateTime.Today}" VerticalOptions="Center" WidthRequest="200" IsEnabled="{Binding DateEnabled}" DateSelected="EntryDate_DateSelected" />
+                            <Picker x:Name="ChildPicker" Title="Select a child" ItemsSource="{Binding Children}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedChild}" SelectedIndexChanged="ChildPicker_SelectedIndexChanged"/>
+                        </StackLayout>
+                    </ViewCell>
 
 
-            </TableSection>
-            <TableSection Title="Measurements">
-                
-                <!-- Height -->
+                </TableSection>
+                <TableSection Title="Measurements">
 
-                <EntryCell x:Name="HeightEntry" Label="Height (cm): "  Keyboard="Numeric"/>
+                    <!-- Height -->
 
-                <!-- Weight -->
+                    <EntryCell x:Name="HeightEntry" Label="Height (cm): "  Keyboard="Numeric" IsEnabled="{Binding MeasurementsEnabled}"/>
 
-                <EntryCell x:Name="WeightEntry" Label="Weight (oz): " Keyboard="Numeric"/>
-                
-                <!-- Head Circumference -->
+                    <!-- Weight -->
 
-                <EntryCell x:Name="HeadEntry" Label="Head Circumeference: " Keyboard="Numeric"/>
+                    <EntryCell x:Name="WeightEntry" Label="Weight (oz): " Keyboard="Numeric" IsEnabled="{Binding MeasurementsEnabled}"/>
 
-            </TableSection>
+                    <!-- Head Circumference -->
 
-            <TableSection>
+                    <EntryCell x:Name="HeadEntry" Label="Head Circumeference (cm): " Keyboard="Numeric" IsEnabled="{Binding MeasurementsEnabled}"/>
 
-                <!-- Submit/Cancel Buttons -->
+                </TableSection>
 
-                <ViewCell>
+                <TableSection>
 
-                    <Grid>
+                    <!-- Submit/Cancel Buttons -->
 
-                        <Grid.RowDefinitions>
+                    <ViewCell>
 
-                            <RowDefinition Height="*"/>
+                        <Grid>
 
-                        </Grid.RowDefinitions>
+                            <Grid.RowDefinitions>
 
-                        <Grid.ColumnDefinitions>
+                                <RowDefinition Height="*"/>
 
-                            <ColumnDefinition Width="*"/>
+                            </Grid.RowDefinitions>
 
-                            <ColumnDefinition Width="*"/>
+                            <Grid.ColumnDefinitions>
 
-                        </Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
 
-                        <Button x:Name="submitButton" Grid.Column="0" Grid.Row="0" Text="Submit" Clicked="OnSubmitClicked">
-                            <Image Source="submit.png"></Image>
-                        </Button>
-                        <Button x:Name="cancelButton" Grid.Column="1" Grid.Row="0" Text="Cancel" Clicked="OnCancelClicked"/>
+                                <ColumnDefinition Width="*"/>
 
-                    </Grid>
+                            </Grid.ColumnDefinitions>
 
-                </ViewCell>
+                            <Button x:Name="submitButton" Grid.Column="0" Grid.Row="0" Text="Submit" Clicked="OnSubmitClicked">
+                                <Image Source="submit.png"></Image>
+                            </Button>
+                            <Button x:Name="cancelButton" Grid.Column="1" Grid.Row="0" Text="Cancel" Clicked="OnCancelClicked"/>
 
-            </TableSection>
-            
-        </TableView>
+                        </Grid>
 
-       
-    </StackLayout>
-        
+                    </ViewCell>
+
+                </TableSection>
+
+            </TableView>
+
+        </StackLayout>
+
         <fab:FloatingActionButton
 				x:Name="fabBtn"
 				Source="plus.png"
@@ -147,4 +146,4 @@
 				RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-60}"
 				RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-60}" />
     </RelativeLayout>
-</ContentPage>  
+</ContentPage>
