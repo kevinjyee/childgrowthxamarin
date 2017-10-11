@@ -8,6 +8,7 @@ using Syncfusion.SfChart.XForms;
 using System.Collections.ObjectModel;
 using ChildGrowth.Persistence;
 using ChildGrowth.Pages.AddChild;
+using System.ComponentModel;
 
 namespace ChildGrowth
 {
@@ -53,6 +54,9 @@ namespace ChildGrowth
             WeightEntry.Text = "";
             HeadEntry.Text = "";
         }
+
+        double ageW = 1.0;
+        double ageH = 1.0;
 
         /// <summary>
         /// Submit Height, Weight, and HeadC
@@ -117,9 +121,9 @@ namespace ChildGrowth
 
                 }
             }
-            await DisplayAlert("Clicked!",
-                "The button labeled '" + button.Text + "' has been clicked",
-                "OK");
+            ageW += 0.5;
+            var result = new Points(ageW, Weight);
+            viewModel.InputData.Add(result);
         }
 
         //TODO STEFAN: Prompt a change of graph
@@ -316,26 +320,78 @@ namespace ChildGrowth
         }
     }
 
-    public class Points
+    public class Points : INotifyPropertyChanged
     {
-        public double Age { get; set; }
-
-        public double Value { get; set; }
-
         public Points(double age, double val)
         {
-            this.Age = age;
-            this.Value = val;
+            Age = age;
+            Val = val;
+        }
+
+        private double age;
+        private double val;
+
+        public double Age
+        {
+            get
+            {
+                return age;
+            }
+            set
+            {
+                age = value;
+                NotifyPropertyChanged("Age");
+            }
+        }
+
+        public double Val
+        {
+            get
+            {
+                return val;
+            }
+            set
+            {
+                val = value;
+                NotifyPropertyChanged("Val");
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged(String propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 
+
     public class ViewModel
     {
-        public List<Points> LineData { get; set; }
+
+        public String ChartTitle { get; set; }
+
+        private ObservableCollection<Points> lineData;
+
+        public ObservableCollection<Points> LineData
+        {
+            get { return lineData; }
+            set { lineData = value; }
+        }
+
+
+        private ObservableCollection<Points> inputData;
+
+        public ObservableCollection<Points> InputData
+        {
+            get { return inputData; }
+            set { inputData = value; }
+        }
 
         public ViewModel()
         {
-            LineData = new List<Points>();
+            ChartTitle = "Weight";
+            LineData = new ObservableCollection<Points>();
             WHOData weightData = new WHOData();
 
             Dictionary<WHOData.Percentile, List<double>> weightByGender;
@@ -348,6 +404,15 @@ namespace ChildGrowth
             {
                 LineData.Add(new Points(weightData.ageList[i], weightList[i]));
             }
+
+            InputData = new ObservableCollection<Points>();
+            List<Double> weightList2;
+            weightByGender.TryGetValue(WHOData.Percentile.P90, out weightList2);
+            for (int i = 0; i < weightData.ageList.Count(); i++)
+            {
+                //InputData.Add(new Points(weightData.ageList[i], weightList2[i]));
+            }
+            InputData.Add(new Points(1, 1));
         }
     }
 }
