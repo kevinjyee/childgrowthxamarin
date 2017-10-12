@@ -9,8 +9,20 @@ namespace ChildGrowth.Pages.Milestones
 {
     public class MilestonesInfo : INotifyPropertyChanged
     {
+        private int monthDue;
         private string categoryName;
         private string categoryDesc;
+
+
+        public int MonthDue
+        {
+            get { return monthDue; }
+            set
+            {
+                monthDue = value;
+                OnPropertyChanged("MonthDue");
+            }
+        }
 
         public string CategoryName
         {

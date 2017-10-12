@@ -48,7 +48,7 @@
                 </chart:SfChart.BackgroundColor>
                 <chart:SfChart.Title>
 
-                    <chart:ChartTitle  x:Name= "GrowthChart" Text="{Binding ChartTitle}"/>
+                    <chart:ChartTitle  x:Name= "GrowthChart"  Text="{Binding ChartTitle}"/>
 
                 </chart:SfChart.Title>
 
