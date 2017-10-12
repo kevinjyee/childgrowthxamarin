@@ -159,9 +159,10 @@ public class Child
     private double GetMeasurementAge(GrowthMeasurement measurement)
     {
         DateTime measurementDate = measurement.DateRecorded;
-        TimeSpan diff = measurementDate - this.Birthday;
-        return diff.TotalDays / approx_days_per_month;
-
+        //TimeSpan diff = measurementDate - this.Birthday;
+        TimeSpan diff = measurementDate - new DateTime(2014,10,1);
+        double days =  diff.TotalDays / approx_days_per_month;
+        return days;
     }
 
     private double approx_days_per_month = 30.4;

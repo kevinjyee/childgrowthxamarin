@@ -15,34 +15,12 @@ namespace ChildGrowth
     public partial class MainPage : ContentPage
     {
 
-        public ObservableCollection<ChartDataPoint> BarData { get; set; }
-        public ObservableCollection<ChartDataPoint> Data { get; set; }
+        
         public MainPage()
         {
             InitializeComponent();
             UpdateChildPicker();
             UpdateDateSelectionEnabledStatus(false);
-        }
-
-        /// <summary>
-        /// Initializes WHO Data
-        /// </summary>
-        void InitializeData()
-        {
-            Data = new ObservableCollection<ChartDataPoint>();
-
-            WHOData weightData = new WHOData();
-
-            Dictionary<WHOData.Percentile, List<double>> weightByGender;
-            List<Double> weightList;
-
-            weightData.weightPercentile.TryGetValue(WHOData.Sex.Male, out weightByGender);
-            weightByGender.TryGetValue(WHOData.Percentile.P3, out weightList);
-
-            for (int i = 0; i < weightData.ageList.Count(); i++)
-            {
-                Data.Add(new ChartDataPoint(weightData.ageList[i], weightList[i]));
-            }
         }
 
         /// <summary>
@@ -54,9 +32,6 @@ namespace ChildGrowth
             WeightEntry.Text = "";
             HeadEntry.Text = "";
         }
-
-        double ageW = 1.0;
-        double ageH = 1.0;
 
         /// <summary>
         /// Submit Height, Weight, and HeadC
@@ -121,36 +96,65 @@ namespace ChildGrowth
 
                 }
             }
-            ageW += 0.5;
-            var result = new Points(ageW, Weight);
-            viewModel.InputData.Add(result);
+            
+          
         }
 
-        //TODO STEFAN: Prompt a change of graph
-        async void OnWeightClicked(object sender, EventArgs args)
+
+       async void OnWeightClicked(object sender, EventArgs args)
         {
-            Button button = (Button)sender;
-            await DisplayAlert("Clicked!",
-                "The button labeled '" + button.Text + "' has been clicked",
+            ChildDatabaseAccess childDatabaseAccess = new ChildDatabaseAccess();
+            Child currentChild = GetCurrentChild();
+            viewModel.InputData.Clear();
+            if(currentChild == null)
+            {
+                await DisplayAlert("Error",
+                "Please select a child",
                 "OK");
+                return;
+            }
+            foreach (Points pt in currentChild.GetSortedMeasurementListByType(MeasurementType.WEIGHT))
+            {
+                viewModel.InputData.Add(pt);
+            }
         }
 
         //TODO STEFAN: Prompt a change of graph
         async void OnHeightClicked(object sender, EventArgs args)
         {
-            Button button = (Button)sender;
-            await DisplayAlert("Clicked!",
-                "The button labeled '" + button.Text + "' has been clicked",
+            ChildDatabaseAccess childDatabaseAccess = new ChildDatabaseAccess();
+            Child currentChild = GetCurrentChild();
+            if (currentChild == null)
+            {
+                await DisplayAlert("Error",
+                "Please select a child",
                 "OK");
+                return;
+            }
+            viewModel.InputData.Clear();
+            foreach (Points pt in currentChild.GetSortedMeasurementListByType(MeasurementType.HEIGHT))
+            {
+                viewModel.InputData.Add(pt);
+            }
         }
 
         //TODO STEFAN: Prompt a change of graph
         async void OnHeadClicked(object sender, EventArgs args)
         {
-            Button button = (Button)sender;
-            await DisplayAlert("Clicked!",
-                "The button labeled '" + button.Text + "' has been clicked",
+            ChildDatabaseAccess childDatabaseAccess = new ChildDatabaseAccess();
+            Child currentChild = GetCurrentChild();
+            if (currentChild == null)
+            {
+                await DisplayAlert("Error",
+                "Please select a child",
                 "OK");
+                return;
+            }
+            viewModel.InputData.Clear();
+            foreach (Points pt in currentChild.GetSortedMeasurementListByType(MeasurementType.HEAD_CIRCUMFERENCE))
+            {
+                viewModel.InputData.Add(pt);
+            }
         }
 
         // TODO: Change this to get current child from session data.
@@ -214,7 +218,7 @@ namespace ChildGrowth
 
         private async void UpdateGraph()
         {
-
+            //TODO: Determine current child on session state before i can update graph
         }
 
         private void UpdateDateSelectionEnabledStatus(Boolean isEnabled)

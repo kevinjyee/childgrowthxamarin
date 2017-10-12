@@ -155,7 +155,10 @@ public class GrowthData
         {
             return null;
         }
-        measurements?.Sort();
+        if(measurements.Count > 1)
+        {
+            measurements.Sort((x, y) => x.DateRecorded.CompareTo(y.DateRecorded));
+        }
         return measurements;
     }
 
