@@ -14,8 +14,9 @@
     </StackLayout.BindingContext>
     <RelativeLayout>
         <StackLayout Spacing="0">
+            <Label x:Name= "MeasurementTitle"  Text="Milestones" XAlign="Center" FontSize="30"  />
             <Grid>
-
+                    
                 <Grid.RowDefinitions>
 
                     <RowDefinition Height="*"/>
@@ -29,7 +30,7 @@
                     <ColumnDefinition Width="*"/>
 
                 </Grid.ColumnDefinitions>
-
+                
                 <Button x:Name="WeightButton" Grid.Column="0" Grid.Row="0" Text="Weight" Clicked="OnWeightClicked"/>
 
                 <Button x:Name="HeightButton" Grid.Column="1" Grid.Row="0" Text="Height" Clicked="OnHeightClicked"/>
@@ -47,7 +48,7 @@
                 </chart:SfChart.BackgroundColor>
                 <chart:SfChart.Title>
 
-                    <chart:ChartTitle Text="Weight"/>
+                    <chart:ChartTitle  x:Name= "GrowthChart" Text="{Binding ChartTitle}"/>
 
                 </chart:SfChart.Title>
 

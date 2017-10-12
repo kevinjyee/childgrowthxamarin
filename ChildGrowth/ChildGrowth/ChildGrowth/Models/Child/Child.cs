@@ -104,6 +104,7 @@ public class Child
         return await thread;
         */
         List<GrowthMeasurement> measurements = Measurements.GetSortedMeasurementList(measurementType);
+        if (measurements == null) return null;
         List<Points> series = new List<Points>();
         foreach (GrowthMeasurement measurement in measurements)
         {

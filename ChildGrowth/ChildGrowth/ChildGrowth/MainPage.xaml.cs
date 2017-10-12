@@ -103,6 +103,8 @@ namespace ChildGrowth
 
        async void OnWeightClicked(object sender, EventArgs args)
         {
+            viewModel.ChartTitle = "Weight";
+            GrowthChart.Text = "Weight";
             ChildDatabaseAccess childDatabaseAccess = new ChildDatabaseAccess();
             Child currentChild = GetCurrentChild();
             viewModel.InputData.Clear();
@@ -122,6 +124,8 @@ namespace ChildGrowth
         //TODO STEFAN: Prompt a change of graph
         async void OnHeightClicked(object sender, EventArgs args)
         {
+            viewModel.ChartTitle = "Height";
+            GrowthChart.Text = "Height";
             ChildDatabaseAccess childDatabaseAccess = new ChildDatabaseAccess();
             Child currentChild = GetCurrentChild();
             if (currentChild == null)
@@ -131,7 +135,7 @@ namespace ChildGrowth
                 "OK");
                 return;
             }
-            viewModel.InputData.Clear();
+            viewModel.InputData?.Clear();
             foreach (Points pt in currentChild.GetSortedMeasurementListByType(MeasurementType.HEIGHT))
             {
                 viewModel.InputData.Add(pt);
@@ -141,6 +145,8 @@ namespace ChildGrowth
         //TODO STEFAN: Prompt a change of graph
         async void OnHeadClicked(object sender, EventArgs args)
         {
+            viewModel.ChartTitle = "Head Circumference";
+            GrowthChart.Text = "Head Circumference";
             ChildDatabaseAccess childDatabaseAccess = new ChildDatabaseAccess();
             Child currentChild = GetCurrentChild();
             if (currentChild == null)
@@ -194,9 +200,9 @@ namespace ChildGrowth
         {
 
 
-            var leadDetailPage = new ChildEntry();
+            var childEntryPage = new ChildEntry();
 
-            await Navigation.PushModalAsync(leadDetailPage);
+            await Navigation.PushModalAsync(childEntryPage);
 
 
         }
@@ -214,6 +220,7 @@ namespace ChildGrowth
             await childDatabase.InitializeAsync();
             List<Child> children = childDatabase.GetAllUserChildrenAsync().Result;
             this.ChildPicker.ItemsSource = children;
+            
         }
 
         private async void UpdateGraph()
@@ -242,6 +249,7 @@ namespace ChildGrowth
             if (selectedIndex != -1)
             {
                 Child currentChild = (Child)picker.ItemsSource[selectedIndex];
+                this.MeasurementTitle.Text = currentChild.Name;
                 UpdateDateSelectionEnabledStatus(true);
             }
             else
