@@ -308,7 +308,7 @@ namespace ChildGrowth.Pages.Milestones
         // Gets the next card in the deck as a cardview
         public CardView GetNextCard()
         {
-            var backCard = cards[topCardIndex];
+            var backCard = cards[PrevCardIndex(topCardIndex)];
             return backCard;
         }
 
