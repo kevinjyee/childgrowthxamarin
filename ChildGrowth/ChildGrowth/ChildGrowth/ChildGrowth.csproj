@@ -48,6 +48,9 @@
     <Compile Include="Converters\ToUpperConverter.cs" />
     <Compile Include="Converters\WholePercentToDecimalPercent.cs" />
     <Compile Include="Factory\DataFactory.cs" />
+    <Compile Include="Pages\Milestones\CardStackView.cs" />
+    <Compile Include="Pages\Milestones\CardView.cs" />
+    <Compile Include="Pages\Milestones\MainPageViewModel.cs" />
     <Compile Include="Persistence\ChildDatabaseAccess.cs" />
     <Compile Include="Persistence\DatabaseAccess.cs" />
     <Compile Include="Persistence\ISQLiteConnectionInputGenerator.cs" />
