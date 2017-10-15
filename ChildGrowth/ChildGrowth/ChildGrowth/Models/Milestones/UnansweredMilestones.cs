@@ -33,6 +33,44 @@ namespace ChildGrowth.Models.Milestones
             return this;
         }
 
+        // Removal takes O(n) time, where n is the length of the unanswered milestones list from which the id of the input milestone is being removed.
+        public Boolean RemoveMilestone(Milestone milestone)
+        {
+            if(milestone == null)
+            {
+                return false;
+            }
+            int dueDate = milestone.MilestoneDueDate;
+            if(this._unansweredMilestones != null && this._unansweredMilestones[(MilestoneDueDate) dueDate] != null)
+            {
+                return this._unansweredMilestones[(MilestoneDueDate) dueDate].Remove(milestone.ID);
+            }
+            return false;
+        }
+
+        /**
+         *  Based off child's age in months, find any milestones questions that need to be answered and return list of IDs.
+         **/
+        public List<int> GetDueMilestones(int childAgeInMonths)
+        {
+            List<int> dueMilestones = new List<int>();
+            foreach (MilestoneDueDate dueDate in Enum.GetValues(typeof(MilestoneDueDate)))
+            {
+                if(childAgeInMonths >= (int) dueDate)
+                {
+                    List<int> milestonesForDueDate = _unansweredMilestones[dueDate];
+                    if(milestonesForDueDate != null && milestonesForDueDate.Count > 0)
+                    {
+                        foreach(int milestoneID in milestonesForDueDate)
+                        {
+                            dueMilestones.Add(milestoneID);
+                        }
+                    }
+                }
+            }
+            return dueMilestones;
+        }
+
         public Dictionary<MilestoneDueDate, List<int>> _unansweredMilestones;
 
     }

@@ -27,7 +27,7 @@ namespace ChildGrowth.Models.Milestones
             return this;
         }
 
-        public void InsertOrUpdateToMilestoneHistory(Milestone milestone, BinaryAnswer answer)
+        public void UpdateOrInsertToMilestoneHistory(Milestone milestone, BinaryAnswer answer)
         {
             MilestoneCategory category;
             Boolean CategoryIsValid = Enum.TryParse<MilestoneCategory>(milestone.Category, out category);
@@ -42,6 +42,11 @@ namespace ChildGrowth.Models.Milestones
             {
                 throw new InvalidMilestoneCategoryException(milestone.Category + " does not match any MilestoneCategory.");
             }
+        }
+
+        public Dictionary<MilestoneCategory, Dictionary<int, MilestoneAnswer>> GetMilestoneHistory()
+        {
+            return _milestoneHistory;
         }
 
         public Dictionary<MilestoneCategory, Dictionary<int, MilestoneAnswer>> _milestoneHistory;
