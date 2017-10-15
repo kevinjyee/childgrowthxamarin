@@ -15,6 +15,9 @@ namespace ChildGrowth.Persistence
 
         public Boolean IsConnected { get { return _isConnected; } set { _isConnected = value; } }
 
+        // Must call InitializeAsync before using any accessor methods.
+        public abstract Task InitializeAsync();
+
         protected readonly string DB_FILE_NAME;
     }
 }

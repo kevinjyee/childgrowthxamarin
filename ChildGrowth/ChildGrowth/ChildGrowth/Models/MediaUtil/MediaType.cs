@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChildGrowth.Persistence
+namespace ChildGrowth.Models.MediaUtil
 {
-    class MilestonesDatabase
+    public enum MediaType
     {
+        IMAGE,
+        VIDEO
     }
+
 }
