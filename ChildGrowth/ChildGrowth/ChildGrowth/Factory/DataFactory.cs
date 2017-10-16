@@ -12,6 +12,7 @@ namespace ChildGrowth.Factory
     {
         public static IList<Item> DataItems { get; private set; }
 
+        // TODO: Stop using Category objects
         private static readonly Category Category1 = new Category { CategoryId = 1, CategoryTitle = "Category 1" };
         private static readonly Category Category2 = new Category { CategoryId = 2, CategoryTitle = "Category 2" };
 
