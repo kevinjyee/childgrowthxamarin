@@ -1,15 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using SQLite.Net.Async;
-using SQLite.Net.Interop;
 using SQLiteNetExtensionsAsync.Extensions;
-using System;
 
 namespace ChildGrowth.Persistence
 {
     public class ChildDatabaseAccess : DatabaseAccess
     {
-        // Must call InitializeAsync before using any accessor methods.
+        override
         public async Task InitializeAsync()
         {
             _connection = SQLiteDatabase.GetConnection(DB_FILE_NAME);

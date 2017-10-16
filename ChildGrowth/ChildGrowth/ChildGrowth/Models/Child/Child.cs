@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using ChildGrowth;
 using System.Collections.Generic;
 using SQLite.Net.Attributes;
+using ChildGrowth.Models.Milestones;
+using ChildGrowth.Models;
 
 [Table("Child")]
 public class Child
@@ -140,6 +142,33 @@ public class Child
         return true;
     }
 
+    /**
+     * Add or update milestone response history for the given milestone ID and BinaryAnswer.
+     **/
+    public async Task<Boolean> AddOrUpdateMilestoneHistory(int milestoneID, BinaryAnswer answer, ChildDatabaseAccess childDatabase)
+    {
+        ChildDatabaseAccess childDB = CheckChildDatabaseConnection(childDatabase).Result;
+        Milestones.AddOrUpdateMilestoneHistory(milestoneID, answer);
+        await childDB.SaveUserChildAsync(this);
+        return true;
+    }
+
+    /**
+     * Get a list of milestones which are due or past due to be answered based on a Child's birthday.
+     **/
+    public List<Milestone> GetListOfDueMilestones()
+    {
+        return Milestones.GetListOfDueMilestones(ChildAgeInMonths());
+    }
+
+    /**
+     * Get a dictionary of Milestones and their respective responses, organized by MilestoneCategory.
+     **/
+    public Dictionary<MilestoneCategory, List<MilestoneWithResponse>> GetMilestoneHistory()
+    {
+        return Milestones.GetMilestoneResponseHistoryForAllCategories();
+    }
+
     /** 
      * Checks a ChildDatabase object to see if it is null or is unconnected. Creates new ChildDatabase and/or initialize connection
      *  as necessary.
@@ -160,10 +189,16 @@ public class Child
     private double GetMeasurementAge(GrowthMeasurement measurement)
     {
         DateTime measurementDate = measurement.DateRecorded;
-        //TimeSpan diff = measurementDate - this.Birthday;
-        TimeSpan diff = measurementDate - new DateTime(2014,10,1);
-        double days =  diff.TotalDays / approx_days_per_month;
-        return days;
+        TimeSpan diff = measurementDate - this.Birthday;
+        double months =  diff.TotalDays / approx_days_per_month;
+        return months;
+    }
+
+    private int ChildAgeInMonths()
+    {
+        TimeSpan diff = DateTime.Now - this.Birthday;
+        int months = (int) (diff.TotalDays / approx_days_per_month);
+        return months;
     }
 
     private double approx_days_per_month = 30.4;
