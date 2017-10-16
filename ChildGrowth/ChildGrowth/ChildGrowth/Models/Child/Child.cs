@@ -29,7 +29,7 @@ public class Child
     public VaccinationHistory VaccineHistory { get { return _vaccineHistory; } set { _vaccineHistory = value; } }
 
     [TextBlob("BirthdayBlobbed")]
-    private DateTime _birthday { get; set; }
+    public DateTime _birthday { get; set; }
     public string BirthdayBlobbed { get; set; }
 
     [TextBlob("GenderBlobbed")]
