@@ -9,26 +9,24 @@ using System.Threading.Tasks;
 
 namespace ChildGrowth.Models.Education
 {
-    [Table("Article")]
+
     public class Article
     {
-        [PrimaryKey]
-        public int ID { get; set; }
+        public int ID { get { return _id; } set { this._id = value; } }
+        private int _id { get; set; }
 
-        [Indexed]
-        // This Category should actually be an EducationCategory object, but in order to index on this value it probably needs to be a string.
-        public string Category { get; set; }
+        public EducationCategory Category { get { return _category; } set { this._category = value; } }
+        private EducationCategory _category { get; set; }
 
-        public string Title { get; set; }
+        public string Title { get { return _title;  } set { this._title = value; } }
+        private string _title { get; set; }
 
-        public string URL { get; set; }
 
-        [Ignore]
-        public Language Language { get; set; }
+        public string URL { get { return _url; } set { this._url = value; } }
+        private string _url { get; set; }
 
-        [TextBlob("LanguageBlobbed")]
-        public Language _language { get; set; }
-        public string LangaugeBlobbed { get; set; }
+        public Language Language { get { return _language; } set { this._language = value; } }
+        private Language _language { get; set; }
 
     }
 }

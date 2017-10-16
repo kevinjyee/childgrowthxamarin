@@ -1,5 +1,4 @@
 ﻿using System;
-using SQLite;
 using SQLiteNetExtensions.Attributes;
 using ChildGrowth.Persistence;
 using System.Threading.Tasks;
