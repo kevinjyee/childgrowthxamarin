@@ -11,23 +11,24 @@
     <Grid RowSpacing="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="80" />
             <RowDefinition Height="160" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Label Text="Question:" TextColor="White" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" BackgroundColor="#06a5bd" />
-
+        <Label Text="Question:" TextColor="White" Grid.Row="0" Grid.Column="0" BackgroundColor="#06a5bd" />
+        <Label Text="{Binding Milestone.CategoryDescription}" TextColor="White" BackgroundColor="#06a5bd" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" />      
         <Label Text="More Explanation:" FontAttributes="Italic" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan ="4"/>
-        <Button Text="&lt;" Grid.Row="2" Grid.Column ="0" Grid.RowSpan="2" /> 
-        <Frame Grid.Row="2" Grid.Column="1" Grid.RowSpan ="2" Grid.ColumnSpan="2" BackgroundColor="Silver" >
+        <Label Text="{Binding Milestone.CategoryDescription}" FontAttributes="Italic" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan = "4" />
+        <Button Text="&lt;" Grid.Row="3" Grid.Column ="0" Grid.RowSpan="2" /> 
+        <Frame Grid.Row="3" Grid.Column="1" Grid.RowSpan ="2" Grid.ColumnSpan="2" BackgroundColor="Silver" >
                 <Image />
         </Frame>
-        <Button Text="&gt;" Grid.Row="2" Grid.Column ="3" Grid.RowSpan="2" />
-        <Button x:Name="NoButton" onClicked="NoClicked" Text="No" TextColor="White" BackgroundColor="#06a5bd" Grid.Row="4" Grid.Column="1" />
-        <Button Text="Yes" TextColor="White" BackgroundColor="#06a5bd" Grid.Row="4" Grid.Column="2" />
-        <Button Text="Submit" BackgroundColor="Silver" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan ="2" />
+        <Button Text="&gt;" Grid.Row="3" Grid.Column ="3" Grid.RowSpan="2" />
+        <Button Image="wborder_no.png" x:Name="NoButton" Grid.Row="5" Grid.Column="1" />
+        <Button Image="wborder_yes.png" x:Name="YesButton" Grid.Row="5" Grid.Column="2" />
+        <Button Image="submt.png"  x:Name="SubmitButton" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan ="2" />
 
 
     </Grid>

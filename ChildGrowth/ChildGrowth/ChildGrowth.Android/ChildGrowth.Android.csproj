@@ -24,6 +24,7 @@
     <JavaOptions />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,7 +34,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
     <AndroidSupportedAbis>armeabi,armeabi-v7a,x86</AndroidSupportedAbis>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
@@ -45,7 +45,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
   </PropertyGroup>
   <ItemGroup>
@@ -184,6 +183,20 @@
     <AndroidResource Include="Resources\drawable-hdpi\icon.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
+    <AndroidResource Include="Resources\drawable\wborder_no.png" />
+    <AndroidResource Include="Resources\drawable\wborder_yes.png" />
+    <AndroidResource Include="Resources\drawable\blue_no.png" />
+    <AndroidResource Include="Resources\drawable\blue_yes.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\blue_no.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\blue_yes.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\blue_no.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\blue_yes.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\wborder_no.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\wborder_yes.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\wborder_no.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\wborder_yes.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\wborder_no.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\wborder_yes.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />

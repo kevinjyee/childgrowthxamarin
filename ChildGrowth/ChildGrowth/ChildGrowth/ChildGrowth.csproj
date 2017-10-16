@@ -87,8 +87,8 @@
     </Compile>
     <Compile Include="Pages\Milestones\MilestonesInfo.cs" />
     <Compile Include="Pages\Milestones\MilestonesInfoRepository.cs" />
-    <Compile Include="Pages\Milestones\Milestones.xaml.cs">
-      <DependentUpon>Milestones.xaml</DependentUpon>
+    <Compile Include="Pages\Milestones\MilestonesListPage.xaml.cs">
+      <DependentUpon>MilestonesListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Splash\SplashPage.xaml.cs">
       <DependentUpon>SplashPage.xaml</DependentUpon>
@@ -114,6 +114,11 @@
     <Compile Include="ViewModels\Splash\SplashViewModel.cs" />
     <Compile Include="Views\Base\ModelBoundContentView.cs" />
     <Compile Include="WHOData.cs" />
+    <Compile Include="Pages\Milestones\MilestonesDescriptionPage.xaml.cs">
+      <DependentUpon>MilestonesDescriptionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Milestones\Milestone.cs" />
+    <Compile Include="Pages\Milestones\MilestonesViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainPage.xaml">
@@ -122,6 +127,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="App.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Milestones\MilestonesDescriptionPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -205,7 +213,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Pages\Milestones\Milestones.xaml">
+    <EmbeddedResource Include="Pages\Milestones\MilestonesListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

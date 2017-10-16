@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             xmlns:local="clr-namespace:ChildGrowth.Pages.Milestones;assembly=ChildGrowth"
+             xmlns:data="clr-namespace:Syncfusion.DataSource;assembly=Syncfusion.DataSource.Portable"
+             x:Class="ChildGrowth.Pages.Milestones.MilestonesListPage">
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="MilestonesListView" 
+                ItemsSource="{Binding Milestone}" 
+                VerticalOptions="FillAndExpand" 
+                HasUnevenRows="true" 
+                IsPullToRefreshEnabled="true" 
+                CachingStrategy="RecycleElement" 
+                ItemSelected="OnItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="10">
+                                <Label Text="{Binding CategoryName}" 
+                                LineBreakMode="NoWrap" 
+                                FontSize="16" />
+                                <Label Text="{Binding CategoryDescription}" 
+                                LineBreakMode="NoWrap" 
+                                FontSize="13" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content> 
+</ContentPage>

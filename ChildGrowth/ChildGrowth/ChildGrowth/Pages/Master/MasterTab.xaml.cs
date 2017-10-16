@@ -17,10 +17,11 @@ namespace ChildGrowth.Pages.Master
         {
             InitializeComponent();
             Children.Add(new MainPage() { Icon = "measurements.png" });
-            Children.Add(new Milestones.Milestones() { Icon = "milestones.png" });
+            Children.Add(new Milestones.MilestonesListPage() { Icon = "milestones.png" });
             Children.Add(new Vaccinations.Vaccinations() { Icon = "vaccinations.png" });
             Children.Add(new Education.Education() { Icon = "education.png" });
             Children.Add(new Insights.Insights() { Icon = "insights.png" });
         }
     }
+
 }
