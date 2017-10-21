@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ChildGrowth.Pages.Education.EducationButtonNav">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid>
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="*"/>
+
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="*"/>
+
+                    <ColumnDefinition Width="*"/>
+
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="behaviorButton" Grid.Column="0" Grid.Row="0" Text="Behavior" Clicked="BehaviorButtonClick">
+                    <Image Source="behavior.png"></Image>
+                </Button>
+                <Button x:Name="learningButton" Grid.Column="1" Grid.Row="0" Text="Learning" Clicked="LearningButtonClick">
+                    <Image Source="learning.png"></Image>
+                </Button>
+                <Button x:Name="safetyButton" Grid.Column="0" Grid.Row="1" Text="Safety" Clicked="SafetyButtonClick">
+                    <Image Source="safety.png"></Image>
+                </Button>
+                <Button x:Name="playButton" Grid.Column="1" Grid.Row="1" Text="Play" Clicked="PlayButtonClick">
+                    <Image Source="play.png"></Image>
+                </Button>
+                <Button x:Name="toiletTrainingButton" Grid.Column="0" Grid.Row="2" Text="Toilet Training" Clicked="ToiletTrainingButtonClick">
+                    <Image Source="toilet_training.png"></Image>
+                </Button>
+                <Button x:Name="diseasesButton" Grid.Column="1" Grid.Row="2" Text="Diseases" Clicked="DiseasesButtonClick">
+                    <Image Source="diseases.png"></Image>
+                </Button>
+                <Button x:Name="doctorVisitsButton" Grid.Column="0" Grid.Row="3" Text="Doctor Visits" Clicked="DoctorVisitsButtonClick">
+                    <Image Source="doctor_visits.png"></Image>
+                </Button>
+                <Button x:Name="year01Button" Grid.Column="1" Grid.Row="3" Text="Year01" Clicked="Year01ButtonClick">
+                    <Image Source="year01.png"></Image>
+                </Button>
+                <Button x:Name="year12Button" Grid.Column="0" Grid.Row="4" Text="Year12" Clicked="Year12ButtonClick">
+                    <Image Source="year12.png"></Image>
+                </Button>
+                <Button x:Name="year23Button" Grid.Column="1" Grid.Row="4" Text="Year23" Clicked="Year23ButtonClick">
+                    <Image Source="year23.png"></Image>
+                </Button>
+
+                // todo: 
+                //       figure out the layout
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
