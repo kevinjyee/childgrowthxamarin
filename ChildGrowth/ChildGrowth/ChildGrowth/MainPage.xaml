@@ -12,6 +12,7 @@
     <StackLayout.BindingContext>
         <local:ViewModel x:Name="viewModel"/>
     </StackLayout.BindingContext>
+    <ScrollView>
     <RelativeLayout>
         <StackLayout Spacing="0">
             <Label x:Name= "MeasurementTitle"  Text="Milestones" XAlign="Center" FontSize="30"  />
@@ -154,4 +155,5 @@
 				RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-60}"
 				RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-60}" />
     </RelativeLayout>
+    </ScrollView>
 </ContentPage>

@@ -64,6 +64,9 @@
     <Compile Include="Pages\Milestones\CardStackView.cs" />
     <Compile Include="Pages\Milestones\CardView.cs" />
     <Compile Include="Pages\Milestones\MainPageViewModel.cs" />
+    <Compile Include="Pages\Milestones\MilestonesHistory.xaml.cs">
+      <DependentUpon>MilestonesHistory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Persistence\ChildDatabaseAccess.cs" />
     <Compile Include="Persistence\DatabaseAccess.cs" />
     <Compile Include="Persistence\ISQLiteConnectionInputGenerator.cs" />
@@ -245,6 +248,16 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\AddChild\ChildEntry.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\class-project.gif" />
+    <Content Include="Pages\Milestones\class-project.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Milestones\MilestonesHistory.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
