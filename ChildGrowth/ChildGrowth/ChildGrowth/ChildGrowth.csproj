@@ -54,6 +54,8 @@
     <Compile Include="Pages\Milestones\MilestonesHistory.xaml.cs">
       <DependentUpon>MilestonesHistory.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Vaccinations\VaccinationCell.cs" />
+    <Compile Include="Pages\Vaccinations\VaccinationTable.cs" />
     <Compile Include="Persistence\ChildDatabaseAccess.cs" />
     <Compile Include="Persistence\DatabaseAccess.cs" />
     <Compile Include="Persistence\ISQLiteConnectionInputGenerator.cs" />
