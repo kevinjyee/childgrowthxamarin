@@ -51,6 +51,11 @@
     <Compile Include="Pages\Milestones\CardStackView.cs" />
     <Compile Include="Pages\Milestones\CardView.cs" />
     <Compile Include="Pages\Milestones\MainPageViewModel.cs" />
+    <Compile Include="Pages\Milestones\MilestonesHistory.xaml.cs">
+      <DependentUpon>MilestonesHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Vaccinations\VaccinationCell.cs" />
+    <Compile Include="Pages\Vaccinations\VaccinationTable.cs" />
     <Compile Include="Persistence\ChildDatabaseAccess.cs" />
     <Compile Include="Persistence\DatabaseAccess.cs" />
     <Compile Include="Persistence\ISQLiteConnectionInputGenerator.cs" />
@@ -84,9 +89,6 @@
     </Compile>
     <Compile Include="Pages\Insights\Insights.xaml.cs">
       <DependentUpon>Insights.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Master\MasterTab.xaml.cs">
-      <DependentUpon>MasterTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Milestones\MilestonesInfo.cs" />
     <Compile Include="Pages\Milestones\MilestonesInfoRepository.cs" />
@@ -122,6 +124,12 @@
     </Compile>
     <Compile Include="Pages\Milestones\Milestone.cs" />
     <Compile Include="Pages\Milestones\MilestonesViewModel.cs" />
+    <Compile Include="Pages\Menu\MenuMasterDetailPage.xaml.cs">
+      <DependentUpon>MenuMasterDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Menu\MenuMasterPage.xaml.cs">
+      <DependentUpon>MenuMasterPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainPage.xaml">
@@ -133,6 +141,12 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\Milestones\MilestonesDescriptionPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Menu\MenuMasterDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Menu\MenuMasterPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -210,12 +224,6 @@
     <Folder Include="ViewModels\Master\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Pages\Master\MasterTab.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Pages\Milestones\MilestonesListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
@@ -241,6 +249,16 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\AddChild\ChildEntry.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\class-project.gif" />
+    <Content Include="Pages\Milestones\class-project.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Milestones\MilestonesHistory.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

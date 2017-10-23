@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="ChildGrowth.Pages.Menu.MenuMasterDetailPage">
+    <MasterDetailPage.Master>
+        <ContentPage Padding="10" Title="Children" BackgroundColor="#06A5BD" Icon="menu_button.png">
+            <ContentPage.Content>
+                <StackLayout Margin = "5,30,5,5">
+                    <Label Text="Children" TextColor="White" FontSize="30" XAlign="Center" />
+                  
+                    <Button Text="Add New Child" TextColor="White" Clicked="Add_Children_Handler" />
+                </StackLayout>
+            </ContentPage.Content>
+        </ContentPage>
+    </MasterDetailPage.Master>
+    <MasterDetailPage.Detail>
+        <TabbedPage x:Name="TabbedPage" />
+    </MasterDetailPage.Detail>
+</MasterDetailPage>

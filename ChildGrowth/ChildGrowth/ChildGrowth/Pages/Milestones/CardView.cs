@@ -11,6 +11,7 @@ namespace ChildGrowth.Pages.Milestones
     {
         public Label Name { get; set; }
         public Image Photo { get; set; }
+        
         public Label Location { get; set; }
         public Label Description { get; set; }
         public Label firstDesc { get; set; }
@@ -51,6 +52,7 @@ namespace ChildGrowth.Pages.Milestones
                 Constraint.RelativeToParent((parent) => { return parent.Width; }),
                 Constraint.RelativeToParent((parent) => { return parent.Height; }));
 
+            
             // item images
             Photo = new Image()
             {
@@ -64,10 +66,11 @@ namespace ChildGrowth.Pages.Milestones
                 Constraint.Constant(10),
                 Constraint.RelativeToParent((parent) => { return parent.Width; }),
                 Constraint.RelativeToParent((parent) => { return (parent.Height * 0.75); }));
-
+                
+         
 
             // item ttitle 
-            
+
             Name = new Label()
             {
                 TextColor = Color.Black,
