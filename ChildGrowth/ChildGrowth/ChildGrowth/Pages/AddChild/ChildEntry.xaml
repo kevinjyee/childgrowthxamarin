@@ -1,36 +1,38 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             x:Class="ChildGrowth.Pages.AddChild.ChildEntry">
-
-    <StackLayout>
-
-        <Label Text="Name:" FontSize="Medium" Margin="20, 20, 0, 0"/>
-
-        <Entry x:Name="nameEntry" Margin="20, 0"/>
-
-        <Label Text="Date of Birth:" FontSize="Medium" Margin="20, 20, 0, 0"/>
-
-        <DatePicker x:Name="birthdayEntry" Margin="20, 0" Date="{x:Static sys:DateTime.Now}" Format="MMM d yyyy" MaximumDate="{x:Static sys:DateTime.Now}">
-
-            <DatePicker.MinimumDate>
-
-                <sys:DateTime x:FactoryMethod="Parse">
-                    <x:Arguments>
-                        <x:String>Jan 1 1900</x:String>
-                    </x:Arguments>
-                </sys:DateTime>
-
-            </DatePicker.MinimumDate>
-
-        </DatePicker>
-
-        <Button x:Name="MaleButton" Text="Male" Clicked="MaleButton_Clicked"/>
-        <Button x:Name="FemaleButton" Text="Female" Clicked="FemaleButton_Clicked"/>
-        <Button x:Name="AddChildButton"  Text="Add Child" Clicked="AddChildButton_Clicked"/>
-        <Button x:Name="DeleteAllChildrenButton" Text="Delete All Children" Clicked="DeleteAllChildrenButton_Clicked"/>
-
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib" x:Class="ChildGrowth.Pages.AddChild.ChildEntry" BackgroundColor="#06A5BD">
+    <StackLayout Margin="30, 30, 30, 30" Padding="0,50,0,0">
+        <Label Text="Add Child" TextColor="White" FontSize="40" XAlign="Center" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Text="Name:" TextColor="White" FontSize="Medium" Grid.Row="0" Grid.Column="0" />
+            <Entry x:Name="nameEntry" Grid.Row="0" Grid.Column="1" />
+            <Label Text="Date of Birth:" TextColor="White" FontSize="Medium" Grid.Row="1" Grid.Column="0" />
+            <DatePicker x:Name="birthdayEntry" Grid.Row="1" Grid.Column="1" Date="{x:Static sys:DateTime.Now}" Format="MMM d yyyy" MaximumDate="{x:Static sys:DateTime.Now}">
+                <DatePicker.MinimumDate>
+                    <sys:DateTime x:FactoryMethod="Parse">
+                        <x:Arguments>
+                            <x:String>Jan 1 1900</x:String>
+                        </x:Arguments>
+                    </sys:DateTime>
+                </DatePicker.MinimumDate>
+            </DatePicker>
+            <Label Text="Sex" TextColor= "White" Grid.Row="2" Grid.Column="0"/>           
+                <Picker x:Name="SexEntry" Title="Select Sex" Grid.Row="2" Grid.Column="1">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Male</x:String>
+                        <x:String>Female</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            <Button x:Name="AddChildButton" Text="Add Child" Clicked="AddChildButton_Clicked" Grid.Row="3" Grid.Column="0"/>
+        </Grid>
+        <Button x:Name="DeleteAllChildrenButton" Text="Delete All Children" Clicked="DeleteAllChildrenButton_Clicked" />
     </StackLayout>
-
 </ContentPage>

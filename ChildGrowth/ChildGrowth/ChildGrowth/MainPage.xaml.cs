@@ -232,6 +232,7 @@ namespace ChildGrowth
             if (selectedIndex != -1)
             {
                 Child currentChild = (Child)picker.ItemsSource[selectedIndex];
+                this.Title = currentChild.Name;
                 UpdateDateSelectionEnabledStatus(true);
             }
             else

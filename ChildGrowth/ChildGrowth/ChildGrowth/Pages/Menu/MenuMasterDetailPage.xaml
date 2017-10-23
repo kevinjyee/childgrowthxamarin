@@ -5,7 +5,7 @@
             <ContentPage.Content>
                 <StackLayout Margin = "5,30,5,5">
                     <Label Text="Children" TextColor="White" FontSize="30" XAlign="Center" />
-                  
+                    <ListView x:Name="ChildList" ItemsSource ="{Binding Children}" BindingContext="{Binding Name}" BackgroundColor="#06A5BD" SeparatorColor="White"/>
                     <Button Text="Add New Child" TextColor="White" Clicked="Add_Children_Handler" />
                 </StackLayout>
             </ContentPage.Content>

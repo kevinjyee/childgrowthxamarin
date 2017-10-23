@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms" xmlns:local="clr-namespace: ChildGrowth;assembly=ChildGrowth" xmlns:statics="clr-namespace:ChildGrowth.Statics" xmlns:converters="clr-namespace:ChildGrowth.Converters" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms" x:Class="ChildGrowth.MainPage" Title="ChildName">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms" 
+    xmlns:local="clr-namespace: ChildGrowth;assembly=ChildGrowth" 
+    xmlns:statics="clr-namespace:ChildGrowth.Statics" 
+    xmlns:converters="clr-namespace:ChildGrowth.Converters" 
+    xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+    xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms" 
+    x:Class="ChildGrowth.MainPage" 
+    Title="ChildName">
 
     <StackLayout.BindingContext>
         <local:ViewModel x:Name="viewModel" />
@@ -10,16 +19,16 @@
                 <Label x:Name="MeasurementTitle" Text="Measurements" XAlign="Center" FontSize="30" />
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="40" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="95" />
+                        <ColumnDefinition Width="75" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="WeightButton" Grid.Column="0" Grid.Row="0" Image="weight_unclicked.png" Clicked="OnWeightClicked" />
-                    <Button x:Name="HeightButton" Grid.Column="1" Grid.Row="0" Image="height_unclicked.png" Clicked="OnHeightClicked" />
-                    <Button x:Name="HeadButton" Grid.Column="2" Grid.Row="0" Image="head_circumference_unclicked.png" Clicked="OnHeadClicked" />
+                    <Button x:Name="WeightButton" Grid.Column="0" Grid.Row="0" Image="weight_unclicked.png" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" Clicked="OnWeightClicked" />
+                    <Button x:Name="HeightButton" Grid.Column="1" Grid.Row="0" Image="height_unclicked.png" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" Clicked="OnHeightClicked" />
+                    <Button x:Name="HeadButton" Grid.Column="2" Grid.Row="0" Image="head_circumference_unclicked.png" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" Clicked="OnHeadClicked" />
                 </Grid>
                 <chart:SfChart>
                     <chart:SfChart.HeightRequest>
@@ -74,7 +83,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Button x:Name="submitButton" Image="submit.png" Grid.Column="0" Grid.Row="0" Text="Submit" Clicked="OnSubmitClicked" />
+                                <Button x:Name="submitButton" Image="submit.png" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" Grid.Column="0" Grid.Row="0" Clicked="OnSubmitClicked" />
                                 <Button x:Name="cancelButton" Image="cancel.png" Grid.Column="1" Grid.Row="0" Text="Cancel" Clicked="OnCancelClicked" />
                             </Grid>
                         </ViewCell>
