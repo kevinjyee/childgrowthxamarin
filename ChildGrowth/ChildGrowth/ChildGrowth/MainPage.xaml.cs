@@ -14,8 +14,17 @@ namespace ChildGrowth
 {
     public partial class MainPage : ContentPage
     {
+        private Child CurrentChild{get; set;}
 
-        
+        public MainPage(Child child)
+        {
+            this.Title = child.Name;
+            CurrentChild = child;
+            InitializeComponent();
+            UpdateChildPicker();
+            UpdateDateSelectionEnabledStatus(false);
+        }
+
         public MainPage()
         {
             InitializeComponent();
@@ -68,9 +77,10 @@ namespace ChildGrowth
 
             //TODO STEFAN: Replace this with an await call to SQLite
             ChildDatabaseAccess childDatabase = new ChildDatabaseAccess();
-            Child currentChild = GetCurrentChild();
+            Child currentChild = CurrentChild;
             DateTime selectedDate = GetSelectedDate();
             Units currentUnits = GetCurrentUnits();
+
             if (currentChild != null)
             {
                 try
@@ -106,7 +116,7 @@ namespace ChildGrowth
             viewModel.ChartTitle = "Weight";
             GrowthChart.Text = "Weight";
             ChildDatabaseAccess childDatabaseAccess = new ChildDatabaseAccess();
-            Child currentChild = GetCurrentChild();
+            Child currentChild = CurrentChild;
             viewModel.InputData.Clear();
             if(currentChild == null)
             {
@@ -127,7 +137,7 @@ namespace ChildGrowth
             viewModel.ChartTitle = "Height";
             GrowthChart.Text = "Height";
             ChildDatabaseAccess childDatabaseAccess = new ChildDatabaseAccess();
-            Child currentChild = GetCurrentChild();
+            Child currentChild = CurrentChild;
             if (currentChild == null)
             {
                 await DisplayAlert("Error",
@@ -148,7 +158,7 @@ namespace ChildGrowth
             viewModel.ChartTitle = "Head Circumference";
             GrowthChart.Text = "Head Circumference";
             ChildDatabaseAccess childDatabaseAccess = new ChildDatabaseAccess();
-            Child currentChild = GetCurrentChild();
+            Child currentChild = CurrentChild;
             if (currentChild == null)
             {
                 await DisplayAlert("Error",
@@ -164,20 +174,6 @@ namespace ChildGrowth
         }
 
         // TODO: Change this to get current child from session data.
-        private Child GetCurrentChild()
-        {
-            // Replace this with load method
-            int selectedIndex = this.ChildPicker.SelectedIndex;
-
-            if (selectedIndex != -1)
-            {
-                return (Child)this.ChildPicker.ItemsSource[selectedIndex];
-            }
-            else
-            {
-                return null;
-            }
-        }
 
         // TODO: Set this DateTime from date selected via a calendar widget.
         private DateTime GetSelectedDate()
@@ -195,18 +191,6 @@ namespace ChildGrowth
 
         private static int DEFAULT_MEASUREMENT_VALUE = -1;
 
-        async void Handle_FabClicked(object sender, System.EventArgs e)
-
-        {
-
-
-            var childEntryPage = new ChildEntry();
-
-            await Navigation.PushModalAsync(childEntryPage);
-
-
-        }
-
         override
         protected void OnAppearing()
         {
@@ -220,7 +204,6 @@ namespace ChildGrowth
             await childDatabase.InitializeAsync();
             List<Child> children = childDatabase.GetAllUserChildrenAsync().Result;
             this.ChildPicker.ItemsSource = children;
-            
         }
 
         private async void UpdateGraph()
@@ -249,31 +232,12 @@ namespace ChildGrowth
             if (selectedIndex != -1)
             {
                 Child currentChild = (Child)picker.ItemsSource[selectedIndex];
-                this.MeasurementTitle.Text = currentChild.Name;
                 UpdateDateSelectionEnabledStatus(true);
             }
             else
             {
                 UpdateDateSelectionEnabledStatus(true);
             }
-        }
-
-
-
-        private void UpdateButtonColor(Color color)
-
-        {
-
-            var normal = color;
-
-            var disabled = color.MultiplyAlpha(0.25);
-
-
-
-            fabBtn.NormalColor = normal;
-
-            fabBtn.DisabledColor = disabled;
-
         }
 
         private void EntryDate_DateSelected(object sender, DateChangedEventArgs e)
