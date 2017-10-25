@@ -16,7 +16,7 @@ namespace ChildGrowth.Pages.Vaccinations
 
         public String Info { get; set; }
 
-        public DateTime Time { get; set; }
+        public int Time { get; set; }
 
     }
 }

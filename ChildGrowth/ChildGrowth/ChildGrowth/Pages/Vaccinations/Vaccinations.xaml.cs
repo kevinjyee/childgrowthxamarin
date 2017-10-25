@@ -84,8 +84,8 @@ namespace ChildGrowth.Pages.Vaccinations
 
         public void VaccinationRepository()
         {
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 1, Name = "Shot1", Info = "Enlarge Penis", Time = new DateTime(2017, 12, 1) });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 2, Name = "Shot2", Info = "Enlarge Brain", Time = new DateTime(2017, 12, 2) });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 1, Name = "Shot1", Info = "Enlarge Penis", Time = 1 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 2, Name = "Shot2", Info = "Enlarge Brain", Time = 2 });
         }
     }
 }

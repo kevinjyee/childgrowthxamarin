@@ -16,6 +16,9 @@
         <Label Text="Milestones" XAlign="Center" FontSize="30"  Grid.ColumnSpan="2"/>
         <Frame Grid.Row ="1" Grid.ColumnSpan="2">
             <syncfusion:SfListView x:Name="listView" 
+                   SelectionMode="Single"
+                   SelectionGesture="Tap"
+                   SelectionBackgroundColor="#E4E4E4"
                    ItemsSource="{Binding MilestonesInfo}"
                    ItemSize="100"
                    AllowGroupExpandCollapse="True">
