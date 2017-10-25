@@ -85,10 +85,6 @@ namespace ChildGrowth.Pages.Milestones
 
             };
 
-
-
-
-
             isTakenLabel = new Label
             {
 

@@ -14,12 +14,21 @@ namespace ChildGrowth.Pages.Vaccinations
     public partial class Vaccinations : ContentPage
     {
 
+
         public static List<VaccinationTable> Vaccines = new List<VaccinationTable>();
 
         ListView vaccinationList = new ListView
         {
             RowHeight = 40
         };
+
+        static double percentprog = 0.2;
+
+        ProgressBar vacProg = new ProgressBar
+        {
+            Progress = percentprog,
+        };
+
 
         public Vaccinations()
         {
@@ -66,16 +75,18 @@ namespace ChildGrowth.Pages.Vaccinations
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 Padding = new Thickness(0, 10, 0, 10),
                 Children = {
-                  new ProgressBar
-            {
-                Progress = .2,
-            },
-            vaccinationList
+                  vacProg,
+                  vaccinationList
                 }
             };
 
             
         }
+        async void  updateProgBar()
+        {
+            await vacProg.ProgressTo(percentprog, 250, Easing.Linear);
+        }
+        
 
         protected override void OnAppearing()
         {
@@ -85,12 +96,16 @@ namespace ChildGrowth.Pages.Vaccinations
         public void VaccinationRepository()
         {
             Vaccines.Add(new VaccinationTable() { VaccinationID = 1, Name = "Shot1", Info = "Enlarge Penis", Time = 1 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 2, Name = "Shot2", Info = "Enlarge Brain", Time = 2 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 2, Name = "Shot2", Info = "Enlarge Big Penis", Time = 2 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 3, Name = "Shot3", Info = "Enlarge Bigger Penis", Time = 2 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 4, Name = "Shot4", Info = "Enlarge Bigger Bigger Penis", Time = 2 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 3, Name = "Shot5", Info = "Enlarge Bigger Penis", Time = 2 });
         }
     }
 }
 
 public class VaccinationInfoView : ContentPage
+    
 
 {
 

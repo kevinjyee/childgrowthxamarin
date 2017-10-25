@@ -91,6 +91,7 @@ namespace ChildGrowth.Pages.Milestones
             this.Content = view;
         }
 
+        
         //  Liked button is clicked.
         private void Like_but_Clicked(object sender, EventArgs e)
         {
@@ -147,7 +148,9 @@ namespace ChildGrowth.Pages.Milestones
         // Swiped right function
         void SwipedRight(int index)
         {
-            
+            index = (index - 2) < 0 ? -1 * (index - 2) % 4 : (index - 2) % 4;
+            int currID = cardStack.ItemsSource[index].ID;
+            likedIds.Add(currID);
             cardStack.GetNextCard().Scale = 1;
             cardStack.GetTopCard().Scale = 1;
            
@@ -161,7 +164,9 @@ namespace ChildGrowth.Pages.Milestones
         // Swiped left function
         void SwipedLeft(int index)
         {
-            //dislikedIds.Add(cardStack.ItemsSource[index].ID);
+            index = (index - 2) < 0 ? -1 * (index - 2) % 4 : (index - 2) % 4;
+            int currID = cardStack.ItemsSource[index].ID;
+            dislikedIds.Add(currID);
             cardStack.GetNextCard().Scale = 1;
             cardStack.GetTopCard().Scale = 1;
             
