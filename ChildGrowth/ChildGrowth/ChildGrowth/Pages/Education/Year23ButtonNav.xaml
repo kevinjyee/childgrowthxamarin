@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ChildGrowth.Pages.Education.Year23ButtonNav">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid>
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="*"/>
+
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="*"/>
+
+                    <ColumnDefinition Width="*"/>
+
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="generalButton" Grid.Column="0" Grid.Row="0" Text="General" Clicked="GeneralButtonClick">
+                    <Image Source="general.png"></Image>
+                </Button>
+                <Button x:Name="behaviorButton" Grid.Column="0" Grid.Row="1" Text="Behavior" Clicked="BehaviorButtonClick">
+                    <Image Source="behavior.png"></Image>
+                </Button>
+                <Button x:Name="milestonesY3Button" Grid.Column="1" Grid.Row="3" Text="Milestones Y3" Clicked="MilestonesY3ButtonClick">
+                    <Image Source="milestonesY3.png"></Image>
+                </Button>
+                
+                // todo: 
+                //       figure out the layout
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

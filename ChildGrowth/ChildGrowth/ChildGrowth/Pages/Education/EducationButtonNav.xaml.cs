@@ -52,20 +52,26 @@ namespace ChildGrowth.Pages.Education
         {
             await Navigation.PushModalAsync(new EducationInfoDisplay(Models.Education.EducationCategory.DOCTOR_VISITS.ToString()));
         }
-
+        // with the yearXX clicks, need to reroute to button page
         async void Year01ButtonClick(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new EducationInfoDisplay(Models.Education.EducationCategory.YEAR01.ToString()));
+            var year01ButtonNavPage = new Year01ButtonNav();
+
+            await Navigation.PushModalAsync(year01ButtonNavPage);
         }
 
         async void Year12ButtonClick(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new EducationInfoDisplay(Models.Education.EducationCategory.YEAR12.ToString()));
+            var year12ButtonNavPage = new Year12ButtonNav();
+
+            await Navigation.PushModalAsync(year12ButtonNavPage);
         }
 
         async void Year23ButtonClick(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new EducationInfoDisplay(Models.Education.EducationCategory.YEAR23.ToString()));
+            var year23ButtonNavPage = new Year23ButtonNav();
+
+            await Navigation.PushModalAsync(year23ButtonNavPage);
         }
     }
 }

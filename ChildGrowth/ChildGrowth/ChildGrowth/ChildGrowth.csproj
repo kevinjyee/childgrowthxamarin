@@ -47,7 +47,6 @@
     <Compile Include="Converters\ShortDatePatternConverter.cs" />
     <Compile Include="Converters\ToUpperConverter.cs" />
     <Compile Include="Converters\WholePercentToDecimalPercent.cs" />
-    <Compile Include="Factory\DataFactory.cs" />
     <Compile Include="Models\Education\Article.cs" />
     <Compile Include="Models\Education\EducationCategory.cs" />
     <Compile Include="Models\MediaUtil\Media.cs" />
@@ -61,6 +60,22 @@
     <Compile Include="Models\Milestones\MilestoneWithResponse.cs" />
     <Compile Include="Models\Milestones\UnansweredMilestones.cs" />
     <Compile Include="Models\Settings\Language.cs" />
+    <Compile Include="Pages\Education\Year23ButtonNav.xaml.cs">
+      <DependentUpon>Year23ButtonNav.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Education\Year12ButtonNav.xaml.cs">
+      <DependentUpon>Year12ButtonNav.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Education\Year01ButtonNav.xaml.cs">
+      <DependentUpon>Year01ButtonNav.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Education\EducationButtonNav.xaml.cs">
+      <DependentUpon>EducationButtonNav.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Education\EducationInfoDisplay.xaml.cs">
+      <DependentUpon>EducationInfoDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Education\EducationInfoRepository.cs" />
     <Compile Include="Pages\Milestones\CardStackView.cs" />
     <Compile Include="Pages\Milestones\CardView.cs" />
     <Compile Include="Pages\Milestones\MainPageViewModel.cs" />
@@ -259,6 +274,34 @@
   <ItemGroup>
     <EmbeddedResource Include="Pages\Milestones\MilestonesHistory.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Education\EducationButtonNav.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Education\EducationInfoDisplay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Education\Year01ButtonNav.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Education\Year12ButtonNav.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Education\Year23ButtonNav.xaml">
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

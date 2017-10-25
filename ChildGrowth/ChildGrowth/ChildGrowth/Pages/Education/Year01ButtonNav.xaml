@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ChildGrowth.Pages.Education.Year01ButtonNav">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid>
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="*"/>
+
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="*"/>
+
+                    <ColumnDefinition Width="*"/>
+
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="generalButton" Grid.Column="0" Grid.Row="0" Text="General" Clicked="GeneralButtonClick">
+                    <Image Source="general.png"></Image>
+                </Button>
+                <Button x:Name="breastfeedingButton" Grid.Column="1" Grid.Row="0" Text="Breastfeeding" Clicked="BreastfeedingButtonClick">
+                    <Image Source="breastfeeding.png"></Image>
+                </Button>
+                <Button x:Name="feedingNutritionButton" Grid.Column="0" Grid.Row="1" Text="Feeding and Nutrition" Clicked="FeedingNutritionButtonClick">
+                    <Image Source="feedingnutrition.png"></Image>
+                </Button>
+                <Button x:Name="sleepButton" Grid.Column="1" Grid.Row="1" Text="Sleep" Clicked="SleepButtonClick">
+                    <Image Source="sleep.png"></Image>
+                </Button>
+                <Button x:Name="teethingButton" Grid.Column="0" Grid.Row="2" Text="Teething" Clicked="TeethingButtonClick">
+                    <Image Source="teething.png"></Image>
+                </Button>
+                <Button x:Name="bathingSkincareButton" Grid.Column="1" Grid.Row="2" Text="Bathing and Skincare" Clicked="BathingSkincareButtonClick">
+                    <Image Source="bathingskincare.png"></Image>
+                </Button>
+                <Button x:Name="diapersClothingButton" Grid.Column="0" Grid.Row="3" Text="Diapers and Clothing" Clicked="DiapersClothingButtonClick">
+                    <Image Source="diapersclothing.png"></Image>
+                </Button>
+                <Button x:Name="milestonesY1Button" Grid.Column="1" Grid.Row="3" Text="Bathing and Skincare" Clicked="MilestonesY1ButtonClick">
+                    <Image Source="milestonesY1.png"></Image>
+                </Button>
+                
+                // todo: 
+                //       figure out the layout
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
