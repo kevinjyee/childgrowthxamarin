@@ -20,11 +20,11 @@ namespace ChildGrowth.Pages.Milestones
             listView.SelectionChanging += ListView_SelectionChanging;
         }
 
-        
+
 
         private void ListView_SelectionChanging(object sender, ItemSelectionChangingEventArgs e)
         {
-            var M = (MilestonesInfo) e.AddedItems[0];
+            var M = (MilestonesInfo)e.AddedItems[0];
             //if (e.AddeItems.Count > 0 && e.AddedItems[0] == ViewModel.Items[0])
             //    e.Cancel = true;
 
@@ -37,11 +37,16 @@ namespace ChildGrowth.Pages.Milestones
 
     {
 
-        Label MName, isTakenLabel;
+        public Label Name { get; set; }
+        public Image Photo { get; set; }
 
-        Button isTakenButton;
-
-        int isTaken;
+        public Label Location { get; set; }
+        public Label Description { get; set; }
+        public Label firstDesc { get; set; }
+        public Label firstDesc2 { get; set; }
+        public int ID { get; set; }
+        public Image Like { get; set; }
+        public Image DisLike { get; set; }
 
         MilestonesInfo M;
 
@@ -50,241 +55,133 @@ namespace ChildGrowth.Pages.Milestones
         {
             this.M = m;
 
+            // Name.Text = m.CategoryName;
+            // Description.Text =m.CategoryDescription;
+            // firstDesc.Text = "";
+            //firstDesc2.Text = "";
+            //Photo.Source = ImageSource.FromUri(); //ImageSource.FromFile(ItemsSource[itemIndex].Photo);
+            //card.Photo.Source = ImageSource.FromResource(ItemsSource[itemIndex].Photo);
 
-            BackgroundColor = Color.FromRgb(197, 255, 255);
 
-            MName = new Label
+            RelativeLayout view = new RelativeLayout();
+
+            // box view as background
+            // white for now.
+            BoxView background = new BoxView
             {
-
-                Text = M.CategoryName,
-
-                TextColor = Color.FromHex("#5069A1"),
-
-                FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
-
-                HorizontalOptions = LayoutOptions.EndAndExpand,
-
-                VerticalOptions = LayoutOptions.Center,
-
-
-
+                Color = Color.White,
+                Scale = 4,
+                InputTransparent = true
             };
+            // put it in my stack
+            view.Children.Add(background,
+                Constraint.Constant(0),
+                Constraint.Constant(0),
+                Constraint.RelativeToParent((parent) => { return parent.Width; }),
+                Constraint.RelativeToParent((parent) => { return parent.Height; }));
 
-            isTakenButton = new Button
+            // backgroud of background (gray) 
+            BoxView boxView1 = new BoxView
             {
-
-                VerticalOptions = LayoutOptions.Center,
-
-                HorizontalOptions = LayoutOptions.EndAndExpand,
-
-                BorderRadius = 100,
-
-                WidthRequest = 45,
-
-                HeightRequest = 50,
-
+                Color = Color.FromRgb(245, 245, 245),
+                InputTransparent = true
             };
+            // put in stack
+            view.Children.Add(boxView1,
+                Constraint.Constant(0),
+                Constraint.Constant(-30),
+                Constraint.RelativeToParent((parent) => { return parent.Width; }),
+                Constraint.RelativeToParent((parent) => { return parent.Height; }));
 
-            isTakenLabel = new Label
+            // item images
+            Photo = new Image()
             {
+                InputTransparent = true,
+                Aspect = Aspect.Fill,
+                Scale = 0.95
+            };
+            // put in stack
+            view.Children.Add(Photo,
+                Constraint.RelativeToParent((parent) => { double w = parent.Width * 1; return ((parent.Width - w) / 2); }),
+                Constraint.Constant(10),
+                Constraint.RelativeToParent((parent) => { return parent.Width; }),
+                Constraint.RelativeToParent((parent) => { return (parent.Height * 0.75); }));
 
-                TextColor = Color.FromHex("#5069A1"),
 
+
+            // item ttitle 
+
+            Name = new Label()
+            {
+                TextColor = Color.Black,
+                FontSize = 22, //MainPage.screenHeight / 36.8,
+                InputTransparent = true,
                 FontAttributes = FontAttributes.Bold,
-
-                VerticalOptions = LayoutOptions.Center,
-
-                HorizontalOptions = LayoutOptions.EndAndExpand,
-
-                FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label))
-
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                HorizontalTextAlignment = TextAlignment.Center
             };
 
+            view.Children.Add(Name,
+                Constraint.Constant(0),
+                Constraint.RelativeToParent((parent) => { return parent.Height - parent.Height - 30; }),
+                Constraint.RelativeToParent((parent) => { return parent.Width; }),
+                Constraint.Constant(65));
 
 
-
-
-            isTakenButton.Clicked += (sender, e) => {
-
-                if (isTaken == 1)
-                {
-
-                    //update database here
-
-
-                    //       isTakenButton.Image = (FileImageSource)ImageSource.FromFile("X.png");
-
-                    isTakenButton.BackgroundColor = Color.Transparent;
-
-                    isTakenLabel.Text = "Not Taken";
-
-                    isTaken = 0;
-
-                }
-                else if (isTaken == 0)
-                {
-
-                    //     isTakenButton.Image = (FileImageSource)ImageSource.FromFile("right.png");
-
-                    isTakenButton.BackgroundColor = Color.Transparent;
-
-                    isTakenLabel.Text = "Taken";
-
-                    isTaken = 1;
-
-
-
-                }
-
-            };
-
-
-
-            var VInfo = new Label
+            // item description 
+            Description = new Label()
             {
-
-                Text = M.CategoryDescription,
-
-                TextColor = Color.FromHex("#5069A1"),
-
-                FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
-
-                HorizontalOptions = LayoutOptions.End
-
+                TextColor = Color.Black,
+                FontSize = 20, //MainPage.screenHeight / 40.8, //Font size 18 40.8
+                InputTransparent = true
             };
 
+            view.Children.Add(Description,
+                Constraint.RelativeToParent((parent) => { return parent.Width - parent.Width + 5; }),
+                Constraint.RelativeToParent((parent) => { return parent.Height - 80; }),
+                //Constraint.RelativeToParent((parent) => { return parent.Height - 80; }), //MIDDLE
+                Constraint.RelativeToParent((parent) => { return parent.Width; }),
+                Constraint.Constant(68));
 
 
-
-            //parse childs birthday
-            //DateTime Vacc_Time = DateTime.ParseExact(c.birthDate, "ddMMyyyy", null).AddMonths(when);
-
-
-            /*
-            var date = new Label
+            firstDesc = new Label()
             {
-
-                //Text = "Vacinnation date   :      " + Vacc_Time.Year + " / " + Vacc_Time.Month + " / " + Vacc_Time.Day,
-
-                TextColor = Color.FromHex("#FFA4C1"),
-
-                FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
-
-                FontAttributes = FontAttributes.Bold,
-
-                HorizontalOptions = LayoutOptions.Center
-
+                TextColor = Color.Black,
+                FontSize = 20, //MainPage.screenHeight / 36.8, //Font size 20
+                InputTransparent = true
             };
-            */
+
+            view.Children.Add(firstDesc,
+                Constraint.RelativeToParent((parent) => { return parent.Width - parent.Width + 5; }),
+                Constraint.RelativeToParent((parent) => { return parent.Height - parent.Height + 10; }),
+                //Constraint.RelativeToParent((parent) => { return parent.Height - 80; }), //MIDDLE
+                Constraint.RelativeToParent((parent) => { return parent.Width; }),
+                Constraint.Constant(500));
 
 
-            Content = new StackLayout
+            firstDesc2 = new Label()
             {
-
-
-
-                Padding = new Thickness(0, 20, 0, 0),
-
-                Orientation = StackOrientation.Vertical,
-
-                HorizontalOptions = LayoutOptions.FillAndExpand,
-
-                Children = {
-
-                    new StackLayout{
-
-                        BackgroundColor = Color.FromHex("#FFA4C1"),
-
-                        Orientation = StackOrientation.Horizontal,
-
-                        HorizontalOptions = LayoutOptions.FillAndExpand,
-
-                        Padding = new Thickness(20,0,20,20),
-
-                        Children={
-
-                             isTakenLabel, isTakenButton, MName
-
-                        }
-
-                    },
-
-                    new StackLayout{
-
-                        Padding = new Thickness(0,0 , 0, 0),
-
-                        Children = {
-
-                            //date
-
-                        }
-
-                    },
-
-                    new ScrollView{
-
-
-
-                        Content = new StackLayout{
-
-                            HorizontalOptions = LayoutOptions.End,
-
-                            Padding = new Thickness(10, 5, 10, 10),
-
-                            Spacing = 2,
-
-                            Children = {
-
-                                VInfo
-
-                            }
-
-                        }
-
-                    }
-
-                }
-
+                TextColor = Color.DimGray,
+                FontSize = 12,
+                InputTransparent = true,
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                HorizontalTextAlignment = TextAlignment.Center
             };
+
+            view.Children.Add(firstDesc2,
+                Constraint.RelativeToParent((parent) => { return parent.Width - parent.Width + 5; }),
+                Constraint.RelativeToParent((parent) => { return parent.Height - 85; }),
+                //Constraint.RelativeToParent((parent) => { return parent.Height - 80; }), //MIDDLE
+                Constraint.RelativeToParent((parent) => { return parent.Width; }),
+                Constraint.RelativeToParent((parent) => { return parent.Height; }));
+
+            Name.Text = m.CategoryName;
+            Description.Text = m.CategoryDescription;
+            firstDesc.Text = "";
+            firstDesc2.Text = "";
+            Photo.Source = ImageSource.FromUri(new Uri("http://runt-of-the-web.com/wordpress/wp-content/uploads/2017/04/vending-machine-1.jpg"));
+            this.Content = view;
 
         }
-
-
-
-        protected override void OnAppearing()
-
-        {
-
-            //isTaken = 
-
-
-
-            if (isTaken == 1)
-            {
-
-                //  isTakenButton.Image = (FileImageSource)ImageSource.FromFile("right.png");
-
-                isTakenButton.BackgroundColor = Color.Transparent;
-
-                isTakenLabel.Text = "Taken";
-
-
-
-            }
-            else if (isTaken == 0)
-            {
-
-                // isTakenButton.Image = (FileImageSource)ImageSource.FromFile("X.png");
-
-                isTakenButton.BackgroundColor = Color.Transparent;
-
-                isTakenLabel.Text = "Not Taken";
-
-            }
-
-            base.OnAppearing();
-
-        }
-
     }
 }
