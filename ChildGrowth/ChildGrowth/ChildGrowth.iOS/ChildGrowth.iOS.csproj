@@ -244,13 +244,106 @@
     <BundleResource Include="Resources\blue_yes.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\class-project.gif" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\right.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\X.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\b_cal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\b_caret.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\behavior.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\black_empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\blue_empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\check_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\circle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\cognitive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\diseases.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\doctor_visits.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\infant.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\languagecommunication.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\learning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\log_in.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\minus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\movement.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\safety.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\socialemotional.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\toddler12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\toddler23.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\toilet_training.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\w_cal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\w_caret.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\wborder_no.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\wborder_yes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\white_no.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\white_yes.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
