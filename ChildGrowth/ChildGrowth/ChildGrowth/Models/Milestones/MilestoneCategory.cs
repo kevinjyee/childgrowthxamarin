@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace ChildGrowth.Models
 {
-    public class Category
+    public enum MilestoneCategory
     {
-        public int CategoryId { get; set; }
-        public string CategoryTitle { get; set; }
+        SOCIAL_AND_EMOTIONAL,
+        COMMUNICATION,
+        COGNITIVE,
+        MOVEMENT
     }
 }

@@ -3,7 +3,6 @@ using SQLite.Net;
 using SQLite.Net.Async;
 using SQLite.Net.Interop;
 using Xamarin.Forms;
-using ChildGrowth.Factory;
 
 namespace ChildGrowth.Persistence
 {

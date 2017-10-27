@@ -47,8 +47,20 @@
     <Compile Include="Converters\ShortDatePatternConverter.cs" />
     <Compile Include="Converters\ToUpperConverter.cs" />
     <Compile Include="Converters\WholePercentToDecimalPercent.cs" />
-    <Compile Include="Factory\DataFactory.cs" />
     <Compile Include="Pages\Education\EducationInfo.cs" />
+    <Compile Include="Models\Education\Article.cs" />
+    <Compile Include="Models\Education\EducationCategory.cs" />
+    <Compile Include="Models\MediaUtil\Media.cs" />
+    <Compile Include="Models\MediaUtil\MediaType.cs" />
+    <Compile Include="Models\Milestones\InvalidMilestoneCategoryException.cs" />
+    <Compile Include="Models\Milestones\BinaryAnswerEnum.cs" />
+    <Compile Include="Models\Milestones\MilestoneAnswer.cs" />
+    <Compile Include="Models\Milestones\MilestoneDueDate.cs" />
+    <Compile Include="Models\Milestones\Milestone.cs" />
+    <Compile Include="Models\Milestones\MilestoneHistory.cs" />
+    <Compile Include="Models\Milestones\MilestoneWithResponse.cs" />
+    <Compile Include="Models\Milestones\UnansweredMilestones.cs" />
+    <Compile Include="Models\Settings\Language.cs" />
     <Compile Include="Pages\Milestones\CardStackView.cs" />
     <Compile Include="Pages\Milestones\CardView.cs" />
     <Compile Include="Pages\Milestones\MainPageViewModel.cs" />
@@ -67,7 +79,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="CsvFileReader.cs" />
-    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Milestones\MilestoneCategory.cs" />
     <Compile Include="Models\Child\Child.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Measurements\GrowthData.cs" />
@@ -105,7 +117,7 @@
     <Compile Include="Pages\Vaccinations\Vaccinations.xaml.cs">
       <DependentUpon>Vaccinations.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Persistence\MilestonesDatabase.cs" />
+    <Compile Include="Persistence\MilestoneDatabaseAccess.cs" />
     <Compile Include="Persistence\SQLiteConnectionException.cs" />
     <Compile Include="Persistence\ChildDatabase.cs" />
     <Compile Include="Persistence\ISQLite.cs" />
@@ -204,7 +216,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\Settings\" />
     <Folder Include="ViewModels\Master\" />
   </ItemGroup>
   <ItemGroup>
