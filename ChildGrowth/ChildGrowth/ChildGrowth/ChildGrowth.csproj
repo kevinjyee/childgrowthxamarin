@@ -122,6 +122,10 @@
     <Compile Include="ViewModels\Splash\SplashViewModel.cs" />
     <Compile Include="Views\Base\ModelBoundContentView.cs" />
     <Compile Include="WHOData.cs" />
+    <Compile Include="Pages\Menu\MenuMasterDetailPage.xaml.cs">
+      <DependentUpon>MenuMasterDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Constants\ChildUser.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainPage.xaml">
@@ -130,6 +134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="App.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Menu\MenuMasterDetailPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -205,6 +212,7 @@
   <ItemGroup>
     <Folder Include="Models\Settings\" />
     <Folder Include="ViewModels\Master\" />
+    <Folder Include="Constants\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\Master\MasterTab.xaml">

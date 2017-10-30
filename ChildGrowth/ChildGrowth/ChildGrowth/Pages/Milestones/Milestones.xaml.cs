@@ -15,83 +15,92 @@ namespace ChildGrowth.Pages.Milestones
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Milestones : ContentPage
     {
+        Child currentChild;
         CardStackView cardStack;
         MainPageViewModel viewModel = new MainPageViewModel();
         bool historyView = false;
 
+        public Milestones(Child C){
+            currentChild = C;
+            this.Title = C.Name;
+            initializeMilestones();
+        }
+
         public Milestones()
         {
-                //TODO: Have the Initialize Components View show up.
-                this.BindingContext = viewModel;
-                this.BackgroundColor = Color.Black;
+                initializeMilestones();
+        }
 
-                RelativeLayout view = new RelativeLayout();
+        private void initializeMilestones(){
+            //TODO: Have the Initialize Components View show up.
+            this.BindingContext = viewModel;
+            this.BackgroundColor = Color.Black;
 
-                //Initialize card stack and add in listener functions.   
-                cardStack = new CardStackView();
-                cardStack.SetBinding(CardStackView.ItemsSourceProperty, "ItemsList");
-                cardStack.SwipedLeft += SwipedLeft;
-                cardStack.SwipedRight += SwipedRight;
+            RelativeLayout view = new RelativeLayout();
 
-                // Dislike_button is our no button. 
-                Button dislike_but = new Button()
-                {
-                    Image = (FileImageSource)ImageSource.FromFile("blue_no.png"),
-                    Scale = 2,
-                    BackgroundColor = Color.Transparent,
-                    BorderColor = Color.Transparent,
-                    BorderRadius = 0,
-                    BorderWidth = 0
-                };
+            //Initialize card stack and add in listener functions.   
+            cardStack = new CardStackView();
+            cardStack.SetBinding(CardStackView.ItemsSourceProperty, "ItemsList");
+            cardStack.SwipedLeft += SwipedLeft;
+            cardStack.SwipedRight += SwipedRight;
 
-                // Like button is our yes button
-                Button like_but = new Button()
-                {
-                    Image = (FileImageSource)ImageSource.FromFile("blue_yes.png"),
-                    Scale = 2,
-                    BackgroundColor = Color.Transparent,
-                    BorderColor = Color.Transparent,
-                    BorderRadius = 0,
-                    BorderWidth = 0
-                };
+            // Dislike_button is our no button. 
+            Button dislike_but = new Button()
+            {
+                Image = (FileImageSource)ImageSource.FromFile("blue_no.png"),
+                Scale = 2,
+                BackgroundColor = Color.Transparent,
+                BorderColor = Color.Transparent,
+                BorderRadius = 0,
+                BorderWidth = 0
+            };
 
-                // Click Events. When Like and dislike is handled.
-                dislike_but.Clicked += Dislike_but_Clicked;
-                like_but.Clicked += Like_but_Clicked;
+            // Like button is our yes button
+            Button like_but = new Button()
+            {
+                Image = (FileImageSource)ImageSource.FromFile("blue_yes.png"),
+                Scale = 2,
+                BackgroundColor = Color.Transparent,
+                BorderColor = Color.Transparent,
+                BorderRadius = 0,
+                BorderWidth = 0
+            };
 
-                // Add card stack to view model 
-                view.Children.Add(cardStack,
-                    Constraint.Constant(30),
-                    Constraint.Constant(60),
-                    Constraint.RelativeToParent((parent) => { return parent.Width - 60; }),
-                    Constraint.RelativeToParent((parent) => { return parent.Height - 140; }));
+            // Click Events. When Like and dislike is handled.
+            dislike_but.Clicked += Dislike_but_Clicked;
+            like_but.Clicked += Like_but_Clicked;
 
-                // Add dislike buttons to viewmodel
-                view.Children.Add(dislike_but,
-                    Constraint.RelativeToParent((parent) => { return parent.Width - parent.Width + 75; }),
-                    Constraint.RelativeToParent((parent) => { return parent.Height - 80; }),
-                    //Constraint.RelativeToParent((parent) => { return parent.Height - 80; }), //MIDDLE
-                    Constraint.Constant(75),
-                    Constraint.Constant(50));
+            // Add card stack to view model 
+            view.Children.Add(cardStack,
+                Constraint.Constant(30),
+                Constraint.Constant(60),
+                Constraint.RelativeToParent((parent) => { return parent.Width - 60; }),
+                Constraint.RelativeToParent((parent) => { return parent.Height - 140; }));
 
-                // Add like buttons to viewmodel
-                view.Children.Add(like_but,
-                    Constraint.RelativeToParent((parent) => { return parent.Width - 135; }),
-                    Constraint.RelativeToParent((parent) => { return parent.Height - 80; }),
-                    //Constraint.RelativeToParent((parent) => { return parent.Height - 80; }), //MIDDLE
-                    Constraint.Constant(75),
-                    Constraint.Constant(50));
+            // Add dislike buttons to viewmodel
+            view.Children.Add(dislike_but,
+                Constraint.RelativeToParent((parent) => { return parent.Width - parent.Width + 75; }),
+                Constraint.RelativeToParent((parent) => { return parent.Height - 80; }),
+                //Constraint.RelativeToParent((parent) => { return parent.Height - 80; }), //MIDDLE
+                Constraint.Constant(75),
+                Constraint.Constant(50));
 
-                
-                this.LayoutChanged += (object sender, EventArgs e) =>
-                {
-                    cardStack.CardMoveDistance = (int)(this.Width / 3);
-                };
+            // Add like buttons to viewmodel
+            view.Children.Add(like_but,
+                Constraint.RelativeToParent((parent) => { return parent.Width - 135; }),
+                Constraint.RelativeToParent((parent) => { return parent.Height - 80; }),
+                //Constraint.RelativeToParent((parent) => { return parent.Height - 80; }), //MIDDLE
+                Constraint.Constant(75),
+                Constraint.Constant(50));
+
+
+            this.LayoutChanged += (object sender, EventArgs e) =>
+            {
+                cardStack.CardMoveDistance = (int)(this.Width / 3);
+            };
 
             this.Content = view;
         }
-
-        
         //  Liked button is clicked.
         private void Like_but_Clicked(object sender, EventArgs e)
         {
@@ -177,6 +186,7 @@ namespace ChildGrowth.Pages.Milestones
             cardStack.GetNextCard().Scale = 1;
             
         }
+
     }
 }
     

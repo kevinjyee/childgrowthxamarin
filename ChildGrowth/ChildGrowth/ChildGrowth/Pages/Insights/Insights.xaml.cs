@@ -12,8 +12,14 @@ namespace ChildGrowth.Pages.Insights
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Insights : ContentPage
     {
+        private Child currentChild { get; set; }
         public Insights()
         {
+            InitializeComponent();
+        }
+        public Insights(Child C){
+            currentChild = C;
+            this.Title = currentChild.Name;
             InitializeComponent();
         }
     }

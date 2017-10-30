@@ -116,6 +116,13 @@
     <BundleResource Include="Resources\Icon-Small%402x.png" />
     <BundleResource Include="Resources\Icon-Small%403x.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+    <BundleResource Include="Resources\head_circumference_clicked.png" />
+    <BundleResource Include="Resources\head_circumference_unclicked.png" />
+    <BundleResource Include="Resources\height_clicked.png" />
+    <BundleResource Include="Resources\height_unclicked.png" />
+    <BundleResource Include="Resources\weight_clicked.png" />
+    <BundleResource Include="Resources\weight_unclicked.png" />
+    <BundleResource Include="Resources\menu_button.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
