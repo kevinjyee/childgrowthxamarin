@@ -23,8 +23,8 @@
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="95" />
-                        <ColumnDefinition Width="75" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="78" />
+                        <ColumnDefinition Width="175" />
                     </Grid.ColumnDefinitions>
                     <Button x:Name="WeightButton" Grid.Column="0" Grid.Row="0" Image="weight_unclicked.png" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" Clicked="OnWeightClicked" />
                     <Button x:Name="HeightButton" Grid.Column="1" Grid.Row="0" Image="height_unclicked.png" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" Clicked="OnHeightClicked" />
@@ -60,7 +60,6 @@
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="Entry Date: " TextColor="White" VerticalOptions="Center" Margin="15, 0, 0, 0" WidthRequest="150" />
                                 <DatePicker x:Name="EntryDate" Date="{x:Static sys:DateTime.Today}" Format="MMM d yyyy" MaximumDate="{x:Static sys:DateTime.Today}" VerticalOptions="Center" WidthRequest="200" IsEnabled="{Binding DateEnabled}" DateSelected="EntryDate_DateSelected" />
-                                <Picker x:Name="ChildPicker" Title="Select a child" ItemsSource="{Binding Children}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedChild}" SelectedIndexChanged="ChildPicker_SelectedIndexChanged" />
                             </StackLayout>
                         </ViewCell>
                     </TableSection>

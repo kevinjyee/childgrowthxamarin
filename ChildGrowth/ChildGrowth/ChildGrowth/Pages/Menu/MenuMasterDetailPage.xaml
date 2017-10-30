@@ -3,15 +3,28 @@
     <MasterDetailPage.Master>
         <ContentPage Padding="10" Title="Children" BackgroundColor="#06A5BD" Icon="menu_button.png">
             <ContentPage.Content>
-                <StackLayout Margin = "5,30,5,5">
+                <StackLayout Margin="5,30,5,5">
                     <Label Text="Children" TextColor="White" FontSize="30" XAlign="Center" />
-                    <ListView x:Name="ChildList" ItemsSource ="{Binding Children}" BindingContext="{Binding Name}" BackgroundColor="#06A5BD" SeparatorColor="White"/>
+                    <ListView x:Name="ChildList" ItemsSource="{Binding Child}" BackgroundColor="#06A5BD" SeparatorColor="White">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.ContextActions>
+                                        <MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+                                    </ViewCell.ContextActions>
+                                    <StackLayout Padding="15,15">
+                                        <Label Text="{Binding Name}" />
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                     <Button Text="Add New Child" TextColor="White" Clicked="Add_Children_Handler" />
                 </StackLayout>
             </ContentPage.Content>
         </ContentPage>
     </MasterDetailPage.Master>
     <MasterDetailPage.Detail>
-        <TabbedPage x:Name="TabbedPage" />
+        <TabbedPage x:Name="TabbedPage"  />
     </MasterDetailPage.Detail>
 </MasterDetailPage>

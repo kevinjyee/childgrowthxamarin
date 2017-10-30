@@ -12,25 +12,29 @@ namespace ChildGrowth.Pages.Vaccinations
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Vaccinations : ContentPage
     {
-
+        private Child currentChild { get; set; }
         public static List<VaccinationTable> Vaccines = new List<VaccinationTable>();
-
         ListView vaccinationList = new ListView
         {
             RowHeight = 40
         };
+        public Vaccinations(Child C){
+            currentChild = C;
+            this.Title = currentChild.Name;
+            initializeVaccinations();
+        }
 
         public Vaccinations()
         {
+            initializeVaccinations(); 
+        }
+
+        private void initializeVaccinations(){
             var layout = new StackLayout();
 
             BackgroundColor = Color.FromRgb(94, 196, 225);
 
             VaccinationRepository();
-            
-
-            
-
 
             vaccinationList.ItemsSource = Vaccines;
             vaccinationList.ItemTemplate = new DataTemplate(typeof(VaccinationCell));
@@ -42,7 +46,7 @@ namespace ChildGrowth.Pages.Vaccinations
 
             vaccinationList.ItemTapped += (Sender, Event) => {
 
-               
+
             };
 
             Content = new StackLayout
@@ -58,7 +62,6 @@ namespace ChildGrowth.Pages.Vaccinations
                 }
             };
 
-            
         }
 
         protected override void OnAppearing()

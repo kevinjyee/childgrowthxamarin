@@ -9,26 +9,25 @@ using System.Collections.ObjectModel;
 using ChildGrowth.Persistence;
 using ChildGrowth.Pages.AddChild;
 using System.ComponentModel;
+using ChildGrowth.Constants;
 
 namespace ChildGrowth
 {
     public partial class MainPage : ContentPage
     {
-        private Child CurrentChild{get; set;}
+        public Child CurrentChild{ get; set;}
 
         public MainPage(Child child)
         {
-            this.Title = child.Name;
             CurrentChild = child;
+            this.Title = CurrentChild.Name;
             InitializeComponent();
-            UpdateChildPicker();
             UpdateDateSelectionEnabledStatus(false);
         }
 
         public MainPage()
         {
             InitializeComponent();
-            UpdateChildPicker();
             UpdateDateSelectionEnabledStatus(false);
         }
 
@@ -194,16 +193,10 @@ namespace ChildGrowth
         override
         protected void OnAppearing()
         {
-            UpdateChildPicker();
+            if (CurrentChild != null){
+                this.Title = CurrentChild.Name;
+            }
             UpdateGraph();
-        }
-
-        private async void UpdateChildPicker()
-        {
-            ChildDatabaseAccess childDatabase = new ChildDatabaseAccess();
-            await childDatabase.InitializeAsync();
-            List<Child> children = childDatabase.GetAllUserChildrenAsync().Result;
-            this.ChildPicker.ItemsSource = children;
         }
 
         private async void UpdateGraph()
@@ -224,35 +217,15 @@ namespace ChildGrowth
             this.HeadEntry.IsEnabled = isEnabled;
         }
 
-        void ChildPicker_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var picker = (Picker)sender;
-            int selectedIndex = picker.SelectedIndex;
-
-            if (selectedIndex != -1)
-            {
-                Child currentChild = (Child)picker.ItemsSource[selectedIndex];
-                this.Title = currentChild.Name;
-                UpdateDateSelectionEnabledStatus(true);
-            }
-            else
-            {
-                UpdateDateSelectionEnabledStatus(true);
-            }
-        }
 
         private void EntryDate_DateSelected(object sender, DateChangedEventArgs e)
         {
-            Picker picker = this.ChildPicker;
-            int selectedIndex = picker.SelectedIndex;
-            if (selectedIndex != -1)
-            {
-                Child currentChild = (Child)picker.ItemsSource[selectedIndex];
-                if (currentChild != null)
+             Child currentChild = CurrentChild;
+             if (currentChild != null)
                 {
                     TryLoadingMeasurementDataForDateAndChild(this.EntryDate.Date, currentChild);
                 }
-            }
+
         }
 
         private void TryLoadingMeasurementDataForDateAndChild(DateTime date, Child currentChild)

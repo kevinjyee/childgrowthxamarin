@@ -125,9 +125,7 @@
     <Compile Include="Pages\Menu\MenuMasterDetailPage.xaml.cs">
       <DependentUpon>MenuMasterDetailPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Menu\MenuMasterPage.xaml.cs">
-      <DependentUpon>MenuMasterPage.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Constants\ChildUser.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainPage.xaml">
@@ -139,9 +137,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\Menu\MenuMasterDetailPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Pages\Menu\MenuMasterPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -217,6 +212,7 @@
   <ItemGroup>
     <Folder Include="Models\Settings\" />
     <Folder Include="ViewModels\Master\" />
+    <Folder Include="Constants\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\Master\MasterTab.xaml">
