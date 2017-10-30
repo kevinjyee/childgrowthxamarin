@@ -44,7 +44,7 @@ namespace ChildGrowth.Persistence
             return WriteOperations.DeleteAllAsync(_connection, children);
         }
 
-        private readonly string DB_FILE_NAME = "ChildDatabase.db3";
+        private new readonly string DB_FILE_NAME = "ChildDatabase.db3";
 
     }
 }
