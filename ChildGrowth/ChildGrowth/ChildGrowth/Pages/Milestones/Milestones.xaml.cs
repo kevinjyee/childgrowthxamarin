@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Syncfusion.ListView.XForms;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,12 +15,23 @@ namespace ChildGrowth.Pages.Milestones
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Milestones : ContentPage
     {
+        Child currentChild;
         CardStackView cardStack;
         MainPageViewModel viewModel = new MainPageViewModel();
+        bool historyView = false;
 
+        public Milestones(Child C){
+            currentChild = C;
+            this.Title = C.Name;
+            initializeMilestones();
+        }
 
         public Milestones()
         {
+                initializeMilestones();
+        }
+
+        private void initializeMilestones(){
             //TODO: Have the Initialize Components View show up.
             this.BindingContext = viewModel;
             this.BackgroundColor = Color.Black;
@@ -82,7 +94,6 @@ namespace ChildGrowth.Pages.Milestones
                 Constraint.Constant(50));
 
 
-
             this.LayoutChanged += (object sender, EventArgs e) =>
             {
                 cardStack.CardMoveDistance = (int)(this.Width / 3);
@@ -90,13 +101,16 @@ namespace ChildGrowth.Pages.Milestones
 
             this.Content = view;
         }
-
         //  Liked button is clicked.
         private void Like_but_Clicked(object sender, EventArgs e)
         {
             SwipedRight(cardStack.itemIndex);
             cardStack.GetNextCard().Scale = 1;
-            cardStack.ShowNextCard();
+            if (!cardStack.ShowNextCard())
+            {
+                Navigation.PushAsync(new NavigationPage(new MilestonesHistory()));
+            }
+
         }
 
         // Dislike button is clicked
@@ -104,7 +118,37 @@ namespace ChildGrowth.Pages.Milestones
         {
             SwipedLeft(cardStack.itemIndex);
             cardStack.GetNextCard().Scale = 1;
-            cardStack.ShowNextCard();
+            if (!cardStack.ShowNextCard())
+            {
+                
+                Navigation.PushAsync(new NavigationPage(new MilestonesHistory()));
+            };
+        }
+
+        public void showHistory()
+        {
+
+            MilestonesInfoRepository viewModel = new MilestonesInfoRepository();
+            listView = new SfListView();
+            listView.ItemSize = 100;
+            listView.ItemsSource = viewModel.MilestonesInfo;
+            listView.ItemTemplate = new DataTemplate(() => {
+                var grid = new Grid();
+                var bookName = new Label { FontAttributes = FontAttributes.Bold, BackgroundColor = Color.Teal, FontSize = 21 };
+                bookName.SetBinding(Label.TextProperty, new Binding("categoryName"));
+                var bookDescription = new Label { BackgroundColor = Color.Teal, FontSize = 15 };
+                bookDescription.SetBinding(Label.TextProperty, new Binding("categoryDesc"));
+
+                grid.Children.Add(bookName);
+                grid.Children.Add(bookDescription, 1, 0);
+
+                return grid;
+            });
+
+
+
+            this.Content = listView;
+           
         }
 
         HashSet<int> likedIds = new HashSet<int>();
@@ -113,7 +157,9 @@ namespace ChildGrowth.Pages.Milestones
         // Swiped right function
         void SwipedRight(int index)
         {
-            
+            index = (index - 2) < 0 ? -1 * (index - 2) % 4 : (index - 2) % 4;
+            int currID = cardStack.ItemsSource[index].ID;
+            likedIds.Add(currID);
             cardStack.GetNextCard().Scale = 1;
             cardStack.GetTopCard().Scale = 1;
            
@@ -127,7 +173,9 @@ namespace ChildGrowth.Pages.Milestones
         // Swiped left function
         void SwipedLeft(int index)
         {
-            //dislikedIds.Add(cardStack.ItemsSource[index].ID);
+            index = (index - 2) < 0 ? -1 * (index - 2) % 4 : (index - 2) % 4;
+            int currID = cardStack.ItemsSource[index].ID;
+            dislikedIds.Add(currID);
             cardStack.GetNextCard().Scale = 1;
             cardStack.GetTopCard().Scale = 1;
             
@@ -138,6 +186,7 @@ namespace ChildGrowth.Pages.Milestones
             cardStack.GetNextCard().Scale = 1;
             
         }
+
     }
 }
     

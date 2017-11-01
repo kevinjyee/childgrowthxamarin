@@ -9,17 +9,25 @@ using System.Collections.ObjectModel;
 using ChildGrowth.Persistence;
 using ChildGrowth.Pages.AddChild;
 using System.ComponentModel;
+using ChildGrowth.Constants;
 
 namespace ChildGrowth
 {
     public partial class MainPage : ContentPage
     {
+        public Child CurrentChild{ get; set;}
 
-        
+        public MainPage(Child child)
+        {
+            CurrentChild = child;
+            this.Title = CurrentChild.Name;
+            InitializeComponent();
+            UpdateDateSelectionEnabledStatus(false);
+        }
+
         public MainPage()
         {
             InitializeComponent();
-            UpdateChildPicker();
             UpdateDateSelectionEnabledStatus(false);
         }
 
@@ -68,9 +76,10 @@ namespace ChildGrowth
 
             //TODO STEFAN: Replace this with an await call to SQLite
             ChildDatabaseAccess childDatabase = new ChildDatabaseAccess();
-            Child currentChild = GetCurrentChild();
+            Child currentChild = CurrentChild;
             DateTime selectedDate = GetSelectedDate();
             Units currentUnits = GetCurrentUnits();
+
             if (currentChild != null)
             {
                 try
@@ -106,7 +115,7 @@ namespace ChildGrowth
             viewModel.ChartTitle = "Weight";
             GrowthChart.Text = "Weight";
             ChildDatabaseAccess childDatabaseAccess = new ChildDatabaseAccess();
-            Child currentChild = GetCurrentChild();
+            Child currentChild = CurrentChild;
             viewModel.InputData.Clear();
             if(currentChild == null)
             {
@@ -127,7 +136,7 @@ namespace ChildGrowth
             viewModel.ChartTitle = "Height";
             GrowthChart.Text = "Height";
             ChildDatabaseAccess childDatabaseAccess = new ChildDatabaseAccess();
-            Child currentChild = GetCurrentChild();
+            Child currentChild = CurrentChild;
             if (currentChild == null)
             {
                 await DisplayAlert("Error",
@@ -148,7 +157,7 @@ namespace ChildGrowth
             viewModel.ChartTitle = "Head Circumference";
             GrowthChart.Text = "Head Circumference";
             ChildDatabaseAccess childDatabaseAccess = new ChildDatabaseAccess();
-            Child currentChild = GetCurrentChild();
+            Child currentChild = CurrentChild;
             if (currentChild == null)
             {
                 await DisplayAlert("Error",
@@ -164,20 +173,6 @@ namespace ChildGrowth
         }
 
         // TODO: Change this to get current child from session data.
-        private Child GetCurrentChild()
-        {
-            // Replace this with load method
-            int selectedIndex = this.ChildPicker.SelectedIndex;
-
-            if (selectedIndex != -1)
-            {
-                return (Child)this.ChildPicker.ItemsSource[selectedIndex];
-            }
-            else
-            {
-                return null;
-            }
-        }
 
         // TODO: Set this DateTime from date selected via a calendar widget.
         private DateTime GetSelectedDate()
@@ -195,32 +190,13 @@ namespace ChildGrowth
 
         private static int DEFAULT_MEASUREMENT_VALUE = -1;
 
-        async void Handle_FabClicked(object sender, System.EventArgs e)
-
-        {
-
-
-            var childEntryPage = new ChildEntry();
-
-            await Navigation.PushModalAsync(childEntryPage);
-
-
-        }
-
         override
         protected void OnAppearing()
         {
-            UpdateChildPicker();
+            if (CurrentChild != null){
+                this.Title = CurrentChild.Name;
+            }
             UpdateGraph();
-        }
-
-        private async void UpdateChildPicker()
-        {
-            ChildDatabaseAccess childDatabase = new ChildDatabaseAccess();
-            await childDatabase.InitializeAsync();
-            List<Child> children = childDatabase.GetAllUserChildrenAsync().Result;
-            this.ChildPicker.ItemsSource = children;
-            
         }
 
         private async void UpdateGraph()
@@ -241,53 +217,15 @@ namespace ChildGrowth
             this.HeadEntry.IsEnabled = isEnabled;
         }
 
-        void ChildPicker_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var picker = (Picker)sender;
-            int selectedIndex = picker.SelectedIndex;
-
-            if (selectedIndex != -1)
-            {
-                Child currentChild = (Child)picker.ItemsSource[selectedIndex];
-                this.MeasurementTitle.Text = currentChild.Name;
-                UpdateDateSelectionEnabledStatus(true);
-            }
-            else
-            {
-                UpdateDateSelectionEnabledStatus(true);
-            }
-        }
-
-
-
-        private void UpdateButtonColor(Color color)
-
-        {
-
-            var normal = color;
-
-            var disabled = color.MultiplyAlpha(0.25);
-
-
-
-            fabBtn.NormalColor = normal;
-
-            fabBtn.DisabledColor = disabled;
-
-        }
 
         private void EntryDate_DateSelected(object sender, DateChangedEventArgs e)
         {
-            Picker picker = this.ChildPicker;
-            int selectedIndex = picker.SelectedIndex;
-            if (selectedIndex != -1)
-            {
-                Child currentChild = (Child)picker.ItemsSource[selectedIndex];
-                if (currentChild != null)
+             Child currentChild = CurrentChild;
+             if (currentChild != null)
                 {
                     TryLoadingMeasurementDataForDateAndChild(this.EntryDate.Date, currentChild);
                 }
-            }
+
         }
 
         private void TryLoadingMeasurementDataForDateAndChild(DateTime date, Child currentChild)

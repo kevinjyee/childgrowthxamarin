@@ -15,6 +15,7 @@ namespace ChildGrowth.Pages.Milestones
         {
             public string Name { get; set; }
             public Uri Photo { get; set; }
+            
             public string Description { get; set; }
             public string firstDesc { get; set; }
             public string firstDesc2 { get; set; }
@@ -138,6 +139,7 @@ namespace ChildGrowth.Pages.Milestones
                 card.firstDesc.Text = ItemsSource[itemIndex].firstDesc;
                 card.firstDesc2.Text = ItemsSource[itemIndex].firstDesc2;
                 card.Photo.Source = ImageSource.FromUri(ItemsSource[itemIndex].Photo); //ImageSource.FromFile(ItemsSource[itemIndex].Photo);
+                //card.Photo.Source = ImageSource.FromResource(ItemsSource[itemIndex].Photo);
                 card.ID = ItemsSource[itemIndex].ID;
                 card.IsVisible = true;
                 card.Scale = GetScale(i);
@@ -258,13 +260,13 @@ namespace ChildGrowth.Pages.Milestones
             ignoreTouch = false;
         }
 
-        public void ShowNextCard()
+        public Boolean ShowNextCard()
         {
             // show the next card
             if (cards[0].IsVisible == false && cards[1].IsVisible == false)
             {
                 Setup();
-                return;
+                return true;
             }
 
             var topCard = cards[topCardIndex];
@@ -274,6 +276,7 @@ namespace ChildGrowth.Pages.Milestones
             {
                 // LOOP for now... initilize graph somehow.
                 itemIndex = 0;
+                return false;
                 
             }
 
@@ -292,11 +295,15 @@ namespace ChildGrowth.Pages.Milestones
                 // set the data
                 topCard.Name.Text = ItemsSource[itemIndex].Name;
                 topCard.Description.Text = ItemsSource[itemIndex].Description;
+
                 topCard.Photo.Source = ImageSource.FromUri(ItemsSource[itemIndex].Photo);
+                //topCard.Photo.Source = ImageSource.FromResource(ItemsSource[itemIndex].Photo);
+
 
                 topCard.IsVisible = true;
                 itemIndex++;
             }
+            return true;
         }
 
         // return the next card index from the top

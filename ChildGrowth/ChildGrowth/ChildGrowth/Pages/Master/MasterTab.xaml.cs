@@ -16,11 +16,11 @@ namespace ChildGrowth.Pages.Master
         public MasterTab()
         {
             InitializeComponent();
-            Children.Add(new MainPage() { Icon = "measurements.png" });
-            Children.Add(new Milestones.Milestones() { Icon = "milestones.png" });
-            Children.Add(new Vaccinations.Vaccinations() { Icon = "vaccinations.png" });
-            Children.Add(new Education.Education() { Icon = "education.png" });
-            Children.Add(new Insights.Insights() { Icon = "insights.png" });
+            Children.Add(new NavigationPage(new MainPage()) { Icon = "measurements.png" });
+            Children.Add(new NavigationPage(new Milestones.Milestones()) { Icon = "milestones.png" });
+            Children.Add(new NavigationPage(new Vaccinations.Vaccinations()) { Icon = "vaccinations.png" });
+            Children.Add(new NavigationPage(new Education.Education()) { Icon = "education.png" });
+            Children.Add(new NavigationPage(new Insights.Insights()) { Icon = "insights.png" });
         }
     }
 }

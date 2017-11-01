@@ -30,6 +30,10 @@ namespace ChildGrowth.Pages.AddChild
 
             Boolean missingInfo = false;
 
+            int index = SexEntry.SelectedIndex;
+
+            string sex;
+
             if (nameEntered == null || nameEntered == "")
             {
                 await DisplayAlert("Failed", "Please Enter your child's Name", "OK");
@@ -40,7 +44,7 @@ namespace ChildGrowth.Pages.AddChild
                 await DisplayAlert("Failed", "Please Enter your child's birthday.", "OK");
                 missingInfo = true;
             }
-            else if (genderSelected == Gender.UNSPECIFIED)
+            else if (SexEntry.SelectedIndex == -1)
             {
                 await DisplayAlert("Failed", "Please Enter your child's sex.", "OK");
                 missingInfo = true;
@@ -51,6 +55,13 @@ namespace ChildGrowth.Pages.AddChild
             }
             else
             {
+                sex = (string)SexEntry.ItemsSource[index];
+                if(sex == "Male"){
+                    newChildGender = Gender.MALE;
+
+                } else{
+                    newChildGender = Gender.FEMALE;
+                }
                 ChildDatabaseAccess childDatabase = new ChildDatabaseAccess();
                 await childDatabase.InitializeAsync();
                 Child newChild = new Child(nameEntered, birthdayEntered, genderSelected);
@@ -58,16 +69,6 @@ namespace ChildGrowth.Pages.AddChild
             }
 
             await Navigation.PopModalAsync();
-        }
-
-        private void MaleButton_Clicked(object sender, EventArgs e)
-        {
-            newChildGender = Gender.MALE;
-        }
-
-        private void FemaleButton_Clicked(object sender, EventArgs e)
-        {
-            newChildGender = Gender.FEMALE;
         }
 
         private static Gender newChildGender = Gender.UNSPECIFIED;

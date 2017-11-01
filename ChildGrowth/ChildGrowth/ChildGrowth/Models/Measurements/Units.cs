@@ -16,4 +16,9 @@ public class Units
 
     public WeightUnits WeightUnits { get { return _weightUnits; } set {; } }
 
+    public static Units GetDefaultUnits()
+    {
+        return new Units(DistanceUnits.IN, WeightUnits.OZ);
+    }
+
 }
