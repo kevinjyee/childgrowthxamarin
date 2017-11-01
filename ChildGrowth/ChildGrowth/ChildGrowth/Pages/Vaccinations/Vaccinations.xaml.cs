@@ -16,6 +16,7 @@ namespace ChildGrowth.Pages.Vaccinations
         private Child currentChild { get; set; }
         
         public static List<VaccinationTable> Vaccines = new List<VaccinationTable>();
+
         ListView vaccinationList = new ListView
         {
             RowHeight = 40
@@ -63,12 +64,9 @@ namespace ChildGrowth.Pages.Vaccinations
             vaccinationList.ItemTapped += (Sender, Event) =>
             {
 
-
-                
-
                 var V = (VaccinationTable)Event.Item;
 
-                Navigation.PushAsync(new VaccinationInfoView(V));
+                Navigation.PushAsync(new VaccinationInfoView(V,currentChild));
             };
 
             Content = new StackLayout
@@ -117,16 +115,19 @@ public class VaccinationInfoView : ContentPage
 
     VaccinationTable V;
 
-    public VaccinationInfoView(VaccinationTable v)
+    Child C;
+    public VaccinationInfoView(VaccinationTable v, Child currentChild)
 
     {
         this.V = v;
-
+        this.C = currentChild;
 
         BackgroundColor = Color.FromRgb(197, 255, 255);
 
         VName = new Label
         {
+
+           
 
             Text = V.Name,
 
@@ -186,7 +187,7 @@ public class VaccinationInfoView : ContentPage
             {
 
                 //update database here
-
+                  
 
          //       isTakenButton.Image = (FileImageSource)ImageSource.FromFile("X.png");
 
