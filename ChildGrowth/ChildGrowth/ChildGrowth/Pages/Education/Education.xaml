@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              x:Class="ChildGrowth.Pages.Education.Education">
     <ContentPage.Content>
         <StackLayout Padding="20, 30, 20, 30">
@@ -38,50 +39,40 @@
 
                 </Grid.ColumnDefinitions>
 
-
                 <!-- Row 0 Behavior and Learning -->
-                <Button x:Name="behaviorButton" Grid.Column="0" Grid.Row="0" Text="Behavior" Clicked="BehaviorButtonClick">
-                    <Image Source="behavior.png"></Image>
-                </Button>
-                <Button x:Name="learningButton" Grid.Column="2" Grid.Row="0" Text="Learning" Clicked="LearningButtonClick">
-                    <Image Source="learning.png"></Image>
-                </Button>
+                <controls:ImageButton Source="behavior" Grid.Column="0" Grid.Row="0" Clicked="BehaviorButtonClick" Orientation="ImageOnBottom"
+                                      BackgroundColor="Transparent" HeightRequest="100" WidthRequest="220" ImageHeightRequest="100" ImageWidthRequest="220" />
+
+                <controls:ImageButton Source="learning" Grid.Column="2" Grid.Row="0" Clicked="LearningButtonClick" Orientation="ImageOnBottom"
+                                      BackgroundColor="Transparent" HeightRequest="100" WidthRequest="220" ImageHeightRequest="100" ImageWidthRequest="220" />
 
                 <!-- Row 1 Safety and Playing -->
-                <Button x:Name="safetyButton" Grid.Column="0" Grid.Row="1" Text="Safety" Clicked="SafetyButtonClick">
-                    <Image Source="safety.png"></Image>
-                </Button>
-                <Button x:Name="playButton" Grid.Column="2" Grid.Row="1" Text="Play" Clicked="PlayButtonClick">
-                    <Image Source="play.png"></Image>
-                </Button>
+                <controls:ImageButton Source="safety" Grid.Column="0" Grid.Row="1" Clicked="SafetyButtonClick" Orientation="ImageOnBottom"
+                                      BackgroundColor="Transparent" HeightRequest="100" WidthRequest="220" ImageHeightRequest="100" ImageWidthRequest="220" />
 
+                <controls:ImageButton Source="play" Grid.Column="2" Grid.Row="1" Clicked="PlayButtonClick" Orientation="ImageOnBottom"
+                                      BackgroundColor="Transparent" HeightRequest="100" WidthRequest="220" ImageHeightRequest="100" ImageWidthRequest="220" />
 
-                <!-- Row 2 Toilent and Diseases-->
-                <Button x:Name="toiletTrainingButton" Grid.Column="0" Grid.Row="2" Text="Toilet Training" Clicked="ToiletTrainingButtonClick">
-                    <Image Source="toilet_training.png"></Image>
-                </Button>
-                <Button x:Name="diseasesButton" Grid.Column="2" Grid.Row="2" Text="Diseases" Clicked="DiseasesButtonClick">
-                    <Image Source="diseases.png"></Image>
-                </Button>
+                <!-- Row 2 Toilet and Diseases-->
+                <controls:ImageButton Source="toilet_training" Grid.Column="0" Grid.Row="2" Clicked="ToiletTrainingButtonClick" Orientation="ImageOnBottom"
+                                      BackgroundColor="Transparent" HeightRequest="100" WidthRequest="220" ImageHeightRequest="100" ImageWidthRequest="220" />
 
+                <controls:ImageButton Source="diseases" Grid.Column="2" Grid.Row="2" Clicked="DiseasesButtonClick" Orientation="ImageOnBottom"
+                                      BackgroundColor="Transparent" HeightRequest="100" WidthRequest="220" ImageHeightRequest="100" ImageWidthRequest="220" />
 
                 <!-- Row 3 Doctor Visits and Year 1 Buttons-->
-                <Button x:Name="doctorVisitsButton" Grid.Column="0" Grid.Row="3" Text="Doctor Visits" Clicked="DoctorVisitsButtonClick">
-                    <Image Source="doctor_visits.png"></Image>
-                </Button>
-                <Button x:Name="year01Button" Grid.Column="2" Grid.Row="3" Text="Year01" Clicked="Year01ButtonClick">
-                    <Image Source="year01.png"></Image>
-                </Button>
+                <controls:ImageButton Source="doctor_visits" Grid.Column="0" Grid.Row="3" Clicked="DoctorVisitsButtonClick" Orientation="ImageOnBottom"
+                                      BackgroundColor="Transparent" HeightRequest="100" WidthRequest="220" ImageHeightRequest="100" ImageWidthRequest="220" />
+
+                <controls:ImageButton Source="year01" Grid.Column="2" Grid.Row="3" Clicked="Year01ButtonClick" Orientation="ImageOnBottom"
+                                      BackgroundColor="Transparent" HeightRequest="100" WidthRequest="220" ImageHeightRequest="100" ImageWidthRequest="220" />
 
                 <!-- Row 4 Year 12 and Year 23 Buttons-->
-                <Button x:Name="year12Button" Grid.Column="0" Grid.Row="4" Text="Year12" Clicked="Year12ButtonClick">
-                    <Image Source="year12.png"></Image>
-                </Button>
-                <Button x:Name="year23Button" Grid.Column="2" Grid.Row="4" Text="Year23" Clicked="Year23ButtonClick">
-                    <Image Source="year23.png"></Image>
-                </Button>
+                <controls:ImageButton Source="year12" Grid.Column="0" Grid.Row="4" Clicked="Year12ButtonClick" Orientation="ImageOnBottom"
+                                      BackgroundColor="Transparent" HeightRequest="100" WidthRequest="220" ImageHeightRequest="100" ImageWidthRequest="220" />
 
-
+                <controls:ImageButton Source="year23" Grid.Column="2" Grid.Row="4" Clicked="Year23ButtonClick" Orientation="ImageOnBottom"
+                                      BackgroundColor="Transparent" HeightRequest="100" WidthRequest="220" ImageHeightRequest="100" ImageWidthRequest="220" />
 
             </Grid>
 
