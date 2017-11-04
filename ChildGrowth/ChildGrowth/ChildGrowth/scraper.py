@@ -29,14 +29,14 @@ def formatList(sexChoice, list, percentileCols, type):
 
 
 def readMilestones():
-    df = pd.read_csv("data/milestones.csv", names = ['Month', 'Category', 'Description','URL']);
+    df = pd.read_csv("data/milestonesCSV.csv", names = ['Month', 'Category', 'Description','URL']);
     Month = df['Month'].tolist()
     Category = df['Category'].tolist()
     Description = df['Description'].tolist()
-    URL = df['URL'].toList()
+    URL = df['URL'].tolist()
 
     for i in range(len(Month)):
-        print "milestonesInfo.Add(new MilestonesInfo {MonthDue =", Month[i], ",CategoryName = ", '"%s"'%Category[i], ", CategoryDescription = ",'"%s"'%Description[i], "});"
+        print "milestonesInfo.Add(new MilestonesInfo {MonthDue =", Month[i], ",CategoryName = ", '"%s"'%Category[i], ", CategoryDescription = ",'"%s"'%Description[i],", ImageURL = ",'"%s"'%URL[i], "});"
 
 if __name__ == "__main__":
   # readInCSV()
