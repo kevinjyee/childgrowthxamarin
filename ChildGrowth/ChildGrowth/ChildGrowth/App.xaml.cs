@@ -28,7 +28,7 @@ namespace ChildGrowth
             app = this;
 
             MainPage = new MainPage();
-            CurrentApp.MainPage = new MasterTab();
+            CurrentApp.MainPage = new MenuMasterDetailPage();
         }
 
 
