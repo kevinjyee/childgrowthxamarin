@@ -60,9 +60,6 @@ namespace ChildGrowth.Pages.Milestones
         public Action<int> SwipedRight = null;
         public Action<int> SwipedLeft = null;
 
-        public static readonly BindableProperty ItemsSourceProperty = BindableProperty.Create(nameof(ItemsSource), typeof(System.Collections.IList), typeof(CardStackView), null, propertyChanged: OnItemsSourcePropertyChanged);
-
-
         public List<Item> ItemsSource
         {
             get
@@ -76,6 +73,13 @@ namespace ChildGrowth.Pages.Milestones
                 itemIndex = 0;
             }
         }
+
+        public static readonly BindableProperty ItemsSourceProperty = BindableProperty.Create(nameof(ItemsSource),
+                                                                                              typeof(System.Collections.IList), 
+                                                                                              typeof(CardStackView), 
+                                                                                              null, 
+                                                                                              propertyChanged: OnItemsSourcePropertyChanged);
+
 
         private static void OnItemsSourcePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {

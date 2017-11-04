@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using ChildGrowth.Persistence;
+using ChildGrowth.Models.Settings;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -36,7 +39,13 @@ namespace ChildGrowth.Pages.Vaccinations
 
 
         public Vaccinations()
-        {
+        {                  
+            ChildDatabaseAccess db = new ChildDatabaseAccess();
+            ContextDatabaseAccess cdb = new ContextDatabaseAccess();
+            Context context = cdb.GetContextAsync().Result;
+            Child c = db.GetUserChildAsync(context.ChildId).Result;
+            Boolean dbInitialized = db.InitializeAsync().Result;
+            Boolean cdbInitialized = cdb.InitializeAsync().Result;
             initializeVaccinations(); 
         }
 
@@ -53,12 +62,6 @@ namespace ChildGrowth.Pages.Vaccinations
             vaccinationList.SeparatorColor = Color.White;
             vaccinationList.ItemSelected += (sender, e) => {
                 ((ListView)sender).SelectedItem = null;
-            };
-
-            vaccinationList.ItemSelected += (sender, e) => {
-
-                ((ListView)sender).SelectedItem = null;
-
             };
 
             vaccinationList.ItemTapped += (Sender, Event) =>
@@ -102,22 +105,13 @@ namespace ChildGrowth.Pages.Vaccinations
     }
 }
 
-public class VaccinationInfoView : ContentPage
-    
-
-{
-
+public class VaccinationInfoView : ContentPage{
     Label VName, isTakenLabel;
-
     Button isTakenButton;
-
     int isTaken;
-
     VaccinationTable V;
-
     Child C;
     public VaccinationInfoView(VaccinationTable v, Child currentChild)
-
     {
         this.V = v;
         this.C = currentChild;
@@ -126,20 +120,11 @@ public class VaccinationInfoView : ContentPage
 
         VName = new Label
         {
-
-           
-
             Text = V.Name,
-
             TextColor = Color.FromHex("#5069A1"),
-
             FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
-
             HorizontalOptions = LayoutOptions.EndAndExpand,
-
             VerticalOptions = LayoutOptions.Center,
-
-
 
         };
 
@@ -257,9 +242,6 @@ public class VaccinationInfoView : ContentPage
 
         Content = new StackLayout
         {
-
-
-
             Padding = new Thickness(0, 20, 0, 0),
 
             Orientation = StackOrientation.Vertical,
@@ -302,21 +284,11 @@ public class VaccinationInfoView : ContentPage
 
 
 
-                        Content = new StackLayout{
-
-                            HorizontalOptions = LayoutOptions.End,
-
-                            Padding = new Thickness(10, 5, 10, 10),
-
-                            Spacing = 2,
-
-                            Children = {
-
-                                VInfo
-
-                            }
-
-                        }
+                        Content = new StackLayout{HorizontalOptions = LayoutOptions.End,
+                                                    Padding = new Thickness(10, 5, 10, 10),
+                                                    Spacing = 2,
+                                                    Children = {VInfo}
+                                                 }
 
                     }
 

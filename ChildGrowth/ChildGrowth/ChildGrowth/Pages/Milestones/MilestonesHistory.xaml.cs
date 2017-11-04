@@ -18,6 +18,7 @@ namespace ChildGrowth.Pages.Milestones
             InitializeComponent();
 
             listView.SelectionChanging += ListView_SelectionChanging;
+
         }
 
 
@@ -147,7 +148,7 @@ namespace ChildGrowth.Pages.Milestones
             firstDesc = new Label()
             {
                 TextColor = Color.Black,
-                FontSize = 20, //MainPage.screenHeight / 36.8, //Font size 20
+                FontSize = 200, //MainPage.screenHeight / 36.8, //Font size 20
                 InputTransparent = true
             };
 
