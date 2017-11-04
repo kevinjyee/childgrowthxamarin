@@ -50,11 +50,17 @@
     <Compile Include="Factory\DataFactory.cs" />
     <Compile Include="Pages\Education\Article.cs" />
     <Compile Include="Pages\Education\EducationInfo.cs" />
+    <Compile Include="Pages\Insights\Insights.xaml.cs">
+      <DependentUpon>Insights.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Milestones\CardStackView.cs" />
     <Compile Include="Pages\Milestones\CardView.cs" />
     <Compile Include="Pages\Milestones\MainPageViewModel.cs" />
     <Compile Include="Pages\Milestones\MilestonesHistory.xaml.cs">
       <DependentUpon>MilestonesHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Vaccinations\VaccinationCell.cs" />
     <Compile Include="Pages\Vaccinations\VaccinationTable.cs" />
@@ -88,9 +94,6 @@
     </Compile>
     <Compile Include="Pages\Education\Education.xaml.cs">
       <DependentUpon>Education.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Insights\Insights.xaml.cs">
-      <DependentUpon>Insights.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Master\MasterTab.xaml.cs">
       <DependentUpon>MasterTab.xaml</DependentUpon>
@@ -252,12 +255,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Pages\Insights\Insights.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Pages\Education\Education.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
@@ -270,11 +267,22 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Pages\class-project.gif" />
     <Content Include="Pages\Milestones\class-project.gif" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\Milestones\MilestonesHistory.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Insights\Insights.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Settings\SettingsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

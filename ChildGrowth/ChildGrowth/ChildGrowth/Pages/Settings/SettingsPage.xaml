@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ChildGrowth.Pages.Settings.SettingsPage">
+    <Grid Padding="10,10,10,10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label Text="Settings" FontSize="40" Grid.Row="0" Grid.Column="1" TextColor="#06A5BD" XAlign="Center" YAlign="Center"/>
+        <Label Text="Language" FontSize="30" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" TextColor="#06A5BD"/>
+        <Button Image = "spanish.png" Grid.Row="3" Grid.Column="1"/>
+        <Button Image = "english.png" Grid.Row="3" Grid.Column="2"/>
+        <Label Text="Unit System" FontSize="30" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" TextColor="#06A5BD"/>
+        <Button Image = "inch_lb.png" Grid.Row="5" Grid.Column="1"/>
+        <Button Image = "cm_kg.png" Grid.Row="5" Grid.Column="2"/>
+
+    </Grid>
+</ContentPage>
