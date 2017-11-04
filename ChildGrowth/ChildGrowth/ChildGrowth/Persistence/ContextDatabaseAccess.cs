@@ -10,6 +10,7 @@ namespace ChildGrowth.Persistence
     {
 
         // Must call InitializeAsync before using any accessor methods.
+        override
         public async Task InitializeAsync()
         {
             _connection = SQLiteDatabase.GetConnection(DB_FILE_NAME);

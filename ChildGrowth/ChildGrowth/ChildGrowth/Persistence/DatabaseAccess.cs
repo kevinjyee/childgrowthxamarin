@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using SQLiteNetExtensionsAsync.Extensions;
 using SQLite.Net.Async;
 
 namespace ChildGrowth.Persistence
@@ -9,6 +14,9 @@ namespace ChildGrowth.Persistence
         protected Boolean _isConnected = false;
 
         public Boolean IsConnected { get { return _isConnected; } set { _isConnected = value; } }
+
+        // Must call InitializeAsync before using any accessor methods.
+        public abstract Task InitializeAsync();
 
         protected readonly string DB_FILE_NAME;
     }
