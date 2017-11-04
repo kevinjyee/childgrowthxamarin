@@ -1,7 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="ChildGrowth.Pages.Insights.Insights">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Name="Settings" Order="Primary" Clicked="Settings_Clicked" Icon="settings.png" Priority="0" />
+        <ToolbarItem Name="Settings" Order="Primary" Clicked="OnSettingsClicked" Icon="settings.png" Priority="0" />
     </ContentPage.ToolbarItems>
     <ScrollView>
         <StackLayout>

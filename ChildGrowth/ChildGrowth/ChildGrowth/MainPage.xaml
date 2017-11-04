@@ -8,7 +8,10 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib" 
     xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms" 
     x:Class="ChildGrowth.MainPage" 
-    Title="ChildName">
+    Title="ChildName"> 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Settings" Order="Primary" Clicked="OnSettingsClicked" Icon="settings.png" Priority="0" />
+    </ContentPage.ToolbarItems>
 
     <StackLayout.BindingContext>
         <local:ViewModel x:Name="viewModel" />
@@ -82,8 +85,8 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Button x:Name="submitButton" Image="submit.png" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" Grid.Column="0" Grid.Row="0" Clicked="OnSubmitClicked" />
-                                <Button x:Name="cancelButton" Image="cancel.png" Grid.Column="1" Grid.Row="0" Text="Cancel" Clicked="OnCancelClicked" />
+                                <Button x:Name="submitButton" Text="Submit" Grid.Column="0" Grid.Row="0" Clicked="OnSubmitClicked" />
+                                <Button x:Name="cancelButton" Text="Cancel" Grid.Column="1" Grid.Row="0"  Clicked="OnCancelClicked" />
                             </Grid>
                         </ViewCell>
                     </TableSection>

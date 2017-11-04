@@ -10,6 +10,7 @@ using ChildGrowth.Persistence;
 using ChildGrowth.Pages.AddChild;
 using System.ComponentModel;
 using ChildGrowth.Constants;
+using ChildGrowth.Pages.Settings;
 
 namespace ChildGrowth
 {
@@ -29,6 +30,11 @@ namespace ChildGrowth
         {
             InitializeComponent();
             UpdateDateSelectionEnabledStatus(false);
+        }
+
+        void OnSettingsClicked(object sender, System.EventArgs e)
+        {
+            Navigation.PushAsync(new SettingsPage());
         }
 
         /// <summary>
