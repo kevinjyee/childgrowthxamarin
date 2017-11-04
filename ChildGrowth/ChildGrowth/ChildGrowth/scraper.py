@@ -29,10 +29,11 @@ def formatList(sexChoice, list, percentileCols, type):
 
 
 def readMilestones():
-    df = pd.read_csv("data/milestones.csv", names = ['Month', 'Category', 'Description']);
+    df = pd.read_csv("data/milestones.csv", names = ['Month', 'Category', 'Description','URL']);
     Month = df['Month'].tolist()
     Category = df['Category'].tolist()
     Description = df['Description'].tolist()
+    URL = df['URL'].toList()
 
     for i in range(len(Month)):
         print "milestonesInfo.Add(new MilestonesInfo {MonthDue =", Month[i], ",CategoryName = ", '"%s"'%Category[i], ", CategoryDescription = ",'"%s"'%Description[i], "});"

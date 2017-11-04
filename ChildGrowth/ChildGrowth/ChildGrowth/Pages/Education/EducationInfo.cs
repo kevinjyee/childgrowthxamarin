@@ -89,11 +89,11 @@ namespace ChildGrowth.Pages.Education
 
         //    public void VaccinationRepository()
         //    {
-        //        Vaccines.Add(new VaccinationTable() { VaccinationID = 1, Name = "Shot1", Info = "Enlarge Penis", Time = 1 });
-        //        Vaccines.Add(new VaccinationTable() { VaccinationID = 2, Name = "Shot2", Info = "Enlarge Big Penis", Time = 2 });
-        //        Vaccines.Add(new VaccinationTable() { VaccinationID = 3, Name = "Shot3", Info = "Enlarge Bigger Penis", Time = 2 });
-        //        Vaccines.Add(new VaccinationTable() { VaccinationID = 4, Name = "Shot4", Info = "Enlarge Bigger Bigger Penis", Time = 2 });
-        //        Vaccines.Add(new VaccinationTable() { VaccinationID = 3, Name = "Shot5", Info = "Enlarge Bigger Penis", Time = 2 });
+        //        Vaccines.Add(new VaccinationTable() { VaccinationID = 1, Name = "Shot1", Info = "Enlarge CategoryDescription", Time = 1 });
+        //        Vaccines.Add(new VaccinationTable() { VaccinationID = 2, Name = "Shot2", Info = "Enlarge Big CategoryDescription", Time = 2 });
+        //        Vaccines.Add(new VaccinationTable() { VaccinationID = 3, Name = "Shot3", Info = "Enlarge Bigger CategoryDescription", Time = 2 });
+        //        Vaccines.Add(new VaccinationTable() { VaccinationID = 4, Name = "Shot4", Info = "Enlarge Bigger Bigger CategoryDescription", Time = 2 });
+        //        Vaccines.Add(new VaccinationTable() { VaccinationID = 3, Name = "Shot5", Info = "Enlarge Bigger CategoryDescription", Time = 2 });
         //    }
         //}
         /*
