@@ -1,29 +1,30 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="ChildGrowth.Pages.Settings.SettingsPage">
-    <Grid Padding="10,10,10,10">
+    x:Class="ChildGrowth.Pages.Settings.SettingsPage"
+    BackgroundColor="#06A5BD">
+    <Grid Padding="20,20,20,20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Label Text="Settings" FontSize="40" Grid.Row="0" Grid.Column="1" TextColor="#06A5BD" XAlign="Center" YAlign="Center"/>
-        <Label Text="Language" FontSize="30" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" TextColor="#06A5BD"/>
-        <Button Image = "spanish.png" Grid.Row="3" Grid.Column="1"/>
-        <Button Image = "english.png" Grid.Row="3" Grid.Column="2"/>
-        <Label Text="Unit System" FontSize="30" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" TextColor="#06A5BD"/>
-        <Button Image = "inch_lb.png" Grid.Row="5" Grid.Column="1"/>
-        <Button Image = "cm_kg.png" Grid.Row="5" Grid.Column="2"/>
+        <Label Text="Settings" FontSize="40" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" XAlign="Center" TextColor="White" YAlign="Center"/>
+        <Label Text="Language" FontSize="30" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" TextColor="White"/>
+        <Button Image = "english_outline.png" Grid.Row="3" Grid.Column="1"/>
+        <Button Image = "spanish_white.png" Grid.Row="3" Grid.Column="2"/>
+        <Label Text="Unit System" FontSize="30" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" TextColor="White"/>
+        <Button Image = "cm_kg_white.png" Grid.Row="5" Grid.Column="2"/>
+        <Button Image = "inch_lb_outline.png" Grid.Row="5" Grid.Column="1"/>
 
     </Grid>
 </ContentPage>

@@ -131,6 +131,8 @@
       <DependentUpon>MenuMasterDetailPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Constants\ChildUser.cs" />
+    <Compile Include="Models\Settings\Context.cs" />
+    <Compile Include="Models\Settings\Language.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainPage.xaml">
