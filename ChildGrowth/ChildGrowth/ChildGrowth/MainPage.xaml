@@ -10,6 +10,10 @@
     x:Class="ChildGrowth.MainPage" 
     Title="ChildName">
 
+    <ContentPage.ToolbarItems>
+    <ToolbarItem Name="Settings" Order="Primary" Clicked="Settings_Clicked" Icon="settings.png" Priority="0" />
+    </ContentPage.ToolbarItems>
+
     <StackLayout.BindingContext>
         <local:ViewModel x:Name="viewModel" />
     </StackLayout.BindingContext>

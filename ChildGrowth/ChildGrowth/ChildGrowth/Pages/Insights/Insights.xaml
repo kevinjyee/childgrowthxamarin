@@ -1,10 +1,83 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ChildGrowth.Pages.Insights.Insights">
-    <ContentPage.Content>
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="ChildGrowth.Pages.Insights.Insights">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Settings" Order="Primary" Clicked="Settings_Clicked" Icon="settings.png" Priority="0" />
+    </ContentPage.ToolbarItems>
+    <ScrollView>
         <StackLayout>
-            <Label Text="Welcome to Xamarin Forms!" />
+            <Label Text="INSIGHTS" TextColor="#2e323f" XAlign="Center" FontSize="40" />
+            <BoxView HeightRequest="1" WidthRequest="1" BackgroundColor="#2e323f" />
+            <Label Text="ALERTS" TextColor="#06A5BD" FontSize="35" XAlign="Center" />
+            <BoxView HeightRequest="1" WidthRequest="1" BackgroundColor="#2e323f" />
+            <BoxView HeightRequest="10" WidthRequest="1" BackgroundColor="White" />
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="300" />
+                </Grid.ColumnDefinitions>
+                <Image x:Name="measurementsImage" Source="circle.png" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" />
+                <Image x:Name="milestonesImage" Source="circle.png" Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" />
+                <Image x:Name="vaccinationsImage" Source="circle.png" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" />
+                <Label Text="Measurements" Grid.Row="0" Grid.Column="1" FontSize="25" TextColor="#2e323f" />
+                <Label x:Name="measurementsAlert" Text="Height, weight, head circumference needed" Grid.Row="1" Grid.Column="1" FontSize="15" TextColor="#2e323f" />
+                <Label Text="Milestones" Grid.Row="2" Grid.Column="1" FontSize="25" TextColor="#2e323f" />
+                <Label x:Name="milestonesAlert" Text="10 more questions to go!" Grid.Row="3" Grid.Column="1" FontSize="15" TextColor="#2e323f" />
+                <Label Text="Vaccinations" Grid.Row="4" Grid.Column="1" FontSize="25" TextColor="#2e323f" />
+                <Label x:Name="vaccinationsAlert" Text="3 vaccinations pending" Grid.Row="5" Grid.Column="1" FontSize="15" TextColor="#2e323f" />
+            </Grid>
+            <BoxView HeightRequest="10" WidthRequest="1" BackgroundColor="White" />
+            <BoxView HeightRequest="1" WidthRequest="1" BackgroundColor="#2e323f" />
+            <Label Text="SUMMARY" TextColor="#06A5BD" FontSize="35" XAlign="Center" />
+            <BoxView HeightRequest="1" WidthRequest="1" BackgroundColor="#2e323f" />
+            <BoxView HeightRequest="10" WidthRequest="1" BackgroundColor="White" />
+            <StackLayout Padding="20,0,0,0">
+                <Label Text="Measurements" Grid.Row="0" Grid.Column="0" FontSize="25" TextColor="#2e323f" />
+                <Grid Padding="20,0,0,0">
+                    <Label Text="Height: " Grid.Row="0" Grid.Column="0" TextColor="#2e323f" />
+                    <Label x:Name="heightMeasurement" Text="38 in" Grid.Row="0" Grid.Column="1" TextColor="#2e323f" />
+                    <Label Text="Weight: " Grid.Row="1" Grid.Column="0" TextColor="#2e323f" />
+                    <Label x:Name="weightMeasurement" Text="18 lbs" Grid.Row="1" Grid.Column="1" TextColor="#2e323f" />
+                    <Label Text="Head Circumference: " Grid.Row="2" Grid.Column="0" TextColor="#2e323f" />
+                    <Label x:Name="headCircumferenceMeasurement" Text="20 in" Grid.Row="2" Grid.Column="1" TextColor="#2e323f" />
+                </Grid>
+                <Label Text="Milestones" Grid.Row="0" Grid.Column="0" FontSize="25" TextColor="#2e323f" />
+                <Grid Padding="20,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="blue_empty.png" Grid.Row="0" Grid.Column="0" />
+                    <Label x:Name="physicalGrowth" Text="80%" Grid.Row="0" Grid.Column="0" TextColor="White" XAlign="Center" YAlign="Center" />
+                    <Label Text="Physical Growth" Grid.Row="0" Grid.Column="1" YAlign="Center" TextColor="#2e323f" />
+                    <Image Source="blue_empty.png" Grid.Row="1" Grid.Column="0" />
+                    <Label x:Name="ThinkingAndReasoning" Text="80%" Grid.Row="1" Grid.Column="0" TextColor="White" XAlign="Center" YAlign="Center" />
+                    <Label Text="Thinking &amp; Reasoning" Grid.Row="1" Grid.Column="1" YAlign="Center" TextColor="#2e323f" />
+                    <Image Source="blue_empty.png" Grid.Row="2" Grid.Column="0" />
+                    <Label x:Name="emotionalAndSocial" Text="80%" Grid.Row="2" Grid.Column="0" TextColor="White" XAlign="Center" YAlign="Center" />
+                    <Label Text="Emotional &amp; Social Development" Grid.Row="2" Grid.Column="1" YAlign="Center" TextColor="#2e323f" />
+                    <Image Source="blue_empty.png" Grid.Row="3" Grid.Column="0" />
+                    <Label x:Name="LanguageDevelopment" Text="80%" Grid.Row="3" Grid.Column="0" TextColor="White" XAlign="Center" YAlign="Center" />
+                    <Label Text="Language Development" Grid.Row="3" Grid.Column="1" YAlign="Center" TextColor="#2e323f" />
+                    <Image Source="blue_empty.png" Grid.Row="4" Grid.Column="0" />
+                    <Label x:Name="SensoryAndMotory" Text="80%" Grid.Row="4" Grid.Column="0" TextColor="White" XAlign="Center" YAlign="Center" />
+                    <Label Text="Sensory &amp; Motory Development" Grid.Row="4" Grid.Column="1" YAlign="Center" TextColor="#2e323f" />
+                </Grid>
+                <Label Text="Vaccinations" Grid.Row="0" Grid.Column="0" FontSize="25" TextColor="#2e323f" />
+            </StackLayout>
         </StackLayout>
-    </ContentPage.Content>
+    </ScrollView>
 </ContentPage>

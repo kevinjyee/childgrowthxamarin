@@ -126,6 +126,12 @@
       <DependentUpon>MenuMasterDetailPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Constants\ChildUser.cs" />
+    <Compile Include="Persistence\ContextDatabaseAccess.cs" />
+    <Compile Include="Models\Settings\Context.cs" />
+    <Compile Include="Models\Settings\Language.cs" />
+    <Compile Include="Pages\Settings\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainPage.xaml">
@@ -137,6 +143,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\Menu\MenuMasterDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Settings\SettingsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -198,6 +207,9 @@
     <Reference Include="Xamarin.Forms.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.2.3.4.247\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
+    <Reference Include="ImageButton.Abstractions">
+      <HintPath>..\..\packages\Xam.Plugin.ImageButton.2.1.1\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+UAP10\ImageButton.Abstractions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -213,6 +225,7 @@
     <Folder Include="Models\Settings\" />
     <Folder Include="ViewModels\Master\" />
     <Folder Include="Constants\" />
+    <Folder Include="Pages\Settings\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\Master\MasterTab.xaml">
