@@ -1,19 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using SQLiteNetExtensionsAsync.Extensions;
+using System;
 
 namespace ChildGrowth.Persistence
 {
     public class ChildDatabaseAccess : DatabaseAccess
     {
         override
-        public async Task InitializeAsync()
+        public async Task<Boolean> InitializeAsync()
         {
             _connection = SQLiteDatabase.GetConnection(DB_FILE_NAME);
 
             // Create MyEntity table if need be
             await _connection.CreateTableAsync<Child>();
             IsConnected = true;
+            return IsConnected;
         }
 
         public Task<List<Child>> GetAllUserChildrenAsync()
@@ -41,7 +43,7 @@ namespace ChildGrowth.Persistence
             return WriteOperations.DeleteAllAsync(_connection, children);
         }
 
-        private readonly string DB_FILE_NAME = "ChildDatabase.db3";
+        private new readonly string DB_FILE_NAME = "ChildDatabase.db3";
 
     }
 }

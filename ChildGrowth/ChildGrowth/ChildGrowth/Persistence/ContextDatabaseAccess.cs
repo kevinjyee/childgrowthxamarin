@@ -11,13 +11,14 @@ namespace ChildGrowth.Persistence
 
         // Must call InitializeAsync before using any accessor methods.
         override
-        public async Task InitializeAsync()
+        public async Task<Boolean> InitializeAsync()
         {
             _connection = SQLiteDatabase.GetConnection(DB_FILE_NAME);
 
             // Create MyEntity table if need be
             await _connection.CreateTableAsync<Context>();
             IsConnected = true;
+            return IsConnected;
         }
 
         public Task<Context> GetContextAsync()

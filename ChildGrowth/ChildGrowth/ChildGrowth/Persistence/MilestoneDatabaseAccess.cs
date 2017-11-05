@@ -1,5 +1,6 @@
 ﻿using ChildGrowth.Models.Milestones;
 using SQLiteNetExtensionsAsync.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,13 +9,14 @@ namespace ChildGrowth.Persistence
     class MilestoneDatabaseAccess : DatabaseAccess
     {
         override
-        public async Task InitializeAsync()
+        public async Task<Boolean> InitializeAsync()
         {
             _connection = SQLiteDatabase.GetConnection(DB_FILE_NAME);
 
             // Create MyEntity table if need be
             await _connection.CreateTableAsync<Milestone>();
             IsConnected = true;
+            return IsConnected;
         }
 
         public Task<List<Milestone>> GetAllMilestonesAsync()
