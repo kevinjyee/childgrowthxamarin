@@ -16,6 +16,7 @@ namespace ChildGrowth.Models.Milestones
         public void AddOrUpdateMilestoneHistory(int milestoneID, BinaryAnswer answer)
         {
             MilestoneDatabaseAccess milestoneDatabaseAccess = new MilestoneDatabaseAccess();
+            Boolean initialized = milestoneDatabaseAccess.InitializeAsync().Result;
             Milestone milestone = milestoneDatabaseAccess.GetMilestoneByIdAsync(milestoneID).Result;
             MilestoneHistory.UpdateOrInsertToMilestoneHistory(milestone, answer);
             Boolean milestoneRemoved = UnansweredMilestones.RemoveMilestone(milestone);
@@ -79,6 +80,7 @@ namespace ChildGrowth.Models.Milestones
         private List<Milestone> GetMilestonesByIds(List<int> ids)
         {
             MilestoneDatabaseAccess milestoneDatabaseAccess = new MilestoneDatabaseAccess();
+            Boolean initialized = milestoneDatabaseAccess.InitializeAsync().Result;
             List<Task<Milestone>> readTasks = new List<Task<Milestone>>();
             List<Milestone> milestones = new List<Milestone>();
             if (ids != null && ids.Count > 0)

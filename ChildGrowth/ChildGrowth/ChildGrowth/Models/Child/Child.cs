@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using SQLite.Net.Attributes;
 using ChildGrowth.Models.Milestones;
 using ChildGrowth.Models;
+using ChildGrowth.Models.Vaccinations;
 
 [Table("Child")]
 public class Child
@@ -27,7 +28,7 @@ public class Child
     [Ignore]
     public GrowthData Measurements { get { return _measurements; } set { _measurements = value; } }
     [Ignore]
-    public VaccinationHistory VaccineHistory { get { return _vaccineHistory; } set { _vaccineHistory = value; } }
+    public VaccinationResponses Vaccinations { get { return _vaccinations; } set { _vaccinations = value; } }
 
     [TextBlob("BirthdayBlobbed")]
     public DateTime _birthday { get; set; }
@@ -45,9 +46,9 @@ public class Child
     public GrowthData _measurements { get; set; }
     public string MeasurementsBlobbed { get; set; }
 
-    [TextBlob("VaccineHistoryBlobbed")]
-    public VaccinationHistory _vaccineHistory { get; set; }
-    public string VaccineHistoryBlobbed { get; set; }
+    [TextBlob("VaccinationsBlobbed")]
+    public VaccinationResponses _vaccinations { get; set; }
+    public string VaccinationsBlobbed { get; set; }
 
     public enum Gender
     {
@@ -63,7 +64,7 @@ public class Child
         this.ChildGender = gender;
         this.Measurements = new GrowthData();
         this.Milestones = new MilestoneResponses();
-        this.VaccineHistory = new VaccinationHistory();
+        this.Vaccinations = new VaccinationResponses();
     }
 
     public Child()
@@ -153,7 +154,7 @@ public class Child
     }
 
     /**
-     * Get a list of milestones which are due or past due to be answered based on a Child's birthday.
+     * Get a list of milestones which are due or past due to be answered based on a Child's birthday and MilestonesResposnes.
      **/
     public List<Milestone> GetListOfDueMilestones()
     {
@@ -166,6 +167,22 @@ public class Child
     public Dictionary<MilestoneCategory, List<MilestoneWithResponse>> GetMilestoneHistory()
     {
         return Milestones.GetMilestoneResponseHistoryForAllCategories();
+    }
+
+    /**
+     * Get a list of vaccines which are due or past due to be answered based on a Child's birthday and VaccinationHistory.
+     **/
+     public List<Vaccine> GetListOfDueVaccines()
+    {
+        return Vaccinations.GetListOfDueVaccines(ChildAgeInMonths());
+    }
+
+    /**
+     * Get a dictionary of Milestones and their respective responses, organized by MilestoneCategory.
+     **/
+    public List<Vaccine> GetVaccineHistory()
+    {
+        return Vaccinations.GetVaccineHistory();
     }
 
     /** 
