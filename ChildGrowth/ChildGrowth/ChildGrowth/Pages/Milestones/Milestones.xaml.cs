@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using Syncfusion.ListView.XForms;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using ChildGrowth.Persistence;
+using ChildGrowth.Models.Settings;
+using ChildGrowth.Pages.Settings;
 
 namespace ChildGrowth.Pages.Milestones
 {
@@ -20,15 +23,35 @@ namespace ChildGrowth.Pages.Milestones
         MainPageViewModel viewModel = new MainPageViewModel();
         bool historyView = false;
 
-        public Milestones(Child C){
-            currentChild = C;
-            this.Title = C.Name;
-            initializeMilestones();
+        override
+        protected void OnAppearing()
+        {
+            UpdateChild();
         }
 
         public Milestones()
         {
                 initializeMilestones();
+        }
+
+        async void UpdateChild()
+        {
+            ContextDatabaseAccess database = new ContextDatabaseAccess();
+            await database.InitializeAsync();
+            Context context = database.GetContextAsync().Result;
+            if (context == null)
+            {
+                this.Title = "Select Child";
+            }
+            else
+            {
+                this.Title = context.GetSelectedChild().Result.Name;
+            }
+        }
+
+        void OnSettingsClicked(object sender, System.EventArgs e)
+        {
+            Navigation.PushAsync(new SettingsPage());
         }
 
         private void initializeMilestones(){

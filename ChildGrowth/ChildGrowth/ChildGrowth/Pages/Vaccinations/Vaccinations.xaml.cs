@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using ChildGrowth.Pages.Settings;
+using ChildGrowth.Persistence;
+using ChildGrowth.Models.Settings;
 
 namespace ChildGrowth.Pages.Vaccinations
 {
@@ -14,17 +17,17 @@ namespace ChildGrowth.Pages.Vaccinations
     public partial class Vaccinations : ContentPage
     {
         private Child currentChild { get; set; }
-        
+
         public static List<VaccinationTable> Vaccines = new List<VaccinationTable>();
 
         ListView vaccinationList = new ListView
         {
             RowHeight = 40
         };
-        public Vaccinations(Child C){
-            currentChild = C;
-            this.Title = currentChild.Name;
-            initializeVaccinations();
+
+        void OnSettingsClicked(object sender, System.EventArgs e)
+        {
+            Navigation.PushAsync(new SettingsPage());
         }
 
         static double percentprog = 0.2;
@@ -37,10 +40,11 @@ namespace ChildGrowth.Pages.Vaccinations
 
         public Vaccinations()
         {
-            initializeVaccinations(); 
+            initializeVaccinations();
         }
 
-        private void initializeVaccinations(){
+        private void initializeVaccinations()
+        {
             var layout = new StackLayout();
 
             BackgroundColor = Color.FromRgb(94, 196, 225);
@@ -51,11 +55,13 @@ namespace ChildGrowth.Pages.Vaccinations
             vaccinationList.ItemTemplate = new DataTemplate(typeof(VaccinationCell));
             vaccinationList.BackgroundColor = Color.Transparent;
             vaccinationList.SeparatorColor = Color.White;
-            vaccinationList.ItemSelected += (sender, e) => {
+            vaccinationList.ItemSelected += (sender, e) =>
+            {
                 ((ListView)sender).SelectedItem = null;
             };
 
-            vaccinationList.ItemSelected += (sender, e) => {
+            vaccinationList.ItemSelected += (sender, e) =>
+            {
 
                 ((ListView)sender).SelectedItem = null;
 
@@ -66,7 +72,7 @@ namespace ChildGrowth.Pages.Vaccinations
 
                 var V = (VaccinationTable)Event.Item;
 
-                Navigation.PushAsync(new VaccinationInfoView(V,currentChild));
+                Navigation.PushAsync(new VaccinationInfoView(V, currentChild));
             };
 
             Content = new StackLayout
@@ -80,16 +86,33 @@ namespace ChildGrowth.Pages.Vaccinations
             };
 
         }
-        async void  updateProgBar()
+        async void updateProgBar()
         {
             await vacProg.ProgressTo(percentprog, 250, Easing.Linear);
         }
-        
 
-        protected override void OnAppearing()
+        override
+        protected void OnAppearing()
         {
-           
+            UpdateChild();
         }
+
+        async void UpdateChild()
+        {
+            ContextDatabaseAccess database = new ContextDatabaseAccess();
+            await database.InitializeAsync();
+            Context context = database.GetContextAsync().Result;
+            if (context == null)
+            {
+                this.Title = "Select Child";
+            }
+            else
+            {
+                this.Title = context.GetSelectedChild().Result.Name;
+                currentChild = context.GetSelectedChild().Result;
+            }
+        }
+
 
         public void VaccinationRepository()
         {
@@ -103,7 +126,7 @@ namespace ChildGrowth.Pages.Vaccinations
 }
 
 public class VaccinationInfoView : ContentPage
-    
+
 
 {
 
@@ -127,7 +150,7 @@ public class VaccinationInfoView : ContentPage
         VName = new Label
         {
 
-           
+
 
             Text = V.Name,
 
@@ -181,15 +204,16 @@ public class VaccinationInfoView : ContentPage
 
 
 
-        isTakenButton.Clicked += (sender, e) => {
+        isTakenButton.Clicked += (sender, e) =>
+        {
 
             if (isTaken == 1)
             {
 
                 //update database here
-                  
 
-         //       isTakenButton.Image = (FileImageSource)ImageSource.FromFile("X.png");
+
+                //       isTakenButton.Image = (FileImageSource)ImageSource.FromFile("X.png");
 
                 isTakenButton.BackgroundColor = Color.Transparent;
 
@@ -201,7 +225,7 @@ public class VaccinationInfoView : ContentPage
             else if (isTaken == 0)
             {
 
-           //     isTakenButton.Image = (FileImageSource)ImageSource.FromFile("right.png");
+                //     isTakenButton.Image = (FileImageSource)ImageSource.FromFile("right.png");
 
                 isTakenButton.BackgroundColor = Color.Transparent;
 
@@ -339,7 +363,7 @@ public class VaccinationInfoView : ContentPage
         if (isTaken == 1)
         {
 
-          //  isTakenButton.Image = (FileImageSource)ImageSource.FromFile("right.png");
+            //  isTakenButton.Image = (FileImageSource)ImageSource.FromFile("right.png");
 
             isTakenButton.BackgroundColor = Color.Transparent;
 
@@ -351,7 +375,7 @@ public class VaccinationInfoView : ContentPage
         else if (isTaken == 0)
         {
 
-           // isTakenButton.Image = (FileImageSource)ImageSource.FromFile("X.png");
+            // isTakenButton.Image = (FileImageSource)ImageSource.FromFile("X.png");
 
             isTakenButton.BackgroundColor = Color.Transparent;
 

@@ -20,11 +20,11 @@
         </Grid.ColumnDefinitions>
         <Label Text="Settings" FontSize="40" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" XAlign="Center" TextColor="White" YAlign="Center"/>
         <Label Text="Language" FontSize="30" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" TextColor="White"/>
-        <Button Image = "english_outline.png" Grid.Row="3" Grid.Column="1"/>
-        <Button Image = "spanish_white.png" Grid.Row="3" Grid.Column="2"/>
+        <Button x:Name="English" Image = "english_outline.png" Clicked="EnglishClicked" Grid.Row="3" Grid.Column="1"/>
+        <Button x:Name="Spanish" Image = "spanish_white.png" Clicked="SpanishClicked" Grid.Row="3" Grid.Column="2"/>
         <Label Text="Unit System" FontSize="30" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" TextColor="White"/>
-        <Button Image = "cm_kg_white.png" Grid.Row="5" Grid.Column="2"/>
-        <Button Image = "inch_lb_outline.png" Grid.Row="5" Grid.Column="1"/>
+        <Button x:Name="Metric" Image = "cm_kg_white.png" Clicked="MetricClicked" Grid.Row="5" Grid.Column="2"/>
+        <Button x:Name="Imperial" Image = "inch_lb_outline.png" Clicked="ImperialClicked" Grid.Row="5" Grid.Column="1"/>
 
     </Grid>
 </ContentPage>

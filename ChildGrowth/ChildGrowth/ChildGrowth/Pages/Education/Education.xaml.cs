@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using ChildGrowth.Models.Settings;
+using ChildGrowth.Pages.Settings;
+using ChildGrowth.Persistence;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -19,12 +21,28 @@ namespace ChildGrowth.Pages.Education
             InitializeComponent();
         }
 
-        public Education(Child C)
+        override
+        protected void OnAppearing()
         {
-            currentChild = C;
-            this.Title = currentChild.Name;
-            InitializeComponent();
-            InitializeComponent();
+            UpdateChild();
+        }
+
+        async void UpdateChild()
+        {
+            ContextDatabaseAccess database = new ContextDatabaseAccess();
+            await database.InitializeAsync();
+            Context context = database.GetContextAsync().Result;
+            if (context == null){
+                this.Title = "Select Child";
+            }
+            else{
+                this.Title = context.GetSelectedChild().Result.Name;
+            }
+        }
+
+        void OnSettingsClicked(object sender, System.EventArgs e)
+        {
+            Navigation.PushAsync(new SettingsPage());
         }
 
         async void BehaviorButtonClick(object sender, EventArgs args)

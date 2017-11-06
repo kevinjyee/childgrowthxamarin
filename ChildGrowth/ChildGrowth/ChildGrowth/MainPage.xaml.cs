@@ -11,6 +11,7 @@ using ChildGrowth.Pages.AddChild;
 using System.ComponentModel;
 using ChildGrowth.Constants;
 using ChildGrowth.Pages.Settings;
+using ChildGrowth.Models.Settings;
 
 namespace ChildGrowth
 {
@@ -18,18 +19,32 @@ namespace ChildGrowth
     {
         public Child CurrentChild{ get; set;}
 
-        public MainPage(Child child)
-        {
-            CurrentChild = child;
-            this.Title = CurrentChild.Name;
-            InitializeComponent();
-            UpdateDateSelectionEnabledStatus(false);
-        }
-
         public MainPage()
         {
             InitializeComponent();
             UpdateDateSelectionEnabledStatus(false);
+        }
+
+        override
+        protected void OnAppearing()
+        {
+            UpdateChild();
+            UpdateGraph();
+        }
+
+        async void UpdateChild()
+        {
+            ContextDatabaseAccess database = new ContextDatabaseAccess();
+            await database.InitializeAsync();
+            Context context = database.GetContextAsync().Result;
+            if (context == null)
+            {
+                this.Title = "Select Child";
+            }
+            else
+            {
+                this.Title = context.GetSelectedChild().Result.Name;
+            }
         }
 
         void OnSettingsClicked(object sender, System.EventArgs e)
@@ -196,14 +211,6 @@ namespace ChildGrowth
 
         private static int DEFAULT_MEASUREMENT_VALUE = -1;
 
-        override
-        protected void OnAppearing()
-        {
-            if (CurrentChild != null){
-                this.Title = CurrentChild.Name;
-            }
-            UpdateGraph();
-        }
 
         private async void UpdateGraph()
         {

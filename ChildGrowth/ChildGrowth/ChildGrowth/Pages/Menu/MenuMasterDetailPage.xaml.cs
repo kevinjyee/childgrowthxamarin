@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ChildGrowth.Models.Settings;
 using ChildGrowth.Pages.AddChild;
 using ChildGrowth.Pages.Master;
 using ChildGrowth.Persistence;
@@ -38,29 +39,24 @@ namespace ChildGrowth.Pages.Menu
             ChildList.ItemTapped += (Sender, Event) =>
             {
                 var C = (Child)Event.Item;
+                UpdateChild(C);
 
-                TabbedPage.Children.Remove(MainPage);
-                TabbedPage.Children.Remove(Milestones);
-                TabbedPage.Children.Remove(Vaccinations);
-                TabbedPage.Children.Remove(Education);
-                TabbedPage.Children.Remove(Insights);
-
-
-                //Send new constructor with child
-                MainPage = (new NavigationPage(new MainPage(C)){ Icon = "measurements.png", Title = "Measurements" });
-                Milestones = (new NavigationPage(new Milestones.Milestones(C)) { Icon = "milestones.png", Title = "Milestones" });
-                Vaccinations = (new NavigationPage(new Vaccinations.Vaccinations(C)) { Icon = "vaccinations.png", Title = "Vaccinations" });
-                Education = (new NavigationPage(new Education.Education(C)) { Icon = "education.png", Title = "Education" });
-                Insights = (new NavigationPage(new Insights.Insights(C)) { Icon = "insights.png", Title = "Insights" });
-
-                TabbedPage.Children.Clear();
-                TabbedPage.Children.Add(MainPage);
-                TabbedPage.Children.Add(Milestones);
-                TabbedPage.Children.Add(Vaccinations);
-                TabbedPage.Children.Add(Education);
-                TabbedPage.Children.Add(Insights);
 
             };
+        }
+
+        async private void UpdateChild(Child child){
+            ContextDatabaseAccess database = new ContextDatabaseAccess();
+            await database.InitializeAsync();
+            Context currentContext = database.GetContextAsync().Result;
+            if (currentContext == null){
+                currentContext = new Context(child.GetID(), Language.ENGLISH, new Units(DistanceUnits.IN, WeightUnits.OZ));
+                await database.SaveContextAsync(currentContext);
+            }
+            else{
+                currentContext.ChildId = child.GetID();
+                await database.SaveContextAsync(currentContext);
+            }
         }
 
       
