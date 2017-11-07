@@ -4,6 +4,7 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
              xmlns:local="clr-namespace:ChildGrowth.Pages.Milestones;assembly=ChildGrowth"
              xmlns:data="clr-namespace:Syncfusion.DataSource;assembly=Syncfusion.DataSource.Portable"
+             xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              x:Class="ChildGrowth.Pages.Milestones.Milestones">
     
     <ContentPage.BindingContext>
@@ -32,7 +33,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <Label Grid.Row="1" Text="{Binding CategoryDescription}" TextColor="Teal" FontSize="15"/>
+                            <Label Grid.Row="2" Text="{Binding CategoryDescription}" TextColor="Teal" FontSize="15"/>
                         </Grid>
                     </DataTemplate>
                 </syncfusion:SfListView.ItemTemplate>
