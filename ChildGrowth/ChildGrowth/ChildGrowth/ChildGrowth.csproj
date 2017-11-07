@@ -49,6 +49,7 @@
     <Compile Include="Converters\WholePercentToDecimalPercent.cs" />
     <Compile Include="Factory\DataFactory.cs" />
     <Compile Include="Pages\Education\Article.cs" />
+    <Compile Include="Pages\Education\EducationCell.cs" />
     <Compile Include="Pages\Education\EducationInfo.cs" />
     <Compile Include="Pages\Insights\Insights.xaml.cs">
       <DependentUpon>Insights.xaml</DependentUpon>
@@ -235,7 +236,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\Settings\" />
     <Folder Include="ViewModels\Master\" />
   </ItemGroup>
   <ItemGroup>

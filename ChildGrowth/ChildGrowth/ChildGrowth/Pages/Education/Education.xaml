@@ -9,7 +9,7 @@
             <Label Text="Education Page" FontSize="Large" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
 
 
-            <Grid>
+            <Grid ColumnSpacing ="0">
 
                 <Grid.RowDefinitions>
 
@@ -29,7 +29,7 @@
 
                 <Grid.ColumnDefinitions>
 
-                    <ColumnDefinition Width="*"/>
+                    
 
                     <ColumnDefinition Width="*"/>
 
@@ -41,38 +41,29 @@
 
                 <!-- Row 0 Behavior and Learning -->
                 <controls:ImageButton Source="behavior" Grid.Column="0" Grid.Row="0" Clicked="BehaviorButtonClick" Orientation="ImageOnBottom"
-                                      BackgroundColor="Transparent" HeightRequest="100" WidthRequest="220" ImageHeightRequest="100" ImageWidthRequest="220" />
+                                      BackgroundColor="Transparent" HeightRequest="150" WidthRequest="380" ImageHeightRequest="150" ImageWidthRequest="300" />
 
-                <controls:ImageButton Source="learning" Grid.Column="2" Grid.Row="0" Clicked="LearningButtonClick" Orientation="ImageOnBottom"
-                                      BackgroundColor="Transparent" HeightRequest="100" WidthRequest="220" ImageHeightRequest="100" ImageWidthRequest="220" />
+                <controls:ImageButton Source="learning" Grid.Column="1" Grid.Row="0" Clicked="LearningButtonClick" Orientation="ImageOnBottom"
+                                      BackgroundColor="Transparent" HeightRequest="150" WidthRequest="380" ImageHeightRequest="150" ImageWidthRequest="300" />
 
                 <!-- Row 1 Safety and Playing -->
                 <controls:ImageButton Source="safety" Grid.Column="0" Grid.Row="1" Clicked="SafetyButtonClick" Orientation="ImageOnBottom"
-                                      BackgroundColor="Transparent" HeightRequest="100" WidthRequest="220" ImageHeightRequest="100" ImageWidthRequest="220" />
+                                      BackgroundColor="Transparent" HeightRequest="150" WidthRequest="300" ImageHeightRequest="150" ImageWidthRequest="300" />
 
-                <controls:ImageButton Source="play" Grid.Column="2" Grid.Row="1" Clicked="PlayButtonClick" Orientation="ImageOnBottom"
-                                      BackgroundColor="Transparent" HeightRequest="100" WidthRequest="220" ImageHeightRequest="100" ImageWidthRequest="220" />
+                <controls:ImageButton Source="play" Grid.Column="1" Grid.Row="1" Clicked="PlayButtonClick" Orientation="ImageOnBottom"
+                                      BackgroundColor="Transparent" HeightRequest="150" WidthRequest="300" ImageHeightRequest="150" ImageWidthRequest="300" />
 
                 <!-- Row 2 Toilet and Diseases-->
                 <controls:ImageButton Source="toilet_training" Grid.Column="0" Grid.Row="2" Clicked="ToiletTrainingButtonClick" Orientation="ImageOnBottom"
-                                      BackgroundColor="Transparent" HeightRequest="100" WidthRequest="220" ImageHeightRequest="100" ImageWidthRequest="220" />
+                                      BackgroundColor="Transparent" HeightRequest="150" WidthRequest="300" ImageHeightRequest="150" ImageWidthRequest="300" />
 
-                <controls:ImageButton Source="diseases" Grid.Column="2" Grid.Row="2" Clicked="DiseasesButtonClick" Orientation="ImageOnBottom"
-                                      BackgroundColor="Transparent" HeightRequest="100" WidthRequest="220" ImageHeightRequest="100" ImageWidthRequest="220" />
+                <controls:ImageButton Source="diseases" Grid.Column="1" Grid.Row="2" Clicked="DiseasesButtonClick" Orientation="ImageOnBottom"
+                                      BackgroundColor="Transparent" HeightRequest="150" WidthRequest="300" ImageHeightRequest="150" ImageWidthRequest="300" />
 
                 <!-- Row 3 Doctor Visits and Year 1 Buttons-->
                 <controls:ImageButton Source="doctor_visits" Grid.Column="0" Grid.Row="3" Clicked="DoctorVisitsButtonClick" Orientation="ImageOnBottom"
-                                      BackgroundColor="Transparent" HeightRequest="100" WidthRequest="220" ImageHeightRequest="100" ImageWidthRequest="220" />
+                                      BackgroundColor="Transparent" HeightRequest="150" WidthRequest="300" ImageHeightRequest="150" ImageWidthRequest="300" />
 
-                <controls:ImageButton Source="year01" Grid.Column="2" Grid.Row="3" Clicked="Year01ButtonClick" Orientation="ImageOnBottom"
-                                      BackgroundColor="Transparent" HeightRequest="100" WidthRequest="220" ImageHeightRequest="100" ImageWidthRequest="220" />
-
-                <!-- Row 4 Year 12 and Year 23 Buttons-->
-                <controls:ImageButton Source="year12" Grid.Column="0" Grid.Row="4" Clicked="Year12ButtonClick" Orientation="ImageOnBottom"
-                                      BackgroundColor="Transparent" HeightRequest="100" WidthRequest="220" ImageHeightRequest="100" ImageWidthRequest="220" />
-
-                <controls:ImageButton Source="year23" Grid.Column="2" Grid.Row="4" Clicked="Year23ButtonClick" Orientation="ImageOnBottom"
-                                      BackgroundColor="Transparent" HeightRequest="100" WidthRequest="220" ImageHeightRequest="100" ImageWidthRequest="220" />
 
             </Grid>
 
