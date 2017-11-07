@@ -19,7 +19,7 @@ namespace ChildGrowth.Pages.Vaccinations
 
         ListView vaccinationList = new ListView
         {
-            RowHeight = 40
+            RowHeight = 70
         };
         public Vaccinations(Child C){
             currentChild = C;
@@ -93,18 +93,37 @@ namespace ChildGrowth.Pages.Vaccinations
 
         public void VaccinationRepository()
         {
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 1, Name = "Shot1", Info = "Enlarge CategoryDescription", Time = 1 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 2, Name = "Shot2", Info = "Enlarge Big CategoryDescription", Time = 2 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 3, Name = "Shot3", Info = "Enlarge Bigger CategoryDescription", Time = 2 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 4, Name = "Shot4", Info = "Enlarge Bigger Bigger CategoryDescription", Time = 2 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 3, Name = "Shot5", Info = "Enlarge Bigger CategoryDescription", Time = 2 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 1, Name = "Hepatitis B (HepB)", Info = " ", Time = 0 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 2, Name = "Hepatitis B (HepB)", Info = " ", Time = 1 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 3, Name = "Rotavirus (RV)", Info = " ", Time = 2 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 4, Name = "Diphtheria and tetanus toxoids and acellular pertussis (DTaP)", Info = " ", Time = 2 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 5, Name = "Haemophilus influenzae type b (Hib)", Info = " ", Time = 2 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 6, Name = "Pneumococcal conjugate (PCV13)", Info = " ", Time = 2 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 7, Name = "Inactivated poliovirus (IPV:<18 yrs)", Info = " ", Time = 2 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 8, Name = "Rotavirus (RV)", Info = " ", Time = 4 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 9, Name = "Diphtheria and tetanus toxoids and acellular pertussis (DTaP)", Info = " ", Time = 4 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 10, Name = "Haemophilus influenzae type b (Hib)", Info = " ", Time = 4 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 11, Name = "Pneumococcal conjugate (PCV13)", Info = " ", Time = 4 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 12, Name = "Inactivated poliovirus (IPV:<18 yrs)", Info = " ", Time = 4 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 13, Name = "Hepatitis B (HepB)", Info = " ", Time = 6 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 14, Name = "Diphtheria and tetanus toxoids and acellular pertussis (DTaP)", Info = " ", Time = 6 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 15, Name = "Pneumococcal conjugate (PCV13)", Info = " ", Time = 6 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 16, Name = "Inactivated poliovirus (IPV:<18 yrs)", Info = " ", Time = 6 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 17, Name = "Influenza (IIV)", Info = " ", Time = 6 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 18, Name = "Haemophilus influenzae type b (Hib)", Info = " ", Time = 12 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 19, Name = "Pneumococcal conjugate (PCV13)", Info = " ", Time = 12 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 20, Name = "Measles, mumps, rubella (MMR)", Info = " ", Time = 12 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 21, Name = "Varicella (VAR)", Info = " ", Time = 12 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 22, Name = "Hepatitis A (HepA)", Info = " ", Time = 12 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 23, Name = "Diphtheria and tetanus toxoids and acellular pertussis (DTaP)", Info = " ", Time = 15 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 24, Name = "Influenza (IIV)", Info = " ", Time = 18 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 25, Name = "Hepatitis A (HepA) - Second Dose", Info = " ", Time = 24 });
+            Vaccines.Add(new VaccinationTable() { VaccinationID = 26, Name = "Influenza (IIV)", Info = " ", Time = 30 });
         }
     }
 }
 
-public class VaccinationInfoView : ContentPage
-    
-
+public class VaccinationInfoView : ContentPage  
 {
 
     Label VName, isTakenLabel;
@@ -189,7 +208,7 @@ public class VaccinationInfoView : ContentPage
                 //update database here
                   
 
-         //       isTakenButton.Image = (FileImageSource)ImageSource.FromFile("X.png");
+                isTakenButton.Image = (FileImageSource)ImageSource.FromFile("X.png");
 
                 isTakenButton.BackgroundColor = Color.Transparent;
 
@@ -201,7 +220,7 @@ public class VaccinationInfoView : ContentPage
             else if (isTaken == 0)
             {
 
-           //     isTakenButton.Image = (FileImageSource)ImageSource.FromFile("right.png");
+                isTakenButton.Image = (FileImageSource)ImageSource.FromFile("right.png");
 
                 isTakenButton.BackgroundColor = Color.Transparent;
 
@@ -339,7 +358,7 @@ public class VaccinationInfoView : ContentPage
         if (isTaken == 1)
         {
 
-          //  isTakenButton.Image = (FileImageSource)ImageSource.FromFile("right.png");
+            isTakenButton.Image = (FileImageSource)ImageSource.FromFile("right.png");
 
             isTakenButton.BackgroundColor = Color.Transparent;
 
@@ -351,7 +370,7 @@ public class VaccinationInfoView : ContentPage
         else if (isTaken == 0)
         {
 
-           // isTakenButton.Image = (FileImageSource)ImageSource.FromFile("X.png");
+            isTakenButton.Image = (FileImageSource)ImageSource.FromFile("X.png");
 
             isTakenButton.BackgroundColor = Color.Transparent;
 

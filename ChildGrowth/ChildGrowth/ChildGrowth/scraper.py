@@ -38,6 +38,15 @@ def readMilestones():
     for i in range(len(Month)):
         print "milestonesInfo.Add(new MilestonesInfo {MonthDue =", Month[i], ",CategoryName = ", '"%s"'%Category[i], ", CategoryDescription = ",'"%s"'%Description[i],", ImageURL = ",'"%s"'%URL[i], "});"
 
+def readVaccines():
+    df = pd.read_csv("data/vaccines.csv", names=['ID', 'Name', 'Info', 'Time']);
+    ID = df['ID'].tolist()
+    Name = df['Name'].tolist()
+    Info = df['Info'].tolist()
+    Time = df['Time'].tolist()
+
+    for i in range(len(ID)):
+        print "Vaccines.Add(new VaccinationTable() { VaccinationID = " + str(ID[i]) + " , Name = ",'"%s"'%Name[i],",Info =", '"%s"'%Info[i], ",Time = " + str(Time[i]) + "});"
 if __name__ == "__main__":
   # readInCSV()
-    readMilestones();
+    readVaccines()
