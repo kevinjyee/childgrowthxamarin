@@ -53,10 +53,12 @@
                     </chart:SfChart.Title>
                     <chart:SfChart.PrimaryAxis>
                         <chart:CategoryAxis>
+                            <chart:ChartAxisTitle Text="Month"/>
                         </chart:CategoryAxis>
                     </chart:SfChart.PrimaryAxis>
                     <chart:SfChart.SecondaryAxis>
                         <chart:NumericalAxis>
+                            <chart:ChartAxisTitle Text="Measurement"/>
                         </chart:NumericalAxis>
                     </chart:SfChart.SecondaryAxis>
                     <chart:SfChart.Series>
