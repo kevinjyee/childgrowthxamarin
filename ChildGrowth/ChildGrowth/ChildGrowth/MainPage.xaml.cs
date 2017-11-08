@@ -34,11 +34,13 @@ namespace ChildGrowth
             if (CurrentChild != null)
             {
                 this.Title = CurrentChild.Name;
+                UpdateDateSelectionEnabledStatus(true);
             }
             else{
                 this.Title = "Please Select a Child";
+                UpdateDateSelectionEnabledStatus(false);
+
             }
-            UpdateDateSelectionEnabledStatus(false);
         }
 
         // Load context and set value for current child if it exists.
@@ -177,7 +179,13 @@ namespace ChildGrowth
                 "OK");
                 return;
             }
-            foreach (Points pt in currentChild.GetSortedMeasurementListByType(MeasurementType.WEIGHT))
+            List<Points> points = currentChild.GetSortedMeasurementListByType(MeasurementType.WEIGHT);
+            if (points == null)
+            {
+                currentChild.AddMeasurementForDateAndType(currentChild.Birthday,MeasurementType.WEIGHT, CurrentContext.CurrentUnits, 0.0);
+                return;
+            }
+            foreach (Points pt in points)
             {
                 viewModel.InputData.Add(pt);
             }
@@ -198,7 +206,13 @@ namespace ChildGrowth
                 return;
             }
             viewModel.InputData?.Clear();
-            foreach (Points pt in currentChild.GetSortedMeasurementListByType(MeasurementType.HEIGHT))
+            List<Points> points = currentChild.GetSortedMeasurementListByType(MeasurementType.HEIGHT);
+            if (points == null)
+            {
+                currentChild.AddMeasurementForDateAndType(currentChild.Birthday, MeasurementType.HEIGHT, CurrentContext.CurrentUnits, 0.0);
+                return;
+            }
+            foreach (Points pt in points)
             {
                 viewModel.InputData.Add(pt);
             }
@@ -219,7 +233,13 @@ namespace ChildGrowth
                 return;
             }
             viewModel.InputData.Clear();
-            foreach (Points pt in currentChild.GetSortedMeasurementListByType(MeasurementType.HEAD_CIRCUMFERENCE))
+            List<Points> points = currentChild.GetSortedMeasurementListByType(MeasurementType.HEAD_CIRCUMFERENCE);
+            if (points == null)
+            {
+                currentChild.AddMeasurementForDateAndType(currentChild.Birthday, MeasurementType.HEAD_CIRCUMFERENCE, CurrentContext.CurrentUnits, 0.0);
+                return;
+            }
+            foreach (Points pt in points)
             {
                 viewModel.InputData.Add(pt);
             }
