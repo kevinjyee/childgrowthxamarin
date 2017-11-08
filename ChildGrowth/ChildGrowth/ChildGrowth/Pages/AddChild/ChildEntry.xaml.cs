@@ -68,6 +68,7 @@ namespace ChildGrowth.Pages.AddChild
                 Child newChild = new Child(nameEntered, birthdayEntered, genderSelected);
                 await childDatabase.SaveUserChildAsync(newChild);
                 ContextDatabaseAccess contextDB = new ContextDatabaseAccess();
+                await contextDB.InitializeAsync();
                 Context context = contextDB.GetContextAsync().Result;
                 context.ChildId = newChild.ID;
                 await contextDB.SaveContextAsync(context);
