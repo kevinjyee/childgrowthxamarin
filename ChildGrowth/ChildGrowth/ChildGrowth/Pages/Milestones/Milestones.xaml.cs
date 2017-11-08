@@ -14,6 +14,7 @@ using ChildGrowth.Models.Settings;
 using ChildGrowth.Pages.Settings;
 using XLabs.Forms.Controls;
 using XLabs.Enums;
+using static ChildGrowth.Pages.Milestones.CardStackView;
 
 namespace ChildGrowth.Pages.Milestones
 {
@@ -23,9 +24,9 @@ namespace ChildGrowth.Pages.Milestones
         Child CurrentChild;
         Context CurrentContext;
         CardStackView cardStack;
-        MainPageViewModel viewModel = new MainPageViewModel();
+        MainPageViewModel viewModel;
         bool historyView = false;
-
+        private int cIdx = 0;
         override
         protected void OnAppearing()
         {
@@ -34,16 +35,22 @@ namespace ChildGrowth.Pages.Milestones
             if (CurrentChild != null)
             {
                 this.Title = CurrentChild.Name;
+                
             }
             else
             {
                 this.Title = "Please Select a Child";
             }
+            viewModel = new MainPageViewModel();
+            initializeMilestones();
         }
 
         public Milestones()
         {
-            initializeMilestones();
+            //OnAppearing();
+            //viewModel = new MainPageViewModel();
+            //initializeMilestones();
+
         }
 
         private async Task<Boolean> LoadContext()
@@ -78,7 +85,7 @@ namespace ChildGrowth.Pages.Milestones
             }
             else
             {
-                CurrentChild = CurrentContext.GetSelectedChild().Result;
+                CurrentChild = CurrentContext.GetSelectedChild();
                 return true;
             }
         }
@@ -169,6 +176,7 @@ namespace ChildGrowth.Pages.Milestones
             cardStack.GetNextCard().Scale = 1;
             if (!cardStack.ShowNextCard())
             {
+                cIdx = 0;
                 Navigation.PushAsync(new NavigationPage(new MilestonesHistory()));
             }
 
@@ -181,36 +189,9 @@ namespace ChildGrowth.Pages.Milestones
             cardStack.GetNextCard().Scale = 1;
             if (!cardStack.ShowNextCard())
             {
-
+                cIdx = 0; 
                 Navigation.PushAsync(new NavigationPage(new MilestonesHistory()));
             };
-        }
-
-        public void showHistory()
-        {
-
-            MilestonesInfoRepository viewModel = new MilestonesInfoRepository();
-            listView = new SfListView();
-            listView.ItemSize = 100;
-            listView.ItemsSource = viewModel.MilestonesInfo;
-            listView.ItemTemplate = new DataTemplate(() =>
-            {
-                var grid = new Grid();
-                var bookName = new Label { FontAttributes = FontAttributes.Bold, BackgroundColor = Color.Teal, FontSize = 21 };
-                bookName.SetBinding(Label.TextProperty, new Binding("categoryName"));
-                var bookDescription = new Label { BackgroundColor = Color.Teal, FontSize = 15 };
-                bookDescription.SetBinding(Label.TextProperty, new Binding("categoryDesc"));
-
-                grid.Children.Add(bookName);
-                grid.Children.Add(bookDescription, 1, 0);
-
-                return grid;
-            });
-
-
-
-            this.Content = listView;
-
         }
 
         HashSet<int> likedIds = new HashSet<int>();
@@ -219,9 +200,20 @@ namespace ChildGrowth.Pages.Milestones
         // Swiped right function
         void SwipedRight(int index)
         {
-            index = (index - 2) < 0 ? -1 * (index - 2) % 4 : (index - 2) % 4;
+            if (index > 1)
+            {
+                index = (index - 2) < 0 ? -1 * (index - 2) % 169 : (index - 2) % 169;
+            }
             int currID = cardStack.ItemsSource[index].ID;
             likedIds.Add(currID);
+            if(currID > 0)
+            {
+                
+                CurrentChild.AddOrUpdateMilestoneHistory(currID, Models.Milestones.BinaryAnswer.YES);
+            }
+            //Item toRemove = cardStack.ItemsSource.Find(p => p.ID == currID);
+            //cardStack.ItemsSource.Remove(toRemove);
+
             cardStack.GetNextCard().Scale = 1;
             cardStack.GetTopCard().Scale = 1;
 
@@ -235,9 +227,19 @@ namespace ChildGrowth.Pages.Milestones
         // Swiped left function
         void SwipedLeft(int index)
         {
-            index = (index - 2) < 0 ? -1 * (index - 2) % 4 : (index - 2) % 4;
+            if (index > 1)
+            {
+                index = (index - 2) < 0 ? -1 * (index - 2) % 169 : (index - 2) % 169;
+            }
             int currID = cardStack.ItemsSource[index].ID;
             dislikedIds.Add(currID);
+            if(currID > 0)
+            {
+                CurrentChild.AddOrUpdateMilestoneHistory(currID, Models.Milestones.BinaryAnswer.NO);
+            }
+           // Item toRemove = cardStack.ItemsSource.Find(p => p.ID == currID);
+           // cardStack.ItemsSource.Remove(toRemove);
+
             cardStack.GetNextCard().Scale = 1;
             cardStack.GetTopCard().Scale = 1;
 

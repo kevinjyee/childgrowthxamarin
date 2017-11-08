@@ -140,7 +140,7 @@ namespace ChildGrowth.Pages.Vaccinations
             }
             else
             {
-                CurrentChild = CurrentContext.GetSelectedChild().Result;
+                CurrentChild = CurrentContext.GetSelectedChild(); ;
                 return true;
             }
         }

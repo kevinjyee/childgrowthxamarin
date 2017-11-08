@@ -38,7 +38,7 @@ def readMilestones():
 
     for i in range(len(Month)):
         #print "milestonesInfo.Add(new MilestonesInfo {MonthDue =", Month[i], ",CategoryName = ", '"%s"'%Category[i], ", CategoryDescription = ",'"%s"'%Description[i],", ImageURL = ",'"%s"'%URL[i], "});"
-        print "Milestones.Add(new MilestoneBuilder().WithID("+str(ID[i])+ ").WithCategory(" + str(Category[i])+").WithHelpfulText(",'"" ', ").WithQuestionText(",'"%s"'%Description[i],").WithMilestoneDueDate("+str(Month[i]) + ").WithMedia(new Models.MediaUtil.Media(",'"%s"'%URL[i],")).Build());"
+        print "Milestones.Add(new MilestoneBuilder().WithID("+str(ID[i])+ ").WithCategory(" + str(Category[i])+").WithHelpfulText(",'"" ', ").WithQuestionText(",'"%s"'%Description[i],").WithMilestoneDueDate("+str(Month[i]) + ").WithMedia(",'"%s"'%URL[i],").Build());"
 
 def readVaccines():
     df = pd.read_csv("data/vaccines.csv", names=['ID', 'Name', 'Info', 'Time']);

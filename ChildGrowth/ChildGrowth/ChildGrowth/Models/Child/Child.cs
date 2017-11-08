@@ -147,12 +147,12 @@ public class Child
     /**
      * Add or update milestone response history for the given milestone ID and BinaryAnswer.
      **/
-    public async Task<Boolean> AddOrUpdateMilestoneHistory(int milestoneID, BinaryAnswer answer)
+    public Boolean AddOrUpdateMilestoneHistory(int milestoneID, BinaryAnswer answer)
     {
         ChildDatabaseAccess childDB = new ChildDatabaseAccess();
-        await childDB.InitializeAsync();
+        childDB.InitializeSync();
         Milestones.AddOrUpdateMilestoneHistory(milestoneID, answer);
-        await childDB.SaveUserChildAsync(this);
+        childDB.SaveUserChildSync(this);
         return true;
     }
 

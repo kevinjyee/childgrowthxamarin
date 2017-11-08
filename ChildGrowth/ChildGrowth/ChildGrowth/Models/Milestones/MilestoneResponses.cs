@@ -16,8 +16,8 @@ namespace ChildGrowth.Models.Milestones
         public void AddOrUpdateMilestoneHistory(int milestoneID, BinaryAnswer answer)
         {
             MilestoneDatabaseAccess milestoneDatabaseAccess = new MilestoneDatabaseAccess();
-            Boolean initialized = milestoneDatabaseAccess.InitializeAsync().Result;
-            Milestone milestone = milestoneDatabaseAccess.GetMilestoneByIdAsync(milestoneID).Result;
+            milestoneDatabaseAccess.InitializeSync();
+            Milestone milestone = milestoneDatabaseAccess.GetMilestoneByIdSync(milestoneID);
             MilestoneHistory.UpdateOrInsertToMilestoneHistory(milestone, answer);
             Boolean milestoneRemoved = UnansweredMilestones.RemoveMilestone(milestone);
         }
@@ -80,23 +80,24 @@ namespace ChildGrowth.Models.Milestones
         private List<Milestone> GetMilestonesByIds(List<int> ids)
         {
             MilestoneDatabaseAccess milestoneDatabaseAccess = new MilestoneDatabaseAccess();
-            Boolean initialized = milestoneDatabaseAccess.InitializeAsync().Result;
+            milestoneDatabaseAccess.InitializeSync();
             List<Task<Milestone>> readTasks = new List<Task<Milestone>>();
             List<Milestone> milestones = new List<Milestone>();
             if (ids != null && ids.Count > 0)
             {
                 foreach (int milestoneID in ids)
                 {
-                    readTasks.Add(milestoneDatabaseAccess.GetMilestoneByIdAsync(milestoneID));
+                    milestones.Add(milestoneDatabaseAccess.GetMilestoneByIdSync(milestoneID));
                 }
             }
-            if (readTasks != null && readTasks.Count > 0)
-            {
-                foreach (Task<Milestone> task in readTasks)
-                {
-                    milestones.Add(task.Result);
-                }
-            }
+            //if (readTasks != null && readTasks.Count > 0)
+            //{
+            //    foreach (Task<Milestone> task in readTasks)
+            //    {
+            //        milestones.Add(task.Result);
+            //    }
+            //}
+            milestoneDatabaseAccess.CloseSyncConnection();
             return milestones;
         }
 
