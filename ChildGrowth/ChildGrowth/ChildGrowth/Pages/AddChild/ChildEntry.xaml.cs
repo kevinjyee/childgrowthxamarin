@@ -1,4 +1,5 @@
-﻿using ChildGrowth.Persistence;
+﻿using ChildGrowth.Models.Settings;
+using ChildGrowth.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,6 +67,10 @@ namespace ChildGrowth.Pages.AddChild
                 await childDatabase.InitializeAsync();
                 Child newChild = new Child(nameEntered, birthdayEntered, genderSelected);
                 await childDatabase.SaveUserChildAsync(newChild);
+                ContextDatabaseAccess contextDB = new ContextDatabaseAccess();
+                Context context = contextDB.GetContextAsync().Result;
+                context.ChildId = newChild.ID;
+                await contextDB.SaveContextAsync(context);
             }
 
             await Navigation.PopModalAsync();
