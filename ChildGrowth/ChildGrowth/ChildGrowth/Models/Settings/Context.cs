@@ -14,7 +14,7 @@ namespace ChildGrowth.Models.Settings
     public class Context
     {
         [PrimaryKey]
-        public int ID { get { return ID; } set { this.ID = value; } }
+        public int ID { get; set; }
 
         // TODO: [Stefan 10/30/2017] Reset ChildId when user child deleted.
         public int ChildId { get { return this._childId; } set { this._childId = value; } }
@@ -64,7 +64,7 @@ namespace ChildGrowth.Models.Settings
 
         public Context()
         {
-            ChildId = ContextBuilder.NO_CHILD_SELECTED;
+            ChildId = -1;
             CurrentLanguage = Language.ENGLISH;
             CurrentUnits = new Units(DistanceUnits.IN, WeightUnits.OZ);
         }

@@ -16,7 +16,7 @@ namespace ChildGrowth.Persistence
             _asyncConnection = SQLiteDatabase.GetConnection(DB_FILE_NAME);
 
             // Create MyEntity table if need be
-            await _asyncConnection.CreateTableAsync<Context>();
+            var test = _asyncConnection.CreateTableAsync<Context>().Result;
             IsConnected = true;
             return IsConnected;
         }
@@ -41,6 +41,13 @@ namespace ChildGrowth.Persistence
             context.ID = CONTEXT_ID_NUMBER;
             context.DateSaved = DateTime.Now;
             return SQLiteNetExtensionsAsync.Extensions.WriteOperations.InsertOrReplaceWithChildrenAsync(_asyncConnection, context);
+        }
+
+        public void SaveFirstContextAsync(Context context)
+        {
+            context.ID = CONTEXT_ID_NUMBER;
+            context.DateSaved = DateTime.Now;
+            SQLiteNetExtensionsAsync.Extensions.WriteOperations.InsertWithChildrenAsync(_asyncConnection, context);
         }
 
         public Task DeleteContextAsync(Context context)

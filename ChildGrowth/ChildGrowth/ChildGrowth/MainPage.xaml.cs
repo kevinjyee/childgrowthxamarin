@@ -31,23 +31,25 @@ namespace ChildGrowth
         {
             InitializeComponent();
             UpdateDateSelectionEnabledStatus(false);
-            Boolean contextLoaded = LoadContext().Result;
+
+            Task.Run(async () => { await LoadContext(); });
         }
+
 
         // Load context and set value for current child if it exists.
         private async Task<Boolean> LoadContext()
         {
             ContextDatabaseAccess contextDB = new ContextDatabaseAccess();
-            contextDB.InitializeSync();
+            await contextDB.InitializeAsync();
             try
             {
-                CurrentContext = contextDB.GetContextSync();
+                CurrentContext = contextDB.GetContextAsync().Result;
             }
             // Can't find definitions for SQLiteNetExtensions exceptions, so catch generic Exception e and assume there is no context.
             catch(Exception e)
             {
                 CurrentContext = null;
-                contextDB.CloseSyncConnection();
+                //contextDB.CloseSyncConnection();
             }
             // If context doesn't exist, create it, save it, and populate vaccine/milestones databases.
             if (CurrentContext == null)
@@ -56,9 +58,9 @@ namespace ChildGrowth
                 // Exception probably broke the synchronous connection.
                 //contextDB.InitializeSync();
                 ContextDatabaseAccess newContextDB = new ContextDatabaseAccess();
-                newContextDB.InitializeSync();
-                newContextDB.SaveFirstContextSync(CurrentContext);
-                newContextDB.CloseSyncConnection();
+                await newContextDB.InitializeAsync();
+                newContextDB.SaveFirstContextAsync(CurrentContext);
+                //newContextDB.CloseSyncConnection();
                 CurrentChild = null;
                 Task tVaccine = VaccineTableConstructor.ConstructVaccineTable();
                 Task tMilestone = MilestonesTableConstructor.ConstructMilestonesTable();
