@@ -7,7 +7,8 @@
     xmlns:converters="clr-namespace:ChildGrowth.Converters" 
     xmlns:sys="clr-namespace:System;assembly=mscorlib" 
     xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms" 
-    x:Class="ChildGrowth.MainPage"
+    xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+    x:Class="ChildGrowth.MainPage" 
     > 
     <ContentPage.ToolbarItems>
         <ToolbarItem Name="Settings" Order="Primary" Clicked="OnSettingsClicked" Icon="settings.png" Priority="0" />
@@ -20,20 +21,31 @@
         <StackLayout>
             <StackLayout>
                 <Label x:Name="MeasurementTitle" Text="Measurements" XAlign="Center" FontSize="30" />
-                <Grid Margin="5">
+                <Grid Margin="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="95" />
-                        <ColumnDefinition Width="78" />
-                        <ColumnDefinition Width="175" />
+                        <ColumnDefinition Width="88" />
+                        <ColumnDefinition Width="98" />
+                        <ColumnDefinition Width="230" />
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="WeightButton" Grid.Column="0" Grid.Row="0" Image="weightunclicked.png" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" Clicked="OnWeightClicked" />
-                    <Button x:Name="HeightButton" Grid.Column="1" Grid.Row="0" Image="height_unclicked.png" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" Clicked="OnHeightClicked" />
-                    <Button x:Name="HeadButton" Grid.Column="2" Grid.Row="0" Image="head_circumference_unclicked.png" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" Clicked="OnHeadClicked" />
+                    <controls:ImageButton Source="weightunclicked" Grid.Column="0" Grid.Row="0" Clicked="OnWeightClicked"
+                                          BackgroundColor="Transparent"  ImageHeightRequest="80" ImageWidthRequest="165" />
+                    <controls:ImageButton Source="height_unclicked" Grid.Column="1" Grid.Row="0" Clicked="OnHeightClicked"
+                                          BackgroundColor="Transparent"  ImageHeightRequest="80" ImageWidthRequest="180"/>
+                    <controls:ImageButton Source="head_circumference_unclicked" Grid.Column="2" Grid.Row="0" Clicked="OnHeadClicked"
+                                          BackgroundColor="Transparent"  ImageHeightRequest="80" ImageWidthRequest="310" />
+                    <!--<Button x:Name="WeightButton" Grid.Column="0" Grid.Row="0" Image="weightunclicked.png" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" Clicked="OnWeightClicked" />-->
+                    <!--<Button x:Name="HeightButton" Grid.Column="1" Grid.Row="0" Image="height_unclicked.png" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" Clicked="OnHeightClicked" />-->
+                    <!--<Button x:Name="HeadButton" Grid.Column="2" Grid.Row="0" Image="head_circumference_unclicked.png" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" Clicked="OnHeadClicked" />-->
                 </Grid>
                 <chart:SfChart>
+                    <chart:SfChart.Legend>
+
+                        <chart:ChartLegend/>
+
+                    </chart:SfChart.Legend>
                     <chart:SfChart.HeightRequest>
                         <OnPlatform x:TypeArguments="x:Double" iOS="160" Android="190" WinPhone="150" />
                     </chart:SfChart.HeightRequest>
@@ -53,7 +65,7 @@
                     </chart:SfChart.SecondaryAxis>
                     <chart:SfChart.Series>
                         <chart:LineSeries StrokeWidth="2" ListenPropertyChange="True" ItemsSource="{Binding LineData}" XBindingPath="Age" YBindingPath="Val" x:Name="series1" />
-                        <chart:LineSeries ListenPropertyChange="True" ItemsSource="{Binding InputData}" XBindingPath="Age" YBindingPath="Val" />
+                        <chart:LineSeries ListenPropertyChange="True" ItemsSource="{Binding InputData}" XBindingPath="Age" YBindingPath="Val" x:Name="series2"/>
                     </chart:SfChart.Series>
                 </chart:SfChart>
                 <TableView Intent="Form">

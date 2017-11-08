@@ -83,58 +83,39 @@ namespace ChildGrowth.Pages.Education
 
         async void BehaviorButtonClick(object sender, EventArgs args)
         {
-            // await Navigation.PushModalAsync(new EducationInfoDisplay(Models.Education.EducationCategory.BEHAVIOR.ToString()));
+            await Navigation.PushAsync(new EducationInfo("Behavior"));
         }
 
         async void LearningButtonClick(object sender, EventArgs e)
         {
-            //await Navigation.PushModalAsync(new EducationInfoDisplay(Models.Education.EducationCategory.LEARNING.ToString()));
+            await Navigation.PushAsync(new EducationInfo("Learning"));
         }
 
         async void SafetyButtonClick(object sender, EventArgs e)
         {
-            //await Navigation.PushModalAsync(new EducationInfoDisplay(Models.Education.EducationCategory.SAFETY.ToString()));
+            await Navigation.PushAsync(new EducationInfo("Safety"));
         }
 
         async void PlayButtonClick(object sender, EventArgs e)
         {
-            // await Navigation.PushModalAsync(new EducationInfoDisplay(Models.Education.EducationCategory.PLAY.ToString()));
+            await Navigation.PushAsync(new EducationInfo("Play"));
         }
 
         async void ToiletTrainingButtonClick(object sender, EventArgs e)
         {
-            // await Navigation.PushModalAsync(new EducationInfoDisplay(Models.Education.EducationCategory.TOILET_TRAINING.ToString()));
+            await Navigation.PushAsync(new EducationInfo("Toilet"));
         }
 
         async void DiseasesButtonClick(object sender, EventArgs e)
         {
-            // await Navigation.PushModalAsync(new EducationInfoDisplay(Models.Education.EducationCategory.DISEASES.ToString()));
+            await Navigation.PushAsync(new EducationInfo("Diseases"));
         }
 
         async void DoctorVisitsButtonClick(object sender, EventArgs e)
         {
-            // await Navigation.PushModalAsync(new EducationInfoDisplay(Models.Education.EducationCategory.DOCTOR_VISITS.ToString()));
+            await Navigation.PushAsync(new EducationInfo("Doctor"));
         }
-        // with the yearXX clicks, need to reroute to button page
-        async void Year01ButtonClick(object sender, EventArgs e)
-        {
-            // var year01ButtonNavPage = new Year01ButtonNav();
-
-            // await Navigation.PushModalAsync(year01ButtonNavPage);
-        }
-
-        async void Year12ButtonClick(object sender, EventArgs e)
-        {
-            // var year12ButtonNavPage = new Year12ButtonNav();
-
-            //await Navigation.PushModalAsync(year12ButtonNavPage);
-        }
-
-        async void Year23ButtonClick(object sender, EventArgs e)
-        {
-            //var year23ButtonNavPage = new Year23ButtonNav();
-
-            // await Navigation.PushModalAsync(year23ButtonNavPage);
-        }
+        
+       
     }
 }

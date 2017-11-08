@@ -11,7 +11,6 @@ namespace ChildGrowth.Models.Vaccinations
      */
     public enum VaccinationDueDate : int
     {
-        BIRTH = 0,
         ONE_MONTH = 1,
         TWO_MONTHS = 2,
         THREE_MONTHS = 3,

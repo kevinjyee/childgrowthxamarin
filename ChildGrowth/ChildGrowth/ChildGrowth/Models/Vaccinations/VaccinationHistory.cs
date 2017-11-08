@@ -25,31 +25,6 @@ namespace ChildGrowth.Models.Vaccinations
             _vaccinationHistory[vaccineId] = vaccineId;
         }
 
-        /**
-         * Get the number of received vaccines.
-         **/
-        public int GetVaccinationHistoryListSize()
-        {
-            if (_vaccinationHistory != null)
-            {
-                return _vaccinationHistory.Count;
-            }
-            else return 0;
-        }
-
-        /**
-         *  Return true if VaccinationHistory contains vaccineId.
-         **/
-        public Boolean HasVaccine(int vaccineId)
-        {
-            return _vaccinationHistory.ContainsKey(vaccineId);
-        }
-
-        public void RemoveFromVaccineHistory(int vaccineId)
-        {
-            _vaccinationHistory.Remove(vaccineId);
-        }
-
         public Dictionary<int, int> GetVaccinationHistory()
         {
             return _vaccinationHistory;

@@ -12,6 +12,8 @@ using Xamarin.Forms.Xaml;
 using ChildGrowth.Persistence;
 using ChildGrowth.Models.Settings;
 using ChildGrowth.Pages.Settings;
+using XLabs.Forms.Controls;
+using XLabs.Enums;
 
 namespace ChildGrowth.Pages.Milestones
 {
@@ -100,26 +102,28 @@ namespace ChildGrowth.Pages.Milestones
             cardStack.SwipedLeft += SwipedLeft;
             cardStack.SwipedRight += SwipedRight;
 
-            // Dislike_button is our no button. 
-            Button dislike_but = new Button()
+            //Dislike_button is our no button. 
+            var dislike_but = new ImageButton()
             {
-                Image = (FileImageSource)ImageSource.FromFile("blue_no.png"),
-                Scale = 2,
+                HeightRequest = 90,
+                WidthRequest = 200,
+                ImageHeightRequest = 90,
+                ImageWidthRequest = 200,
                 BackgroundColor = Color.Transparent,
-                BorderColor = Color.Transparent,
-                BorderRadius = 0,
-                BorderWidth = 0
+                Orientation = ImageOrientation.ImageToLeft,
+                Source = "no_blue_big"
             };
 
-            // Like button is our yes button
-            Button like_but = new Button()
+            //Like button is our yes button
+            var like_but = new ImageButton()
             {
-                Image = (FileImageSource)ImageSource.FromFile("blue_yes.png"),
-                Scale = 2,
+                HeightRequest = 90,
+                WidthRequest = 200,
+                ImageHeightRequest = 90,
+                ImageWidthRequest = 200,
                 BackgroundColor = Color.Transparent,
-                BorderColor = Color.Transparent,
-                BorderRadius = 0,
-                BorderWidth = 0
+                Orientation = ImageOrientation.ImageToRight,
+                Source = "yes_blue_big"
             };
 
             // Click Events. When Like and dislike is handled.
@@ -135,18 +139,19 @@ namespace ChildGrowth.Pages.Milestones
 
             // Add dislike buttons to viewmodel
             view.Children.Add(dislike_but,
-                Constraint.RelativeToParent((parent) => { return parent.Width - parent.Width + 75; }),
+
+                Constraint.RelativeToParent((parent) => { return parent.Width - parent.Width + 45; }),
                 Constraint.RelativeToParent((parent) => { return parent.Height - 80; }),
                 //Constraint.RelativeToParent((parent) => { return parent.Height - 80; }), //MIDDLE
-                Constraint.Constant(75),
+                Constraint.Constant(135),
                 Constraint.Constant(50));
 
             // Add like buttons to viewmodel
             view.Children.Add(like_but,
-                Constraint.RelativeToParent((parent) => { return parent.Width - 135; }),
+                Constraint.RelativeToParent((parent) => { return parent.Width - 175; }),
                 Constraint.RelativeToParent((parent) => { return parent.Height - 80; }),
                 //Constraint.RelativeToParent((parent) => { return parent.Height - 80; }), //MIDDLE
-                Constraint.Constant(75),
+                Constraint.Constant(135),
                 Constraint.Constant(50));
 
 

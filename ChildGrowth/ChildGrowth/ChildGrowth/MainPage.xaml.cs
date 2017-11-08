@@ -38,6 +38,7 @@ namespace ChildGrowth
             else{
                 this.Title = "Please Select a Child";
             }
+            UpdateDateSelectionEnabledStatus(false);
         }
 
         // Load context and set value for current child if it exists.
@@ -77,6 +78,7 @@ namespace ChildGrowth
                 CurrentChild = CurrentContext.GetSelectedChild().Result;
                 return true;
             }
+
         }
 
         void OnSettingsClicked(object sender, System.EventArgs e)

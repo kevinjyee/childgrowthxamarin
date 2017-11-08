@@ -12,7 +12,7 @@ namespace ChildGrowth.Pages.Milestones
         private int monthDue;
         private string categoryName;
         private string categoryDesc;
-        private Uri imageURL;
+        private string imageURL;
 
         public int MonthDue
         {
@@ -44,7 +44,7 @@ namespace ChildGrowth.Pages.Milestones
             }
         }
 
-        public Uri ImageURL
+        public string ImageURL
         {
             get { return imageURL; }
             set

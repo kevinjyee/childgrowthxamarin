@@ -162,7 +162,7 @@ namespace ChildGrowth.Pages.Milestones
             firstDesc2 = new Label()
             {
                 TextColor = Color.DimGray,
-                FontSize = 12,
+                FontSize = 20,
                 InputTransparent = true,
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
                 HorizontalTextAlignment = TextAlignment.Center
@@ -170,7 +170,7 @@ namespace ChildGrowth.Pages.Milestones
 
             view.Children.Add(firstDesc2,
                 Constraint.RelativeToParent((parent) => { return parent.Width - parent.Width + 5; }),
-                Constraint.RelativeToParent((parent) => { return parent.Height - 85; }),
+                Constraint.RelativeToParent((parent) => { return parent.Height - 115; }),
                 //Constraint.RelativeToParent((parent) => { return parent.Height - 80; }), //MIDDLE
                 Constraint.RelativeToParent((parent) => { return parent.Width; }),
                 Constraint.RelativeToParent((parent) => { return parent.Height; }));
@@ -178,8 +178,9 @@ namespace ChildGrowth.Pages.Milestones
             Name.Text = m.CategoryName;
             Description.Text = m.CategoryDescription;
             firstDesc.Text = "";
-            firstDesc2.Text = "";
-            Photo.Source = ImageSource.FromUri(new Uri("https://www.cats.org.uk/uploads/images/pages/photo_latest14.jpg"));
+            firstDesc2.Text = "Completed";
+            firstDesc2.TextColor = Color.SpringGreen;
+            Photo.Source = ImageSource.FromUri(new Uri(m.ImageURL));
             this.Content = view;
 
         }

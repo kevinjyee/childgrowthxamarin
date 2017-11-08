@@ -14,14 +14,11 @@ namespace ChildGrowth.Models.Vaccinations
 
         public string VaccineName { get; set; }
 
-        public string Info { get; set; }
-
-        private Vaccine(int id, int vaccineDueDate, string vaccineName, string info)
+        private Vaccine(int id, int vaccineDueDate, string vaccineName)
         {
             this.ID = id;
             this.VaccineDueDate = vaccineDueDate;
             this.VaccineName = vaccineName;
-            this.Info = info;
         }
 
         public Vaccine()
@@ -38,7 +35,6 @@ namespace ChildGrowth.Models.Vaccinations
             private int _id;
             private int _vaccineDueDate;
             private string _vaccineName;
-            private string _info;
 
             public VaccineBuilder()
             {
@@ -47,7 +43,7 @@ namespace ChildGrowth.Models.Vaccinations
 
             public Vaccine Build()
             {
-                return new Vaccine(_id, _vaccineDueDate, _vaccineName, _info);
+                return new Vaccine(_id, _vaccineDueDate, _vaccineName);
             }
 
             public VaccineBuilder WithID(int id)
@@ -68,11 +64,6 @@ namespace ChildGrowth.Models.Vaccinations
                 return this;
             }
 
-            public VaccineBuilder WithInfo(string info)
-            {
-                this._info = info;
-                return this;
-            }
         }
     }
 }

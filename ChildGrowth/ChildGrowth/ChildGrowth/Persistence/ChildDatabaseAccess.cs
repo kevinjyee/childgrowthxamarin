@@ -24,6 +24,7 @@ namespace ChildGrowth.Persistence
 
             // Create MyEntity table if need be
             _syncConnection.CreateTable<Child>();
+
         }
 
         public Task<List<Child>> GetAllUserChildrenAsync()

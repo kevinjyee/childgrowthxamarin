@@ -42,16 +42,18 @@ namespace ChildGrowth.Persistence
         public Task SaveAllVaccinesAsync(List<Vaccine> vaccines)
         {
             return WriteOperations.InsertOrReplaceAllWithChildrenAsync(_asyncConnection, vaccines);
+
         }
 
         public Task SaveVaccineAsync(Vaccine vaccine)
         {
-            return WriteOperations.InsertOrReplaceWithChildrenAsync(_asyncConnection, vaccine);
+            return WriteOperations.InsertOrReplaceWithChildrenAsync(_connection, vaccine);
         }
 
         public Task DeleteVaccineAsync(Vaccine vaccine)
         {
-            return WriteOperations.DeleteAsync(_asyncConnection, vaccine, true);
+
+            return WriteOperations.DeleteAsync(_connection, vaccine, true);
         }
 
         public Task DeleteAllVaccinesAsync(List<Vaccine> vaccines)
@@ -87,8 +89,10 @@ namespace ChildGrowth.Persistence
         public void DeleteAllVaccinesSync(List<Vaccine> vaccines)
         {
             SQLiteNetExtensions.Extensions.WriteOperations.DeleteAll(_syncConnection, vaccines);
+
         }
 
         private new readonly string DB_FILE_NAME = "VaccineDatabase.db3";
     }
+
 }
