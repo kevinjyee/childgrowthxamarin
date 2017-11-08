@@ -16,85 +16,111 @@ namespace ChildGrowth.Pages.Settings
     public partial class SettingsPage : ContentPage
     {
 
-        Context currentContext { get; set; }
+        Context CurrentContext { get; set; }
         public SettingsPage()
         {
-            getCurrentContext();
+            Task contextTask = Task.Run(async () => { await getCurrentContext(); });
+            contextTask.Wait();
             InitializeComponent();
-        }
-
-        async void getCurrentContext()
-        {
-            ContextDatabaseAccess database = new ContextDatabaseAccess();
-            await database.InitializeAsync();
-            Context context = database.GetContextAsync().Result;
-            currentContext = context;
-            if (currentContext == null)
-            {
-                currentContext = new Context(-1, Language.ENGLISH, new Units(DistanceUnits.IN, WeightUnits.OZ));
-            }
-            await database.SaveContextAsync(currentContext);
             SetButtons();
         }
+
+        async private Task<Boolean> getCurrentContext()
+        {
+            ContextDatabaseAccess contextDB = new ContextDatabaseAccess();
+            await contextDB.InitializeAsync();
+            try
+            {
+                CurrentContext = contextDB.GetContextAsync().Result;
+            }
+            // Can't find definitions for SQLiteNetExtensions exceptions, so catch generic Exception e and assume there is no context.
+            catch (Exception e)
+            {
+                CurrentContext = null;
+            }
+            // If context doesn't exist, create it and pass child selected with default units.
+            if (CurrentContext == null)
+            {
+                CurrentContext = new Context();
+                // Exception probably broke the synchronous connection.
+                //contextDB.InitializeSync();
+                ContextDatabaseAccess newContextDB = new ContextDatabaseAccess();
+                await newContextDB.InitializeAsync();
+                newContextDB.SaveFirstContextAsync(CurrentContext);
+                //newContextDB.CloseSyncConnection();
+            }
+            return true;
+        }
+
+
         void SetButtons()
         {
-            if(currentContext.CurrentLanguage == Language.ENGLISH){
+            if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+            {
                 English.Image = "english_outline.png";
                 Spanish.Image = "spanish_white.png";
             }
-            else{
+            else
+            {
                 English.Image = "english_white.png";
                 Spanish.Image = "spanish_outline.png";
             }
-            if(currentContext.CurrentUnits.DistanceUnits == DistanceUnits.IN){
+            if (CurrentContext.CurrentUnits.DistanceUnits == DistanceUnits.IN)
+            {
                 Metric.Image = "cm_kg_white.png";
                 Imperial.Image = "inch_lb_outline.png";
             }
-            else{
+            else
+            {
                 Metric.Image = "cm_kg_outline.png";
                 Imperial.Image = "inch_lb_white.png";
             }
-            
+
         }
-        async void setLanguage(Language l)
+        async Task setLanguage(Language l)
         {
             ContextDatabaseAccess database = new ContextDatabaseAccess();
             await database.InitializeAsync();
-            currentContext.CurrentLanguage = l;
-            await database.SaveContextAsync(currentContext);
+            CurrentContext.CurrentLanguage = l;
+            await database.SaveContextAsync(CurrentContext);
         }
 
-        async void setUnits(Units u)
+        async Task setUnits(Units u)
         {
             ContextDatabaseAccess database = new ContextDatabaseAccess();
             await database.InitializeAsync();
-            currentContext.CurrentUnits = u;
-            await database.SaveContextAsync(currentContext);
+            CurrentContext.CurrentUnits = u;
+            await database.SaveContextAsync(CurrentContext);
         }
 
         void EnglishClicked(object sender, System.EventArgs e)
         {
             English.Image = "english_outline.png";
             Spanish.Image = "spanish_white.png";
-            setLanguage(Language.ENGLISH);
+            Task LanguageTask = Task.Run(async () => { await setLanguage(Language.ENGLISH); });
+            LanguageTask.Wait();
         }
         void SpanishClicked(object sender, System.EventArgs e)
         {
             English.Image = "english_white.png";
             Spanish.Image = "spanish_outline.png";
-            setLanguage(Language.SPANISH);
+            Task LanguageTask = Task.Run(async () => { await setLanguage(Language.SPANISH); });
+            LanguageTask.Wait();
+
         }
         void ImperialClicked(object sender, System.EventArgs e)
         {
             Metric.Image = "cm_kg_white.png";
             Imperial.Image = "inch_lb_outline.png";
-            setUnits(new Units(DistanceUnits.IN, WeightUnits.LBS));
+            Task UnitsTask = Task.Run(async () => { await setUnits(new Units(DistanceUnits.IN, WeightUnits.LBS)); });
+            UnitsTask.Wait();
         }
         void MetricClicked(object sender, System.EventArgs e)
         {
             Metric.Image = "cm_kg_outline.png";
             Imperial.Image = "inch_lb_white.png";
-            setUnits(new Units(DistanceUnits.CM, WeightUnits.OZ));
+            Task UnitsTask = Task.Run(async () => { await setUnits(new Units(DistanceUnits.CM, WeightUnits.OZ)); });
+            UnitsTask.Wait();
         }
     }
 }

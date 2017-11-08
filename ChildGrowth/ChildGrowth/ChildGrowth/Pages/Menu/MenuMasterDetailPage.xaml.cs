@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ChildGrowth.Models.Settings;
 using ChildGrowth.Pages.AddChild;
 using ChildGrowth.Pages.Master;
@@ -39,23 +40,43 @@ namespace ChildGrowth.Pages.Menu
             ChildList.ItemTapped += (Sender, Event) =>
             {
                 var C = (Child)Event.Item;
-                UpdateChild(C);
-
-
+                Task Update = Task.Run(async () => { await UpdateChild(C); });
+                Update.Wait();
+                IsPresented = false;
             };
         }
 
-        async private void UpdateChild(Child child){
-            ContextDatabaseAccess database = new ContextDatabaseAccess();
-            await database.InitializeAsync();
-            Context currentContext = database.GetContextAsync().Result;
-            if (currentContext == null){
-                currentContext = new Context(child.GetID(), Language.ENGLISH, new Units(DistanceUnits.IN, WeightUnits.OZ));
-                await database.SaveContextAsync(currentContext);
+        async private Task<Boolean> UpdateChild(Child child){
+            Context CurrentContext;
+            ContextDatabaseAccess contextDB = new ContextDatabaseAccess();
+            await contextDB.InitializeAsync();
+            try
+            {
+                CurrentContext = contextDB.GetContextAsync().Result;
+            }
+            // Can't find definitions for SQLiteNetExtensions exceptions, so catch generic Exception e and assume there is no context.
+            catch (Exception e)
+            {
+                CurrentContext = null;
+            }
+            // If context doesn't exist, create it and pass child selected with default units.
+            if (CurrentContext == null)
+            {
+                if (child == null)
+                {
+                    CurrentContext = new Context(-1, Language.ENGLISH, new Units(DistanceUnits.IN, WeightUnits.OZ));
+                }
+                else
+                {
+                    CurrentContext = new Context(child.GetID(), Language.ENGLISH, new Units(DistanceUnits.IN, WeightUnits.OZ));
+                }
+                await contextDB.SaveContextAsync(CurrentContext);
+                return true;
             }
             else{
-                currentContext.ChildId = child.GetID();
-                await database.SaveContextAsync(currentContext);
+                CurrentContext.ChildId = child.GetID();
+                await contextDB.SaveContextAsync(CurrentContext);
+                return true;
             }
         }
 
@@ -92,6 +113,7 @@ namespace ChildGrowth.Pages.Menu
                 await childDatabase.InitializeAsync();
                 await childDatabase.DeleteUserChildAsync(C);
                 UpdateChildList();
+                await Task.Run(async () => { await UpdateChild(null); });
             }
         }
     }

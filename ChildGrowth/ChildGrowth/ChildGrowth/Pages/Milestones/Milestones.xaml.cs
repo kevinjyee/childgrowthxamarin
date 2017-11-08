@@ -18,7 +18,8 @@ namespace ChildGrowth.Pages.Milestones
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Milestones : ContentPage
     {
-        Child currentChild;
+        Child CurrentChild;
+        Context CurrentContext;
         CardStackView cardStack;
         MainPageViewModel viewModel = new MainPageViewModel();
         bool historyView = false;
@@ -26,26 +27,57 @@ namespace ChildGrowth.Pages.Milestones
         override
         protected void OnAppearing()
         {
-            UpdateChild();
+            Task Load = Task.Run(async () => { await LoadContext(); });
+            Load.Wait();
+            if (CurrentChild != null)
+            {
+                this.Title = CurrentChild.Name;
+            }
+            else
+            {
+                this.Title = "Please Select a Child";
+            }
         }
 
         public Milestones()
         {
-                initializeMilestones();
+            initializeMilestones();
         }
 
-        async void UpdateChild()
+        private async Task<Boolean> LoadContext()
         {
-            ContextDatabaseAccess database = new ContextDatabaseAccess();
-            await database.InitializeAsync();
-            Context context = database.GetContextAsync().Result;
-            if (context == null)
+            ContextDatabaseAccess contextDB = new ContextDatabaseAccess();
+            await contextDB.InitializeAsync();
+            try
             {
-                this.Title = "Select Child";
+                CurrentContext = contextDB.GetContextAsync().Result;
+            }
+            // Can't find definitions for SQLiteNetExtensions exceptions, so catch generic Exception e and assume there is no context.
+            catch (Exception e)
+            {
+                CurrentContext = null;
+            }
+            // If context doesn't exist, create it, save it, and populate milestones databases.
+            if (CurrentContext == null)
+            {
+                CurrentContext = new Context();
+                // Exception probably broke the synchronous connection.
+                //contextDB.InitializeSync();
+                ContextDatabaseAccess newContextDB = new ContextDatabaseAccess();
+                await newContextDB.InitializeAsync();
+                newContextDB.SaveFirstContextAsync(CurrentContext);
+                //newContextDB.CloseSyncConnection();
+                CurrentChild = null;
+                Task tVaccine = VaccineTableConstructor.ConstructVaccineTable();
+                Task tMilestone = MilestonesTableConstructor.ConstructMilestonesTable();
+                await tVaccine;
+                await tMilestone;
+                return true;
             }
             else
             {
-                this.Title = context.GetSelectedChild().Result.Name;
+                CurrentChild = CurrentContext.GetSelectedChild().Result;
+                return true;
             }
         }
 
@@ -54,7 +86,8 @@ namespace ChildGrowth.Pages.Milestones
             Navigation.PushAsync(new SettingsPage());
         }
 
-        private void initializeMilestones(){
+        private void initializeMilestones()
+        {
             //TODO: Have the Initialize Components View show up.
             this.BindingContext = viewModel;
             this.BackgroundColor = Color.Black;
@@ -143,7 +176,7 @@ namespace ChildGrowth.Pages.Milestones
             cardStack.GetNextCard().Scale = 1;
             if (!cardStack.ShowNextCard())
             {
-                
+
                 Navigation.PushAsync(new NavigationPage(new MilestonesHistory()));
             };
         }
@@ -155,7 +188,8 @@ namespace ChildGrowth.Pages.Milestones
             listView = new SfListView();
             listView.ItemSize = 100;
             listView.ItemsSource = viewModel.MilestonesInfo;
-            listView.ItemTemplate = new DataTemplate(() => {
+            listView.ItemTemplate = new DataTemplate(() =>
+            {
                 var grid = new Grid();
                 var bookName = new Label { FontAttributes = FontAttributes.Bold, BackgroundColor = Color.Teal, FontSize = 21 };
                 bookName.SetBinding(Label.TextProperty, new Binding("categoryName"));
@@ -171,12 +205,12 @@ namespace ChildGrowth.Pages.Milestones
 
 
             this.Content = listView;
-           
+
         }
 
         HashSet<int> likedIds = new HashSet<int>();
         HashSet<int> dislikedIds = new HashSet<int>();
-        
+
         // Swiped right function
         void SwipedRight(int index)
         {
@@ -185,11 +219,11 @@ namespace ChildGrowth.Pages.Milestones
             likedIds.Add(currID);
             cardStack.GetNextCard().Scale = 1;
             cardStack.GetTopCard().Scale = 1;
-           
+
             cardStack.cards[cardStack.topCardIndex].firstDesc.Text = "";
             cardStack.cards[cardStack.topCardIndex].firstDesc2.Text = "";
             cardStack.cards[cardStack.topCardIndex].Scale = 1;
-            cardStack.GetNextCard().Scale = 1; 
+            cardStack.GetNextCard().Scale = 1;
 
         }
 
@@ -201,15 +235,14 @@ namespace ChildGrowth.Pages.Milestones
             dislikedIds.Add(currID);
             cardStack.GetNextCard().Scale = 1;
             cardStack.GetTopCard().Scale = 1;
-            
- 
+
+
             cardStack.cards[cardStack.topCardIndex].firstDesc.Text = "";
             cardStack.cards[cardStack.topCardIndex].firstDesc2.Text = "";
             cardStack.cards[cardStack.topCardIndex].Scale = 1;
             cardStack.GetNextCard().Scale = 1;
-            
+
         }
 
     }
 }
-    

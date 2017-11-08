@@ -7,8 +7,8 @@
     xmlns:converters="clr-namespace:ChildGrowth.Converters" 
     xmlns:sys="clr-namespace:System;assembly=mscorlib" 
     xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms" 
-    x:Class="ChildGrowth.MainPage" 
-    Title="ChildName"> 
+    x:Class="ChildGrowth.MainPage"
+    > 
     <ContentPage.ToolbarItems>
         <ToolbarItem Name="Settings" Order="Primary" Clicked="OnSettingsClicked" Icon="settings.png" Priority="0" />
     </ContentPage.ToolbarItems>

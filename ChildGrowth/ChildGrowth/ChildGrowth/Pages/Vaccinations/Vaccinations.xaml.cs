@@ -16,7 +16,7 @@ namespace ChildGrowth.Pages.Vaccinations
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Vaccinations : ContentPage
     {
-        private Child currentChild { get; set; }
+        private Child CurrentChild { get; set; }
 
         public static List<VaccinationTable> Vaccines = new List<VaccinationTable>();
 
@@ -41,6 +41,7 @@ namespace ChildGrowth.Pages.Vaccinations
         public Vaccinations()
         {
             initializeVaccinations();
+
         }
 
         private void initializeVaccinations()
@@ -72,7 +73,7 @@ namespace ChildGrowth.Pages.Vaccinations
 
                 var V = (VaccinationTable)Event.Item;
 
-                Navigation.PushAsync(new VaccinationInfoView(V, currentChild));
+                Navigation.PushAsync(new VaccinationInfoView(V, CurrentChild));
             };
 
             Content = new StackLayout
@@ -94,22 +95,53 @@ namespace ChildGrowth.Pages.Vaccinations
         override
         protected void OnAppearing()
         {
-            UpdateChild();
-        }
-
-        async void UpdateChild()
-        {
-            ContextDatabaseAccess database = new ContextDatabaseAccess();
-            await database.InitializeAsync();
-            Context context = database.GetContextAsync().Result;
-            if (context == null)
+            Task Load = Task.Run(async () => { await LoadContext(); });
+            Load.Wait();
+            if (CurrentChild != null)
             {
-                this.Title = "Select Child";
+                this.Title = CurrentChild.Name;
             }
             else
             {
-                this.Title = context.GetSelectedChild().Result.Name;
-                currentChild = context.GetSelectedChild().Result;
+                this.Title = "Please Select a Child";
+            }        }
+
+        private async Task<Boolean> LoadContext()
+        {
+            Context CurrentContext;
+            ContextDatabaseAccess contextDB = new ContextDatabaseAccess();
+            await contextDB.InitializeAsync();
+            try
+            {
+                CurrentContext = contextDB.GetContextAsync().Result;
+            }
+            // Can't find definitions for SQLiteNetExtensions exceptions, so catch generic Exception e and assume there is no context.
+            catch (Exception e)
+            {
+                CurrentContext = null;
+                //contextDB.CloseSyncConnection();
+            }
+            // If context doesn't exist, create it, save it, and populate vaccine/milestones databases.
+            if (CurrentContext == null)
+            {
+                CurrentContext = new Context();
+                // Exception probably broke the synchronous connection.
+                //contextDB.InitializeSync();
+                ContextDatabaseAccess newContextDB = new ContextDatabaseAccess();
+                await newContextDB.InitializeAsync();
+                newContextDB.SaveFirstContextAsync(CurrentContext);
+                //newContextDB.CloseSyncConnection();
+                CurrentChild = null;
+                Task tVaccine = VaccineTableConstructor.ConstructVaccineTable();
+                Task tMilestone = MilestonesTableConstructor.ConstructMilestonesTable();
+                await tVaccine;
+                await tMilestone;
+                return true;
+            }
+            else
+            {
+                CurrentChild = CurrentContext.GetSelectedChild().Result;
+                return true;
             }
         }
 
