@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChildGrowth.Models.Milestones;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,6 +14,17 @@ namespace ChildGrowth.Pages.Milestones
         private string categoryName;
         private string categoryDesc;
         private string imageURL;
+        private BinaryAnswer answer;
+
+        public BinaryAnswer Answer
+        {
+            get { return answer; }
+            set
+            {
+                answer = value;
+                OnPropertyChanged("Answer");
+            }
+        }
 
         public int MonthDue
         {

@@ -32,6 +32,7 @@ namespace ChildGrowth.Persistence
             return ReadOperations.GetAllWithChildrenAsync<Milestone>(_asyncConnection);
         }
 
+
         public Task<Milestone> GetMilestoneByIdAsync(int id)
         {
             return ReadOperations.GetWithChildrenAsync<Milestone>(_asyncConnection, id);

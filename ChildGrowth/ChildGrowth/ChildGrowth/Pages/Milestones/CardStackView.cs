@@ -126,6 +126,10 @@ namespace ChildGrowth.Pages.Milestones
             // set the top card as index 0.
             topCardIndex = 0;
 
+            if(ItemsSource == null)
+            {
+                return;
+            }
             // create a stack of cards
             for (int i = 0; i < Math.Min(NumCards, ItemsSource.Count); i++)
             {
@@ -272,7 +276,7 @@ namespace ChildGrowth.Pages.Milestones
             var topCard = cards[topCardIndex];
             topCardIndex = NextCardIndex(topCardIndex);
 
-            if (itemIndex == ItemsSource.Count)
+            if (itemIndex >= ItemsSource.Count)
             {
                 // LOOP for now... initilize graph somehow.
                 itemIndex = 0;

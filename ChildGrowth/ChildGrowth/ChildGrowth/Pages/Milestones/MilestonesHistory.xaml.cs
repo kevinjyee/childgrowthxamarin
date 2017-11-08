@@ -1,4 +1,6 @@
-﻿using Syncfusion.ListView.XForms;
+﻿using ChildGrowth.Models.Settings;
+using ChildGrowth.Persistence;
+using Syncfusion.ListView.XForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,15 +56,8 @@ namespace ChildGrowth.Pages.Milestones
 
         {
             this.M = m;
-
-            // Name.Text = m.CategoryName;
-            // Description.Text =m.CategoryDescription;
-            // firstDesc.Text = "";
-            //firstDesc2.Text = "";
-            //Photo.Source = ImageSource.FromUri(); //ImageSource.FromFile(ItemsSource[itemIndex].Photo);
-            //card.Photo.Source = ImageSource.FromResource(ItemsSource[itemIndex].Photo);
-
-
+            
+            
             RelativeLayout view = new RelativeLayout();
 
             // box view as background
@@ -178,8 +173,18 @@ namespace ChildGrowth.Pages.Milestones
             Name.Text = m.CategoryName;
             Description.Text = m.CategoryDescription;
             firstDesc.Text = "";
-            firstDesc2.Text = "Completed";
-            firstDesc2.TextColor = Color.SpringGreen;
+            
+            if(m.Answer == Models.Milestones.BinaryAnswer.YES)
+            {
+                firstDesc2.Text = "Completed";
+                firstDesc2.TextColor = Color.SpringGreen;
+            }
+            else
+            {
+                firstDesc2.Text = "Not Completed";
+                firstDesc2.TextColor = Color.Red;
+            }
+
             Photo.Source = ImageSource.FromUri(new Uri(m.ImageURL));
             this.Content = view;
 

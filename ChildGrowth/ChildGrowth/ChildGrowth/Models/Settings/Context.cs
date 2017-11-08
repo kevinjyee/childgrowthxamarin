@@ -42,7 +42,7 @@ namespace ChildGrowth.Models.Settings
         /**
          * Retrieve Child from database corresponding to the current value of ChildID. Return null if Context null or if no child selected for context.
          **/
-        public async Task<Child> GetSelectedChild()
+        public  Child GetSelectedChild()
         {
             if (this == null)
             {
@@ -52,8 +52,8 @@ namespace ChildGrowth.Models.Settings
             if (_childId != ContextBuilder.NO_CHILD_SELECTED)
             {
                 ChildDatabaseAccess childDBAccess = new ChildDatabaseAccess();
-                await childDBAccess.InitializeAsync();
-                return await childDBAccess.GetUserChildAsync(_childId);
+                childDBAccess.InitializeSync();
+                return childDBAccess.GetUserChildSync(_childId);
             }
             else
             {

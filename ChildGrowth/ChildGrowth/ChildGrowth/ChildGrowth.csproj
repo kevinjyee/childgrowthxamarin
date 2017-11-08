@@ -62,7 +62,6 @@
     <Compile Include="Models\Settings\Language.cs" />
     <Compile Include="Models\Vaccinations\VaccinationDueDate.cs" />
     <Compile Include="Models\Vaccinations\UnansweredVaccinations.cs" />
-
     <Compile Include="Models\Vaccinations\VaccinationResponses.cs" />
     <Compile Include="Models\Vaccinations\Vaccine.cs" />
     <Compile Include="Pages\Education\Article.cs" />
@@ -136,7 +135,6 @@
     <Compile Include="Persistence\SQLiteDatabase.cs" />
     <Compile Include="Persistence\VaccineDatabaseAccess.cs" />
     <Compile Include="Persistence\VaccineTableConstructor.cs" />
-
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IAuthenticationServices.cs" />
     <Compile Include="Services\IAuthenticator.cs" />
@@ -259,7 +257,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\Master\" />
-    <Folder Include="Models\Settings\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\Master\MasterTab.xaml">

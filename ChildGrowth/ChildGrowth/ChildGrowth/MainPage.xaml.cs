@@ -75,7 +75,7 @@ namespace ChildGrowth
             }
             else
             {
-                CurrentChild = CurrentContext.GetSelectedChild().Result;
+                CurrentChild = CurrentContext.GetSelectedChild();
                 return true;
             }
 

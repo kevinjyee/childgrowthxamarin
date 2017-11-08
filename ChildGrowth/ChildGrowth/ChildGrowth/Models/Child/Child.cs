@@ -159,7 +159,9 @@ public class Child
         childDB.InitializeSync();
         Milestones.AddOrUpdateMilestoneHistory(milestoneID, answer);
         childDB.SaveUserChildSync(this);
+
         childDB.CloseSyncConnection();
+
         return true;
     }
 

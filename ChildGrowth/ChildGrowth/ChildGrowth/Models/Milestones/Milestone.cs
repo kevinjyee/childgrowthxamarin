@@ -17,8 +17,8 @@ namespace ChildGrowth.Models.Milestones
         [Indexed]
         public string Category { get; set; }
 
-        [Ignore]
-        public Media Media { get { return _media; } set { this._media = value; } }
+        
+        public string Media { get;  set; }
 
         // Not sure if I should make _title or equivalents for the rest of the string members.
         public string Title { get; set; }
@@ -28,10 +28,10 @@ namespace ChildGrowth.Models.Milestones
         public string HelpfulText { get; set; }
 
         [TextBlob("MediaBlobbed")]
-        public Media _media { get; set; }
+        public string _media { get; set; }
         public string MediaBlobbed { get; set; }
 
-        private Milestone(int id, int milestoneDueDate, MilestoneCategory category, string title, string questionText, string helpfulText, Media media)
+        private Milestone(int id, int milestoneDueDate, MilestoneCategory category, string title, string questionText, string helpfulText, string media)
         {
             this.ID = id;
             this.MilestoneDueDate = milestoneDueDate;
@@ -59,7 +59,7 @@ namespace ChildGrowth.Models.Milestones
             private string _title;
             private string _questionText;
             private string _helpfulText;
-            private Media _media;
+            private string _media;
 
             public MilestoneBuilder()
             {
@@ -107,7 +107,7 @@ namespace ChildGrowth.Models.Milestones
                 return this;
             }
 
-            public MilestoneBuilder WithMedia(Media media)
+            public MilestoneBuilder WithMedia(string media)
             {
                 this._media = media;
                 return this;
