@@ -48,8 +48,21 @@
     <Compile Include="Converters\ToUpperConverter.cs" />
     <Compile Include="Converters\WholePercentToDecimalPercent.cs" />
     <Compile Include="Factory\DataFactory.cs" />
-    <Compile Include="Models\Vaccinations\UnansweredVaccinations.cs" />
+    <Compile Include="Models\MediaUtil\Media.cs" />
+    <Compile Include="Models\MediaUtil\MediaType.cs" />
+    <Compile Include="Models\Milestones\BinaryAnswerEnum.cs" />
+    <Compile Include="Models\Milestones\InvalidMilestoneCategoryException.cs" />
+    <Compile Include="Models\Milestones\Milestone.cs" />
+    <Compile Include="Models\Milestones\MilestoneAnswer.cs" />
+    <Compile Include="Models\Milestones\MilestoneCategory.cs" />
+    <Compile Include="Models\Milestones\MilestoneDueDate.cs" />
+    <Compile Include="Models\Milestones\MilestoneHistory.cs" />
+    <Compile Include="Models\Milestones\MilestoneWithResponse.cs" />
+    <Compile Include="Models\Milestones\UnansweredMilestones.cs" />
+    <Compile Include="Models\Settings\Language.cs" />
     <Compile Include="Models\Vaccinations\VaccinationDueDate.cs" />
+    <Compile Include="Models\Vaccinations\UnansweredVaccinations.cs" />
+
     <Compile Include="Models\Vaccinations\VaccinationResponses.cs" />
     <Compile Include="Models\Vaccinations\Vaccine.cs" />
     <Compile Include="Pages\Education\Article.cs" />
@@ -114,12 +127,16 @@
     <Compile Include="Pages\Vaccinations\Vaccinations.xaml.cs">
       <DependentUpon>Vaccinations.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Persistence\MilestoneDatabaseAccess.cs" />
     <Compile Include="Persistence\MilestonesDatabase.cs" />
+    <Compile Include="Persistence\MilestonesTableConstructor.cs" />
     <Compile Include="Persistence\SQLiteConnectionException.cs" />
     <Compile Include="Persistence\ChildDatabase.cs" />
     <Compile Include="Persistence\ISQLite.cs" />
     <Compile Include="Persistence\SQLiteDatabase.cs" />
     <Compile Include="Persistence\VaccineDatabaseAccess.cs" />
+    <Compile Include="Persistence\VaccineTableConstructor.cs" />
+
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IAuthenticationServices.cs" />
     <Compile Include="Services\IAuthenticator.cs" />
@@ -138,7 +155,7 @@
     </Compile>
     <Compile Include="Constants\ChildUser.cs" />
     <Compile Include="Models\Settings\Context.cs" />
-    <Compile Include="Models\Settings\Language.cs" />
+    <Compile Include="Persistence\ContextDatabaseAccess.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainPage.xaml">
@@ -242,6 +259,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\Master\" />
+    <Folder Include="Models\Settings\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\Master\MasterTab.xaml">

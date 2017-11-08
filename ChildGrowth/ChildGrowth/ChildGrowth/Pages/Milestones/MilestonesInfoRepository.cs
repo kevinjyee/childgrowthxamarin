@@ -1,9 +1,14 @@
-﻿using System;
+﻿using ChildGrowth.Models;
+using ChildGrowth.Models.MediaUtil;
+using ChildGrowth.Models.Milestones;
+using ChildGrowth.Persistence;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ChildGrowth.Models.Milestones.Milestone;
 
 namespace ChildGrowth.Pages.Milestones
 {
@@ -195,5 +200,7 @@ namespace ChildGrowth.Pages.Milestones
             milestonesInfo.Add(new MilestonesInfo { MonthDue = 36, CategoryName = "Movement/Physical Development", CategoryDescription = "Pedals a tricycle (3-wheel bike)", ImageURL = "http://phil.cdc.gov/PHIL_Images/20761/20761_lores.jpg" });
             milestonesInfo.Add(new MilestonesInfo { MonthDue = 36, CategoryName = "Movement/Physical Development", CategoryDescription = "Walks up and down stairs, one foot on each step", ImageURL = "http://phil.cdc.gov/PHIL_Images/20763/20763_lores.jpg" });
         }
+
+        private readonly string PLACEHOLDER_TEXT = "Placeholder_Text_Please_Replace";
     }
 }

@@ -85,4 +85,5 @@ namespace ChildGrowth.Models.Vaccinations
         public VaccinationHistory _vaccinationHistory { get; set; }
         public UnansweredVaccinations _unansweredVaccinations { get; set; }
     }
+
 }

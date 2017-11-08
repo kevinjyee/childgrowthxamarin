@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using ChildGrowth.Models.Settings;
+using ChildGrowth.Pages.Settings;
+using ChildGrowth.Persistence;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,19 +14,71 @@ namespace ChildGrowth.Pages.Education
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Education : ContentPage
     {
-        private Child currentChild { get; set; }
+        private Child CurrentChild { get; set; }
 
         public Education()
         {
             InitializeComponent();
+
         }
 
-        public Education(Child C)
+        override
+        protected void OnAppearing()
         {
-            currentChild = C;
-            this.Title = currentChild.Name;
-            InitializeComponent();
-            InitializeComponent();
+            Task Load = Task.Run(async () => { await LoadContext(); });
+            Load.Wait();
+            if (CurrentChild != null)
+            {
+                this.Title = CurrentChild.Name;
+            }
+            else
+            {
+                this.Title = "Please Select a Child";
+            }
+        }
+
+        private async Task<Boolean> LoadContext()
+        {
+            Context CurrentContext;
+            ContextDatabaseAccess contextDB = new ContextDatabaseAccess();
+            await contextDB.InitializeAsync();
+            try
+            {
+                CurrentContext = contextDB.GetContextAsync().Result;
+            }
+            // Can't find definitions for SQLiteNetExtensions exceptions, so catch generic Exception e and assume there is no context.
+            catch (Exception e)
+            {
+                CurrentContext = null;
+                //contextDB.CloseSyncConnection();
+            }
+            // If context doesn't exist, create it, save it, and populate vaccine/milestones databases.
+            if (CurrentContext == null)
+            {
+                CurrentContext = new Context();
+                // Exception probably broke the synchronous connection.
+                //contextDB.InitializeSync();
+                ContextDatabaseAccess newContextDB = new ContextDatabaseAccess();
+                await newContextDB.InitializeAsync();
+                newContextDB.SaveFirstContextAsync(CurrentContext);
+                //newContextDB.CloseSyncConnection();
+                CurrentChild = null;
+                Task tVaccine = VaccineTableConstructor.ConstructVaccineTable();
+                Task tMilestone = MilestonesTableConstructor.ConstructMilestonesTable();
+                await tVaccine;
+                await tMilestone;
+                return true;
+            }
+            else
+            {
+                CurrentChild = CurrentContext.GetSelectedChild().Result;
+                return true;
+            }
+        }
+
+        void OnSettingsClicked(object sender, System.EventArgs e)
+        {
+            Navigation.PushAsync(new SettingsPage());
         }
 
         async void BehaviorButtonClick(object sender, EventArgs args)

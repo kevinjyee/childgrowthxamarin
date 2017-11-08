@@ -7,24 +7,27 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using ChildGrowth.Pages.Settings;
+using ChildGrowth.Persistence;
+using ChildGrowth.Models.Settings;
 
 namespace ChildGrowth.Pages.Vaccinations
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Vaccinations : ContentPage
     {
-        private Child currentChild { get; set; }
-        
+        private Child CurrentChild { get; set; }
+
         public static List<VaccinationTable> Vaccines = new List<VaccinationTable>();
 
         ListView vaccinationList = new ListView
         {
             RowHeight = 70
         };
-        public Vaccinations(Child C){
-            currentChild = C;
-            this.Title = currentChild.Name;
-            initializeVaccinations();
+
+        void OnSettingsClicked(object sender, System.EventArgs e)
+        {
+            Navigation.PushAsync(new SettingsPage());
         }
 
         static double percentprog = 0.2;
@@ -37,10 +40,12 @@ namespace ChildGrowth.Pages.Vaccinations
 
         public Vaccinations()
         {
-            initializeVaccinations(); 
+            initializeVaccinations();
+
         }
 
-        private void initializeVaccinations(){
+        private void initializeVaccinations()
+        {
             var layout = new StackLayout();
 
             BackgroundColor = Color.FromRgb(94, 196, 225);
@@ -51,11 +56,13 @@ namespace ChildGrowth.Pages.Vaccinations
             vaccinationList.ItemTemplate = new DataTemplate(typeof(VaccinationCell));
             vaccinationList.BackgroundColor = Color.Transparent;
             vaccinationList.SeparatorColor = Color.White;
-            vaccinationList.ItemSelected += (sender, e) => {
+            vaccinationList.ItemSelected += (sender, e) =>
+            {
                 ((ListView)sender).SelectedItem = null;
             };
 
-            vaccinationList.ItemSelected += (sender, e) => {
+            vaccinationList.ItemSelected += (sender, e) =>
+            {
 
                 ((ListView)sender).SelectedItem = null;
 
@@ -66,7 +73,7 @@ namespace ChildGrowth.Pages.Vaccinations
 
                 var V = (VaccinationTable)Event.Item;
 
-                Navigation.PushAsync(new VaccinationInfoView(V,currentChild));
+                Navigation.PushAsync(new VaccinationInfoView(V, CurrentChild));
             };
 
             Content = new StackLayout
@@ -80,16 +87,64 @@ namespace ChildGrowth.Pages.Vaccinations
             };
 
         }
-        async void  updateProgBar()
+        async void updateProgBar()
         {
             await vacProg.ProgressTo(percentprog, 250, Easing.Linear);
         }
-        
 
-        protected override void OnAppearing()
+        override
+        protected void OnAppearing()
         {
-           
+            Task Load = Task.Run(async () => { await LoadContext(); });
+            Load.Wait();
+            if (CurrentChild != null)
+            {
+                this.Title = CurrentChild.Name;
+            }
+            else
+            {
+                this.Title = "Please Select a Child";
+            }        }
+
+        private async Task<Boolean> LoadContext()
+        {
+            Context CurrentContext;
+            ContextDatabaseAccess contextDB = new ContextDatabaseAccess();
+            await contextDB.InitializeAsync();
+            try
+            {
+                CurrentContext = contextDB.GetContextAsync().Result;
+            }
+            // Can't find definitions for SQLiteNetExtensions exceptions, so catch generic Exception e and assume there is no context.
+            catch (Exception e)
+            {
+                CurrentContext = null;
+                //contextDB.CloseSyncConnection();
+            }
+            // If context doesn't exist, create it, save it, and populate vaccine/milestones databases.
+            if (CurrentContext == null)
+            {
+                CurrentContext = new Context();
+                // Exception probably broke the synchronous connection.
+                //contextDB.InitializeSync();
+                ContextDatabaseAccess newContextDB = new ContextDatabaseAccess();
+                await newContextDB.InitializeAsync();
+                newContextDB.SaveFirstContextAsync(CurrentContext);
+                //newContextDB.CloseSyncConnection();
+                CurrentChild = null;
+                Task tVaccine = VaccineTableConstructor.ConstructVaccineTable();
+                Task tMilestone = MilestonesTableConstructor.ConstructMilestonesTable();
+                await tVaccine;
+                await tMilestone;
+                return true;
+            }
+            else
+            {
+                CurrentChild = CurrentContext.GetSelectedChild().Result;
+                return true;
+            }
         }
+
 
         public void VaccinationRepository()
         {
@@ -146,7 +201,7 @@ public class VaccinationInfoView : ContentPage
         VName = new Label
         {
 
-           
+
 
             Text = V.Name,
 
@@ -200,7 +255,8 @@ public class VaccinationInfoView : ContentPage
 
 
 
-        isTakenButton.Clicked += (sender, e) => {
+        isTakenButton.Clicked += (sender, e) =>
+        {
 
             if (isTaken == 1)
             {
@@ -210,7 +266,7 @@ public class VaccinationInfoView : ContentPage
                 //currentChild._vaccineHistory.UpdateOrInsertToVaccineHistory(v.VaccinationID);
  
                 isTakenButton.Image = (FileImageSource)ImageSource.FromFile("X.png");
-
+                 
                 isTakenButton.BackgroundColor = Color.Transparent;
 
                 isTakenLabel.Text = "Not Taken";
@@ -369,6 +425,7 @@ public class VaccinationInfoView : ContentPage
 
         }
         else if (isTaken == 0)
+
         {
 
             isTakenButton.Image = (FileImageSource)ImageSource.FromFile("X.png");

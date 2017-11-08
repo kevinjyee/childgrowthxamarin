@@ -12,6 +12,7 @@ namespace ChildGrowth.Models.Vaccinations
 
         }
 
+
         public async Task<UnansweredVaccinations> GenerateNewUnansweredVaccinations()
         {
             this._unansweredVaccinations = new Dictionary<VaccinationDueDate, List<int>>();
@@ -49,7 +50,6 @@ namespace ChildGrowth.Models.Vaccinations
             }
             return false;
         }
-
         /**
          *  Based off child's age in months, find any milestones questions that need to be answered and return list of IDs.
          **/
@@ -76,5 +76,4 @@ namespace ChildGrowth.Models.Vaccinations
         public Dictionary<VaccinationDueDate, List<int>> _unansweredVaccinations;
 
     }
-
 }

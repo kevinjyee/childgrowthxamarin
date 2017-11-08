@@ -9,7 +9,7 @@
     xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms" 
     xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
     x:Class="ChildGrowth.MainPage" 
-    Title="ChildName"> 
+    > 
     <ContentPage.ToolbarItems>
         <ToolbarItem Name="Settings" Order="Primary" Clicked="OnSettingsClicked" Icon="settings.png" Priority="0" />
     </ContentPage.ToolbarItems>

@@ -63,6 +63,7 @@ namespace ChildGrowth.Models.Vaccinations
                 this._vaccineName = vaccineName;
                 return this;
             }
+
         }
     }
 }

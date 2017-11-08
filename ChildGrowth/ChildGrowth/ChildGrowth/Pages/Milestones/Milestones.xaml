@@ -10,6 +10,9 @@
     <ContentPage.BindingContext>
         <local:MilestonesInfoRepository />
     </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Settings" Order="Primary" Clicked="OnSettingsClicked" Icon="settings.png" Priority="0" />
+    </ContentPage.ToolbarItems>
     <Grid>
         <Grid.RowDefinitions>
            <RowDefinition Height="40" />
@@ -40,7 +43,4 @@
             </syncfusion:SfListView>
         </Frame>
     </Grid>
-
-    
-
 </ContentPage>

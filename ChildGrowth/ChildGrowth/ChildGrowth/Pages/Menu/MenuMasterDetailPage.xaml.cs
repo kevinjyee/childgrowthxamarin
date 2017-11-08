@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using ChildGrowth.Models.Settings;
 using ChildGrowth.Pages.AddChild;
 using ChildGrowth.Pages.Master;
 using ChildGrowth.Persistence;
@@ -38,29 +40,44 @@ namespace ChildGrowth.Pages.Menu
             ChildList.ItemTapped += (Sender, Event) =>
             {
                 var C = (Child)Event.Item;
-
-                TabbedPage.Children.Remove(MainPage);
-                TabbedPage.Children.Remove(Milestones);
-                TabbedPage.Children.Remove(Vaccinations);
-                TabbedPage.Children.Remove(Education);
-                TabbedPage.Children.Remove(Insights);
-
-
-                //Send new constructor with child
-                MainPage = (new NavigationPage(new MainPage(C)){ Icon = "measurements.png", Title = "Measurements" });
-                Milestones = (new NavigationPage(new Milestones.Milestones(C)) { Icon = "milestones.png", Title = "Milestones" });
-                Vaccinations = (new NavigationPage(new Vaccinations.Vaccinations(C)) { Icon = "vaccinations.png", Title = "Vaccinations" });
-                Education = (new NavigationPage(new Education.Education(C)) { Icon = "education.png", Title = "Education" });
-                Insights = (new NavigationPage(new Insights.Insights(C)) { Icon = "insights.png", Title = "Insights" });
-
-                TabbedPage.Children.Clear();
-                TabbedPage.Children.Add(MainPage);
-                TabbedPage.Children.Add(Milestones);
-                TabbedPage.Children.Add(Vaccinations);
-                TabbedPage.Children.Add(Education);
-                TabbedPage.Children.Add(Insights);
-
+                Task Update = Task.Run(async () => { await UpdateChild(C); });
+                Update.Wait();
+                IsPresented = false;
             };
+        }
+
+        async private Task<Boolean> UpdateChild(Child child){
+            Context CurrentContext;
+            ContextDatabaseAccess contextDB = new ContextDatabaseAccess();
+            await contextDB.InitializeAsync();
+            try
+            {
+                CurrentContext = contextDB.GetContextAsync().Result;
+            }
+            // Can't find definitions for SQLiteNetExtensions exceptions, so catch generic Exception e and assume there is no context.
+            catch (Exception e)
+            {
+                CurrentContext = null;
+            }
+            // If context doesn't exist, create it and pass child selected with default units.
+            if (CurrentContext == null)
+            {
+                if (child == null)
+                {
+                    CurrentContext = new Context(-1, Language.ENGLISH, new Units(DistanceUnits.IN, WeightUnits.OZ));
+                }
+                else
+                {
+                    CurrentContext = new Context(child.GetID(), Language.ENGLISH, new Units(DistanceUnits.IN, WeightUnits.OZ));
+                }
+                await contextDB.SaveContextAsync(CurrentContext);
+                return true;
+            }
+            else{
+                CurrentContext.ChildId = child.GetID();
+                await contextDB.SaveContextAsync(CurrentContext);
+                return true;
+            }
         }
 
       
@@ -96,6 +113,7 @@ namespace ChildGrowth.Pages.Menu
                 await childDatabase.InitializeAsync();
                 await childDatabase.DeleteUserChildAsync(C);
                 UpdateChildList();
+                await Task.Run(async () => { await UpdateChild(null); });
             }
         }
     }

@@ -11,25 +11,74 @@ using ChildGrowth.Pages.AddChild;
 using System.ComponentModel;
 using ChildGrowth.Constants;
 using ChildGrowth.Pages.Settings;
+using ChildGrowth.Models.Settings;
 
 namespace ChildGrowth
 {
     public partial class MainPage : ContentPage
     {
-        public Child CurrentChild{ get; set;}
-
-        public MainPage(Child child)
-        {
-            CurrentChild = child;
-            this.Title = CurrentChild.Name;
-            InitializeComponent();
-            UpdateDateSelectionEnabledStatus(false);
-        }
+        public Child CurrentChild{ get; set; }
+        public Context CurrentContext { get; set; }
 
         public MainPage()
         {
             InitializeComponent();
             UpdateDateSelectionEnabledStatus(false);
+        }
+
+        override
+        protected void OnAppearing()
+        {
+            Task Load = Task.Run(async () => { await LoadContext(); });
+            Load.Wait();
+            if (CurrentChild != null)
+            {
+                this.Title = CurrentChild.Name;
+            }
+            else{
+                this.Title = "Please Select a Child";
+            }
+            UpdateDateSelectionEnabledStatus(false);
+        }
+
+        // Load context and set value for current child if it exists.
+        private async Task<Boolean> LoadContext()
+        {
+            ContextDatabaseAccess contextDB = new ContextDatabaseAccess();
+            await contextDB.InitializeAsync();
+            try
+            {
+                CurrentContext = contextDB.GetContextAsync().Result;
+            }
+            // Can't find definitions for SQLiteNetExtensions exceptions, so catch generic Exception e and assume there is no context.
+            catch(Exception e)
+            {
+                CurrentContext = null;
+                //contextDB.CloseSyncConnection();
+            }
+            // If context doesn't exist, create it, save it, and populate vaccine/milestones databases.
+            if (CurrentContext == null)
+            {
+                CurrentContext = new Context();
+                // Exception probably broke the synchronous connection.
+                //contextDB.InitializeSync();
+                ContextDatabaseAccess newContextDB = new ContextDatabaseAccess();
+                await newContextDB.InitializeAsync();
+                newContextDB.SaveFirstContextAsync(CurrentContext);
+                //newContextDB.CloseSyncConnection();
+                CurrentChild = null;
+                Task tVaccine = VaccineTableConstructor.ConstructVaccineTable();
+                Task tMilestone = MilestonesTableConstructor.ConstructMilestonesTable();
+                await tVaccine;
+                await tMilestone;
+                return true;
+            }
+            else
+            {
+                CurrentChild = CurrentContext.GetSelectedChild().Result;
+                return true;
+            }
+
         }
 
         void OnSettingsClicked(object sender, System.EventArgs e)
@@ -90,20 +139,18 @@ namespace ChildGrowth
             {
                 try
                 {
-                    await childDatabase.InitializeAsync();
                     if (DEFAULT_MEASUREMENT_VALUE != Height)
                     {
-                        await currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.HEIGHT, currentUnits, Height, childDatabase);
+                        await currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.HEIGHT, currentUnits, Height);
                     }
                     if (DEFAULT_MEASUREMENT_VALUE != Weight)
                     {
-                        await currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.WEIGHT, currentUnits, Weight, childDatabase);
+                        await currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.WEIGHT, currentUnits, Weight);
                     }
                     if (DEFAULT_MEASUREMENT_VALUE != HeadC)
                     {
-                        await currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.HEAD_CIRCUMFERENCE, currentUnits, HeadC, childDatabase);
+                        await currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.HEAD_CIRCUMFERENCE, currentUnits, HeadC);
                     }
-                    await childDatabase.SaveUserChildAsync(currentChild);
 
                 }
                 catch (Exception e)
@@ -196,14 +243,6 @@ namespace ChildGrowth
 
         private static int DEFAULT_MEASUREMENT_VALUE = -1;
 
-        override
-        protected void OnAppearing()
-        {
-            if (CurrentChild != null){
-                this.Title = CurrentChild.Name;
-            }
-            UpdateGraph();
-        }
 
         private async void UpdateGraph()
         {

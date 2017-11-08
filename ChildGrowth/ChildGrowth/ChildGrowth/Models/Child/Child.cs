@@ -1,11 +1,12 @@
 ﻿using System;
-using SQLite;
 using SQLiteNetExtensions.Attributes;
 using ChildGrowth.Persistence;
 using System.Threading.Tasks;
 using ChildGrowth;
 using System.Collections.Generic;
 using SQLite.Net.Attributes;
+using ChildGrowth.Models.Milestones;
+using ChildGrowth.Models;
 using ChildGrowth.Models.Vaccinations;
 
 [Table("Child")]
@@ -27,7 +28,7 @@ public class Child
     [Ignore]
     public GrowthData Measurements { get { return _measurements; } set { _measurements = value; } }
     [Ignore]
-    public VaccinationHistory VaccineHistory { get { return _vaccineHistory; } set { _vaccineHistory = value; } }
+    public VaccinationResponses Vaccinations { get { return _vaccinations; } set { _vaccinations = value; } }
 
     [TextBlob("BirthdayBlobbed")]
     public DateTime _birthday { get; set; }
@@ -45,9 +46,9 @@ public class Child
     public GrowthData _measurements { get; set; }
     public string MeasurementsBlobbed { get; set; }
 
-    [TextBlob("VaccineHistoryBlobbed")]
-    public VaccinationHistory _vaccineHistory { get; set; }
-    public string VaccineHistoryBlobbed { get; set; }
+    [TextBlob("VaccinationsBlobbed")]
+    public VaccinationResponses _vaccinations { get; set; }
+    public string VaccinationsBlobbed { get; set; }
 
     public enum Gender
     {
@@ -63,7 +64,7 @@ public class Child
         this.ChildGender = gender;
         this.Measurements = new GrowthData();
         this.Milestones = new MilestoneResponses();
-        this.VaccineHistory = new VaccinationHistory();
+        this.Vaccinations = new VaccinationResponses();
     }
 
     public Child()
@@ -118,9 +119,10 @@ public class Child
     /** 
      * Removes a measurement from a Child profile. This will update the Child's entry in the database to reflect the change.
      **/
-    public async Task<Boolean> RemoveMeasurementForDateAndType(DateTime date, MeasurementType measurementType, ChildDatabaseAccess childDatabase)
+    public async Task<Boolean> RemoveMeasurementForDateAndType(DateTime date, MeasurementType measurementType)
     {
-        ChildDatabaseAccess childDB = CheckChildDatabaseConnection(childDatabase).Result;
+        ChildDatabaseAccess childDB = new ChildDatabaseAccess();
+        await childDB.InitializeAsync();
         Boolean data_removed = this.Measurements.RemoveMeasurementForDateAndType(date, measurementType);
         if (data_removed)
         {
@@ -133,12 +135,97 @@ public class Child
     /** 
      * Adds a measurement to a Child profile. This will update the Child's entry in the local database to reflect the change.
      **/
-    public async Task<Boolean> AddMeasurementForDateAndType(DateTime date, MeasurementType measurementType, Units currentUnits, double value, ChildDatabaseAccess childDatabase)
+    public async Task<Boolean> AddMeasurementForDateAndType(DateTime date, MeasurementType measurementType, Units currentUnits, double value)
     {
-        ChildDatabaseAccess childDB = CheckChildDatabaseConnection(childDatabase).Result;
+        ChildDatabaseAccess childDB = new ChildDatabaseAccess();
+        await childDB.InitializeAsync();
         Measurements.AddMeasurementForDateAndType(date, measurementType, currentUnits, value);
         await childDB.SaveUserChildAsync(this);
         return true;
+    }
+
+    /**
+     * Add or update milestone response history for the given milestone ID and BinaryAnswer.
+     **/
+    public async Task<Boolean> AddOrUpdateMilestoneHistory(int milestoneID, BinaryAnswer answer)
+    {
+        ChildDatabaseAccess childDB = new ChildDatabaseAccess();
+        await childDB.InitializeAsync();
+        Milestones.AddOrUpdateMilestoneHistory(milestoneID, answer);
+        await childDB.SaveUserChildAsync(this);
+        return true;
+    }
+
+    /**
+     * Add or update milestone response history for the given milestone ID and BinaryAnswer.
+     **/
+    public async Task<Boolean> AddOrUpdateVaccineHistory(int vaccineID)
+    {
+        ChildDatabaseAccess childDB = new ChildDatabaseAccess();
+        await childDB.InitializeAsync();
+        Vaccinations.AddOrUpdateVaccinationHistory(vaccineID);
+        await childDB.SaveUserChildAsync(this);
+        return true;
+    }
+
+    /**
+     * Add or update milestone response history for the given milestone ID and BinaryAnswer.
+     **/
+    public async Task<Boolean> RemoveFromVaccineHistory(int vaccineID)
+    {
+        ChildDatabaseAccess childDB = new ChildDatabaseAccess();
+        await childDB.InitializeAsync();
+        Vaccinations.RemoveFromVaccinationHistory(vaccineID);
+        await childDB.SaveUserChildAsync(this);
+        return true;
+    }
+
+    /**
+     * Return true if vaccine for the given ID is received, false otherwise.
+     **/
+     public Boolean VaccinationIsReceived(int vaccineID)
+     {
+        return Vaccinations.VaccineIsReceived(vaccineID);
+     }
+
+     /**
+      * Return percentage of total vaccines received up to 36 months.
+      **/
+     public double GetVaccinationCompletionPercentage()
+     {
+        return Vaccinations.CalculateVaccinationCompletionPercentage();
+     }
+
+    /**
+     * Get a list of milestones which are due or past due to be answered based on a Child's birthday and MilestonesResposnes.
+     **/
+    public List<Milestone> GetListOfDueMilestones()
+    {
+        return Milestones.GetListOfDueMilestones(ChildAgeInMonths());
+    }
+
+    /**
+     * Get a dictionary of Milestones and their respective responses, organized by MilestoneCategory.
+     **/
+    public Dictionary<MilestoneCategory, List<MilestoneWithResponse>> GetMilestoneHistory()
+    {
+        return Milestones.GetMilestoneResponseHistoryForAllCategories();
+    }
+
+    /**
+     * Get a list of vaccines which are due or past due to be answered based on a Child's birthday and VaccinationHistory.
+     **/
+     public List<Vaccine> GetListOfDueVaccines()
+    {
+        return Vaccinations.GetListOfDueVaccines(ChildAgeInMonths());
+    }
+
+    /**
+     * Get a dictionary of Milestones and their respective responses, organized by MilestoneCategory.
+     **/
+    public List<Vaccine> GetVaccineHistory()
+    {
+        return Vaccinations.GetVaccineHistory();
     }
 
     /** 
@@ -161,10 +248,16 @@ public class Child
     private double GetMeasurementAge(GrowthMeasurement measurement)
     {
         DateTime measurementDate = measurement.DateRecorded;
-        //TimeSpan diff = measurementDate - this.Birthday;
-        TimeSpan diff = measurementDate - new DateTime(2014,10,1);
-        double days =  diff.TotalDays / approx_days_per_month;
-        return days;
+        TimeSpan diff = measurementDate - this.Birthday;
+        double months =  diff.TotalDays / approx_days_per_month;
+        return months;
+    }
+
+    private int ChildAgeInMonths()
+    {
+        TimeSpan diff = DateTime.Now - this.Birthday;
+        int months = (int) (diff.TotalDays / approx_days_per_month);
+        return months;
     }
 
     private double approx_days_per_month = 30.4;
