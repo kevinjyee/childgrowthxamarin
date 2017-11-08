@@ -47,13 +47,13 @@ namespace ChildGrowth.Persistence
 
         public Task SaveVaccineAsync(Vaccine vaccine)
         {
-            return WriteOperations.InsertOrReplaceWithChildrenAsync(_connection, vaccine);
+            return WriteOperations.InsertOrReplaceWithChildrenAsync(_asyncConnection, vaccine);
         }
 
         public Task DeleteVaccineAsync(Vaccine vaccine)
         {
 
-            return WriteOperations.DeleteAsync(_connection, vaccine, true);
+            return WriteOperations.DeleteAsync(_asyncConnection, vaccine, true);
         }
 
         public Task DeleteAllVaccinesAsync(List<Vaccine> vaccines)
