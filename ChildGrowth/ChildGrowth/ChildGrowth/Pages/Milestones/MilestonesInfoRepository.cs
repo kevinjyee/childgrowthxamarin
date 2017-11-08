@@ -1,4 +1,5 @@
-﻿using ChildGrowth.Models.MediaUtil;
+﻿using ChildGrowth.Models;
+using ChildGrowth.Models.MediaUtil;
 using ChildGrowth.Models.Milestones;
 using ChildGrowth.Persistence;
 using System;
@@ -198,25 +199,6 @@ namespace ChildGrowth.Pages.Milestones
             milestonesInfo.Add(new MilestonesInfo { MonthDue = 36, CategoryName = "Movement/Physical Development", CategoryDescription = "Runs easily" });
             milestonesInfo.Add(new MilestonesInfo { MonthDue = 36, CategoryName = "Movement/Physical Development", CategoryDescription = "Pedals a tricycle (3-wheel bike)" });
             milestonesInfo.Add(new MilestonesInfo { MonthDue = 36, CategoryName = "Movement/Physical Development", CategoryDescription = "Walks up and down stairs, one foot on each step" });
-            Boolean test = GenerateMilestones().Result;
-        }
-
-        async Task<Boolean> GenerateMilestones()
-        {
-            MilestoneDatabaseAccess milestonesDatabaseAccess = new MilestoneDatabaseAccess();
-            await milestonesDatabaseAccess.InitializeAsync();
-            List<Milestone> milestones = new List<Milestone>();
-            int milestoneID = 0;
-            foreach (MilestonesInfo milestoneInfo in milestonesInfo)
-            {
-                MilestoneBuilder builder = new MilestoneBuilder();
-                builder.WithID(milestoneID).WithCategory(milestoneInfo.CategoryName).WithMilestoneDueDate(milestoneInfo.MonthDue)
-                    .WithTitle(milestoneInfo.CategoryDescription).WithMedia(new Media(PLACEHOLDER_TEXT))
-                    .WithHelpfulText(PLACEHOLDER_TEXT).WithQuestionText(PLACEHOLDER_TEXT);
-                milestones.Add(builder.Build());
-            }
-            await milestonesDatabaseAccess.SaveAllMilestonesAsync(milestones);
-            return true;
         }
 
         private readonly string PLACEHOLDER_TEXT = "Placeholder_Text_Please_Replace";

@@ -119,9 +119,10 @@ public class Child
     /** 
      * Removes a measurement from a Child profile. This will update the Child's entry in the database to reflect the change.
      **/
-    public async Task<Boolean> RemoveMeasurementForDateAndType(DateTime date, MeasurementType measurementType, ChildDatabaseAccess childDatabase)
+    public async Task<Boolean> RemoveMeasurementForDateAndType(DateTime date, MeasurementType measurementType)
     {
-        ChildDatabaseAccess childDB = CheckChildDatabaseConnection(childDatabase).Result;
+        ChildDatabaseAccess childDB = new ChildDatabaseAccess();
+        await childDB.InitializeAsync();
         Boolean data_removed = this.Measurements.RemoveMeasurementForDateAndType(date, measurementType);
         if (data_removed)
         {
@@ -134,9 +135,10 @@ public class Child
     /** 
      * Adds a measurement to a Child profile. This will update the Child's entry in the local database to reflect the change.
      **/
-    public async Task<Boolean> AddMeasurementForDateAndType(DateTime date, MeasurementType measurementType, Units currentUnits, double value, ChildDatabaseAccess childDatabase)
+    public async Task<Boolean> AddMeasurementForDateAndType(DateTime date, MeasurementType measurementType, Units currentUnits, double value)
     {
-        ChildDatabaseAccess childDB = CheckChildDatabaseConnection(childDatabase).Result;
+        ChildDatabaseAccess childDB = new ChildDatabaseAccess();
+        await childDB.InitializeAsync();
         Measurements.AddMeasurementForDateAndType(date, measurementType, currentUnits, value);
         await childDB.SaveUserChildAsync(this);
         return true;
@@ -145,13 +147,54 @@ public class Child
     /**
      * Add or update milestone response history for the given milestone ID and BinaryAnswer.
      **/
-    public async Task<Boolean> AddOrUpdateMilestoneHistory(int milestoneID, BinaryAnswer answer, ChildDatabaseAccess childDatabase)
+    public async Task<Boolean> AddOrUpdateMilestoneHistory(int milestoneID, BinaryAnswer answer)
     {
-        ChildDatabaseAccess childDB = CheckChildDatabaseConnection(childDatabase).Result;
+        ChildDatabaseAccess childDB = new ChildDatabaseAccess();
+        await childDB.InitializeAsync();
         Milestones.AddOrUpdateMilestoneHistory(milestoneID, answer);
         await childDB.SaveUserChildAsync(this);
         return true;
     }
+
+    /**
+     * Add or update milestone response history for the given milestone ID and BinaryAnswer.
+     **/
+    public async Task<Boolean> AddOrUpdateVaccineHistory(int vaccineID)
+    {
+        ChildDatabaseAccess childDB = new ChildDatabaseAccess();
+        await childDB.InitializeAsync();
+        Vaccinations.AddOrUpdateVaccinationHistory(vaccineID);
+        await childDB.SaveUserChildAsync(this);
+        return true;
+    }
+
+    /**
+     * Add or update milestone response history for the given milestone ID and BinaryAnswer.
+     **/
+    public async Task<Boolean> RemoveFromVaccineHistory(int vaccineID)
+    {
+        ChildDatabaseAccess childDB = new ChildDatabaseAccess();
+        await childDB.InitializeAsync();
+        Vaccinations.RemoveFromVaccinationHistory(vaccineID);
+        await childDB.SaveUserChildAsync(this);
+        return true;
+    }
+
+    /**
+     * Return true if vaccine for the given ID is received, false otherwise.
+     **/
+     public Boolean VaccinationIsReceived(int vaccineID)
+     {
+        return Vaccinations.VaccineIsReceived(vaccineID);
+     }
+
+     /**
+      * Return percentage of total vaccines received up to 36 months.
+      **/
+     public double GetVaccinationCompletionPercentage()
+     {
+        return Vaccinations.CalculateVaccinationCompletionPercentage();
+     }
 
     /**
      * Get a list of milestones which are due or past due to be answered based on a Child's birthday and MilestonesResposnes.

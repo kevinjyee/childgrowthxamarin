@@ -13,37 +13,47 @@ namespace ChildGrowth.Persistence
         override
         public async Task<Boolean> InitializeAsync()
         {
-            _connection = SQLiteDatabase.GetConnection(DB_FILE_NAME);
+            _asyncConnection = SQLiteDatabase.GetConnection(DB_FILE_NAME);
 
             // Create MyEntity table if need be
-            await _connection.CreateTableAsync<Vaccine>();
+            await _asyncConnection.CreateTableAsync<Vaccine>();
             IsConnected = true;
             return true;
         }
 
         public Task<List<Vaccine>> GetAllVaccinesAsync()
         {
-            return ReadOperations.GetAllWithChildrenAsync<Vaccine>(_connection);
+            return ReadOperations.GetAllWithChildrenAsync<Vaccine>(_asyncConnection);
         }
 
         public Task<Vaccine> GetVaccineAsync(int id)
         {
-            return ReadOperations.GetWithChildrenAsync<Vaccine>(_connection, id);
+            return ReadOperations.GetWithChildrenAsync<Vaccine>(_asyncConnection, id);
+        }
+
+        public Task SaveAllVaccinesAsync(List<Vaccine> vaccines)
+        {
+            return WriteOperations.InsertOrReplaceAllWithChildrenAsync(_asyncConnection, vaccines);
         }
 
         public Task SaveVaccineAsync(Vaccine vaccine)
         {
-            return WriteOperations.InsertOrReplaceWithChildrenAsync(_connection, vaccine);
+            return WriteOperations.InsertOrReplaceWithChildrenAsync(_asyncConnection, vaccine);
         }
 
         public Task DeleteVaccineAsync(Vaccine vaccine)
         {
-            return WriteOperations.DeleteAsync(_connection, vaccine, true);
+            return WriteOperations.DeleteAsync(_asyncConnection, vaccine, true);
         }
 
         public Task DeleteAllVaccinesAsync(List<Vaccine> vaccines)
         {
-            return WriteOperations.DeleteAllAsync(_connection, vaccines);
+            return WriteOperations.DeleteAllAsync(_asyncConnection, vaccines);
+        }
+
+        public override void InitializeSync()
+        {
+            throw new NotImplementedException();
         }
 
         private new readonly string DB_FILE_NAME = "VaccineDatabase.db3";

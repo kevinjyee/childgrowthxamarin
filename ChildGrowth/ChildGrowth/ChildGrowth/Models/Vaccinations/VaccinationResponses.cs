@@ -9,6 +9,21 @@ namespace ChildGrowth.Models.Vaccinations
     {
 
         /**
+         *  Calculate percentage completion of total recommended vaccines. Might want to change this to percentage of currently due vaccines.
+         **/
+        public double CalculateVaccinationCompletionPercentage()
+        {
+            int unansweredSize = UnansweredVaccinations.GetUnansweredVaccinationsListSize();
+            int answeredSize = VaccinationHistory.GetVaccinationHistoryListSize();
+            if(unansweredSize + answeredSize == 0)
+            {
+                return 0;
+            }
+            double percentage = (double) answeredSize / (double) (unansweredSize + answeredSize);
+            return percentage;
+        }
+
+        /**
          * Record the milestone BinaryAnswer for the given milestone ID and then remove it from the unanswered milestones list.
          */
         public void AddOrUpdateVaccinationHistory(int vaccineID)
@@ -17,7 +32,19 @@ namespace ChildGrowth.Models.Vaccinations
             Boolean initialized = vaccineDatabaseAccess.InitializeAsync().Result;
             Vaccine vaccine = vaccineDatabaseAccess.GetVaccineAsync(vaccineID).Result;
             VaccinationHistory.UpdateOrInsertToVaccineHistory(vaccineID);
-            Boolean vaccineRemoved = UnansweredVaccinations.RemoveVaccination(vaccine);
+            Boolean vaccineRemovedFromUnanswered = UnansweredVaccinations.RemoveVaccination(vaccine);
+        }
+
+        /**
+         * Record the milestone BinaryAnswer for the given milestone ID and then remove it from the unanswered milestones list.
+         */
+        public void RemoveFromVaccinationHistory(int vaccineID)
+        {
+            VaccineDatabaseAccess vaccineDatabaseAccess = new VaccineDatabaseAccess();
+            Boolean initialized = vaccineDatabaseAccess.InitializeAsync().Result;
+            Vaccine vaccine = vaccineDatabaseAccess.GetVaccineAsync(vaccineID).Result;
+            VaccinationHistory.RemoveFromVaccineHistory(vaccineID);
+            Boolean vaccineAddedToUnanswered = UnansweredVaccinations.AddVaccination(vaccine);
         }
 
         /**
@@ -45,6 +72,14 @@ namespace ChildGrowth.Models.Vaccinations
             receivedVaccineIds.AddRange(_vaccinationHistory.GetVaccinationHistory().Values);
             receivedVaccineIds.Sort();
             return GetVaccinationsByIds(receivedVaccineIds);
+        }
+
+        /**
+         *  Return true if vaccine received for given ID, false otherwise.
+         * */
+        public Boolean VaccineIsReceived(int vaccineID)
+        {
+            return VaccinationHistory.HasVaccine(vaccineID);
         }
 
         /**

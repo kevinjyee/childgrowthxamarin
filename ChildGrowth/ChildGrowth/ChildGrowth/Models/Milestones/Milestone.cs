@@ -31,11 +31,11 @@ namespace ChildGrowth.Models.Milestones
         public Media _media { get; set; }
         public string MediaBlobbed { get; set; }
 
-        private Milestone(int id, int milestoneDueDate, string category, string title, string questionText, string helpfulText, Media media)
+        private Milestone(int id, int milestoneDueDate, MilestoneCategory category, string title, string questionText, string helpfulText, Media media)
         {
             this.ID = id;
             this.MilestoneDueDate = milestoneDueDate;
-            this.Category = category;
+            this.Category = category.ToString();
             this.Title = title;
             this.QuestionText = questionText;
             this.HelpfulText = helpfulText;
@@ -55,7 +55,7 @@ namespace ChildGrowth.Models.Milestones
         {
             private int _id;
             private int _milestoneDueDate;
-            private string _category;
+            private MilestoneCategory _category;
             private string _title;
             private string _questionText;
             private string _helpfulText;
@@ -83,7 +83,7 @@ namespace ChildGrowth.Models.Milestones
                 return this;
             }
 
-            public MilestoneBuilder WithCategory(string category)
+            public MilestoneBuilder WithCategory(MilestoneCategory category)
             {
                 this._category = category;
                 return this;

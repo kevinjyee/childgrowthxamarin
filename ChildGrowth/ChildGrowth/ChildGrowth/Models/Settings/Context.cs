@@ -17,8 +17,10 @@ namespace ChildGrowth.Models.Settings
         public int ID { get { return ID; } set { this.ID = value; } }
 
         // TODO: [Stefan 10/30/2017] Reset ChildId when user child deleted.
-        private int _childId { get; set; } = NO_CHILD_SELECTED;
         public int ChildId { get { return this._childId; } set { this._childId = value; } }
+
+        [Ignore]
+        public int _childId { get; set; } = ContextBuilder.NO_CHILD_SELECTED;
 
         [Ignore]
         public Language CurrentLanguage { get { return this._currentLanguage; } set { this._currentLanguage = value; } }
@@ -37,6 +39,9 @@ namespace ChildGrowth.Models.Settings
         public DateTime _dateSaved { get; set; }
         public string DateSavedBlobbed { get; set; }
 
+        /**
+         * Retrieve Child from database corresponding to the current value of ChildID. Return null if Context null or if no child selected for context.
+         **/
         public async Task<Child> GetSelectedChild()
         {
             if (this == null)
@@ -44,7 +49,7 @@ namespace ChildGrowth.Models.Settings
                 return null;
             }
             // Retrieve child object if child selected. This can break and return null if child has been deleted and Context hasn't been reset.
-            if (_childId != NO_CHILD_SELECTED)
+            if (_childId != ContextBuilder.NO_CHILD_SELECTED)
             {
                 ChildDatabaseAccess childDBAccess = new ChildDatabaseAccess();
                 await childDBAccess.InitializeAsync();
@@ -57,6 +62,13 @@ namespace ChildGrowth.Models.Settings
 
         }
 
+        public Context()
+        {
+            ChildId = ContextBuilder.NO_CHILD_SELECTED;
+            CurrentLanguage = Language.ENGLISH;
+            CurrentUnits = new Units(DistanceUnits.IN, WeightUnits.OZ);
+        }
+
         public Context(int childSelected, Language language, Units units)
         {
             ChildId = childSelected;
@@ -64,37 +76,37 @@ namespace ChildGrowth.Models.Settings
             CurrentUnits = units;
         }
 
-        public class ContextBuilder
+    }
+
+    public class ContextBuilder
+    {
+        public Context Build()
         {
-            public Context Build()
-            {
-                return new Context(_childSelected, _language, _units);
-            }
-
-            public ContextBuilder WithChildSelected(int childSelected)
-            {
-                this._childSelected = childSelected;
-                return this;
-            }
-
-            public ContextBuilder WithLanguage(Language language)
-            {
-                this._language = language;
-                return this;
-            }
-
-            public ContextBuilder WithUnits(Units units)
-            {
-                this._units = units;
-                return this;
-            }
-
-            private int _childSelected = NO_CHILD_SELECTED;
-            private Language _language = Language.ENGLISH;
-            private Units _units = new Units(DistanceUnits.IN, WeightUnits.OZ);
+            return new Context(_childSelected, _language, _units);
         }
 
-        private readonly static int NO_CHILD_SELECTED = -1;
+        public ContextBuilder WithChildSelected(int childSelected)
+        {
+            this._childSelected = childSelected;
+            return this;
+        }
 
+        public ContextBuilder WithLanguage(Language language)
+        {
+            this._language = language;
+            return this;
+        }
+
+        public ContextBuilder WithUnits(Units units)
+        {
+            this._units = units;
+            return this;
+        }
+
+        private int _childSelected = NO_CHILD_SELECTED;
+        private Language _language = Language.ENGLISH;
+        private Units _units = new Units(DistanceUnits.IN, WeightUnits.OZ);
+
+        public readonly static int NO_CHILD_SELECTED = -1;
     }
 }
