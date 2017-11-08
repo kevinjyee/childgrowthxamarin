@@ -206,8 +206,9 @@ public class VaccinationInfoView : ContentPage
             {
 
                 //update database here
-                  
-
+                //not taken
+                //currentChild._vaccineHistory.UpdateOrInsertToVaccineHistory(v.VaccinationID);
+ 
                 isTakenButton.Image = (FileImageSource)ImageSource.FromFile("X.png");
 
                 isTakenButton.BackgroundColor = Color.Transparent;

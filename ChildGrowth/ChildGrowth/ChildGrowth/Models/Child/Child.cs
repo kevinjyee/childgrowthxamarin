@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ChildGrowth;
 using System.Collections.Generic;
 using SQLite.Net.Attributes;
+using ChildGrowth.Models.Vaccinations;
 
 [Table("Child")]
 public class Child

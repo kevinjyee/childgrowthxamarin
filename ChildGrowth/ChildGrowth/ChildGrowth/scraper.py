@@ -29,14 +29,16 @@ def formatList(sexChoice, list, percentileCols, type):
 
 
 def readMilestones():
-    df = pd.read_csv("data/milestonesCSV.csv", names = ['Month', 'Category', 'Description','URL']);
+    df = pd.read_csv("data/milestonesEdit2CSV.csv", names = ['ID','Month', 'Category', 'Description','URL']);
+    ID = df['ID'].tolist()
     Month = df['Month'].tolist()
     Category = df['Category'].tolist()
     Description = df['Description'].tolist()
     URL = df['URL'].tolist()
 
     for i in range(len(Month)):
-        print "milestonesInfo.Add(new MilestonesInfo {MonthDue =", Month[i], ",CategoryName = ", '"%s"'%Category[i], ", CategoryDescription = ",'"%s"'%Description[i],", ImageURL = ",'"%s"'%URL[i], "});"
+        #print "milestonesInfo.Add(new MilestonesInfo {MonthDue =", Month[i], ",CategoryName = ", '"%s"'%Category[i], ", CategoryDescription = ",'"%s"'%Description[i],", ImageURL = ",'"%s"'%URL[i], "});"
+        print "Milestones.Add(new MilestoneBuilder().WithID("+str(ID[i])+ ").WithCategory(" + str(Category[i])+").WithHelpfulText(",'"" ', ").WithQuestionText(",'"%s"'%Description[i],").WithMilestoneDueDate("+str(Month[i]) + ").WithMedia(new Models.MediaUtil.Media(",'"%s"'%URL[i],")).Build());"
 
 def readVaccines():
     df = pd.read_csv("data/vaccines.csv", names=['ID', 'Name', 'Info', 'Time']);
@@ -46,7 +48,9 @@ def readVaccines():
     Time = df['Time'].tolist()
 
     for i in range(len(ID)):
-        print "Vaccines.Add(new VaccinationTable() { VaccinationID = " + str(ID[i]) + " , Name = ",'"%s"'%Name[i],",Info =", '"%s"'%Info[i], ",Time = " + str(Time[i]) + "});"
+        #print "Vaccines.Add(new VaccinationTable() { VaccinationID = " + str(ID[i]) + " , Name = ",'"%s"'%Name[i],",Info =", '"%s"'%Info[i], ",Time = " + str(Time[i]) + "});"
+
+        print "VaccineBuilder().WithID("+str(ID[i])+ ").WithVaccineDueDate("+str(Time[i])+".WithInfo(",'"%s"'%Info[i],").WithVaccineName(" ,'"%s"'%Name[i], ").Build());"
 if __name__ == "__main__":
   # readInCSV()
-    readVaccines()
+    readMilestones()

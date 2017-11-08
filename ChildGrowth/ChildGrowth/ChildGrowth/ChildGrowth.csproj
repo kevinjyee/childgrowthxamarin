@@ -48,6 +48,10 @@
     <Compile Include="Converters\ToUpperConverter.cs" />
     <Compile Include="Converters\WholePercentToDecimalPercent.cs" />
     <Compile Include="Factory\DataFactory.cs" />
+    <Compile Include="Models\Vaccinations\UnansweredVaccinations.cs" />
+    <Compile Include="Models\Vaccinations\VaccinationDueDate.cs" />
+    <Compile Include="Models\Vaccinations\VaccinationResponses.cs" />
+    <Compile Include="Models\Vaccinations\Vaccine.cs" />
     <Compile Include="Pages\Education\Article.cs" />
     <Compile Include="Pages\Education\EducationCell.cs" />
     <Compile Include="Pages\Education\EducationInfo.cs" />
@@ -115,6 +119,7 @@
     <Compile Include="Persistence\ChildDatabase.cs" />
     <Compile Include="Persistence\ISQLite.cs" />
     <Compile Include="Persistence\SQLiteDatabase.cs" />
+    <Compile Include="Persistence\VaccineDatabaseAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IAuthenticationServices.cs" />
     <Compile Include="Services\IAuthenticator.cs" />
