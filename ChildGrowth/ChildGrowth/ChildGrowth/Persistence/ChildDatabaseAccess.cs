@@ -18,6 +18,14 @@ namespace ChildGrowth.Persistence
             return IsConnected;
         }
 
+        public override void InitializeSync()
+        {
+            _syncConnection = SQLiteDatabase.GetSyncConnection(DB_FILE_NAME);
+
+            // Create MyEntity table if need be
+            _syncConnection.CreateTable<Child>();
+        }
+
         public Task<List<Child>> GetAllUserChildrenAsync()
         {
             return ReadOperations.GetAllWithChildrenAsync<Child>(_asyncConnection);
@@ -43,9 +51,29 @@ namespace ChildGrowth.Persistence
             return WriteOperations.DeleteAllAsync(_asyncConnection, children);
         }
 
-        public override void InitializeSync()
+        public List<Child> GetAllUserChildrenSync()
         {
-            throw new NotImplementedException();
+            return SQLiteNetExtensions.Extensions.ReadOperations.GetAllWithChildren<Child>(_syncConnection);
+        }
+
+        public Child GetUserChildSync(int id)
+        {
+            return SQLiteNetExtensions.Extensions.ReadOperations.GetWithChildren<Child>(_syncConnection, id);
+        }
+
+        public void SaveUserChildSync(Child child)
+        {
+            SQLiteNetExtensions.Extensions.WriteOperations.InsertOrReplaceWithChildren(_syncConnection, child);
+        }
+
+        public void DeleteUserChild(Child child)
+        {
+            SQLiteNetExtensions.Extensions.WriteOperations.Delete(_syncConnection, child, true);
+        }
+
+        public void DeleteAllUserChildrenSync(List<Child> children)
+        {
+            SQLiteNetExtensions.Extensions.WriteOperations.DeleteAll(_syncConnection, children);
         }
 
         private new readonly string DB_FILE_NAME = "ChildDatabase.db3";

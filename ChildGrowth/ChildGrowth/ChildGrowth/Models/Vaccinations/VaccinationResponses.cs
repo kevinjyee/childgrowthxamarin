@@ -111,7 +111,7 @@ namespace ChildGrowth.Models.Vaccinations
         public VaccinationResponses()
         {
             this._vaccinationHistory = new VaccinationHistory().GenerateNewVaccinationHistory();
-            this._unansweredVaccinations = new UnansweredVaccinations().GenerateNewUnansweredVaccinations().Result;
+            this._unansweredVaccinations = new UnansweredVaccinations().GenerateNewUnansweredVaccinations();
         }
 
         public VaccinationHistory VaccinationHistory { get { return _vaccinationHistory; } set { this._vaccinationHistory = value; } }

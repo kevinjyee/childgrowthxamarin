@@ -16,7 +16,7 @@ namespace ChildGrowth.Persistence
             _asyncConnection = SQLiteDatabase.GetConnection(DB_FILE_NAME);
 
             // Create MyEntity table if need be
-            var test = _asyncConnection.CreateTableAsync<Context>().Result;
+            await _asyncConnection.CreateTableAsync<Context>();
             IsConnected = true;
             return IsConnected;
         }
@@ -24,11 +24,7 @@ namespace ChildGrowth.Persistence
         public override void InitializeSync()
         {
             _syncConnection = SQLiteDatabase.GetSyncConnection(DB_FILE_NAME);
-        }
-
-        public void CloseSyncConnection()
-        {
-            _syncConnection.Close();
+            _syncConnection.CreateTable<Context>();
         }
 
         public Task<Context> GetContextAsync()

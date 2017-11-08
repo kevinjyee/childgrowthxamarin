@@ -12,7 +12,7 @@ namespace ChildGrowth.Models.Milestones
 
         }
 
-        public async Task<UnansweredMilestones> GenerateNewUnansweredMilestones()
+        public UnansweredMilestones GenerateNewUnansweredMilestones()
         {
             this._unansweredMilestones = new Dictionary<MilestoneDueDate, List<int>>();
 
@@ -25,13 +25,14 @@ namespace ChildGrowth.Models.Milestones
 
             // Populate Dictionary of unansweredMilestones questions with milestones separated by AgeRange.
             MilestoneDatabaseAccess milestoneDatabaseAccess = new MilestoneDatabaseAccess();
-            await milestoneDatabaseAccess.InitializeAsync();
-            List<Milestone> milestones = milestoneDatabaseAccess.GetAllMilestonesAsync().Result;
+            milestoneDatabaseAccess.InitializeSync();
+            List<Milestone> milestones = milestoneDatabaseAccess.GetAllMilestonesSync();
             foreach (Milestone milestone in milestones)
             {
                 List<int> milestonesByAge = _unansweredMilestones[(MilestoneDueDate)milestone.MilestoneDueDate];
                 milestonesByAge.Add(milestone.ID);
             }
+            milestoneDatabaseAccess.CloseSyncConnection();
             return this;
         }
 

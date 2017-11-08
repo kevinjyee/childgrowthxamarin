@@ -21,6 +21,14 @@ namespace ChildGrowth.Persistence
             return true;
         }
 
+        public override void InitializeSync()
+        {
+            _syncConnection = SQLiteDatabase.GetSyncConnection(DB_FILE_NAME);
+
+            // Create MyEntity table if need be
+            _syncConnection.CreateTable<Vaccine>();
+        }
+
         public Task<List<Vaccine>> GetAllVaccinesAsync()
         {
             return ReadOperations.GetAllWithChildrenAsync<Vaccine>(_asyncConnection);
@@ -51,9 +59,34 @@ namespace ChildGrowth.Persistence
             return WriteOperations.DeleteAllAsync(_asyncConnection, vaccines);
         }
 
-        public override void InitializeSync()
+        public List<Vaccine> GetAllVaccinesSync()
         {
-            throw new NotImplementedException();
+            return SQLiteNetExtensions.Extensions.ReadOperations.GetAllWithChildren<Vaccine>(_syncConnection);
+        }
+
+        public Vaccine GetVaccineSync(int id)
+        {
+            return SQLiteNetExtensions.Extensions.ReadOperations.GetWithChildren<Vaccine>(_syncConnection, id);
+        }
+
+        public void SaveAllVaccinesSync(List<Vaccine> vaccines)
+        {
+            SQLiteNetExtensions.Extensions.WriteOperations.InsertOrReplaceAllWithChildren(_syncConnection, vaccines);
+        }
+
+        public void SaveVaccineSync(Vaccine vaccine)
+        {
+            SQLiteNetExtensions.Extensions.WriteOperations.InsertOrReplaceWithChildren(_syncConnection, vaccine);
+        }
+
+        public void DeleteVaccineSync(Vaccine vaccine)
+        {
+            SQLiteNetExtensions.Extensions.WriteOperations.Delete(_syncConnection, vaccine, true);
+        }
+
+        public void DeleteAllVaccinesSync(List<Vaccine> vaccines)
+        {
+            SQLiteNetExtensions.Extensions.WriteOperations.DeleteAll(_syncConnection, vaccines);
         }
 
         private new readonly string DB_FILE_NAME = "VaccineDatabase.db3";

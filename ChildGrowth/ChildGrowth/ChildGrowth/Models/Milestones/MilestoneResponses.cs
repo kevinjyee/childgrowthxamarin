@@ -103,7 +103,7 @@ namespace ChildGrowth.Models.Milestones
         public MilestoneResponses()
         {
             this._milestoneHistory = new MilestoneHistory().GenerateNewMilestoneHistory();
-            this._unansweredMilestones = new UnansweredMilestones().GenerateNewUnansweredMilestones().Result;
+            this._unansweredMilestones = new UnansweredMilestones().GenerateNewUnansweredMilestones();
         }
 
         public MilestoneHistory MilestoneHistory { get { return _milestoneHistory; } set { this._milestoneHistory = value; } }

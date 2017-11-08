@@ -57,21 +57,25 @@ namespace ChildGrowth.Pages.AddChild
             else
             {
                 sex = (string)SexEntry.ItemsSource[index];
-                if(sex == "Male"){
+                if(sex == "Male")
+                {
                     newChildGender = Gender.MALE;
 
-                } else{
+                } else
+                {
                     newChildGender = Gender.FEMALE;
                 }
                 ChildDatabaseAccess childDatabase = new ChildDatabaseAccess();
-                await childDatabase.InitializeAsync();
+                childDatabase.InitializeSync();
                 Child newChild = new Child(nameEntered, birthdayEntered, genderSelected);
-                await childDatabase.SaveUserChildAsync(newChild);
+                childDatabase.SaveUserChildSync(newChild);
+                childDatabase.CloseSyncConnection();
                 ContextDatabaseAccess contextDB = new ContextDatabaseAccess();
-                await contextDB.InitializeAsync();
-                Context context = contextDB.GetContextAsync().Result;
+                contextDB.InitializeSync();
+                Context context = contextDB.GetContextSync();
                 context.ChildId = newChild.ID;
-                await contextDB.SaveContextAsync(context);
+                contextDB.SaveContextSync(context);
+                contextDB.CloseSyncConnection();
             }
 
             await Navigation.PopModalAsync();

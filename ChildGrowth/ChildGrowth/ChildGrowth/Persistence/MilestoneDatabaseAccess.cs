@@ -19,6 +19,14 @@ namespace ChildGrowth.Persistence
             return IsConnected;
         }
 
+        public override void InitializeSync()
+        {
+            _syncConnection = SQLiteDatabase.GetSyncConnection(DB_FILE_NAME);
+
+            // Create MyEntity table if need be
+            _syncConnection.CreateTable<Milestone>();
+        }
+
         public Task<List<Milestone>> GetAllMilestonesAsync()
         {
             return ReadOperations.GetAllWithChildrenAsync<Milestone>(_asyncConnection);
@@ -49,11 +57,36 @@ namespace ChildGrowth.Persistence
             return WriteOperations.DeleteAllAsync(_asyncConnection, milestones);
         }
 
-        public override void InitializeSync()
+        public List<Milestone> GetAllMilestonesSync()
         {
-            throw new NotImplementedException();
+            return SQLiteNetExtensions.Extensions.ReadOperations.GetAllWithChildren<Milestone>(_syncConnection);
         }
 
-        private readonly string DB_FILE_NAME = "MilestoneDatabase.db3";
+        public Milestone GetMilestoneByIdSync(int id)
+        {
+            return SQLiteNetExtensions.Extensions.ReadOperations.GetWithChildren<Milestone>(_syncConnection, id);
+        }
+
+        public void SaveMilestoneSync(Milestone milestone)
+        {
+            SQLiteNetExtensions.Extensions.WriteOperations.InsertOrReplaceWithChildren(_syncConnection, milestone);
+        }
+
+        public void SaveAllMilestonesSync(List<Milestone> milestones)
+        {
+            SQLiteNetExtensions.Extensions.WriteOperations.InsertOrReplaceAllWithChildren(_syncConnection, milestones);
+        }
+
+        public void DeleteMilestoneSync(Milestone milestone)
+        {
+            SQLiteNetExtensions.Extensions.WriteOperations.Delete(_syncConnection, milestone, true);
+        }
+
+        public void DeleteAllMilestonesSync(List<Milestone> milestones)
+        {
+            SQLiteNetExtensions.Extensions.WriteOperations.DeleteAll(_syncConnection, milestones);
+        }
+
+        private new readonly string DB_FILE_NAME = "MilestoneDatabase.db3";
     }
 }

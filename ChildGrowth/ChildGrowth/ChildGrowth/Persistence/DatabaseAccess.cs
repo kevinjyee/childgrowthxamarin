@@ -19,6 +19,11 @@ namespace ChildGrowth.Persistence
 
         public Boolean IsConnected { get { return _isConnected; } set { _isConnected = value; } }
 
+        public void CloseSyncConnection()
+        {
+            _syncConnection.Close();
+        }
+
         // Must call InitializeAsync before using any accessor methods.
         public abstract Task<Boolean> InitializeAsync();
 

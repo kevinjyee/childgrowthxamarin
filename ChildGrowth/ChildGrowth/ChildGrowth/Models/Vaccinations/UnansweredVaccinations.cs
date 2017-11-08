@@ -28,7 +28,7 @@ namespace ChildGrowth.Models.Vaccinations
             return sum;
         }
 
-        public async Task<UnansweredVaccinations> GenerateNewUnansweredVaccinations()
+        public UnansweredVaccinations GenerateNewUnansweredVaccinations()
         {
             this._unansweredVaccinations = new Dictionary<VaccinationDueDate, List<int>>();
 
@@ -41,13 +41,14 @@ namespace ChildGrowth.Models.Vaccinations
 
             // Populate Dictionary of unansweredMilestones questions with milestones separated by AgeRange.
             VaccineDatabaseAccess vaccineDatabaseAccess = new VaccineDatabaseAccess();
-            await vaccineDatabaseAccess.InitializeAsync();
-            List<Vaccine> vaccines = vaccineDatabaseAccess.GetAllVaccinesAsync().Result;
+            vaccineDatabaseAccess.InitializeSync();
+            List<Vaccine> vaccines = vaccineDatabaseAccess.GetAllVaccinesSync();
             foreach (Vaccine vaccine in vaccines)
             {
                 List<int> vaccinesByAge = _unansweredVaccinations[(VaccinationDueDate)vaccine.VaccineDueDate];
                 vaccinesByAge.Add(vaccine.ID);
             }
+            vaccineDatabaseAccess.CloseSyncConnection();
             return this;
         }
 
