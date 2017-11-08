@@ -29,10 +29,11 @@ namespace ChildGrowth.Models.Vaccinations
         public void AddOrUpdateVaccinationHistory(int vaccineID)
         {
             VaccineDatabaseAccess vaccineDatabaseAccess = new VaccineDatabaseAccess();
-            Boolean initialized = vaccineDatabaseAccess.InitializeAsync().Result;
-            Vaccine vaccine = vaccineDatabaseAccess.GetVaccineAsync(vaccineID).Result;
+            vaccineDatabaseAccess.InitializeSync();
+            Vaccine vaccine = vaccineDatabaseAccess.GetVaccineSync(vaccineID);
             VaccinationHistory.UpdateOrInsertToVaccineHistory(vaccineID);
             Boolean vaccineRemovedFromUnanswered = UnansweredVaccinations.RemoveVaccination(vaccine);
+            vaccineDatabaseAccess.CloseSyncConnection();
         }
 
         /**
@@ -41,10 +42,11 @@ namespace ChildGrowth.Models.Vaccinations
         public void RemoveFromVaccinationHistory(int vaccineID)
         {
             VaccineDatabaseAccess vaccineDatabaseAccess = new VaccineDatabaseAccess();
-            Boolean initialized = vaccineDatabaseAccess.InitializeAsync().Result;
-            Vaccine vaccine = vaccineDatabaseAccess.GetVaccineAsync(vaccineID).Result;
+            vaccineDatabaseAccess.InitializeSync();
+            Vaccine vaccine = vaccineDatabaseAccess.GetVaccineSync(vaccineID);
             VaccinationHistory.RemoveFromVaccineHistory(vaccineID);
             Boolean vaccineAddedToUnanswered = UnansweredVaccinations.AddVaccination(vaccine);
+            vaccineDatabaseAccess.CloseSyncConnection();
         }
 
         /**
@@ -88,23 +90,17 @@ namespace ChildGrowth.Models.Vaccinations
         private List<Vaccine> GetVaccinationsByIds(List<int> ids)
         {
             VaccineDatabaseAccess vaccineDatabaseAccess = new VaccineDatabaseAccess();
-            Boolean initialized = vaccineDatabaseAccess.InitializeAsync().Result;
+            vaccineDatabaseAccess.InitializeSync();
             List<Task<Vaccine>> readTasks = new List<Task<Vaccine>>();
             List<Vaccine> vaccines = new List<Vaccine>();
             if (ids != null && ids.Count > 0)
             {
                 foreach (int vaccineID in ids)
                 {
-                    readTasks.Add(vaccineDatabaseAccess.GetVaccineAsync(vaccineID));
+                    vaccines.Add(vaccineDatabaseAccess.GetVaccineSync(vaccineID));
                 }
             }
-            if (readTasks != null && readTasks.Count > 0)
-            {
-                foreach (Task<Vaccine> task in readTasks)
-                {
-                    vaccines.Add(task.Result);
-                }
-            }
+            vaccineDatabaseAccess.CloseSyncConnection();
             return vaccines;
         }
 

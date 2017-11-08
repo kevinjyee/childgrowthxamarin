@@ -10,6 +10,7 @@ using Xamarin.Forms.Xaml;
 using ChildGrowth.Pages.Settings;
 using ChildGrowth.Persistence;
 using ChildGrowth.Models.Settings;
+using ChildGrowth.Models.Vaccinations;
 
 namespace ChildGrowth.Pages.Vaccinations
 {
@@ -18,7 +19,9 @@ namespace ChildGrowth.Pages.Vaccinations
     {
         private Child CurrentChild { get; set; }
 
-        public static List<VaccinationTable> Vaccines = new List<VaccinationTable>();
+        public static List<Vaccine> Vaccines = new List<Vaccine>();
+
+        private static int numberItemsTappedHandlersBound = 0;
 
         ListView vaccinationList = new ListView
         {
@@ -40,7 +43,7 @@ namespace ChildGrowth.Pages.Vaccinations
 
         public Vaccinations()
         {
-            initializeVaccinations();
+            //initializeVaccinations();
 
         }
 
@@ -50,31 +53,36 @@ namespace ChildGrowth.Pages.Vaccinations
 
             BackgroundColor = Color.FromRgb(94, 196, 225);
 
-            VaccinationRepository();
+            //Vaccines = GetVaccineHistoryForCurrentChild();
 
             vaccinationList.ItemsSource = Vaccines;
             vaccinationList.ItemTemplate = new DataTemplate(typeof(VaccinationCell));
             vaccinationList.BackgroundColor = Color.Transparent;
             vaccinationList.SeparatorColor = Color.White;
+
+            /*
             vaccinationList.ItemSelected += (sender, e) =>
             {
                 ((ListView)sender).SelectedItem = null;
             };
+            */
 
-            vaccinationList.ItemSelected += (sender, e) =>
+            EventHandler<ItemTappedEventArgs> itemTapHandler = null;
+            itemTapHandler = (Sender, Event) =>
             {
+                vaccinationList.ItemTapped -= itemTapHandler;
+                numberItemsTappedHandlersBound--;
 
-                ((ListView)sender).SelectedItem = null;
-
-            };
-
-            vaccinationList.ItemTapped += (Sender, Event) =>
-            {
-
-                var V = (VaccinationTable)Event.Item;
+                var V = (Vaccine)Event.Item;
 
                 Navigation.PushAsync(new VaccinationInfoView(V, CurrentChild));
             };
+            // pot race cond.
+            if(numberItemsTappedHandlersBound <= 0)
+            {
+                vaccinationList.ItemTapped += itemTapHandler;
+                numberItemsTappedHandlersBound = 1;
+            }
 
             Content = new StackLayout
             {
@@ -89,7 +97,14 @@ namespace ChildGrowth.Pages.Vaccinations
         }
         async void updateProgBar()
         {
-            await vacProg.ProgressTo(percentprog, 250, Easing.Linear);
+            if(CurrentChild != null)
+            {
+                await vacProg.ProgressTo(CurrentChild.GetVaccinationCompletionPercentage(), 250, Easing.Linear);
+            }
+            else
+            {
+                await vacProg.ProgressTo(0, 250, Easing.Linear);
+            }
         }
 
         override
@@ -100,11 +115,18 @@ namespace ChildGrowth.Pages.Vaccinations
             if (CurrentChild != null)
             {
                 this.Title = CurrentChild.Name;
+                Vaccines = CurrentChild.GetListOfDueVaccines();
+                initializeVaccinations();
+                updateProgBar();
             }
             else
             {
                 this.Title = "Please Select a Child";
-            }        }
+                Vaccines = new List<Vaccine>();
+                initializeVaccinations();
+                updateProgBar();
+            }
+        }
 
         private async Task<Boolean> LoadContext()
         {
@@ -146,8 +168,10 @@ namespace ChildGrowth.Pages.Vaccinations
         }
 
 
+        /*
         public void VaccinationRepository()
         {
+            
             Vaccines.Add(new VaccinationTable() { VaccinationID = 1, Name = "Hepatitis B (HepB)", Info = " ", Time = 0 });
             Vaccines.Add(new VaccinationTable() { VaccinationID = 2, Name = "Hepatitis B (HepB)", Info = " ", Time = 1 });
             Vaccines.Add(new VaccinationTable() { VaccinationID = 3, Name = "Rotavirus (RV)", Info = " ", Time = 2 });
@@ -175,6 +199,7 @@ namespace ChildGrowth.Pages.Vaccinations
             Vaccines.Add(new VaccinationTable() { VaccinationID = 25, Name = "Hepatitis A (HepA) - Second Dose", Info = " ", Time = 24 });
             Vaccines.Add(new VaccinationTable() { VaccinationID = 26, Name = "Influenza (IIV)", Info = " ", Time = 30 });
         }
+        */
     }
 }
 
@@ -187,10 +212,10 @@ public class VaccinationInfoView : ContentPage
 
     int isTaken;
 
-    VaccinationTable V;
+    Vaccine V;
 
     Child C;
-    public VaccinationInfoView(VaccinationTable v, Child currentChild)
+    public VaccinationInfoView(Vaccine v, Child currentChild)
 
     {
         this.V = v;
@@ -203,7 +228,7 @@ public class VaccinationInfoView : ContentPage
 
 
 
-            Text = V.Name,
+            Text = V.VaccineName,
 
             TextColor = Color.FromHex("#5069A1"),
 
@@ -232,10 +257,6 @@ public class VaccinationInfoView : ContentPage
 
         };
 
-
-
-
-
         isTakenLabel = new Label
         {
 
@@ -251,19 +272,21 @@ public class VaccinationInfoView : ContentPage
 
         };
 
-
-
+        EventHandler<ItemTappedEventArgs> handler = null;
 
 
         isTakenButton.Clicked += (sender, e) =>
         {
-
-            if (isTaken == 1)
+            if(currentChild == null)
+            {
+                return;
+            }
+            else if (currentChild.HasVaccine(V.ID))
             {
 
                 //update database here
                 //not taken
-                //currentChild._vaccineHistory.UpdateOrInsertToVaccineHistory(v.VaccinationID);
+                currentChild.RemoveFromVaccineHistory(V.ID);
  
                 isTakenButton.Image = (FileImageSource)ImageSource.FromFile("X.png");
                  
@@ -274,8 +297,9 @@ public class VaccinationInfoView : ContentPage
                 isTaken = 0;
 
             }
-            else if (isTaken == 0)
+            else
             {
+                currentChild.AddOrUpdateVaccineHistory(V.ID);
 
                 isTakenButton.Image = (FileImageSource)ImageSource.FromFile("right.png");
 
@@ -411,9 +435,12 @@ public class VaccinationInfoView : ContentPage
         //isTaken = 
 
 
-
-        if (isTaken == 1)
+        if(C == null)
         {
+            // Do nothing.
+        }
+        else if (C.HasVaccine(V.ID)) // Current child has the current vaccine.
+        { 
 
             isTakenButton.Image = (FileImageSource)ImageSource.FromFile("right.png");
 
@@ -424,7 +451,7 @@ public class VaccinationInfoView : ContentPage
 
 
         }
-        else if (isTaken == 0)
+        else 
 
         {
 

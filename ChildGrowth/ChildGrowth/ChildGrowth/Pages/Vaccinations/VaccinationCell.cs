@@ -22,7 +22,7 @@ namespace ChildGrowth.Pages.Vaccinations
 
 
                 };
-                VaccinationName.SetBinding(Label.TextProperty, "Name");
+                VaccinationName.SetBinding(Label.TextProperty, "VaccineName");
 
             View = new StackLayout
                 {
