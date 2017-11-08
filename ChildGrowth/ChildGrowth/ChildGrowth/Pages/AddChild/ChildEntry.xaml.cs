@@ -86,9 +86,16 @@ namespace ChildGrowth.Pages.AddChild
         private async void DeleteAllChildrenButton_Clicked(object sender, EventArgs e)
         {
             ChildDatabaseAccess childDatabase = new ChildDatabaseAccess();
-            await childDatabase.InitializeAsync();
-            List<Child> children = childDatabase.GetAllUserChildrenAsync().Result;
-            await childDatabase.DeleteAllUserChildrenAsync(children);
+            childDatabase.InitializeSync();
+            List<Child> children = childDatabase.GetAllUserChildrenSync();
+            childDatabase.DeleteAllUserChildrenSync(children);
+            childDatabase.CloseSyncConnection();
+            ContextDatabaseAccess contextDatabase = new ContextDatabaseAccess();
+            contextDatabase.InitializeSync();
+            Context c = contextDatabase.GetContextSync();
+            c.ChildId = -1;
+            contextDatabase.SaveContextSync(c);
+            contextDatabase.CloseSyncConnection();
         }
     }
 }

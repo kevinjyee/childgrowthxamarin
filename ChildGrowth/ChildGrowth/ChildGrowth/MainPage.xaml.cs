@@ -141,15 +141,15 @@ namespace ChildGrowth
                 {
                     if (DEFAULT_MEASUREMENT_VALUE != Height)
                     {
-                        await currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.HEIGHT, currentUnits, Height);
+                        currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.HEIGHT, currentUnits, Height);
                     }
                     if (DEFAULT_MEASUREMENT_VALUE != Weight)
                     {
-                        await currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.WEIGHT, currentUnits, Weight);
+                        currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.WEIGHT, currentUnits, Weight);
                     }
                     if (DEFAULT_MEASUREMENT_VALUE != HeadC)
                     {
-                        await currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.HEAD_CIRCUMFERENCE, currentUnits, HeadC);
+                        currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.HEAD_CIRCUMFERENCE, currentUnits, HeadC);
                     }
 
                 }

@@ -119,28 +119,34 @@ public class Child
     /** 
      * Removes a measurement from a Child profile. This will update the Child's entry in the database to reflect the change.
      **/
-    public async Task<Boolean> RemoveMeasurementForDateAndType(DateTime date, MeasurementType measurementType)
+    public Boolean RemoveMeasurementForDateAndType(DateTime date, MeasurementType measurementType)
     {
         ChildDatabaseAccess childDB = new ChildDatabaseAccess();
-        await childDB.InitializeAsync();
+        childDB.InitializeSync();
         Boolean data_removed = this.Measurements.RemoveMeasurementForDateAndType(date, measurementType);
         if (data_removed)
         {
-            await childDB.SaveUserChildAsync(this);
+            childDB.SaveUserChildSync(this);
+            childDB.CloseSyncConnection();
             return true;
         }
-        else return false;
+        else
+        {
+            childDB.CloseSyncConnection();
+            return false;
+        }
     }
 
     /** 
      * Adds a measurement to a Child profile. This will update the Child's entry in the local database to reflect the change.
      **/
-    public async Task<Boolean> AddMeasurementForDateAndType(DateTime date, MeasurementType measurementType, Units currentUnits, double value)
+    public Boolean AddMeasurementForDateAndType(DateTime date, MeasurementType measurementType, Units currentUnits, double value)
     {
         ChildDatabaseAccess childDB = new ChildDatabaseAccess();
-        await childDB.InitializeAsync();
+        childDB.InitializeSync();
         Measurements.AddMeasurementForDateAndType(date, measurementType, currentUnits, value);
-        await childDB.SaveUserChildAsync(this);
+        childDB.SaveUserChildSync(this);
+        childDB.CloseSyncConnection();
         return true;
     }
 
@@ -153,37 +159,42 @@ public class Child
         childDB.InitializeSync();
         Milestones.AddOrUpdateMilestoneHistory(milestoneID, answer);
         childDB.SaveUserChildSync(this);
+
+        childDB.CloseSyncConnection();
+
         return true;
     }
 
     /**
      * Add or update milestone response history for the given milestone ID and BinaryAnswer.
      **/
-    public async Task<Boolean> AddOrUpdateVaccineHistory(int vaccineID)
+    public Boolean AddOrUpdateVaccineHistory(int vaccineID)
     {
         ChildDatabaseAccess childDB = new ChildDatabaseAccess();
-        await childDB.InitializeAsync();
+        childDB.InitializeSync();
         Vaccinations.AddOrUpdateVaccinationHistory(vaccineID);
-        await childDB.SaveUserChildAsync(this);
+        childDB.SaveUserChildSync(this);
+        childDB.CloseSyncConnection();
         return true;
     }
 
     /**
      * Add or update milestone response history for the given milestone ID and BinaryAnswer.
      **/
-    public async Task<Boolean> RemoveFromVaccineHistory(int vaccineID)
+    public Boolean RemoveFromVaccineHistory(int vaccineID)
     {
         ChildDatabaseAccess childDB = new ChildDatabaseAccess();
-        await childDB.InitializeAsync();
+        childDB.InitializeSync();
         Vaccinations.RemoveFromVaccinationHistory(vaccineID);
-        await childDB.SaveUserChildAsync(this);
+        childDB.SaveUserChildSync(this);
+        childDB.CloseSyncConnection();
         return true;
     }
 
     /**
      * Return true if vaccine for the given ID is received, false otherwise.
      **/
-     public Boolean VaccinationIsReceived(int vaccineID)
+     public Boolean HasVaccine(int vaccineID)
      {
         return Vaccinations.VaccineIsReceived(vaccineID);
      }
@@ -232,7 +243,7 @@ public class Child
      * Checks a ChildDatabase object to see if it is null or is unconnected. Creates new ChildDatabase and/or initialize connection
      *  as necessary.
      **/
-    private async Task<ChildDatabaseAccess> CheckChildDatabaseConnection(ChildDatabaseAccess childDatabase)
+    private ChildDatabaseAccess CheckChildDatabaseConnection(ChildDatabaseAccess childDatabase)
     {
         if (null == childDatabase)
         {
@@ -240,7 +251,7 @@ public class Child
         }
         if (!childDatabase.IsConnected)
         {
-            await childDatabase.InitializeAsync();
+            childDatabase.InitializeSync();
         }
         return childDatabase;
     }
