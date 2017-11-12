@@ -387,14 +387,34 @@ namespace ChildGrowth
 
         public String ChartTitle { get; set; }
 
-        private ObservableCollection<Points> lineData;
+        private ObservableCollection<Points> lineData3;
+        private ObservableCollection<Points> lineData5;
+        private ObservableCollection<Points> lineData10;
+        private ObservableCollection<Points> lineData25;
 
-        public ObservableCollection<Points> LineData
+        public ObservableCollection<Points> LineData3
         {
-            get { return lineData; }
-            set { lineData = value; }
+            get { return lineData3; }
+            set { lineData3 = value; }
         }
 
+        public ObservableCollection<Points> LineData5
+        {
+            get { return lineData5; }
+            set { lineData5 = value; }
+        }
+
+        public ObservableCollection<Points> LineData10
+        {
+            get { return lineData10; }
+            set { lineData10 = value; }
+        }
+
+        public ObservableCollection<Points> LineData25
+        {
+            get { return lineData25; }
+            set { lineData25 = value; }
+        }
 
         private ObservableCollection<Points> inputData;
 
@@ -407,18 +427,30 @@ namespace ChildGrowth
         public ViewModel()
         {
             ChartTitle = "Weight";
-            LineData = new ObservableCollection<Points>();
+            LineData3 = new ObservableCollection<Points>();
+            LineData5 = new ObservableCollection<Points>();
+            LineData10 = new ObservableCollection<Points>();
+            LineData25 = new ObservableCollection<Points>();
             WHOData weightData = new WHOData();
 
             Dictionary<WHOData.Percentile, List<double>> weightByGender;
-            List<Double> weightList;
+            List<Double> weightList3;
+            List<Double> weightList5;
+            List<Double> weightList10;
+            List<Double> weightList25;
 
             weightData.weightPercentile.TryGetValue(WHOData.Sex.Male, out weightByGender);
-            weightByGender.TryGetValue(WHOData.Percentile.P3, out weightList);
+            weightByGender.TryGetValue(WHOData.Percentile.P3, out weightList3);
+            weightByGender.TryGetValue(WHOData.Percentile.P5, out weightList5);
+            weightByGender.TryGetValue(WHOData.Percentile.P10, out weightList10);
+            weightByGender.TryGetValue(WHOData.Percentile.P25, out weightList25);
 
             for (int i = 0; i < weightData.ageList.Count(); i++)
             {
-                LineData.Add(new Points(weightData.ageList[i], weightList[i]));
+                LineData3.Add(new Points(weightData.ageList[i], weightList3[i]));
+                LineData5.Add(new Points(weightData.ageList[i], weightList5[i]));
+                LineData10.Add(new Points(weightData.ageList[i], weightList10[i]));
+                LineData25.Add(new Points(weightData.ageList[i], weightList25[i]));
             }
 
             InputData = new ObservableCollection<Points>();

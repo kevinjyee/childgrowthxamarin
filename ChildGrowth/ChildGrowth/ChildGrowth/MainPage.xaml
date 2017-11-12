@@ -62,8 +62,11 @@
                         </chart:NumericalAxis>
                     </chart:SfChart.SecondaryAxis>
                     <chart:SfChart.Series>
-                        <chart:SplineSeries StrokeWidth="2" ListenPropertyChange="True" ItemsSource="{Binding LineData}" XBindingPath="Age" YBindingPath="Val" x:Name="series1" Label="Trendline" />
-                        <chart:SplineSeries ListenPropertyChange="True" ItemsSource="{Binding InputData}" XBindingPath="Age" YBindingPath="Val" x:Name="series2" Label="Input"/>
+                        <chart:SplineSeries StrokeWidth="2" ListenPropertyChange="True" ItemsSource="{Binding LineData3}" XBindingPath="Age" YBindingPath="Val" x:Name="series1" Label="P3" />
+                        <chart:SplineSeries StrokeWidth="2" ListenPropertyChange="True" ItemsSource="{Binding LineData5}" XBindingPath="Age" YBindingPath="Val" x:Name="series2" Label="P5" />
+                        <chart:SplineSeries StrokeWidth="2" ListenPropertyChange="True" ItemsSource="{Binding LineData10}" XBindingPath="Age" YBindingPath="Val" x:Name="series3" Label="P10" />
+                        <chart:SplineSeries StrokeWidth="2" ListenPropertyChange="True" ItemsSource="{Binding LineData25}" XBindingPath="Age" YBindingPath="Val" x:Name="series4" Label="P25" />
+                        <chart:SplineSeries ListenPropertyChange="True" ItemsSource="{Binding InputData}" XBindingPath="Age" YBindingPath="Val" x:Name="series5" Label="Input"/>
                     </chart:SfChart.Series>
                     <chart:SfChart.Legend>
 
