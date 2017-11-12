@@ -76,7 +76,14 @@ namespace ChildGrowth.Pages.Milestones
 
             foreach (Milestone m in milestonesDue)
             {
-                items.Add(new CardStackView.Item() { Name = m.Category, Photo = new Uri(m.Media), Description = m.QuestionText, ID = m.ID, firstDesc = " ", firstDesc2 = " " });
+                try
+                {
+                    items.Add(new CardStackView.Item() { Name = m.Category, Photo = new Uri(m.Media), Description = m.QuestionText, ID = m.ID, firstDesc = " ", firstDesc2 = " " });
+                }
+                catch(Exception e)
+                {
+                    string current = m.Media;
+                }
             }
           
         }

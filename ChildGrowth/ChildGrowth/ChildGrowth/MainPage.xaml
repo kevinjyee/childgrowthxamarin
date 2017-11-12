@@ -52,9 +52,9 @@
                         <chart:ChartTitle x:Name="GrowthChart" Text="{Binding ChartTitle}" />
                     </chart:SfChart.Title>
                     <chart:SfChart.PrimaryAxis>
-                        <chart:CategoryAxis>
-                            <chart:ChartAxisTitle Text="Month"/>
-                        </chart:CategoryAxis>
+                        <chart:NumericalAxis>
+                            <chart:ChartAxisTitle Text="Month" />
+                        </chart:NumericalAxis>
                     </chart:SfChart.PrimaryAxis>
                     <chart:SfChart.SecondaryAxis>
                         <chart:NumericalAxis>
@@ -62,8 +62,8 @@
                         </chart:NumericalAxis>
                     </chart:SfChart.SecondaryAxis>
                     <chart:SfChart.Series>
-                        <chart:LineSeries StrokeWidth="2" ListenPropertyChange="True" ItemsSource="{Binding LineData}" XBindingPath="Age" YBindingPath="Val" x:Name="series1" Label="Trendline" />
-                        <chart:LineSeries ListenPropertyChange="True" ItemsSource="{Binding InputData}" XBindingPath="Age" YBindingPath="Val" x:Name="series2" Label="Input"/>
+                        <chart:SplineSeries StrokeWidth="2" ListenPropertyChange="True" ItemsSource="{Binding LineData}" XBindingPath="Age" YBindingPath="Val" x:Name="series1" Label="Trendline" />
+                        <chart:SplineSeries ListenPropertyChange="True" ItemsSource="{Binding InputData}" XBindingPath="Age" YBindingPath="Val" x:Name="series2" Label="Input"/>
                     </chart:SfChart.Series>
                     <chart:SfChart.Legend>
 

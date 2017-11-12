@@ -24,6 +24,7 @@ namespace ChildGrowth
         {
             InitializeComponent();
             UpdateDateSelectionEnabledStatus(false);
+            
         }
 
         override
