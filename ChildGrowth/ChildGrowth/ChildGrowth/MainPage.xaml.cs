@@ -24,6 +24,7 @@ namespace ChildGrowth
         {
             InitializeComponent();
             UpdateDateSelectionEnabledStatus(false);
+           
             
         }
 
@@ -391,6 +392,9 @@ namespace ChildGrowth
         private ObservableCollection<Points> lineData5;
         private ObservableCollection<Points> lineData10;
         private ObservableCollection<Points> lineData25;
+        private ObservableCollection<Points> lineData50;
+        private ObservableCollection<Points> lineData75;
+        private ObservableCollection<Points> lineData90;
 
         public ObservableCollection<Points> LineData3
         {
@@ -416,6 +420,22 @@ namespace ChildGrowth
             set { lineData25 = value; }
         }
 
+        public ObservableCollection<Points> LineData50
+        {
+            get { return lineData50; }
+            set { lineData50 = value; }
+        }
+
+        public ObservableCollection<Points> LineData75
+        {
+            get { return lineData75; }
+            set { lineData75 = value; }
+        }
+        public ObservableCollection<Points> LineData90
+        {
+            get { return lineData90; }
+            set { lineData90 = value; }
+        }
         private ObservableCollection<Points> inputData;
 
         public ObservableCollection<Points> InputData
@@ -431,19 +451,30 @@ namespace ChildGrowth
             LineData5 = new ObservableCollection<Points>();
             LineData10 = new ObservableCollection<Points>();
             LineData25 = new ObservableCollection<Points>();
+            LineData50 = new ObservableCollection<Points>();
+            LineData75 = new ObservableCollection<Points>();
+            LineData90 = new ObservableCollection<Points>();
+
             WHOData weightData = new WHOData();
 
             Dictionary<WHOData.Percentile, List<double>> weightByGender;
+
             List<Double> weightList3;
             List<Double> weightList5;
             List<Double> weightList10;
             List<Double> weightList25;
+            List<Double> weightList50;
+            List<Double> weightList75;
+            List<Double> weightList90;
 
             weightData.weightPercentile.TryGetValue(WHOData.Sex.Male, out weightByGender);
             weightByGender.TryGetValue(WHOData.Percentile.P3, out weightList3);
             weightByGender.TryGetValue(WHOData.Percentile.P5, out weightList5);
             weightByGender.TryGetValue(WHOData.Percentile.P10, out weightList10);
             weightByGender.TryGetValue(WHOData.Percentile.P25, out weightList25);
+            weightByGender.TryGetValue(WHOData.Percentile.P50, out weightList50);
+            weightByGender.TryGetValue(WHOData.Percentile.P75, out weightList75);
+            weightByGender.TryGetValue(WHOData.Percentile.P90, out weightList90);
 
             for (int i = 0; i < weightData.ageList.Count(); i++)
             {
@@ -451,6 +482,9 @@ namespace ChildGrowth
                 LineData5.Add(new Points(weightData.ageList[i], weightList5[i]));
                 LineData10.Add(new Points(weightData.ageList[i], weightList10[i]));
                 LineData25.Add(new Points(weightData.ageList[i], weightList25[i]));
+                LineData50.Add(new Points(weightData.ageList[i], weightList50[i]));
+                LineData75.Add(new Points(weightData.ageList[i], weightList75[i]));
+                LineData90.Add(new Points(weightData.ageList[i], weightList90[i]));
             }
 
             InputData = new ObservableCollection<Points>();
@@ -460,7 +494,8 @@ namespace ChildGrowth
             {
                 //InputData.Add(new Points(weightData.ageList[i], weightList2[i]));
             }
-            InputData.Add(new Points(1, 1));
+            //InputData.Add(new Points(1, 1));
+          
         }
     }
 }
