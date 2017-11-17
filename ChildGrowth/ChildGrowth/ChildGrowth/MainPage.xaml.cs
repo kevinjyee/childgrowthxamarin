@@ -190,6 +190,45 @@ namespace ChildGrowth
             {
                 viewModel.InputData.Add(pt);
             }
+            viewModel.LineData3.Clear();
+            viewModel.LineData5.Clear();
+            viewModel.LineData10.Clear();
+            viewModel.LineData25.Clear();
+            viewModel.LineData50.Clear();
+            viewModel.LineData75.Clear();
+            viewModel.LineData90.Clear();
+
+            WHOData weightData = new WHOData();
+
+            Dictionary<WHOData.Percentile, List<double>> weightByGender;
+
+            List<Double> weightList3;
+            List<Double> weightList5;
+            List<Double> weightList10;
+            List<Double> weightList25;
+            List<Double> weightList50;
+            List<Double> weightList75;
+            List<Double> weightList90;
+
+            weightData.weightPercentile.TryGetValue(WHOData.Sex.Male, out weightByGender);
+            weightByGender.TryGetValue(WHOData.Percentile.P3, out weightList3);
+            weightByGender.TryGetValue(WHOData.Percentile.P5, out weightList5);
+            weightByGender.TryGetValue(WHOData.Percentile.P10, out weightList10);
+            weightByGender.TryGetValue(WHOData.Percentile.P25, out weightList25);
+            weightByGender.TryGetValue(WHOData.Percentile.P50, out weightList50);
+            weightByGender.TryGetValue(WHOData.Percentile.P75, out weightList75);
+            weightByGender.TryGetValue(WHOData.Percentile.P90, out weightList90);
+
+            for (int i = 0; i < weightData.ageList.Count(); i++)
+            {
+                viewModel.LineData3.Add(new Points(weightData.ageList[i], weightList3[i]));
+                viewModel.LineData5.Add(new Points(weightData.ageList[i], weightList5[i]));
+                viewModel.LineData10.Add(new Points(weightData.ageList[i], weightList10[i]));
+                viewModel.LineData25.Add(new Points(weightData.ageList[i], weightList25[i]));
+                viewModel.LineData50.Add(new Points(weightData.ageList[i], weightList50[i]));
+                viewModel.LineData75.Add(new Points(weightData.ageList[i], weightList75[i]));
+                viewModel.LineData90.Add(new Points(weightData.ageList[i], weightList90[i]));
+            }
         }
 
         //TODO STEFAN: Prompt a change of graph
@@ -217,6 +256,46 @@ namespace ChildGrowth
             {
                 viewModel.InputData.Add(pt);
             }
+
+            viewModel.LineData3.Clear();
+            viewModel.LineData5.Clear();
+            viewModel.LineData10.Clear();
+            viewModel.LineData25.Clear();
+            viewModel.LineData50.Clear();
+            viewModel.LineData75.Clear();
+            viewModel.LineData90.Clear();
+
+            WHOData heightData = new WHOData();
+
+            Dictionary<WHOData.Percentile, List<double>> heightByGender;
+
+            List<Double> heightList3;
+            List<Double> heightList5;
+            List<Double> heightList10;
+            List<Double> heightList25;
+            List<Double> heightList50;
+            List<Double> heightList75;
+            List<Double> heightList90;
+
+            heightData.heightPercentile.TryGetValue(WHOData.Sex.Male, out heightByGender);
+            heightByGender.TryGetValue(WHOData.Percentile.P3, out heightList3);
+            heightByGender.TryGetValue(WHOData.Percentile.P5, out heightList5);
+            heightByGender.TryGetValue(WHOData.Percentile.P10, out heightList10);
+            heightByGender.TryGetValue(WHOData.Percentile.P25, out heightList25);
+            heightByGender.TryGetValue(WHOData.Percentile.P50, out heightList50);
+            heightByGender.TryGetValue(WHOData.Percentile.P75, out heightList75);
+            heightByGender.TryGetValue(WHOData.Percentile.P90, out heightList90);
+
+            for (int i = 0; i < heightData.ageList.Count()-1; i++)
+            {
+                viewModel.LineData3.Add(new Points(heightData.ageList[i], heightList3[i]));
+                viewModel.LineData5.Add(new Points(heightData.ageList[i], heightList5[i]));
+                viewModel.LineData10.Add(new Points(heightData.ageList[i], heightList10[i]));
+                viewModel.LineData25.Add(new Points(heightData.ageList[i], heightList25[i]));
+                viewModel.LineData50.Add(new Points(heightData.ageList[i], heightList50[i]));
+                viewModel.LineData75.Add(new Points(heightData.ageList[i], heightList75[i]));
+                viewModel.LineData90.Add(new Points(heightData.ageList[i], heightList90[i]));
+            }
         }
 
         //TODO STEFAN: Prompt a change of graph
@@ -243,6 +322,47 @@ namespace ChildGrowth
             foreach (Points pt in points)
             {
                 viewModel.InputData.Add(pt);
+            }
+
+
+            viewModel.LineData3.Clear();
+            viewModel.LineData5.Clear();
+            viewModel.LineData10.Clear();
+            viewModel.LineData25.Clear();
+            viewModel.LineData50.Clear();
+            viewModel.LineData75.Clear();
+            viewModel.LineData90.Clear();
+
+            WHOData headData = new WHOData();
+
+            Dictionary<WHOData.Percentile, List<double>> headByGender;
+
+            List<Double> headList3;
+            List<Double> headList5;
+            List<Double> headList10;
+            List<Double> headList25;
+            List<Double> headList50;
+            List<Double> headList75;
+            List<Double> headList90;
+
+            headData.headPercentile.TryGetValue(WHOData.Sex.Male, out headByGender);
+            headByGender.TryGetValue(WHOData.Percentile.P3, out headList3);
+            headByGender.TryGetValue(WHOData.Percentile.P5, out headList5);
+            headByGender.TryGetValue(WHOData.Percentile.P10, out headList10);
+            headByGender.TryGetValue(WHOData.Percentile.P25, out headList25);
+            headByGender.TryGetValue(WHOData.Percentile.P50, out headList50);
+            headByGender.TryGetValue(WHOData.Percentile.P75, out headList75);
+            headByGender.TryGetValue(WHOData.Percentile.P90, out headList90);
+
+            for (int i = 0; i < headData.ageList.Count()-1; i++)
+            {
+                viewModel.LineData3.Add(new Points(headData.ageList[i], headList3[i]));
+                viewModel.LineData5.Add(new Points(headData.ageList[i], headList5[i]));
+                viewModel.LineData10.Add(new Points(headData.ageList[i], headList10[i]));
+                viewModel.LineData25.Add(new Points(headData.ageList[i], headList25[i]));
+                viewModel.LineData50.Add(new Points(headData.ageList[i], headList50[i]));
+                viewModel.LineData75.Add(new Points(headData.ageList[i], headList75[i]));
+                viewModel.LineData90.Add(new Points(headData.ageList[i], headList90[i]));
             }
         }
 
@@ -381,86 +501,119 @@ namespace ChildGrowth
         }
     }
 
-
-    public class ViewModel
-    {
-
-        public String ChartTitle { get; set; }
-
-        private ObservableCollection<Points> lineData3;
-        private ObservableCollection<Points> lineData5;
-        private ObservableCollection<Points> lineData10;
-        private ObservableCollection<Points> lineData25;
-
-        public ObservableCollection<Points> LineData3
+        public class ViewModel
         {
-            get { return lineData3; }
-            set { lineData3 = value; }
-        }
 
-        public ObservableCollection<Points> LineData5
-        {
-            get { return lineData5; }
-            set { lineData5 = value; }
-        }
+            public String ChartTitle { get; set; }
 
-        public ObservableCollection<Points> LineData10
-        {
-            get { return lineData10; }
-            set { lineData10 = value; }
-        }
+            private ObservableCollection<Points> lineData3;
+            private ObservableCollection<Points> lineData5;
+            private ObservableCollection<Points> lineData10;
+            private ObservableCollection<Points> lineData25;
+            private ObservableCollection<Points> lineData50;
+            private ObservableCollection<Points> lineData75;
+            private ObservableCollection<Points> lineData90;
 
-        public ObservableCollection<Points> LineData25
-        {
-            get { return lineData25; }
-            set { lineData25 = value; }
-        }
-
-        private ObservableCollection<Points> inputData;
-
-        public ObservableCollection<Points> InputData
-        {
-            get { return inputData; }
-            set { inputData = value; }
-        }
-
-        public ViewModel()
-        {
-            ChartTitle = "Weight";
-            LineData3 = new ObservableCollection<Points>();
-            LineData5 = new ObservableCollection<Points>();
-            LineData10 = new ObservableCollection<Points>();
-            LineData25 = new ObservableCollection<Points>();
-            WHOData weightData = new WHOData();
-
-            Dictionary<WHOData.Percentile, List<double>> weightByGender;
-            List<Double> weightList3;
-            List<Double> weightList5;
-            List<Double> weightList10;
-            List<Double> weightList25;
-
-            weightData.weightPercentile.TryGetValue(WHOData.Sex.Male, out weightByGender);
-            weightByGender.TryGetValue(WHOData.Percentile.P3, out weightList3);
-            weightByGender.TryGetValue(WHOData.Percentile.P5, out weightList5);
-            weightByGender.TryGetValue(WHOData.Percentile.P10, out weightList10);
-            weightByGender.TryGetValue(WHOData.Percentile.P25, out weightList25);
-
-            for (int i = 0; i < weightData.ageList.Count(); i++)
+            public ObservableCollection<Points> LineData3
             {
-                LineData3.Add(new Points(weightData.ageList[i], weightList3[i]));
-                LineData5.Add(new Points(weightData.ageList[i], weightList5[i]));
-                LineData10.Add(new Points(weightData.ageList[i], weightList10[i]));
-                LineData25.Add(new Points(weightData.ageList[i], weightList25[i]));
+                get { return lineData3; }
+                set { lineData3 = value; }
             }
 
-            InputData = new ObservableCollection<Points>();
-            List<Double> weightList2;
-            weightByGender.TryGetValue(WHOData.Percentile.P90, out weightList2);
-            for (int i = 0; i < weightData.ageList.Count(); i++)
+            public ObservableCollection<Points> LineData5
             {
-                //InputData.Add(new Points(weightData.ageList[i], weightList2[i]));
+                get { return lineData5; }
+                set { lineData5 = value; }
             }
-            InputData.Add(new Points(1, 1));
+
+            public ObservableCollection<Points> LineData10
+            {
+                get { return lineData10; }
+                set { lineData10 = value; }
+            }
+
+            public ObservableCollection<Points> LineData25
+            {
+                get { return lineData25; }
+                set { lineData25 = value; }
+            }
+
+            public ObservableCollection<Points> LineData50
+            {
+                get { return lineData50; }
+                set { lineData50 = value; }
+            }
+
+            public ObservableCollection<Points> LineData75
+            {
+                get { return lineData75; }
+                set { lineData75 = value; }
+            }
+            public ObservableCollection<Points> LineData90
+            {
+                get { return lineData90; }
+                set { lineData90 = value; }
+            }
+            private ObservableCollection<Points> inputData;
+
+            public ObservableCollection<Points> InputData
+            {
+                get { return inputData; }
+                set { inputData = value; }
+            }
+
+            public ViewModel()
+            {
+                ChartTitle = "Weight";
+                LineData3 = new ObservableCollection<Points>();
+                LineData5 = new ObservableCollection<Points>();
+                LineData10 = new ObservableCollection<Points>();
+                LineData25 = new ObservableCollection<Points>();
+                LineData50 = new ObservableCollection<Points>();
+                LineData75 = new ObservableCollection<Points>();
+                LineData90 = new ObservableCollection<Points>();
+
+                WHOData weightData = new WHOData();
+
+                Dictionary<WHOData.Percentile, List<double>> weightByGender;
+
+                List<Double> weightList3;
+                List<Double> weightList5;
+                List<Double> weightList10;
+                List<Double> weightList25;
+                List<Double> weightList50;
+                List<Double> weightList75;
+                List<Double> weightList90;
+
+                weightData.weightPercentile.TryGetValue(WHOData.Sex.Male, out weightByGender);
+                weightByGender.TryGetValue(WHOData.Percentile.P3, out weightList3);
+                weightByGender.TryGetValue(WHOData.Percentile.P5, out weightList5);
+                weightByGender.TryGetValue(WHOData.Percentile.P10, out weightList10);
+                weightByGender.TryGetValue(WHOData.Percentile.P25, out weightList25);
+                weightByGender.TryGetValue(WHOData.Percentile.P50, out weightList50);
+                weightByGender.TryGetValue(WHOData.Percentile.P75, out weightList75);
+                weightByGender.TryGetValue(WHOData.Percentile.P90, out weightList90);
+
+                for (int i = 0; i < weightData.ageList.Count(); i++)
+                {
+                    LineData3.Add(new Points(weightData.ageList[i], weightList3[i]));
+                    LineData5.Add(new Points(weightData.ageList[i], weightList5[i]));
+                    LineData10.Add(new Points(weightData.ageList[i], weightList10[i]));
+                    LineData25.Add(new Points(weightData.ageList[i], weightList25[i]));
+                    LineData50.Add(new Points(weightData.ageList[i], weightList50[i]));
+                    LineData75.Add(new Points(weightData.ageList[i], weightList75[i]));
+                    LineData90.Add(new Points(weightData.ageList[i], weightList90[i]));
+                }
+
+                InputData = new ObservableCollection<Points>();
+                List<Double> weightList2;
+                weightByGender.TryGetValue(WHOData.Percentile.P90, out weightList2);
+                for (int i = 0; i < weightData.ageList.Count(); i++)
+                {
+                    //InputData.Add(new Points(weightData.ageList[i], weightList2[i]));
+                }
+                //InputData.Add(new Points(1, 1));
+
+            }
         }
     }
-}
