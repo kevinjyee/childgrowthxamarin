@@ -19,7 +19,9 @@ namespace ChildGrowth.Pages.Vaccinations
     {
         private Child CurrentChild { get; set; }
 
-        public static List<Vaccine> Vaccines = new List<Vaccine>();
+        public static List<Vaccine> dueVaccines = new List<Vaccine>();
+
+        public static List<Vaccine> takenVaccines = new List<Vaccine>();
 
         private static int numberItemsTappedHandlersBound = 0;
 
@@ -55,7 +57,7 @@ namespace ChildGrowth.Pages.Vaccinations
 
             //Vaccines = GetVaccineHistoryForCurrentChild();
 
-            vaccinationList.ItemsSource = Vaccines;
+            vaccinationList.ItemsSource = dueVaccines;
             vaccinationList.ItemTemplate = new DataTemplate(typeof(VaccinationCell));
             vaccinationList.BackgroundColor = Color.Transparent;
             vaccinationList.SeparatorColor = Color.White;
@@ -115,14 +117,14 @@ namespace ChildGrowth.Pages.Vaccinations
             if (CurrentChild != null)
             {
                 this.Title = CurrentChild.Name;
-                Vaccines = CurrentChild.GetListOfDueVaccines();
+                dueVaccines = CurrentChild.GetListOfDueVaccines();
                 initializeVaccinations();
                 updateProgBar();
             }
             else
             {
                 this.Title = "Please Select a Child";
-                Vaccines = new List<Vaccine>();
+                dueVaccines = new List<Vaccine>();
                 initializeVaccinations();
                 updateProgBar();
             }
@@ -226,8 +228,6 @@ public class VaccinationInfoView : ContentPage
         VName = new Label
         {
 
-
-
             Text = V.VaccineName,
 
             TextColor = Color.FromHex("#5069A1"),
@@ -237,8 +237,6 @@ public class VaccinationInfoView : ContentPage
             HorizontalOptions = LayoutOptions.EndAndExpand,
 
             VerticalOptions = LayoutOptions.Center,
-
-
 
         };
 
