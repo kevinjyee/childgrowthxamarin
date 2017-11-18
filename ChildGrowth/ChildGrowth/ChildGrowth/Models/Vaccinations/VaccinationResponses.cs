@@ -71,8 +71,8 @@ namespace ChildGrowth.Models.Vaccinations
         public List<Vaccine> GetVaccineHistory()
         {
             List<int> receivedVaccineIds = new List<int>();
+            Dictionary<int, int> VaccinationHistory = _vaccinationHistory.GetVaccinationHistory();
             receivedVaccineIds.AddRange(_vaccinationHistory.GetVaccinationHistory().Values);
-            receivedVaccineIds.Sort();
             return GetVaccinationsByIds(receivedVaccineIds);
         }
 
@@ -91,7 +91,6 @@ namespace ChildGrowth.Models.Vaccinations
         {
             VaccineDatabaseAccess vaccineDatabaseAccess = new VaccineDatabaseAccess();
             vaccineDatabaseAccess.InitializeSync();
-            List<Task<Vaccine>> readTasks = new List<Task<Vaccine>>();
             List<Vaccine> vaccines = new List<Vaccine>();
             if (ids != null && ids.Count > 0)
             {
@@ -101,6 +100,7 @@ namespace ChildGrowth.Models.Vaccinations
                 }
             }
             vaccineDatabaseAccess.CloseSyncConnection();
+            Vaccine.SortVaccineListByDueDate(vaccines);
             return vaccines;
         }
 
