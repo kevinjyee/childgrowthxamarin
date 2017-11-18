@@ -160,6 +160,17 @@ namespace ChildGrowth
                 {
 
                 }
+
+                List<Points> points = currentChild.GetSortedMeasurementListByType(MeasurementType.WEIGHT);
+                if (points == null)
+                {
+                    currentChild.AddMeasurementForDateAndType(currentChild.Birthday, MeasurementType.WEIGHT, CurrentContext.CurrentUnits, 0.0);
+                    return;
+                }
+                foreach (Points pt in points)
+                {
+                    viewModel.InputData.Add(pt);
+                }
             }
             
           
