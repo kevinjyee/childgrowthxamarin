@@ -12,6 +12,8 @@ using ChildGrowth.Persistence;
 using ChildGrowth.Models.Settings;
 using ChildGrowth.Models.Vaccinations;
 
+using Syncfusion.ListView.XForms;
+
 namespace ChildGrowth.Pages.Vaccinations
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -25,9 +27,9 @@ namespace ChildGrowth.Pages.Vaccinations
 
         private static int numberItemsTappedHandlersBound = 0;
 
-        ListView vaccinationList = new ListView
+        SfListView vaccinationList = new SfListView
         {
-            RowHeight = 70
+            RowSpacing = 70
         };
 
         void OnSettingsClicked(object sender, System.EventArgs e)
@@ -60,7 +62,7 @@ namespace ChildGrowth.Pages.Vaccinations
             vaccinationList.ItemsSource = dueVaccines;
             vaccinationList.ItemTemplate = new DataTemplate(typeof(VaccinationCell));
             vaccinationList.BackgroundColor = Color.Transparent;
-            vaccinationList.SeparatorColor = Color.White;
+            //vaccinationList.SeparatorColor = Color.White;
 
             /*
             vaccinationList.ItemSelected += (sender, e) =>
@@ -69,23 +71,15 @@ namespace ChildGrowth.Pages.Vaccinations
             };
             */
 
-            EventHandler<ItemTappedEventArgs> itemTapHandler = null;
-            itemTapHandler = (Sender, Event) =>
+
+            Vaccine V;
+
+            vaccinationList.ItemTapped += (sender, e) =>
             {
-                vaccinationList.ItemTapped -= itemTapHandler;
-                numberItemsTappedHandlersBound--;
-
-                var V = (Vaccine)Event.Item;
-
+                V = (Vaccine)e.ItemData;
                 Navigation.PushAsync(new VaccinationInfoView(V, CurrentChild));
-            };
-            // pot race cond.
-            if(numberItemsTappedHandlersBound <= 0)
-            {
-                vaccinationList.ItemTapped += itemTapHandler;
-                numberItemsTappedHandlersBound = 1;
-            }
 
+            };
             Content = new StackLayout
             {
                 VerticalOptions = LayoutOptions.FillAndExpand,
@@ -118,6 +112,7 @@ namespace ChildGrowth.Pages.Vaccinations
             {
                 this.Title = CurrentChild.Name;
                 dueVaccines = CurrentChild.GetListOfDueVaccines();
+                takenVaccines = CurrentChild.GetVaccineHistory();
                 initializeVaccinations();
                 updateProgBar();
             }
@@ -125,6 +120,7 @@ namespace ChildGrowth.Pages.Vaccinations
             {
                 this.Title = "Please Select a Child";
                 dueVaccines = new List<Vaccine>();
+                takenVaccines = new List<Vaccine>();
                 initializeVaccinations();
                 updateProgBar();
             }
@@ -270,7 +266,7 @@ public class VaccinationInfoView : ContentPage
 
         };
 
-        EventHandler<ItemTappedEventArgs> handler = null;
+        EventHandler<Syncfusion.ListView.XForms.ItemTappedEventArgs> handler = null;
 
 
         isTakenButton.Clicked += (sender, e) =>
@@ -355,8 +351,6 @@ public class VaccinationInfoView : ContentPage
 
         Content = new StackLayout
         {
-
-
 
             Padding = new Thickness(0, 20, 0, 0),
 
