@@ -15,6 +15,7 @@ namespace ChildGrowth.Pages.Education
     public partial class Education : ContentPage
     {
         private Child CurrentChild { get; set; }
+        private Context CurrentContext { get; set; }
 
         public Education()
         {
@@ -27,19 +28,32 @@ namespace ChildGrowth.Pages.Education
         {
             Task Load = Task.Run(async () => { await LoadContext(); });
             Load.Wait();
+            if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+            {
+                SetEnglish();
+            } else
+            {
+                SetSpanish();
+            }
             if (CurrentChild != null)
             {
                 this.Title = CurrentChild.Name;
             }
             else
             {
-                this.Title = "Please Select a Child";
+                if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+                {
+                    this.Title = "Please Select a Child";
+                }
+                else
+                {
+                    this.Title = "Porfavor Seleccione un niño";
+                }
             }
         }
 
         private async Task<Boolean> LoadContext()
         {
-            Context CurrentContext;
             ContextDatabaseAccess contextDB = new ContextDatabaseAccess();
             await contextDB.InitializeAsync();
             try
@@ -74,6 +88,30 @@ namespace ChildGrowth.Pages.Education
                 CurrentChild = CurrentContext.GetSelectedChild();
                 return true;
             }
+        }
+
+        private void SetEnglish()
+        {
+            PageTitle.Text = "Education Page";
+            BehaviorButton.Source = ImageSource.FromFile("behavior.png");
+            LearningButton.Source = ImageSource.FromFile("learning.png");
+            SafetyButton.Source = ImageSource.FromFile("safety.png");
+            PlayButton.Source = ImageSource.FromFile("play.png");
+            ToiletButton.Source = ImageSource.FromFile("toilet_training.png");
+            DiseasesButton.Source = ImageSource.FromFile("diseases.png");
+            DoctorButton.Source = ImageSource.FromFile("doctor_visits.png");
+        }
+
+        private void SetSpanish()
+        {
+            PageTitle.Text = "Pagina de Educacion";
+            BehaviorButton.Source = ImageSource.FromFile("behavior_sp.png");
+            LearningButton.Source = ImageSource.FromFile("learning_sp.png");
+            SafetyButton.Source = ImageSource.FromFile("safety_sp.png");
+            PlayButton.Source = ImageSource.FromFile("play_sp.png");
+            ToiletButton.Source = ImageSource.FromFile("toilet_training_sp.png");
+            DiseasesButton.Source = ImageSource.FromFile("diseases_sp.png");
+            DoctorButton.Source = ImageSource.FromFile("doctor_visits_sp.png");
         }
 
         void OnSettingsClicked(object sender, System.EventArgs e)

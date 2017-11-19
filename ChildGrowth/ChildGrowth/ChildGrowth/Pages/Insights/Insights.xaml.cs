@@ -24,6 +24,49 @@ namespace ChildGrowth.Pages.Insights
         {
             Task Load = Task.Run(async () => { await LoadContext(); });
             Load.Wait();
+            if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+            {
+                MainTitle.Text = "Insights";
+                AlertsTitle.Text = "Alerts";
+                MeasurementsTitle.Text = "Measurements";
+                MeasurementsAlert.Text = "Height, weight, head circumference needed";
+                MilestonesTitle.Text = "Milestones";
+                VaccinationsTitle.Text = "Vaccinations";
+                SummaryTitle.Text = "Summary";
+                HeightLebel.Text = "Height: ";
+                WeightLabel.Text = "Weight: ";
+                HeadLabel.Text = "Head Circumference: ";
+                BirthLabel.Text = "Birthday";
+                MeasurementsLabel.Text = "Measurements";
+                MilestonesSummary.Text = "Milestones";
+                PGLabel.Text = "Physical Growth";
+                TRLabel.Text = "Thinking & Reasoning";
+                ESDLabel.Text = "Emotional & Social Development";
+                LDLabel.Text = "Language Development";
+                SMLabel.Text = "Sensory & Motory Development";
+            }
+            else
+            {
+                MainTitle.Text = "Resumen";
+                AlertsTitle.Text = "Notificaciones";
+                MeasurementsTitle.Text = "Medidas";
+                MeasurementsAlert.Text = "Falta Estatura, peso, circunferencia de la cabeza";
+                MilestonesTitle.Text = "Hitos";
+                VaccinationsTitle.Text = "Vacunas";
+                SummaryTitle.Text = "Resumen";
+                HeightLebel.Text = "Estatura: ";
+                WeightLabel.Text = "Peso: ";
+                HeadLabel.Text = "Circunferencia de la Cabeza: ";
+                BirthLabel.Text = "Cumpleaños";
+                MeasurementsLabel.Text = "Medidas";
+                MilestonesSummary.Text = "Hitos";
+                PGLabel.Text = "Crecimiento Físico";
+                TRLabel.Text = "Pensamiento y Razonamiento";
+                ESDLabel.Text = "Desarrollo Emocional y Social";
+                LDLabel.Text = "Desarrollo del Lenguage";
+                SMLabel.Text = "Desarrollo Sensor y Motor";
+            }
+
             if (CurrentChild != null)
             {
                 this.Title = CurrentChild.Name;
@@ -31,7 +74,14 @@ namespace ChildGrowth.Pages.Insights
             }
             else
             {
-                this.Title = "Please Select a Child";
+                if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+                {
+                    this.Title = "Please Select a Child";
+                }
+                else
+                {
+                    this.Title = "Porfavor Seleccione un niño";
+                }
                 updateFields();
 
             }
@@ -104,7 +154,14 @@ namespace ChildGrowth.Pages.Insights
                     && maxDateofWeight.Date == DateTime.Today.Date)
                 {
                     measurementsImage.Source = "check_1";
-                    measurementsAlert.Text = "All Measurements Completed For Today";
+                    if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+                    {
+                        MeasurementsAlert.Text = "All Measurements Completed For Today";
+                    }
+                    else
+                    {
+                        MeasurementsAlert.Text = "Todas las medidas estan al día";
+                    }
                 }
 
                 // Check if Milestones Completed
@@ -112,12 +169,26 @@ namespace ChildGrowth.Pages.Insights
                 if(milestoneList == null || milestoneList.Count == 1)
                 {
                     milestonesImage.Source = "check_1";
-                    milestonesAlert.Text = "All Milestones Completed For Today";
+                    if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+                    {
+                        milestonesAlert.Text = "All Milestones Completed For Today";
+                    }
+                    else
+                    {
+                        milestonesAlert.Text = "Todos los hitos estan al día";
+                    }
                 }
                 else
                 {
                     int count = milestoneList.Count - 1;
-                    milestonesAlert.Text = count.ToString() + " unanswered";
+                    if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+                    {
+                        milestonesAlert.Text = count.ToString() + " milestones unanswered";
+                    }
+                    else
+                    {
+                        milestonesAlert.Text = count.ToString() + " hitos sin responder";
+                    }
                 }
 
                 //Check if Vaccination Completed
@@ -125,19 +196,40 @@ namespace ChildGrowth.Pages.Insights
                 if (vaccineList == null || vaccineList.Count == 0)
                 {
                     vaccinationsImage.Source = "check_1";
-                    vaccinationsAlert.Text = "All Vaccinations Completed For Today";
+                    if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+                    {
+                        vaccinationsAlert.Text = "All Vaccinations Completed For Today";
+                    }
+                    else
+                    {
+                        vaccinationsAlert.Text = "Todas las vacunas estan al día";
+                    }
                 }
                 else
                 {
-                    vaccinationsAlert.Text = vaccineList.Count.ToString() + " vaccinations pending";
+                    if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+                    {
+                        vaccinationsAlert.Text = vaccineList.Count.ToString() + " vaccinations pending";
+                    }
+                    else
+                    {
+                        vaccinationsAlert.Text = vaccineList.Count.ToString() + " vacunas pendientes";
+                    }
                 }
                 childBirthday.Text = CurrentChild.Birthday.ToString();
-                
 
-                weightMeasurement.Text = maxDateofWeight == DateTime.MinValue ? "NaN" :CurrentChild.GetMeasurementForDateAndType(maxDateofWeight, MeasurementType.WEIGHT).Value.ToString() + " oz";
-                heightMeasurement.Text = maxDateofHeight == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofHeight, MeasurementType.HEIGHT).Value.ToString() + " cm";
-                headCircumferenceMeasurement.Text = maxDateofHead == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofHead, MeasurementType.HEAD_CIRCUMFERENCE).Value.ToString()+ " cm";
-
+                if (CurrentContext.CurrentUnits.DistanceUnits == DistanceUnits.CM)
+                {
+                    weightMeasurement.Text = maxDateofWeight == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofWeight, MeasurementType.WEIGHT).Value.ToString() + " oz";
+                    heightMeasurement.Text = maxDateofHeight == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofHeight, MeasurementType.HEIGHT).Value.ToString() + " cm";
+                    headCircumferenceMeasurement.Text = maxDateofHead == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofHead, MeasurementType.HEAD_CIRCUMFERENCE).Value.ToString() + " cm";
+                }
+                else
+                {
+                    weightMeasurement.Text = maxDateofWeight == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofWeight, MeasurementType.WEIGHT).Value.ToString() + " lbs";
+                    heightMeasurement.Text = maxDateofHeight == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofHeight, MeasurementType.HEIGHT).Value.ToString() + " in";
+                    headCircumferenceMeasurement.Text = maxDateofHead == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofHead, MeasurementType.HEAD_CIRCUMFERENCE).Value.ToString() + " in";   
+                }
             }
             
         }

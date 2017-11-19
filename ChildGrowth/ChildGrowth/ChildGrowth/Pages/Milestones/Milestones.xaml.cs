@@ -27,6 +27,7 @@ namespace ChildGrowth.Pages.Milestones
         MainPageViewModel viewModel;
         bool historyView = false;
         private int cIdx = 0;
+
         override
         protected void OnAppearing()
         {
@@ -35,7 +36,7 @@ namespace ChildGrowth.Pages.Milestones
             if (CurrentChild != null)
             {
                 this.Title = CurrentChild.Name;
-                
+
             }
             else
             {
@@ -108,7 +109,6 @@ namespace ChildGrowth.Pages.Milestones
             cardStack.SetBinding(CardStackView.ItemsSourceProperty, "ItemsList");
             cardStack.SwipedLeft += SwipedLeft;
             cardStack.SwipedRight += SwipedRight;
-
             //Dislike_button is our no button. 
             var dislike_but = new ImageButton()
             {
@@ -118,7 +118,7 @@ namespace ChildGrowth.Pages.Milestones
                 ImageWidthRequest = 200,
                 BackgroundColor = Color.Transparent,
                 Orientation = ImageOrientation.ImageToLeft,
-                Source = "no_blue_big"
+                Source = ImageSource.FromFile("no_blue_big.png")
             };
 
             //Like button is our yes button
@@ -130,7 +130,7 @@ namespace ChildGrowth.Pages.Milestones
                 ImageWidthRequest = 200,
                 BackgroundColor = Color.Transparent,
                 Orientation = ImageOrientation.ImageToRight,
-                Source = "yes_blue_big"
+                Source = ImageSource.FromFile("yes_blue_big.png")
             };
 
             // Click Events. When Like and dislike is handled.
@@ -189,8 +189,18 @@ namespace ChildGrowth.Pages.Milestones
             cardStack.GetNextCard().Scale = 1;
             if (!cardStack.ShowNextCard())
             {
+<<<<<<< HEAD
+<<<<<<< HEAD
+                cIdx = 0;
+                Navigation.PushAsync(new NavigationPage(new MilestonesHistory()));
+=======
                 cIdx = 0; 
                 Navigation.PushAsync(new NavigationPage(new MilestonesHistory(CurrentChild)));
+>>>>>>> origin
+=======
+                cIdx = 0; 
+                Navigation.PushAsync(new NavigationPage(new MilestonesHistory(CurrentChild)));
+>>>>>>> a1f83e80461e4e9811e63ac33aecc8886bd01887
             };
         }
 
@@ -206,9 +216,9 @@ namespace ChildGrowth.Pages.Milestones
             }
             int currID = cardStack.ItemsSource[index].ID;
             likedIds.Add(currID);
-            if(currID > 0)
+            if (currID > 0)
             {
-                
+
                 CurrentChild.AddOrUpdateMilestoneHistory(currID, Models.Milestones.BinaryAnswer.YES);
             }
             //Item toRemove = cardStack.ItemsSource.Find(p => p.ID == currID);
@@ -233,12 +243,12 @@ namespace ChildGrowth.Pages.Milestones
             }
             int currID = cardStack.ItemsSource[index].ID;
             dislikedIds.Add(currID);
-            if(currID > 0)
+            if (currID > 0)
             {
                 CurrentChild.AddOrUpdateMilestoneHistory(currID, Models.Milestones.BinaryAnswer.NO);
             }
-           // Item toRemove = cardStack.ItemsSource.Find(p => p.ID == currID);
-           // cardStack.ItemsSource.Remove(toRemove);
+            // Item toRemove = cardStack.ItemsSource.Find(p => p.ID == currID);
+            // cardStack.ItemsSource.Remove(toRemove);
 
             cardStack.GetNextCard().Scale = 1;
             cardStack.GetTopCard().Scale = 1;
