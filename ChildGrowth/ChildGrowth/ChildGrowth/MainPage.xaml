@@ -43,7 +43,7 @@
                 <chart:SfChart>
                     
                     <chart:SfChart.HeightRequest>
-                        <OnPlatform x:TypeArguments="x:Double" iOS="400" Android="190" WinPhone="150" />
+                        <OnPlatform x:TypeArguments="x:Double" iOS="400" Android="300" WinPhone="400" />
                     </chart:SfChart.HeightRequest>
                     <chart:SfChart.BackgroundColor>
                         <OnPlatform x:TypeArguments="Color" Android="Transparent" />

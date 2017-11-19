@@ -177,7 +177,7 @@ namespace ChildGrowth.Pages.Milestones
             if (!cardStack.ShowNextCard())
             {
                 cIdx = 0;
-                Navigation.PushAsync(new NavigationPage(new MilestonesHistory()));
+                Navigation.PushAsync(new NavigationPage(new MilestonesHistory(CurrentChild)));
             }
 
         }
@@ -189,8 +189,8 @@ namespace ChildGrowth.Pages.Milestones
             cardStack.GetNextCard().Scale = 1;
             if (!cardStack.ShowNextCard())
             {
-                cIdx = 0;
-                Navigation.PushAsync(new NavigationPage(new MilestonesHistory()));
+                cIdx = 0; 
+                Navigation.PushAsync(new NavigationPage(new MilestonesHistory(CurrentChild)));
             };
         }
 

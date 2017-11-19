@@ -10,6 +10,7 @@ namespace ChildGrowth.Pages.Milestones
 {
     public class MilestonesInfo : INotifyPropertyChanged
     {
+        private int id;
         private int monthDue;
         private string categoryName;
         private string categoryDesc;
@@ -23,6 +24,16 @@ namespace ChildGrowth.Pages.Milestones
             {
                 answer = value;
                 OnPropertyChanged("Answer");
+            }
+        }
+
+        public int ID
+        {
+            get { return id; }
+            set
+            {
+                id = value;
+                OnPropertyChanged("ID");
             }
         }
 
