@@ -5,9 +5,10 @@
     </ContentPage.ToolbarItems>
     <ScrollView>
         <StackLayout>
-            <Label Text="INSIGHTS" TextColor="#2e323f" XAlign="Center" FontSize="40" />
+            <Label Text="Insights" TextColor="#2e323f" FontSize="40" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center">
+            </Label>
             <BoxView HeightRequest="1" WidthRequest="1" BackgroundColor="#2e323f" />
-            <Label Text="ALERTS" TextColor="#06A5BD" FontSize="35" XAlign="Center" />
+            <Label Text="Alerts" TextColor="#06A5BD" FontSize="35" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" />
             <BoxView HeightRequest="1" WidthRequest="1" BackgroundColor="#2e323f" />
             <BoxView HeightRequest="10" WidthRequest="1" BackgroundColor="White" />
             <Grid>
@@ -35,7 +36,7 @@
             </Grid>
             <BoxView HeightRequest="10" WidthRequest="1" BackgroundColor="White" />
             <BoxView HeightRequest="1" WidthRequest="1" BackgroundColor="#2e323f" />
-            <Label Text="SUMMARY" TextColor="#06A5BD" FontSize="35" XAlign="Center" />
+            <Label Text="Summary" TextColor="#06A5BD" FontSize="35"  HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" />
             <BoxView HeightRequest="1" WidthRequest="1" BackgroundColor="#2e323f" />
             <BoxView HeightRequest="10" WidthRequest="1" BackgroundColor="White" />
             <StackLayout Padding="20,0,0,0">
