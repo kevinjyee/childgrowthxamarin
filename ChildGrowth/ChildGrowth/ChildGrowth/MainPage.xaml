@@ -20,11 +20,9 @@
     <ScrollView>
         <StackLayout>
             <StackLayout>
-<<<<<<< HEAD
-                <Label x:Name="MeasurementTitle" Text="Measurements"  HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" FontSize="30" />
-=======
+
                 <Label x:Name="MeasurementTitle" Text="Measurements" TextColor="#2e323f" FontSize="40" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" />
->>>>>>> 36276424e029f8bef5f005fa076b5e4d122d135f
+
                 <Grid Margin="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40" />
