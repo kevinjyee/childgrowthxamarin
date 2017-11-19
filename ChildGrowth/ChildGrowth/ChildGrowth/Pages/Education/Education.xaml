@@ -9,7 +9,7 @@
     <ContentPage.Content>
         <StackLayout Padding="20, 30, 20, 30">
 
-            <Label Text="Education Page" FontSize="Large" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
+            <Label Text="Education" TextColor="#2e323f" FontSize="40" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
 
 
             <Grid ColumnSpacing ="0">

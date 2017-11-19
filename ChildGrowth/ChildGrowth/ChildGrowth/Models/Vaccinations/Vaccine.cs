@@ -1,4 +1,5 @@
 ﻿using SQLite.Net.Attributes;
+using System.Collections.Generic;
 
 namespace ChildGrowth.Models.Vaccinations
 {
@@ -22,6 +23,26 @@ namespace ChildGrowth.Models.Vaccinations
             this.VaccineDueDate = vaccineDueDate;
             this.VaccineName = vaccineName;
             this.Info = info;
+        }
+
+        /**
+         *  Sort a list of Vaccines by due date in order of increasing due date.
+         * */
+        public static List<Vaccine> SortVaccineListByDueDate(List<Vaccine> Vaccines)
+        {
+            List<Vaccine> Result = new List<Vaccine>();
+            Vaccines.Sort(delegate (Vaccine x, Vaccine y)
+            {
+                if (x.VaccineDueDate == -1 && y.VaccineDueDate == -1) return 0;
+                else if (x.VaccineDueDate == -1) return -1;
+                else if (y.VaccineDueDate == -1) return 1;
+                else if (x.VaccineDueDate.Equals(y.VaccineDueDate))
+                {
+                    return x.VaccineName.CompareTo(y.VaccineName);
+                }
+                else return x.VaccineDueDate.CompareTo(y.VaccineDueDate);
+            });
+            return Vaccines;
         }
 
         public Vaccine()
