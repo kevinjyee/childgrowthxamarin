@@ -15,6 +15,7 @@ namespace ChildGrowth.Pages.Education
     public partial class Education : ContentPage
     {
         private Child CurrentChild { get; set; }
+        private Context CurrentContext { get; set; }
 
         public Education()
         {
@@ -39,7 +40,6 @@ namespace ChildGrowth.Pages.Education
 
         private async Task<Boolean> LoadContext()
         {
-            Context CurrentContext;
             ContextDatabaseAccess contextDB = new ContextDatabaseAccess();
             await contextDB.InitializeAsync();
             try

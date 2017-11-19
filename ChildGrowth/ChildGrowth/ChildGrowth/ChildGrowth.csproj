@@ -154,6 +154,9 @@
     <Compile Include="Constants\ChildUser.cs" />
     <Compile Include="Models\Settings\Context.cs" />
     <Compile Include="Persistence\ContextDatabaseAccess.cs" />
+    <Compile Include="Pages\AddChild\EditChild.xaml.cs">
+      <DependentUpon>EditChild.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainPage.xaml">
@@ -165,6 +168,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\Menu\MenuMasterDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\AddChild\EditChild.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

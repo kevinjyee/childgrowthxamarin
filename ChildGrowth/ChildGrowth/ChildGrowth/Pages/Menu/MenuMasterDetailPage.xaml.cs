@@ -101,6 +101,13 @@ namespace ChildGrowth.Pages.Menu
             UpdateChildList();
         }
 
+        async void OnEdit(object sender, System.EventArgs e)
+        {
+            MenuItem item = (MenuItem)sender;
+            Child C = (Child)item.CommandParameter;
+            await Navigation.PushModalAsync(new EditChild(C));
+        }
+
         async void OnDelete(object sender, System.EventArgs e)
         {
             MenuItem item = (MenuItem)sender;

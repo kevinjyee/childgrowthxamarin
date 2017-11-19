@@ -13,6 +13,7 @@
                                 <ViewCell>
                                     <ViewCell.ContextActions>
                                         <MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+                                        <MenuItem Clicked="OnEdit" CommandParameter="{Binding .}" Text="Edit" IsDestructive="false" />
                                     </ViewCell.ContextActions>
                                     <StackLayout Padding="15,15">
                                         <Label Text="{Binding Name}" />
