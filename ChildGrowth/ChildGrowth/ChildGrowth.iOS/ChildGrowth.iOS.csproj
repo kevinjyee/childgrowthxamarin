@@ -165,6 +165,25 @@
     <BundleResource Include="Resources\yes_black.png" />
     <BundleResource Include="Resources\yes_blue.png" />
     <BundleResource Include="Resources\yes_white_outline.png" />
+    <BundleResource Include="Resources\behavior_sp.png" />
+    <BundleResource Include="Resources\diseases_sp.png" />
+    <BundleResource Include="Resources\doctor_visits_sp.png" />
+    <BundleResource Include="Resources\head_circumference_sp.png" />
+    <BundleResource Include="Resources\height_sp.png" />
+    <BundleResource Include="Resources\learning_sp.png" />
+    <BundleResource Include="Resources\play_sp.png" />
+    <BundleResource Include="Resources\safety_sp.png" />
+    <BundleResource Include="Resources\splashscreen_ios_1x.png" />
+    <BundleResource Include="Resources\splashscreen_ios_2x.png" />
+    <BundleResource Include="Resources\splashscreen_ios_512.png" />
+    <BundleResource Include="Resources\splashscreen_ios_1024.png" />
+    <BundleResource Include="Resources\splashscreen_ios_retina.png" />
+    <BundleResource Include="Resources\splashscreen.png" />
+    <BundleResource Include="Resources\toilet_training_sp.png" />
+    <BundleResource Include="Resources\weight_sp.png" />
+    <BundleResource Include="Resources\head_circumference_unclicked_sp.png" />
+    <BundleResource Include="Resources\height_unclicked_sp.png" />
+    <BundleResource Include="Resources\weightunclicked_sp.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ExifLib, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">

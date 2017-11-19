@@ -25,7 +25,7 @@ namespace ChildGrowth.Pages.AddChild
         }
         private void SetSpanish()
         {
-            Title.Text = "Editar Nino";
+            Title.Text = "Agregar Niño";
             NameLabel.Text = "Nombre:";
             BirthLabel.Text = "Fecha de Nacimiento:";
             SexLabel.Text = "Sexo:";

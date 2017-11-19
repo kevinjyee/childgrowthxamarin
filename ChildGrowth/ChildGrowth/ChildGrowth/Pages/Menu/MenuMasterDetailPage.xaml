@@ -6,14 +6,14 @@
         <ContentPage Padding="10" Title="Children" BackgroundColor="#06A5BD" Icon="menu_button.png">
             <ContentPage.Content>
                 <StackLayout Margin="5,30,5,5">
-                    <Label Text="Children" TextColor="White" FontSize="30" XAlign="Center" />
+                    <Label x:Name="ListTitle" Text="Children" TextColor="White" FontSize="30" XAlign="Center" />
                     <ListView x:Name="ChildList" ItemsSource="{Binding Child}" BackgroundColor="#06A5BD" SeparatorColor="White">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
                                     <ViewCell.ContextActions>
-                                        <MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
-                                        <MenuItem Clicked="OnEdit" CommandParameter="{Binding .}" Text="Edit" IsDestructive="false" />
+                                        <MenuItem x:Name="DeleteBut" Clicked="OnDelete" CommandParameter="{Binding .}" Text="{Binding DeleteBut}" IsDestructive="True" />
+                                        <MenuItem x:Name="EditBut" Clicked="OnEdit" CommandParameter="{Binding .}" Text="{Binding EditBut}" IsDestructive="false" />
                                     </ViewCell.ContextActions>
                                     <StackLayout Padding="15,15">
                                         <Label Text="{Binding Name}" />
@@ -22,7 +22,7 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <Button Text="Add New Child" TextColor="White" Clicked="Add_Children_Handler" />
+                    <Button x:Name="AddButton" Text="Add New Child" TextColor="White" Clicked="Add_Children_Handler" />
                 </StackLayout>
             </ContentPage.Content>
         </ContentPage>
