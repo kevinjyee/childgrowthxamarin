@@ -6,19 +6,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XLabs.Enums;
+using XLabs.Forms.Controls;
 
 namespace ChildGrowth.Pages.Milestones
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MilestonesHistory : ContentPage
     {
-        public MilestonesHistory()
+        Child CurrentChild;
+
+        public MilestonesHistory(Child c)
         {
             InitializeComponent();
-
+            CurrentChild = c;
             listView.SelectionChanging += ListView_SelectionChanging;
         }
 
@@ -30,7 +33,7 @@ namespace ChildGrowth.Pages.Milestones
             //if (e.AddeItems.Count > 0 && e.AddedItems[0] == ViewModel.Items[0])
             //    e.Cancel = true;
 
-            Navigation.PushAsync(new MilestonesInfoView(M));
+            Navigation.PushAsync(new MilestonesInfoView(M,CurrentChild));
         }
     }
 
@@ -47,16 +50,19 @@ namespace ChildGrowth.Pages.Milestones
         public Label firstDesc { get; set; }
         public Label firstDesc2 { get; set; }
         public int ID { get; set; }
-        public Image Like { get; set; }
-        public Image DisLike { get; set; }
+        public ImageButton Like { get; set; }
+        public ImageButton DisLike { get; set; }
 
         MilestonesInfo M;
+        Child CurrentChild;
 
-        public MilestonesInfoView(MilestonesInfo m)
+        public MilestonesInfoView(MilestonesInfo m, Child c)
 
         {
             this.M = m;
-            
+            this.CurrentChild = c;
+            this.Title = c.Name;
+
             
             RelativeLayout view = new RelativeLayout();
 
@@ -65,7 +71,7 @@ namespace ChildGrowth.Pages.Milestones
             BoxView background = new BoxView
             {
                 Color = Color.White,
-                Scale = 4,
+                Scale = 3,
                 InputTransparent = true
             };
             // put it in my stack
@@ -170,6 +176,54 @@ namespace ChildGrowth.Pages.Milestones
                 Constraint.RelativeToParent((parent) => { return parent.Width; }),
                 Constraint.RelativeToParent((parent) => { return parent.Height; }));
 
+
+            //Dislike_button is our no button. 
+            var dislike_but = new ImageButton()
+            {
+                HeightRequest = 90,
+                WidthRequest = 200,
+                ImageHeightRequest = 90,
+                ImageWidthRequest = 200,
+                BackgroundColor = Color.Transparent,
+                Orientation = ImageOrientation.ImageToLeft,
+                Source = "no_blue_big"
+            };
+
+            //Like button is our yes button
+            var like_but = new ImageButton()
+            {
+                HeightRequest = 90,
+                WidthRequest = 200,
+                ImageHeightRequest = 90,
+                ImageWidthRequest = 200,
+                BackgroundColor = Color.Transparent,
+                Orientation = XLabs.Enums.ImageOrientation.ImageToRight,
+                Source = "yes_blue_big"
+            };
+
+            // Click Events. When Like and dislike is handled.
+           dislike_but.Clicked += Dislike_but_Clicked;
+            like_but.Clicked += Like_but_Clicked;
+
+       
+
+            // Add dislike buttons to viewmodel
+            view.Children.Add(dislike_but,
+
+                Constraint.RelativeToParent((parent) => { return parent.Width - parent.Width + 35; }),
+                Constraint.RelativeToParent((parent) => { return parent.Height - 120; }),
+                //Constraint.RelativeToParent((parent) => { return parent.Height - 80; }), //MIDDLE
+                Constraint.Constant(135),
+                Constraint.Constant(50));
+
+            // Add like buttons to viewmodel
+            view.Children.Add(like_but,
+                Constraint.RelativeToParent((parent) => { return parent.Width - 155; }),
+                Constraint.RelativeToParent((parent) => { return parent.Height - 120; }),
+                //Constraint.RelativeToParent((parent) => { return parent.Height - 80; }), //MIDDLE
+                Constraint.Constant(135),
+                Constraint.Constant(50));
+
             Name.Text = m.CategoryName;
             Description.Text = m.CategoryDescription;
             firstDesc.Text = "";
@@ -183,11 +237,28 @@ namespace ChildGrowth.Pages.Milestones
             {
                 firstDesc2.Text = "Not Completed";
                 firstDesc2.TextColor = Color.Red;
+                firstDesc2.FontSize = 22;
             }
 
             Photo.Source = ImageSource.FromUri(new Uri(m.ImageURL));
             this.Content = view;
 
+        }
+
+        private void Like_but_Clicked(object sender, EventArgs e)
+        {
+            CurrentChild.AddOrUpdateMilestoneHistory(M.ID, Models.Milestones.BinaryAnswer.YES);
+            firstDesc2.Text = "Completed";
+            firstDesc2.TextColor = Color.SpringGreen;
+        }
+
+        // Dislike button is clicked
+        private void Dislike_but_Clicked(object sender, EventArgs e)
+        {
+            CurrentChild.AddOrUpdateMilestoneHistory(M.ID, Models.Milestones.BinaryAnswer.NO);
+            firstDesc2.Text = "Not Completed";
+            firstDesc2.TextColor = Color.Red;
+            firstDesc2.FontSize = 22;
         }
     }
 }
