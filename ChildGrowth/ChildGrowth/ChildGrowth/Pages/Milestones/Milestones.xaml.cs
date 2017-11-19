@@ -190,12 +190,17 @@ namespace ChildGrowth.Pages.Milestones
             if (!cardStack.ShowNextCard())
             {
 <<<<<<< HEAD
+<<<<<<< HEAD
                 cIdx = 0;
                 Navigation.PushAsync(new NavigationPage(new MilestonesHistory()));
 =======
                 cIdx = 0; 
                 Navigation.PushAsync(new NavigationPage(new MilestonesHistory(CurrentChild)));
 >>>>>>> origin
+=======
+                cIdx = 0; 
+                Navigation.PushAsync(new NavigationPage(new MilestonesHistory(CurrentChild)));
+>>>>>>> a1f83e80461e4e9811e63ac33aecc8886bd01887
             };
         }
 

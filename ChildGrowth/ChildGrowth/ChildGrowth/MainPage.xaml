@@ -20,9 +20,13 @@
     <ScrollView>
         <StackLayout>
             <StackLayout>
+<<<<<<< HEAD
 
                 <Label x:Name="MeasurementTitle" Text="Measurements" TextColor="#2e323f" FontSize="40" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" />
 
+=======
+                <Label x:Name="MeasurementTitle" Text="Measurements" TextColor="#2e323f" FontSize="40" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" />
+>>>>>>> a1f83e80461e4e9811e63ac33aecc8886bd01887
                 <Grid Margin="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40" />
@@ -45,8 +49,12 @@
                 <chart:SfChart>
                     
                     <chart:SfChart.HeightRequest>
+<<<<<<< HEAD
                         <OnPlatform x:TypeArguments="x:Double" iOS="400" Android="300" WinPhone="150" />
 
+=======
+                        <OnPlatform x:TypeArguments="x:Double" iOS="400" Android="300" WinPhone="400" />
+>>>>>>> a1f83e80461e4e9811e63ac33aecc8886bd01887
                     </chart:SfChart.HeightRequest>
                     <chart:SfChart.BackgroundColor>
                         <OnPlatform x:TypeArguments="Color" Android="Transparent" />
