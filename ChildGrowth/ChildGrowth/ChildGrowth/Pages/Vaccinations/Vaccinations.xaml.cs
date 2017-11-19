@@ -35,7 +35,7 @@ namespace ChildGrowth.Pages.Vaccinations
 
         static double percentprog = 0.2;
 
-        ProgressBar vacProg = new ProgressBar
+        ProgressBar vacProg = new CustomProgressBar
         {
             Progress = percentprog,
         };
@@ -203,7 +203,11 @@ namespace ChildGrowth.Pages.Vaccinations
     }
 }
 
-public class VaccinationInfoView : ContentPage  
+public class CustomProgressBar : ProgressBar
+{
+}
+
+public class VaccinationInfoView : ContentPage
 {
 
     Label VName, isTakenLabel;
@@ -277,7 +281,7 @@ public class VaccinationInfoView : ContentPage
 
         isTakenButton.Clicked += (sender, e) =>
         {
-            if(currentChild == null)
+            if (currentChild == null)
             {
                 return;
             }
@@ -287,9 +291,9 @@ public class VaccinationInfoView : ContentPage
                 //update database here
                 //not taken
                 currentChild.RemoveFromVaccineHistory(V.ID);
- 
+
                 isTakenButton.Image = (FileImageSource)ImageSource.FromFile("X.png");
-                 
+
                 isTakenButton.BackgroundColor = Color.Transparent;
 
                 isTakenLabel.Text = "Not Taken";
@@ -435,12 +439,12 @@ public class VaccinationInfoView : ContentPage
         //isTaken = 
 
 
-        if(C == null)
+        if (C == null)
         {
             // Do nothing.
         }
         else if (C.HasVaccine(V.ID)) // Current child has the current vaccine.
-        { 
+        {
 
             isTakenButton.Image = (FileImageSource)ImageSource.FromFile("right.png");
 
@@ -451,7 +455,7 @@ public class VaccinationInfoView : ContentPage
 
 
         }
-        else 
+        else
 
         {
 
@@ -466,6 +470,7 @@ public class VaccinationInfoView : ContentPage
         base.OnAppearing();
 
     }
+
 
 }
 

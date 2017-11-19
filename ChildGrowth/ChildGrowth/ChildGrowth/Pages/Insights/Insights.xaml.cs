@@ -133,11 +133,29 @@ namespace ChildGrowth.Pages.Insights
                 }
                 childBirthday.Text = CurrentChild.Birthday.ToString();
                 
-
+                // Update weights
                 weightMeasurement.Text = maxDateofWeight == DateTime.MinValue ? "NaN" :CurrentChild.GetMeasurementForDateAndType(maxDateofWeight, MeasurementType.WEIGHT).Value.ToString() + " oz";
                 heightMeasurement.Text = maxDateofHeight == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofHeight, MeasurementType.HEIGHT).Value.ToString() + " cm";
                 headCircumferenceMeasurement.Text = maxDateofHead == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofHead, MeasurementType.HEAD_CIRCUMFERENCE).Value.ToString()+ " cm";
 
+               Dictionary<Models.MilestoneCategory,List<MilestoneWithResponse>> milestonesPercDict = CurrentChild.GetMilestoneHistory();
+
+                List<MilestoneWithResponse> socialMilestones;
+                List<MilestoneWithResponse> cognitiveMilestones;
+                List<MilestoneWithResponse> commMilestones;
+                List<MilestoneWithResponse> movementMilestones;
+
+                milestonesPercDict.TryGetValue(Models.MilestoneCategory.SOCIAL_AND_EMOTIONAL, out socialMilestones);
+                milestonesPercDict.TryGetValue(Models.MilestoneCategory.COGNITIVE, out cognitiveMilestones);
+                milestonesPercDict.TryGetValue(Models.MilestoneCategory.COMMUNICATION, out commMilestones);
+                milestonesPercDict.TryGetValue(Models.MilestoneCategory.MOVEMENT, out movementMilestones);
+
+                emotionalAndSocial.Text = returnMilestonesPerc(socialMilestones).ToString() +"%";
+                physicalGrowth.Text = returnMilestonesPerc(movementMilestones).ToString() + "%";
+                LanguageDevelopment.Text = returnMilestonesPerc(commMilestones).ToString() + "%";
+                ThinkingAndReasoning.Text = returnMilestonesPerc(cognitiveMilestones).ToString() + "%";
+
+                progressBar1.Progress = CurrentChild.GetVaccinationCompletionPercentage();
             }
             
         }
@@ -145,6 +163,15 @@ namespace ChildGrowth.Pages.Insights
         void OnSettingsClicked(object sender, System.EventArgs e)
         {
             Navigation.PushAsync(new SettingsPage());
+        }
+
+        double returnMilestonesPerc(List<MilestoneWithResponse> milestoneList)
+        {
+            if(milestoneList.Count ==0)
+            {
+                return 0;
+            }
+            return Math.Floor(((double) milestoneList.FindAll(p => p.Answer == BinaryAnswer.YES).Count() / milestoneList.Count())*100);
         }
     }
 }

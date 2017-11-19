@@ -70,7 +70,7 @@
                     </Grid.ColumnDefinitions>
                     <Image Source="blue_empty.png" Grid.Row="0" Grid.Column="0" />
                     <Label x:Name="physicalGrowth" Text="80%" Grid.Row="0" Grid.Column="0" TextColor="White" XAlign="Center" YAlign="Center" />
-                    <Label Text="Physical Growth" Grid.Row="0" Grid.Column="1" YAlign="Center" TextColor="#2e323f" />
+                    <Label Text="Sensory &amp; Motory Development" Grid.Row="0" Grid.Column="1" YAlign="Center" TextColor="#2e323f" />
                     <Image Source="blue_empty.png" Grid.Row="1" Grid.Column="0" />
                     <Label x:Name="ThinkingAndReasoning" Text="80%" Grid.Row="1" Grid.Column="0" TextColor="White" XAlign="Center" YAlign="Center" />
                     <Label Text="Thinking &amp; Reasoning" Grid.Row="1" Grid.Column="1" YAlign="Center" TextColor="#2e323f" />
@@ -80,11 +80,10 @@
                     <Image Source="blue_empty.png" Grid.Row="3" Grid.Column="0" />
                     <Label x:Name="LanguageDevelopment" Text="80%" Grid.Row="3" Grid.Column="0" TextColor="White" XAlign="Center" YAlign="Center" />
                     <Label Text="Language Development" Grid.Row="3" Grid.Column="1" YAlign="Center" TextColor="#2e323f" />
-                    <Image Source="blue_empty.png" Grid.Row="4" Grid.Column="0" />
-                    <Label x:Name="SensoryAndMotory" Text="80%" Grid.Row="4" Grid.Column="0" TextColor="White" XAlign="Center" YAlign="Center" />
-                    <Label Text="Sensory &amp; Motory Development" Grid.Row="4" Grid.Column="1" YAlign="Center" TextColor="#2e323f" />
+                   
                 </Grid>
                 <Label Text="Vaccinations" Grid.Row="0" Grid.Column="0" FontSize="25" TextColor="#2e323f" />
+                <ProgressBar x:Name="progressBar1"/>
             </StackLayout>
         </StackLayout>
     </ScrollView>

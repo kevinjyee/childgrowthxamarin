@@ -189,6 +189,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomProgressBarRenderer.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Persistence\AndroidSQLiteConnectionInputGenerator.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
