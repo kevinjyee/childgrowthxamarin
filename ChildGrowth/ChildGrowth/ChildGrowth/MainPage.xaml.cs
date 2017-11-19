@@ -12,19 +12,73 @@ using System.ComponentModel;
 using ChildGrowth.Constants;
 using ChildGrowth.Pages.Settings;
 using ChildGrowth.Models.Settings;
+using System.Runtime.CompilerServices;
 
 namespace ChildGrowth
 {
-    public partial class MainPage : ContentPage
+    public partial class MainPage : ContentPage, INotifyPropertyChanged
     {
-        public Child CurrentChild{ get; set; }
+        private Child _currentChild;
+        private DateTime _currentChildBirthday;
+        DateTime CurrentChildBirthday
+        {
+            get
+            {
+                return this._currentChildBirthday;
+            }
+            set
+            {
+                this._currentChildBirthday = value;
+                this.EntryDate.MinimumDate = value;
+            }
+        }
+
+        public Child CurrentChild
+        {
+            get
+            {
+                return _currentChild;
+            }
+            set
+            {
+                if(_currentChild?.ID != value?.ID && value != null)
+                {
+                    _currentChild = value;
+                    CurrentChildBirthday = _currentChild.Birthday;
+                    NotifyPropertyChanged(nameof(CurrentChildBirthday));
+                    OnPropertyChanged("CurrentChild");
+                    UpdateGraph();
+                    UpdateTitle();
+                    UpdateSelectedMeasurements();
+                }
+                else if(value == null)
+                {
+                    //NotifyPropertyChanged(nameof(CurrentChildBirthday));
+                    _currentChild = null;
+                    OnPropertyChanged("CurrentChild");
+                    UpdateGraph();
+                    UpdateTitle();
+                    UpdateSelectedMeasurements();
+                }
+            }
+        }
+
+        public void SetCurrentChild(Child c)
+        {
+            this.CurrentChild = c;
+        }
+
         public Context CurrentContext { get; set; }
+        private MeasurementType CurrentMeasurementType { get; set; } = MeasurementType.WEIGHT;
 
         public MainPage()
         {
             InitializeComponent();
             UpdateDateSelectionEnabledStatus(false);
-            
+            if (CurrentChild != null)
+            {
+                TryLoadingMeasurementDataForDateAndChild(this.EntryDate.Date, CurrentChild);
+            }
         }
 
         override
@@ -34,14 +88,75 @@ namespace ChildGrowth
             Load.Wait();
             if (CurrentChild != null)
             {
+                TryLoadingMeasurementDataForDateAndChild(this.EntryDate.Date, CurrentChild);
+            }
+            UpdateTitle();
+            UpdateGraph();
+            UpdateSelectedMeasurements();
+            /*
+            if (CurrentChild != null)
+            {
                 this.Title = CurrentChild.Name;
                 UpdateDateSelectionEnabledStatus(true);
             }
-            else{
+            else
+            {
                 this.Title = "Please Select a Child";
                 UpdateDateSelectionEnabledStatus(false);
-
             }
+            */
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        // This method is called by the Set accessor of each property.
+        // The CallerMemberName attribute that is applied to the optional propertyName
+        // parameter causes the property name of the caller to be substituted as an argument.
+        public void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        static object GraphLock = new object();
+
+        void UpdateGraph()
+        {
+            //OnMeasurementClicked(CurrentMeasurementType);
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                if (CurrentChild != null)
+                {
+                    TryLoadingMeasurementDataForDateAndChild(this.EntryDate.Date, CurrentChild);
+                }
+            });
+
+            //Task UpdateChart = Task.Run(async () => { await OnMeasurementClicked(CurrentMeasurementType); });
+            //UpdateChart.Wait();
+        }
+
+        void UpdateSelectedMeasurements()
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                OnMeasurementClicked(CurrentMeasurementType);
+            });
+        }
+
+        void UpdateTitle()
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                if (CurrentChild != null)
+                {
+                    this.Title = CurrentChild.Name;
+                    UpdateDateSelectionEnabledStatus(true);
+                }
+                else
+                {
+                    this.Title = "Please Select a Child";
+                    UpdateDateSelectionEnabledStatus(false);
+                }
+            });
         }
 
         // Load context and set value for current child if it exists.
@@ -69,7 +184,8 @@ namespace ChildGrowth
                 await newContextDB.InitializeAsync();
                 newContextDB.SaveFirstContextAsync(CurrentContext);
                 //newContextDB.CloseSyncConnection();
-                CurrentChild = null;
+                _currentChild = null;
+                CurrentChildBirthday = DateTime.Today;
                 Task tVaccine = VaccineTableConstructor.ConstructVaccineTable();
                 Task tMilestone = MilestonesTableConstructor.ConstructMilestonesTable();
                 await tVaccine;
@@ -134,56 +250,57 @@ namespace ChildGrowth
 
             //TODO STEFAN: Replace this with an await call to SQLite
             ChildDatabaseAccess childDatabase = new ChildDatabaseAccess();
-            Child currentChild = CurrentChild;
             DateTime selectedDate = GetSelectedDate();
             Units currentUnits = GetCurrentUnits();
 
-            if (currentChild != null)
+            if (CurrentChild != null)
             {
                 try
                 {
                     if (DEFAULT_MEASUREMENT_VALUE != Height)
                     {
-                        currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.HEIGHT, currentUnits, Height);
+                        CurrentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.HEIGHT, currentUnits, Height);
                     }
                     if (DEFAULT_MEASUREMENT_VALUE != Weight)
                     {
-                        currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.WEIGHT, currentUnits, Weight);
+                        CurrentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.WEIGHT, currentUnits, Weight);
                     }
                     if (DEFAULT_MEASUREMENT_VALUE != HeadC)
                     {
-                        currentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.HEAD_CIRCUMFERENCE, currentUnits, HeadC);
+                        CurrentChild.AddMeasurementForDateAndType(selectedDate, MeasurementType.HEAD_CIRCUMFERENCE, currentUnits, HeadC);
                     }
+                    UpdateSelectedMeasurements();
 
                 }
                 catch (Exception e)
                 {
-
+                    
                 }
             }
             
           
         }
 
-
-       async void OnWeightClicked(object sender, EventArgs args)
+        async Task OnMeasurementClicked(MeasurementType measurementType)
         {
-            viewModel.ChartTitle = "Weight";
-            GrowthChart.Text = "Weight";
-            ChildDatabaseAccess childDatabaseAccess = new ChildDatabaseAccess();
-            Child currentChild = CurrentChild;
-            viewModel.InputData.Clear();
-            if(currentChild == null)
+            CurrentMeasurementType = measurementType;
+            String measurementTitle = MeasurementEnums.MeasurementTypeAsString(measurementType);
+            viewModel.ChartTitle = measurementTitle;
+            GrowthChart.Text = measurementTitle;
+            try
             {
-                await DisplayAlert("Error",
-                "Please select a child",
-                "OK");
-                return;
+                viewModel.InputData.Clear();
             }
-            List<Points> points = currentChild.GetSortedMeasurementListByType(MeasurementType.WEIGHT);
+            catch(Exception e)
+            {
+                // Changing children and reverting to this page causes a crash.
+                viewModel = new ViewModel();
+                viewModel.ChartTitle = measurementTitle;
+            }
+            List<Points> points = CurrentChild.GetSortedMeasurementListByType(measurementType);
             if (points == null)
             {
-                currentChild.AddMeasurementForDateAndType(currentChild.Birthday,MeasurementType.WEIGHT, CurrentContext.CurrentUnits, 0.0);
+                CurrentChild.AddMeasurementForDateAndType(CurrentChild.Birthday, measurementType, CurrentContext.CurrentUnits, 0.0);
                 return;
             }
             foreach (Points pt in points)
@@ -198,172 +315,71 @@ namespace ChildGrowth
             viewModel.LineData75.Clear();
             viewModel.LineData90.Clear();
 
-            WHOData weightData = new WHOData();
+            WHOData measurementData = new WHOData();
 
-            Dictionary<WHOData.Percentile, List<double>> weightByGender;
+            Dictionary<WHOData.Percentile, List<double>> measurementsByGender;
 
-            List<Double> weightList3;
-            List<Double> weightList5;
-            List<Double> weightList10;
-            List<Double> weightList25;
-            List<Double> weightList50;
-            List<Double> weightList75;
-            List<Double> weightList90;
-
-            weightData.weightPercentile.TryGetValue(WHOData.Sex.Male, out weightByGender);
-            weightByGender.TryGetValue(WHOData.Percentile.P3, out weightList3);
-            weightByGender.TryGetValue(WHOData.Percentile.P5, out weightList5);
-            weightByGender.TryGetValue(WHOData.Percentile.P10, out weightList10);
-            weightByGender.TryGetValue(WHOData.Percentile.P25, out weightList25);
-            weightByGender.TryGetValue(WHOData.Percentile.P50, out weightList50);
-            weightByGender.TryGetValue(WHOData.Percentile.P75, out weightList75);
-            weightByGender.TryGetValue(WHOData.Percentile.P90, out weightList90);
-
-            for (int i = 0; i < weightData.ageList.Count(); i++)
+            List<Double> measurementList3;
+            List<Double> measurementList5;
+            List<Double> measurementList10;
+            List<Double> measurementList25;
+            List<Double> measurementList50;
+            List<Double> measurementList75;
+            List<Double> measurementList90;
+            
+            // Find list of measurements for measurement type and gender. TODO: Change this based on preferred units.
+            switch (measurementType)
             {
-                viewModel.LineData3.Add(new Points(weightData.ageList[i], weightList3[i]));
-                viewModel.LineData5.Add(new Points(weightData.ageList[i], weightList5[i]));
-                viewModel.LineData10.Add(new Points(weightData.ageList[i], weightList10[i]));
-                viewModel.LineData25.Add(new Points(weightData.ageList[i], weightList25[i]));
-                viewModel.LineData50.Add(new Points(weightData.ageList[i], weightList50[i]));
-                viewModel.LineData75.Add(new Points(weightData.ageList[i], weightList75[i]));
-                viewModel.LineData90.Add(new Points(weightData.ageList[i], weightList90[i]));
+                case MeasurementType.WEIGHT:
+                    measurementData.weightPercentile.TryGetValue(WHOData.AdaptChildGender(CurrentChild.ChildGender), out measurementsByGender);
+                    break;
+                case MeasurementType.HEIGHT:
+                    measurementData.heightPercentile.TryGetValue(WHOData.AdaptChildGender(CurrentChild.ChildGender), out measurementsByGender);
+                    break;
+                case MeasurementType.HEAD_CIRCUMFERENCE:
+                    measurementData.headPercentile.TryGetValue(WHOData.AdaptChildGender(CurrentChild.ChildGender), out measurementsByGender);
+                    break;
+                default:
+                    measurementData.weightPercentile.TryGetValue(WHOData.AdaptChildGender(CurrentChild.ChildGender), out measurementsByGender);
+                    break;
             }
+
+            measurementsByGender.TryGetValue(WHOData.Percentile.P3, out measurementList3);
+            measurementsByGender.TryGetValue(WHOData.Percentile.P5, out measurementList5);
+            measurementsByGender.TryGetValue(WHOData.Percentile.P10, out measurementList10);
+            measurementsByGender.TryGetValue(WHOData.Percentile.P25, out measurementList25);
+            measurementsByGender.TryGetValue(WHOData.Percentile.P50, out measurementList50);
+            measurementsByGender.TryGetValue(WHOData.Percentile.P75, out measurementList75);
+            measurementsByGender.TryGetValue(WHOData.Percentile.P90, out measurementList90);
+
+            for (int i = 0; i < measurementData.ageList.Count(); i++)
+            {
+                viewModel.LineData3.Add(new Points(measurementData.ageList[i], measurementList3[i]));
+                viewModel.LineData5.Add(new Points(measurementData.ageList[i], measurementList5[i]));
+                viewModel.LineData10.Add(new Points(measurementData.ageList[i], measurementList10[i]));
+                viewModel.LineData25.Add(new Points(measurementData.ageList[i], measurementList25[i]));
+                viewModel.LineData50.Add(new Points(measurementData.ageList[i], measurementList50[i]));
+                viewModel.LineData75.Add(new Points(measurementData.ageList[i], measurementList75[i]));
+                viewModel.LineData90.Add(new Points(measurementData.ageList[i], measurementList90[i]));
+            }
+        }
+
+
+       async void OnWeightClicked(object sender, EventArgs args)
+        {
+            await OnMeasurementClicked(MeasurementType.WEIGHT);
         }
 
         //TODO STEFAN: Prompt a change of graph
         async void OnHeightClicked(object sender, EventArgs args)
         {
-            viewModel.ChartTitle = "Height";
-            GrowthChart.Text = "Height";
-            ChildDatabaseAccess childDatabaseAccess = new ChildDatabaseAccess();
-            Child currentChild = CurrentChild;
-            if (currentChild == null)
-            {
-                await DisplayAlert("Error",
-                "Please select a child",
-                "OK");
-                return;
-            }
-            viewModel.InputData?.Clear();
-            List<Points> points = currentChild.GetSortedMeasurementListByType(MeasurementType.HEIGHT);
-            if (points == null)
-            {
-                currentChild.AddMeasurementForDateAndType(currentChild.Birthday, MeasurementType.HEIGHT, CurrentContext.CurrentUnits, 0.0);
-                return;
-            }
-            foreach (Points pt in points)
-            {
-                viewModel.InputData.Add(pt);
-            }
-
-            viewModel.LineData3.Clear();
-            viewModel.LineData5.Clear();
-            viewModel.LineData10.Clear();
-            viewModel.LineData25.Clear();
-            viewModel.LineData50.Clear();
-            viewModel.LineData75.Clear();
-            viewModel.LineData90.Clear();
-
-            WHOData heightData = new WHOData();
-
-            Dictionary<WHOData.Percentile, List<double>> heightByGender;
-
-            List<Double> heightList3;
-            List<Double> heightList5;
-            List<Double> heightList10;
-            List<Double> heightList25;
-            List<Double> heightList50;
-            List<Double> heightList75;
-            List<Double> heightList90;
-
-            heightData.heightPercentile.TryGetValue(WHOData.Sex.Male, out heightByGender);
-            heightByGender.TryGetValue(WHOData.Percentile.P3, out heightList3);
-            heightByGender.TryGetValue(WHOData.Percentile.P5, out heightList5);
-            heightByGender.TryGetValue(WHOData.Percentile.P10, out heightList10);
-            heightByGender.TryGetValue(WHOData.Percentile.P25, out heightList25);
-            heightByGender.TryGetValue(WHOData.Percentile.P50, out heightList50);
-            heightByGender.TryGetValue(WHOData.Percentile.P75, out heightList75);
-            heightByGender.TryGetValue(WHOData.Percentile.P90, out heightList90);
-
-            for (int i = 0; i < heightData.ageList.Count()-1; i++)
-            {
-                viewModel.LineData3.Add(new Points(heightData.ageList[i], heightList3[i]));
-                viewModel.LineData5.Add(new Points(heightData.ageList[i], heightList5[i]));
-                viewModel.LineData10.Add(new Points(heightData.ageList[i], heightList10[i]));
-                viewModel.LineData25.Add(new Points(heightData.ageList[i], heightList25[i]));
-                viewModel.LineData50.Add(new Points(heightData.ageList[i], heightList50[i]));
-                viewModel.LineData75.Add(new Points(heightData.ageList[i], heightList75[i]));
-                viewModel.LineData90.Add(new Points(heightData.ageList[i], heightList90[i]));
-            }
+            await OnMeasurementClicked(MeasurementType.HEIGHT);
         }
 
         //TODO STEFAN: Prompt a change of graph
         async void OnHeadClicked(object sender, EventArgs args)
         {
-            viewModel.ChartTitle = "Head Circumference";
-            GrowthChart.Text = "Head Circumference";
-            ChildDatabaseAccess childDatabaseAccess = new ChildDatabaseAccess();
-            Child currentChild = CurrentChild;
-            if (currentChild == null)
-            {
-                await DisplayAlert("Error",
-                "Please select a child",
-                "OK");
-                return;
-            }
-            viewModel.InputData.Clear();
-            List<Points> points = currentChild.GetSortedMeasurementListByType(MeasurementType.HEAD_CIRCUMFERENCE);
-            if (points == null)
-            {
-                currentChild.AddMeasurementForDateAndType(currentChild.Birthday, MeasurementType.HEAD_CIRCUMFERENCE, CurrentContext.CurrentUnits, 0.0);
-                return;
-            }
-            foreach (Points pt in points)
-            {
-                viewModel.InputData.Add(pt);
-            }
-
-
-            viewModel.LineData3.Clear();
-            viewModel.LineData5.Clear();
-            viewModel.LineData10.Clear();
-            viewModel.LineData25.Clear();
-            viewModel.LineData50.Clear();
-            viewModel.LineData75.Clear();
-            viewModel.LineData90.Clear();
-
-            WHOData headData = new WHOData();
-
-            Dictionary<WHOData.Percentile, List<double>> headByGender;
-
-            List<Double> headList3;
-            List<Double> headList5;
-            List<Double> headList10;
-            List<Double> headList25;
-            List<Double> headList50;
-            List<Double> headList75;
-            List<Double> headList90;
-
-            headData.headPercentile.TryGetValue(WHOData.Sex.Male, out headByGender);
-            headByGender.TryGetValue(WHOData.Percentile.P3, out headList3);
-            headByGender.TryGetValue(WHOData.Percentile.P5, out headList5);
-            headByGender.TryGetValue(WHOData.Percentile.P10, out headList10);
-            headByGender.TryGetValue(WHOData.Percentile.P25, out headList25);
-            headByGender.TryGetValue(WHOData.Percentile.P50, out headList50);
-            headByGender.TryGetValue(WHOData.Percentile.P75, out headList75);
-            headByGender.TryGetValue(WHOData.Percentile.P90, out headList90);
-
-            for (int i = 0; i < headData.ageList.Count()-1; i++)
-            {
-                viewModel.LineData3.Add(new Points(headData.ageList[i], headList3[i]));
-                viewModel.LineData5.Add(new Points(headData.ageList[i], headList5[i]));
-                viewModel.LineData10.Add(new Points(headData.ageList[i], headList10[i]));
-                viewModel.LineData25.Add(new Points(headData.ageList[i], headList25[i]));
-                viewModel.LineData50.Add(new Points(headData.ageList[i], headList50[i]));
-                viewModel.LineData75.Add(new Points(headData.ageList[i], headList75[i]));
-                viewModel.LineData90.Add(new Points(headData.ageList[i], headList90[i]));
-            }
+            await OnMeasurementClicked(MeasurementType.HEAD_CIRCUMFERENCE);
         }
 
         // TODO: Change this to get current child from session data.
@@ -384,12 +400,6 @@ namespace ChildGrowth
 
         private static int DEFAULT_MEASUREMENT_VALUE = -1;
 
-
-        private async void UpdateGraph()
-        {
-            //TODO: Determine current child on session state before i can update graph
-        }
-
         private void UpdateDateSelectionEnabledStatus(Boolean isEnabled)
         {
             this.EntryDate.IsEnabled = isEnabled;
@@ -406,22 +416,21 @@ namespace ChildGrowth
 
         private void EntryDate_DateSelected(object sender, DateChangedEventArgs e)
         {
-             Child currentChild = CurrentChild;
-             if (currentChild != null)
-                {
-                    TryLoadingMeasurementDataForDateAndChild(this.EntryDate.Date, currentChild);
-                }
+             if (CurrentChild != null)
+             {
+                TryLoadingMeasurementDataForDateAndChild(this.EntryDate.Date, CurrentChild);
+             }
 
         }
 
-        private void TryLoadingMeasurementDataForDateAndChild(DateTime date, Child currentChild)
+        private void TryLoadingMeasurementDataForDateAndChild(DateTime date, Child child)
         {
-            if (date == null || currentChild == null)
+            if (date == null || child == null)
             {
                 return;
             }
             ChildDatabaseAccess childDatabaseAccess = new ChildDatabaseAccess();
-            GrowthMeasurement height = currentChild.GetMeasurementForDateAndType(date, MeasurementType.HEIGHT);
+            GrowthMeasurement height = child.GetMeasurementForDateAndType(date, MeasurementType.HEIGHT);
             if (height != null)
             {
                 HeightEntry.Text = height.Value.ToString();
@@ -430,7 +439,7 @@ namespace ChildGrowth
             {
                 HeightEntry.Text = "";
             }
-            GrowthMeasurement weight = currentChild.GetMeasurementForDateAndType(date, MeasurementType.WEIGHT);
+            GrowthMeasurement weight = child.GetMeasurementForDateAndType(date, MeasurementType.WEIGHT);
             if (weight != null)
             {
                 WeightEntry.Text = weight.Value.ToString();
@@ -439,7 +448,7 @@ namespace ChildGrowth
             {
                 WeightEntry.Text = "";
             }
-            GrowthMeasurement headC = currentChild.GetMeasurementForDateAndType(date, MeasurementType.HEAD_CIRCUMFERENCE);
+            GrowthMeasurement headC = child.GetMeasurementForDateAndType(date, MeasurementType.HEAD_CIRCUMFERENCE);
             if (headC != null)
             {
                 HeadEntry.Text = headC.Value.ToString();

@@ -12,18 +12,26 @@ namespace ChildGrowth.Pages.Menu
     public partial class MenuMasterDetailPage : MasterDetailPage
     {
         private Page MainPage { get; set; }
+        private MainPage CastMainPage { get; set; }
         private Page Milestones { get; set; }
+        private Milestones.Milestones CastMilestonesPage { get; set; }
         private Page Vaccinations { get; set; }
+        private Vaccinations.Vaccinations CastVaccinationsPage { get; set; }
         private Page Education { get; set; }
         private Page Insights { get; set; }
+        private Insights.Insights CastInsightsPage { get; set; }
         public MenuMasterDetailPage()
         {
             InitializeComponent();
-            MainPage = (new NavigationPage(new MainPage()){ Icon = "measurements.png", Title = "Measurements" });
-            Milestones = (new NavigationPage(new Milestones.Milestones()) { Icon = "milestones.png", Title = "Milestones" });
-            Vaccinations = (new NavigationPage(new Vaccinations.Vaccinations()){ Icon = "vaccinations.png", Title = "Vaccinations" });
+            CastMainPage = new MainPage();
+            MainPage = (new NavigationPage(CastMainPage){ Icon = "measurements.png", Title = "Measurements" });
+            CastMilestonesPage = new Milestones.Milestones();
+            Milestones = (new NavigationPage(CastMilestonesPage) { Icon = "milestones.png", Title = "Milestones" });
+            CastVaccinationsPage = new Vaccinations.Vaccinations();
+            Vaccinations = (new NavigationPage(CastVaccinationsPage){ Icon = "vaccinations.png", Title = "Vaccinations" });
             Education = (new NavigationPage(new Education.Education()) { Icon = "education.png", Title = "Education" });
-            Insights = (new NavigationPage(new Insights.Insights()) { Icon = "insights.png", Title = "Insights" }); 
+            CastInsightsPage = new Insights.Insights();
+            Insights = (new NavigationPage(CastInsightsPage) { Icon = "insights.png", Title = "Insights" }); 
 
             TabbedPage.Children.Add(MainPage);
             TabbedPage.Children.Add(Milestones);
@@ -35,24 +43,62 @@ namespace ChildGrowth.Pages.Menu
             ChildList.ItemSelected += (sender, e) =>
             {
                 ((ListView)sender).SelectedItem = null;
+                var C = (Child) e.SelectedItem;
+                Task Update = Task.Run(async () => 
+                {
+                    try
+                    {
+                        await UpdateChild(C);
+                    }
+                    catch(ObjectDisposedException exc)
+                    {
+                        // TODO:
+                    }
+                });
+                Update.Wait();
+                IsPresented = false;
             };
 
             ChildList.ItemTapped += (Sender, Event) =>
             {
                 var C = (Child)Event.Item;
-                Task Update = Task.Run(async () => { await UpdateChild(C); });
-                Update.Wait();
+                Task Update = Task.Run(async () =>
+                {
+                    try
+                    {
+                        await UpdateChild(C);
+                    }
+                    catch (ObjectDisposedException exc)
+                    {
+                        // TODO:
+                    }
+                });
+                try
+                {
+                    Update.Wait();
+                }
+                catch
+                {
+
+                }
                 IsPresented = false;
             };
+        }
+
+        void NotifyPagesOfChildUpdate(Child c)
+        {
+            CastMainPage.CurrentChild = c;
+            CastMilestonesPage.CurrentChild = c;
+            CastVaccinationsPage.CurrentChild = c;
         }
 
         async private Task<Boolean> UpdateChild(Child child){
             Context CurrentContext;
             ContextDatabaseAccess contextDB = new ContextDatabaseAccess();
-            await contextDB.InitializeAsync();
+            contextDB.InitializeSync();
             try
             {
-                CurrentContext = contextDB.GetContextAsync().Result;
+                CurrentContext = contextDB.GetContextSync();
             }
             // Can't find definitions for SQLiteNetExtensions exceptions, so catch generic Exception e and assume there is no context.
             catch (Exception e)
@@ -70,12 +116,23 @@ namespace ChildGrowth.Pages.Menu
                 {
                     CurrentContext = new Context(child.GetID(), Language.ENGLISH, new Units(DistanceUnits.IN, WeightUnits.OZ));
                 }
-                await contextDB.SaveContextAsync(CurrentContext);
+                NotifyPagesOfChildUpdate(child);
+                contextDB.SaveContextSync(CurrentContext);
+                contextDB.CloseSyncConnection();
                 return true;
             }
             else{
-                CurrentContext.ChildId = child.GetID();
-                await contextDB.SaveContextAsync(CurrentContext);
+                if(child == null)
+                {
+                    CurrentContext.ChildId = -1;
+                }
+                else
+                {
+                    CurrentContext.ChildId = child.GetID();
+                }
+                NotifyPagesOfChildUpdate(child);
+                contextDB.SaveContextSync(CurrentContext);
+                contextDB.CloseSyncConnection();
                 return true;
             }
         }

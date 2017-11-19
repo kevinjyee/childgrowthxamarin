@@ -21,7 +21,26 @@ namespace ChildGrowth.Pages.Milestones
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Milestones : ContentPage
     {
-        Child CurrentChild;
+        private Child _currentChild;
+
+        public Child CurrentChild
+        {
+            get
+            {
+                return _currentChild;
+            }
+            set
+            {
+                if (_currentChild?.ID != value?.ID)
+                {
+                    //_currentChild = value;
+                    //OnPropertyChanged("CurrentChild");
+                    //UpdateTitle();
+                    //initializeMilestones();
+                    //UpdateMilestones();
+                }
+            }
+        }
         Context CurrentContext;
         CardStackView cardStack;
         MainPageViewModel viewModel;
@@ -42,6 +61,8 @@ namespace ChildGrowth.Pages.Milestones
                 this.Title = "Please Select a Child";
             }
             viewModel = new MainPageViewModel();
+            //UpdateMilestones();
+            UpdateTitle();
             initializeMilestones();
         }
 
@@ -51,6 +72,43 @@ namespace ChildGrowth.Pages.Milestones
             //viewModel = new MainPageViewModel();
             //initializeMilestones();
 
+        }
+
+        void UpdateTitle()
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                if (CurrentChild != null)
+                {
+                    this.Title = CurrentChild.Name;
+                }
+                else
+                {
+                    this.Title = "Please Select a Child";
+                }
+            });
+        }
+
+        void UpdateMilestones()
+        {
+            try
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    try
+                    { 
+                         initializeMilestones();
+                    }
+                    catch (ObjectDisposedException e)
+                    {
+                        // TODO: ...
+                    }
+                });
+            }
+            catch(ObjectDisposedException e)
+            {
+                // TODO: ...
+            }
         }
 
         private async Task<Boolean> LoadContext()
@@ -167,7 +225,14 @@ namespace ChildGrowth.Pages.Milestones
                 cardStack.CardMoveDistance = (int)(this.Width / 3);
             };
 
-            this.Content = view;
+            try
+            {
+                this.Content = view;
+            }
+            catch(Exception e)
+            {
+                // Do nothing. TODO: Figure out if this is critically wrong.
+            }
         }
         //  Liked button is clicked.
         private void Like_but_Clicked(object sender, EventArgs e)
@@ -200,9 +265,17 @@ namespace ChildGrowth.Pages.Milestones
         // Swiped right function
         void SwipedRight(int index)
         {
+            if(cardStack == null || cardStack.ItemsSource == null)
+            {
+                return;
+            }
             if (index > 1)
             {
                 index = (index - 2) < 0 ? -1 * (index - 2) % 169 : (index - 2) % 169;
+            }
+            if(cardStack.ItemsSource.Count <= index)
+            {
+                return;
             }
             int currID = cardStack.ItemsSource[index].ID;
             likedIds.Add(currID);
@@ -227,9 +300,17 @@ namespace ChildGrowth.Pages.Milestones
         // Swiped left function
         void SwipedLeft(int index)
         {
+            if (cardStack == null || cardStack.ItemsSource == null)
+            {
+                return;
+            }
             if (index > 1)
             {
                 index = (index - 2) < 0 ? -1 * (index - 2) % 169 : (index - 2) % 169;
+            }
+            if (cardStack.ItemsSource.Count <= index)
+            {
+                return;
             }
             int currID = cardStack.ItemsSource[index].ID;
             dislikedIds.Add(currID);

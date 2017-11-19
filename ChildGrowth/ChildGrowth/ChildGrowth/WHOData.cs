@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Child;
 
 namespace ChildGrowth
 {
     class WHOData
     {
-        public List<double> ageList = new List<double>(new double[] {0.0, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5, 10.5, 11.5, 12.5, 13.5, 14.5, 15.5, 16.5, 17.5, 18.5, 19.5, 20.5, 21.5, 22.5, 23.5, 24.5, 25.5, 26.5, 27.5, 28.5, 29.5, 30.5, 31.5, 32.5, 33.5, 34.5, 35.5, 36.0});
+        // Note: I (Stefan) took out the ageList value 36.0 because apparently the WHO only included data up to 35.5 for Height, unlike Weight and Head Circumference.
+        public List<double> ageList = new List<double>(new double[] {0.0, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5, 10.5, 11.5, 12.5, 13.5, 14.5, 15.5, 16.5, 17.5, 18.5, 19.5, 20.5, 21.5, 22.5, 23.5, 24.5, 25.5, 26.5, 27.5, 28.5, 29.5, 30.5, 31.5, 32.5, 33.5, 34.5, 35.5});
         public enum Sex {Male, Female};
         public enum Percentile { P3, P5, P10, P25, P50, P75, P90, P95, P97};
         public Dictionary<Sex, Dictionary<Percentile, List<double>>> weightPercentile;
@@ -19,6 +21,19 @@ namespace ChildGrowth
             weightPercentile = WeightData.getWeightData();
             heightPercentile = HeightData.getHeightData();
             headPercentile = HeadCData.getHeadCData();
+        }
+
+        public static Sex AdaptChildGender(Gender gender)
+        {
+            switch(gender)
+            {
+                case Gender.MALE:
+                    return Sex.Male;
+                case Gender.FEMALE:
+                    return Sex.Female;
+                default:
+                    return Sex.Male;
+            }
         }
 
         class WeightData

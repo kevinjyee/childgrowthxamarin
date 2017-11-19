@@ -84,7 +84,7 @@
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="Entry Date: " TextColor="White" VerticalOptions="Center" Margin="15, 0, 0, 0" WidthRequest="150" />
-                                <DatePicker x:Name="EntryDate" Date="{x:Static sys:DateTime.Today}" Format="MMM d yyyy" MaximumDate="{x:Static sys:DateTime.Today}" VerticalOptions="Center" WidthRequest="200" IsEnabled="{Binding DateEnabled}" DateSelected="EntryDate_DateSelected" />
+                                <DatePicker x:Name="EntryDate" Date="{x:Static sys:DateTime.Today}" Format="MMM d yyyy" MinimumDate="{Binding CurrentChildBirthday}" MaximumDate="{x:Static sys:DateTime.Today}" VerticalOptions="Center" WidthRequest="200" IsEnabled="{Binding DateEnabled}" DateSelected="EntryDate_DateSelected" />
                             </StackLayout>
                         </ViewCell>
                     </TableSection>
@@ -94,7 +94,7 @@
                         <!-- Weight -->
                         <EntryCell x:Name="WeightEntry" Label="Weight (oz): " Keyboard="Numeric" IsEnabled="{Binding MeasurementsEnabled}" />
                         <!-- Head Circumference -->
-                        <EntryCell x:Name="HeadEntry" Label="Head Circumeference (cm): " Keyboard="Numeric" IsEnabled="{Binding MeasurementsEnabled}" />
+                        <EntryCell x:Name="HeadEntry" Label="Head Circumeference (cm): " Keyboard="Numeric" IsEnabled="{Binding     }" />
                     </TableSection>
                     <TableSection>
                         <!-- Submit/Cancel Buttons -->

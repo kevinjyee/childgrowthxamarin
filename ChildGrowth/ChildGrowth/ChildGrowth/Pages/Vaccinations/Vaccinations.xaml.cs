@@ -17,7 +17,27 @@ namespace ChildGrowth.Pages.Vaccinations
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Vaccinations : ContentPage
     {
-        private Child CurrentChild { get; set; }
+
+        private Child _currentChild;
+
+        public Child CurrentChild
+        {
+            get
+            {
+                return _currentChild;
+            }
+            set
+            {
+                if (_currentChild?.ID != value?.ID)
+                {
+                    _currentChild = value;
+                    OnPropertyChanged("CurrentChild");
+                    UpdateTitle();
+                    UpdateVaccineList();
+                    UpdateProgressBar();
+                }
+            }
+        }
 
         public static List<Vaccine> Vaccines = new List<Vaccine>();
 
@@ -112,6 +132,10 @@ namespace ChildGrowth.Pages.Vaccinations
         {
             Task Load = Task.Run(async () => { await LoadContext(); });
             Load.Wait();
+            UpdateTitle();
+            UpdateVaccineList();
+            UpdateProgressBar();
+            /*
             if (CurrentChild != null)
             {
                 this.Title = CurrentChild.Name;
@@ -126,6 +150,47 @@ namespace ChildGrowth.Pages.Vaccinations
                 initializeVaccinations();
                 updateProgBar();
             }
+            */
+        }
+
+        void UpdateTitle()
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                if (CurrentChild != null)
+                {
+                    this.Title = CurrentChild.Name;
+                }
+                else
+                {
+                    this.Title = "Please Select a Child";
+                }
+            });
+        }
+
+        void UpdateVaccineList()
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                if (CurrentChild != null)
+                {
+                    Vaccines = CurrentChild.GetListOfDueVaccines();
+                    initializeVaccinations();
+                }
+                else
+                {
+                    Vaccines = new List<Vaccine>();
+                    initializeVaccinations();
+                }
+            });
+        }
+
+        void UpdateProgressBar()
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                updateProgBar();
+            });
         }
 
         private async Task<Boolean> LoadContext()

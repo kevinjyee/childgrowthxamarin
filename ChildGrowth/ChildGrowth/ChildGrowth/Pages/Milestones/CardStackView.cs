@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System;
 using Xamarin.Forms;
 using System.Collections.Generic;
+using ChildGrowth.Models;
 
 namespace ChildGrowth.Pages.Milestones
 {
@@ -61,7 +62,6 @@ namespace ChildGrowth.Pages.Milestones
         public Action<int> SwipedLeft = null;
 
         public static readonly BindableProperty ItemsSourceProperty = BindableProperty.Create(nameof(ItemsSource), typeof(System.Collections.IList), typeof(CardStackView), null, propertyChanged: OnItemsSourcePropertyChanged);
-
 
         public List<Item> ItemsSource
         {
@@ -138,7 +138,7 @@ namespace ChildGrowth.Pages.Milestones
                     break;
                 }
                 var card = cards[i];
-                card.Name.Text = ItemsSource[itemIndex].Name;
+                card.Name.Text = GetNameFromCategory(ItemsSource[itemIndex].Name);
                 card.Description.Text = ItemsSource[itemIndex].Description;
                 card.firstDesc.Text = ItemsSource[itemIndex].firstDesc;
                 card.firstDesc2.Text = ItemsSource[itemIndex].firstDesc2;
@@ -152,6 +152,11 @@ namespace ChildGrowth.Pages.Milestones
                 ((RelativeLayout)this.Content).LowerChild(card);
                 itemIndex++;
             }
+        }
+
+        private String GetNameFromCategory(string categoryString)
+        {
+            return MilestoneCategoryStringConverter.GetStringForCategoryString(categoryString);
         }
 
         void OnPanUpdated(object sender, PanUpdatedEventArgs e)

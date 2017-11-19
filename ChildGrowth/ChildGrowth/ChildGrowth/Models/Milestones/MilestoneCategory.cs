@@ -29,10 +29,10 @@ namespace ChildGrowth.Models
         private static readonly Dictionary<String, MilestoneCategory> _enumRepresentations =
             new Dictionary<String, MilestoneCategory>
             {
-                { "Social and Emotional", MilestoneCategory.SOCIAL_AND_EMOTIONAL },
-                { "Language/Communication", MilestoneCategory.COMMUNICATION },
-                { "Cognitive", MilestoneCategory.COGNITIVE },
-                { "Movement/Physical Development", MilestoneCategory.MOVEMENT },
+                { "SOCIAL_AND_EMOTIONAL", MilestoneCategory.SOCIAL_AND_EMOTIONAL },
+                { "COMMUNICATION", MilestoneCategory.COMMUNICATION },
+                { "COGNITIVE", MilestoneCategory.COGNITIVE },
+                { "MOVEMENT", MilestoneCategory.MOVEMENT },
 
             };
 
@@ -41,7 +41,20 @@ namespace ChildGrowth.Models
             return _stringRepresentations[category];
         }
 
-        public MilestoneCategory GetCategoryFromString(String categoryAsString)
+        public static String GetStringForCategoryString(String categoryString)
+        {
+            try
+            {
+                MilestoneCategory category = GetCategoryFromString(categoryString);
+                return _stringRepresentations[category];
+            }
+            catch(Exception e)
+            {
+                return "";
+            }
+        }
+
+        public static MilestoneCategory GetCategoryFromString(String categoryAsString)
         {
             return _enumRepresentations[categoryAsString];
         }
