@@ -44,17 +44,17 @@
         <image name="blue_empty.png" width="346" height="163"/>
         <image name="check_1.png" width="346" height="163"/>
         <image name="circle.png" width="346" height="163"/>
-        <image name="cm_kg_outline.png" width="84" height="42"/>
-        <image name="cm_kg_white.png" width="81" height="39"/>
+        <image name="cm_kg_outline.png" width="248" height="122"/>
+        <image name="cm_kg_white.png" width="240" height="114"/>
         <image name="cognitive.png" width="128" height="103"/>
         <image name="diseases.png" width="346" height="163"/>
         <image name="doctor_visits.png" width="346" height="163"/>
         <image name="edit.png" width="112" height="112"/>
-        <image name="english_outline.png" width="84" height="42"/>
-        <image name="english_white.png" width="81" height="39"/>
+        <image name="english_outline.png" width="248" height="122"/>
+        <image name="english_white.png" width="240" height="113"/>
         <image name="filter.png" width="346" height="163"/>
-        <image name="inch_lb_outline.png" width="84" height="42"/>
-        <image name="inch_lb_white.png" width="81" height="39"/>
+        <image name="inch_lb_outline.png" width="248" height="121"/>
+        <image name="inch_lb_white.png" width="240" height="114"/>
         <image name="infant.png" width="346" height="164"/>
         <image name="languagecommunication.png" width="115" height="118"/>
         <image name="learning.png" width="346" height="163"/>
@@ -69,8 +69,8 @@
         <image name="save.png" width="346" height="164"/>
         <image name="settings.png" width="31" height="31"/>
         <image name="socialemotional.png" width="103" height="114"/>
-        <image name="spanish_outline.png" width="84" height="42"/>
-        <image name="spanish_white.png" width="81" height="39"/>
+        <image name="spanish_outline.png" width="248" height="122"/>
+        <image name="spanish_white.png" width="240" height="114"/>
         <image name="toddler12.png" width="346" height="163"/>
         <image name="toddler23.png" width="346" height="164"/>
         <image name="toilet_training.png" width="346" height="163"/>
@@ -120,5 +120,11 @@
         <image name="spanish.png" width="81" height="39"/>
         <image name="Icon-Small.png" width="29" height="29"/>
         <image name="Icon-Small-40.png" width="40" height="40"/>
+        <image name="120x120.png" width="120" height="120"/>
+        <image name="180x180.png" width="180" height="180"/>
+        <image name="español_white.png" width="240" height="114"/>
+        <image name="español.png" width="248" height="122"/>
+        <image name="ingles_white.png" width="240" height="113"/>
+        <image name="ingles.png" width="248" height="122"/>
     </resources>
 </document>

@@ -273,7 +273,7 @@ namespace ChildGrowth.Pages.Menu
             ListTitle.Text = "Niños";
             AddButton.Text = "Añadir un nuevo niño";
             MainPage.Title = "Medidas";
-            Milestones.Title = "Hito";
+            Milestones.Title = "Alcance";
             Vaccinations.Title = "Vacunas";
             Education.Title = "Educación";
             Insights.Title = "Resumen";

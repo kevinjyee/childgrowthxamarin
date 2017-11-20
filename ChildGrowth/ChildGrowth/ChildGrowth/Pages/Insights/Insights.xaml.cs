@@ -117,7 +117,7 @@ namespace ChildGrowth.Pages.Insights
             AlertsTitle.Text = "Notificaciones";
             MeasurementsTitle.Text = "Medidas";
             MeasurementsAlert.Text = "Falta Estatura, peso, circunferencia de la cabeza";
-            MilestonesTitle.Text = "Hitos";
+            MilestonesTitle.Text = "Alcances";
             VaccinationsTitle.Text = "Vacunas";
             SummaryTitle.Text = "Resumen";
             HeightLebel.Text = "Estatura: ";
@@ -125,7 +125,7 @@ namespace ChildGrowth.Pages.Insights
             HeadLabel.Text = "Circunferencia de la Cabeza: ";
             BirthLabel.Text = "Cumpleaños";
             MeasurementsLabel.Text = "Medidas";
-            MilestonesSummary.Text = "Hitos";
+            MilestonesSummary.Text = "Alcances";
             PGLabel.Text = "Crecimiento Físico";
             TRLabel.Text = "Pensamiento y Razonamiento";
             ESDLabel.Text = "Desarrollo Emocional y Social";
@@ -272,7 +272,7 @@ namespace ChildGrowth.Pages.Insights
                     }
                     else
                     {
-                        milestonesAlert.Text = "Todos los hitos estan al día";
+                        milestonesAlert.Text = "Todos los Alcances estan al día";
                     }
                 }
                 else
@@ -284,7 +284,7 @@ namespace ChildGrowth.Pages.Insights
                     }
                     else
                     {
-                        milestonesAlert.Text = count.ToString() + " hitos sin responder";
+                        milestonesAlert.Text = count.ToString() + " Alcances sin responder";
                     }
                 }
 

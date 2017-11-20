@@ -328,6 +328,22 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\head_circumference_unclicked_sp.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\height_unclicked_sp.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\weightunclicked_sp.png" />
+    <AndroidResource Include="Resources\drawable\español_white.png" />
+    <AndroidResource Include="Resources\drawable\español.png" />
+    <AndroidResource Include="Resources\drawable\ingles_white.png" />
+    <AndroidResource Include="Resources\drawable\ingles.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\español_white.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\español.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ingles_white.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ingles.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\español_white.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\español.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ingles_white.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ingles.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\español_white.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\español.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ingles_white.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ingles.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />

@@ -23,6 +23,14 @@ namespace ChildGrowth.Pages.Settings
             Task contextTask = Task.Run(async () => { await getCurrentContext(); });
             contextTask.Wait();
             InitializeComponent();
+            if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+            {
+                SetEnglish();
+            }
+            else
+            {
+                SetSpanish();
+            }
             SetButtons();
         }
 
@@ -62,28 +70,41 @@ namespace ChildGrowth.Pages.Settings
             return true;
         }
 
+        private void SetEnglish()
+        {
+            SettingsTitle.Text = "Settings";
+            LanguageTitle.Text = "Language";
+            UnitsTitle.Text = "Unit System";
+        }
+
+        private void SetSpanish()
+        {
+            SettingsTitle.Text = "Configuranción";
+            LanguageTitle.Text = "Idioma";
+            UnitsTitle.Text = "Sistema de Medidas";
+        }
 
         void SetButtons()
         {
             if (CurrentContext.CurrentLanguage == Language.ENGLISH)
             {
-                English.Image = "english_white.png";
-                Spanish.Image = "spanish_outline.png";
+                English.Source = ImageSource.FromFile("english_white.png");
+                Spanish.Source = ImageSource.FromFile("spanish_outline.png");
             }
             else
             {
-                English.Image = "english_outline.png";
-                Spanish.Image = "spanish_white.png";
+                English.Source = ImageSource.FromFile("ingles.png");
+                Spanish.Source = ImageSource.FromFile("español_white.png");
             }
             if (CurrentContext.CurrentUnits.DistanceUnits == DistanceUnits.IN)
             {
-                Metric.Image = "cm_kg_outline.png";
-                Imperial.Image = "inch_lb_white.png";
+                Metric.Source = ImageSource.FromFile("cm_kg_outline.png");
+                Imperial.Source = ImageSource.FromFile("inch_lb_white.png");
             }
             else
             {
-                Metric.Image = "cm_kg_white.png";
-                Imperial.Image = "inch_lb_outline.png";
+                Metric.Source = ImageSource.FromFile("cm_kg_white.png");
+                Imperial.Source = ImageSource.FromFile("inch_lb_outline.png");
             }
 
         }
@@ -117,30 +138,32 @@ namespace ChildGrowth.Pages.Settings
 
         void EnglishClicked(object sender, System.EventArgs e)
         {
-            English.Image = "english_white.png";
-            Spanish.Image = "spanish_outline.png";
+            SetEnglish();
+            English.Source = ImageSource.FromFile("english_white.png");
+            Spanish.Source = ImageSource.FromFile("spanish_outline.png");
             Task LanguageTask = Task.Run(async () => { await setLanguage(Language.ENGLISH); });
             LanguageTask.Wait();
         }
         void SpanishClicked(object sender, System.EventArgs e)
         {
-            English.Image = "english_outline.png";
-            Spanish.Image = "spanish_white.png";
+            SetSpanish();
+            English.Source = ImageSource.FromFile("ingles.png");
+            Spanish.Source = ImageSource.FromFile("español_white.png");
             Task LanguageTask = Task.Run(async () => { await setLanguage(Language.SPANISH); });
             LanguageTask.Wait();
 
         }
         void ImperialClicked(object sender, System.EventArgs e)
         {
-            Metric.Image = "cm_kg_outline.png";
-            Imperial.Image = "inch_lb_white.png";
+            Metric.Source = ImageSource.FromFile("cm_kg_outline.png");
+            Imperial.Source = ImageSource.FromFile("inch_lb_white.png");
             Task UnitsTask = Task.Run(async () => { await setUnits(new Units(DistanceUnits.IN, WeightUnits.LBS)); });
             UnitsTask.Wait();
         }
         void MetricClicked(object sender, System.EventArgs e)
         {
-            Metric.Image = "cm_kg_white.png";
-            Imperial.Image = "inch_lb_outline.png";
+            Metric.Source = ImageSource.FromFile("cm_kg_white.png");
+            Imperial.Source = ImageSource.FromFile("inch_lb_outline.png");
             Task UnitsTask = Task.Run(async () => { await setUnits(new Units(DistanceUnits.CM, WeightUnits.OZ)); });
             UnitsTask.Wait();
         }

@@ -24,24 +24,24 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Label Text="Settings" FontSize="40" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" XAlign="Center" TextColor="White" YAlign="Center"/>
-        <Label Text="Language" FontSize="30" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" TextColor="White"/>
+        <Label x:Name="SettingsTitle" Text="Settings" FontSize="40" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" XAlign="Center" TextColor="White" YAlign="Center"/>
+        <Label x:Name="LanguageTitle" Text="Language" FontSize="30" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" TextColor="White"/>
         <!--<Button x:Name="English" Image = "english_outline.png" Clicked="EnglishClicked" Grid.Row="3" Grid.Column="1"/>-->
 
-        <controls:ImageButton x:Name="English" Source="english_white" Grid.Column="1" Grid.Row="3" Clicked="EnglishClicked" Orientation="ImageOnTop"
+        <controls:ImageButton x:Name="English" Source="english_white.png" Grid.Column="1" Grid.Row="3" Clicked="EnglishClicked" Orientation="ImageOnTop"
                                       BackgroundColor="Transparent" ImageHeightRequest="113" ImageWidthRequest="240" />
 
-        <controls:ImageButton x:Name="Spanish" Source="spanish_outline" Grid.Column="2" Grid.Row="3" Clicked="SpanishClicked" Orientation="ImageOnTop"
+        <controls:ImageButton x:Name="Spanish" Source="spanish_outline.png" Grid.Column="2" Grid.Row="3" Clicked="SpanishClicked" Orientation="ImageOnTop"
                                       BackgroundColor="Transparent" ImageHeightRequest="113" ImageWidthRequest="240" />
 
         <!--<Button x:Name="Spanish" Image = "spanish_white.png" Clicked="SpanishClicked" Grid.Row="3" Grid.Column="2"/>-->
-        <Label Text="Unit System" FontSize="30" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" TextColor="White"/>
+        <Label x:Name="UnitsTitle" Text="Unit System" FontSize="30" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" TextColor="White"/>
         <!--<Button x:Name="Metric" Image = "cm_kg_white.png" Clicked="MetricClicked" Grid.Row="5" Grid.Column="2"/>-->
 
-        <controls:ImageButton x:Name="Imperial" Source="inch_lb_white" Grid.Column="1" Grid.Row="5" Clicked="ImperialClicked" Orientation="ImageOnTop"
+        <controls:ImageButton x:Name="Imperial" Source="inch_lb_white.png" Grid.Column="1" Grid.Row="5" Clicked="ImperialClicked" Orientation="ImageOnTop"
                                       BackgroundColor="Transparent" ImageHeightRequest="113" ImageWidthRequest="240" />
 
-        <controls:ImageButton x:Name="Metric" Source="cm_kg_outline" Grid.Column="2" Grid.Row="5" Clicked="MetricClicked" Orientation="ImageOnTop"
+        <controls:ImageButton x:Name="Metric" Source="cm_kg_outline.png" Grid.Column="2" Grid.Row="5" Clicked="MetricClicked" Orientation="ImageOnTop"
                                       BackgroundColor="Transparent" ImageHeightRequest="113" ImageWidthRequest="240" />
 
         <!--<Button x:Name="Imperial" Image = "inch_lb_outline.png" Clicked="ImperialClicked" Grid.Row="5" Grid.Column="1" HeightRequest="150" WidthRequest="380"/>-->
