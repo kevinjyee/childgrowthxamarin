@@ -107,6 +107,8 @@ namespace ChildGrowth.Pages.Insights
             TRLabel.Text = "Thinking & Reasoning";
             ESDLabel.Text = "Emotional & Social Development";
             LDLabel.Text = "Language Development";
+            VacProgressLabel.Text = "Vaccinations";
+            WarningLabel.Text = "Warnings";
         }
 
         private void SetSpanish()
@@ -128,6 +130,8 @@ namespace ChildGrowth.Pages.Insights
             TRLabel.Text = "Pensamiento y Razonamiento";
             ESDLabel.Text = "Desarrollo Emocional y Social";
             LDLabel.Text = "Desarrollo del Lenguage";
+            VacProgressLabel.Text = "Vacunas";
+            WarningLabel.Text = "Advertencias"; // TODO: Verify this translation with Juan
         }
 
         // Load context and set value for current child if it exists.
@@ -216,23 +220,33 @@ namespace ChildGrowth.Pages.Insights
 
         private void updateFields()
         {
-            if(CurrentChild == null)
+            if (CurrentChild == null)
             {
                 childBirthday.Text = "NaN";
                 heightMeasurement.Text = "NaN";
                 weightMeasurement.Text = "NaN";
                 headCircumferenceMeasurement.Text = "NaN";
+                MeasurementsAlert.Text = "N/A";
+                milestonesAlert.Text = "N/A";
+                vaccinationsAlert.Text = "N/A";
+                emotionalAndSocial.Text = "0%";
+                physicalGrowth.Text = "0%";
+                LanguageDevelopment.Text = "0%";
+                ThinkingAndReasoning.Text = "0%";
+
+                progressBar1.Progress = 0;
+                warning.Clear();
             }
             else
             {
                 // Get last input dates
-                
+
                 DateTime maxDateofWeight = CurrentChild.Measurements.weightData.Keys.Count == 0 ? DateTime.MinValue : CurrentChild.Measurements.weightData.Keys.Max();
                 DateTime maxDateofHeight = CurrentChild.Measurements.heightData.Keys.Count == 0 ? DateTime.MinValue : CurrentChild.Measurements.heightData.Keys.Max();
                 DateTime maxDateofHead = CurrentChild.Measurements.headCircumferenceData.Keys.Count == 0 ? DateTime.MinValue : CurrentChild.Measurements.headCircumferenceData.Keys.Max();
 
                 // Check if these dates matches today
-                if(maxDateofHead.Date == DateTime.Today.Date
+                if (maxDateofHead.Date == DateTime.Today.Date
                     && maxDateofHeight.Date == DateTime.Today.Date
                     && maxDateofWeight.Date == DateTime.Today.Date)
                 {
@@ -249,7 +263,7 @@ namespace ChildGrowth.Pages.Insights
 
                 // Check if Milestones Completed
                 List<Milestone> milestoneList = CurrentChild.GetListOfDueMilestones();
-                if(milestoneList == null || milestoneList.Count == 1)
+                if (milestoneList == null || milestoneList.Count == 1)
                 {
                     milestonesImage.Source = "check_1";
                     if (CurrentContext.CurrentLanguage == Language.ENGLISH)
@@ -311,17 +325,17 @@ namespace ChildGrowth.Pages.Insights
                 {
                     weightMeasurement.Text = maxDateofWeight == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofWeight, MeasurementType.WEIGHT).Value.ToString() + " lbs";
                     heightMeasurement.Text = maxDateofHeight == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofHeight, MeasurementType.HEIGHT).Value.ToString() + " in";
-                    headCircumferenceMeasurement.Text = maxDateofHead == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofHead, MeasurementType.HEAD_CIRCUMFERENCE).Value.ToString() + " in";   
+                    headCircumferenceMeasurement.Text = maxDateofHead == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofHead, MeasurementType.HEAD_CIRCUMFERENCE).Value.ToString() + " in";
                 }
 
                 childBirthday.Text = CurrentChild.Birthday.ToString();
-                
-                // Update weights
-                weightMeasurement.Text = maxDateofWeight == DateTime.MinValue ? "NaN" :CurrentChild.GetMeasurementForDateAndType(maxDateofWeight, MeasurementType.WEIGHT).Value.ToString() + " oz";
-                heightMeasurement.Text = maxDateofHeight == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofHeight, MeasurementType.HEIGHT).Value.ToString() + " cm";
-                headCircumferenceMeasurement.Text = maxDateofHead == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofHead, MeasurementType.HEAD_CIRCUMFERENCE).Value.ToString()+ " cm";
 
-               Dictionary<Models.MilestoneCategory,List<MilestoneWithResponse>> milestonesPercDict = CurrentChild.GetMilestoneHistory();
+                // Update weights
+                weightMeasurement.Text = maxDateofWeight == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofWeight, MeasurementType.WEIGHT).Value.ToString() + " oz";
+                heightMeasurement.Text = maxDateofHeight == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofHeight, MeasurementType.HEIGHT).Value.ToString() + " cm";
+                headCircumferenceMeasurement.Text = maxDateofHead == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofHead, MeasurementType.HEAD_CIRCUMFERENCE).Value.ToString() + " cm";
+
+                Dictionary<Models.MilestoneCategory, List<MilestoneWithResponse>> milestonesPercDict = CurrentChild.GetMilestoneHistory();
 
                 List<MilestoneWithResponse> socialMilestones;
                 List<MilestoneWithResponse> cognitiveMilestones;
@@ -333,7 +347,7 @@ namespace ChildGrowth.Pages.Insights
                 milestonesPercDict.TryGetValue(Models.MilestoneCategory.COMMUNICATION, out commMilestones);
                 milestonesPercDict.TryGetValue(Models.MilestoneCategory.MOVEMENT, out movementMilestones);
 
-                emotionalAndSocial.Text = returnMilestonesPerc(socialMilestones).ToString() +"%";
+                emotionalAndSocial.Text = returnMilestonesPerc(socialMilestones).ToString() + "%";
                 physicalGrowth.Text = returnMilestonesPerc(movementMilestones).ToString() + "%";
                 LanguageDevelopment.Text = returnMilestonesPerc(commMilestones).ToString() + "%";
                 ThinkingAndReasoning.Text = returnMilestonesPerc(cognitiveMilestones).ToString() + "%";
@@ -342,17 +356,17 @@ namespace ChildGrowth.Pages.Insights
 
                 listView1.ItemsSource = warning;
                 TimeSpan diff = DateTime.Today.Date - CurrentChild.Birthday.Date;
-                if (diff.Days < 365*3  && diff.Days > 0)
+                if (diff.Days < 365 * 3 && diff.Days > 0)
                 {
                     warning.Clear();
                     findWarnings();
                 }
-                
-                if(warning.Count == 0)
+
+                if (warning.Count == 0)
                 {
                     warning.Add(new Warning { WarningName = "No Warnings to show" });
                 }
-            }        
+            }
         }
 
         void OnSettingsClicked(object sender, System.EventArgs e)
@@ -362,11 +376,11 @@ namespace ChildGrowth.Pages.Insights
 
         double returnMilestonesPerc(List<MilestoneWithResponse> milestoneList)
         {
-            if(milestoneList.Count ==0)
+            if (milestoneList.Count == 0)
             {
                 return 0;
             }
-            return Math.Floor(((double) milestoneList.FindAll(p => p.Answer == BinaryAnswer.YES).Count() / milestoneList.Count())*100);
+            return Math.Floor(((double)milestoneList.FindAll(p => p.Answer == BinaryAnswer.YES).Count() / milestoneList.Count()) * 100);
         }
 
         void findWarnings()
@@ -383,23 +397,23 @@ namespace ChildGrowth.Pages.Insights
             double ht = maxDateofHeight == DateTime.MinValue ? -1 : CurrentChild.GetMeasurementForDateAndType(maxDateofHeight, MeasurementType.HEIGHT).Value;
             double hd = maxDateofHead == DateTime.MinValue ? -1 : CurrentChild.GetMeasurementForDateAndType(maxDateofHead, MeasurementType.HEAD_CIRCUMFERENCE).Value;
             WHOData data = new WHOData();
-            
+
             if (wt != -1)
             {
                 Tuple<double, double> acceptable = acceptableRange(data.weightPercentile);
                 if (wt < acceptable.Item1)
                 {
-                    warning.Add(new Warning { WarningName = CurrentChild.Name +" " + "is under the 5th percentile in weight" });
+                    warning.Add(new Warning { WarningName = CurrentChild.Name + " " + "is under the 5th percentile in weight" });
                 }
 
-                if(wt > acceptable.Item2)
+                if (wt > acceptable.Item2)
                 {
                     warning.Add(new Warning { WarningName = CurrentChild.Name + " " + "is over the 95th percentile in weight" });
                 }
             }
 
-            
-            if(ht != -1)
+
+            if (ht != -1)
             {
                 Tuple<double, double> acceptable = acceptableRange(data.heightPercentile);
                 if (ht < acceptable.Item1)
@@ -408,7 +422,7 @@ namespace ChildGrowth.Pages.Insights
                 }
             }
 
-            if(hd != -1)
+            if (hd != -1)
             {
                 Tuple<double, double> acceptable = acceptableRange(data.headPercentile);
                 if (hd < acceptable.Item1)
@@ -423,7 +437,7 @@ namespace ChildGrowth.Pages.Insights
             }
         }
 
-        Tuple<double,double> acceptableRange(Dictionary<WHOData.Sex,Dictionary<WHOData.Percentile,List<double>>> data)
+        Tuple<double, double> acceptableRange(Dictionary<WHOData.Sex, Dictionary<WHOData.Percentile, List<double>>> data)
         {
             //Measurement Anonamlies
             DateTime maxDateofWeight = CurrentChild.Measurements.weightData.Keys.Count == 0 ? DateTime.MinValue : CurrentChild.Measurements.weightData.Keys.Max();
@@ -432,7 +446,7 @@ namespace ChildGrowth.Pages.Insights
 
             TimeSpan diff = maxDateofWeight - CurrentChild.Birthday;
             double months = diff.TotalDays / 30.4;
-            
+
             Dictionary<WHOData.Percentile, List<double>> weightData;
 
             if (CurrentChild.ChildGender == Child.Gender.MALE)
@@ -474,10 +488,10 @@ namespace ChildGrowth.Pages.Insights
 
             return new Tuple<double, double>(acceptableP5Weight, acceptableP95Weight);
         }
-    }
 
-    public class Warning
-    {
-        public string WarningName { get; set; }
+        public class Warning
+        {
+            public string WarningName { get; set; }
+        }
     }
 }

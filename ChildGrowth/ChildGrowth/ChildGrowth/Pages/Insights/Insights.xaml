@@ -30,9 +30,9 @@
                 <Label x:Name="MeasurementsTitle" Text="Measurements" Grid.Row="0" Grid.Column="1" FontSize="25" TextColor="#2e323f" />
                 <Label x:Name="MeasurementsAlert" Text="Height, weight, head circumference needed" Grid.Row="1" Grid.Column="1" FontSize="15" TextColor="#2e323f" />
                 <Label x:Name="MilestonesTitle" Text="Milestones" Grid.Row="2" Grid.Column="1" FontSize="25" TextColor="#2e323f" />
-                <Label x:Name="milestonesAlert" Text="10 more questions to go!" Grid.Row="3" Grid.Column="1" FontSize="15" TextColor="#2e323f" />
+                <Label x:Name="milestonesAlert" Text="N/A" Grid.Row="3" Grid.Column="1" FontSize="15" TextColor="#2e323f" />
                 <Label x:Name="VaccinationsTitle" Text="Vaccinations" Grid.Row="4" Grid.Column="1" FontSize="25" TextColor="#2e323f" />
-                <Label x:Name="vaccinationsAlert" Text="3 vaccinations pending" Grid.Row="5" Grid.Column="1" FontSize="15" TextColor="#2e323f" />
+                <Label x:Name="vaccinationsAlert" Text="N/A" Grid.Row="5" Grid.Column="1" FontSize="15" TextColor="#2e323f" />
             </Grid>
             <BoxView HeightRequest="10" WidthRequest="1" BackgroundColor="White" />
             <BoxView HeightRequest="1" WidthRequest="1" BackgroundColor="#2e323f" />
@@ -65,8 +65,9 @@
                     </Grid.ColumnDefinitions>
                     <Image Source="blue_empty.png" Grid.Row="0" Grid.Column="0" />
                     <Label x:Name="physicalGrowth" Text="80%" Grid.Row="0" Grid.Column="0" TextColor="White" XAlign="Center" YAlign="Center" />
+
                     <Label x:Name="PGLabel" Text="Physical Growth" Grid.Row="0" Grid.Column="1" YAlign="Center" TextColor="#2e323f" />
-                        <Image Source="blue_empty.png" Grid.Row="1" Grid.Column="0" />
+                    <Image Source="blue_empty.png" Grid.Row="1" Grid.Column="0" />
                     <Label x:Name="ThinkingAndReasoning" Text="80%" Grid.Row="1" Grid.Column="0" TextColor="White" XAlign="Center" YAlign="Center" />
                     <Label x:Name="TRLabel" Text="Thinking &amp; Reasoning" Grid.Row="1" Grid.Column="1" YAlign="Center" TextColor="#2e323f" />
                     <Image Source="blue_empty.png" Grid.Row="2" Grid.Column="0" />
@@ -74,11 +75,14 @@
                     <Label x:Name="ESDLabel" Text="Emotional &amp; Social Development" Grid.Row="2" Grid.Column="1" YAlign="Center" TextColor="#2e323f" />
                     <Image Source="blue_empty.png" Grid.Row="3" Grid.Column="0" />
                     <Label x:Name="LanguageDevelopment" Text="80%" Grid.Row="3" Grid.Column="0" TextColor="White" XAlign="Center" YAlign="Center" />
+
+                   
+
                     <Label x:Name="LDLabel" Text="Language Development" Grid.Row="3" Grid.Column="1" YAlign="Center" TextColor="#2e323f" />
                 </Grid>
-                <Label Text="Vaccinations" Grid.Row="0" Grid.Column="0" FontSize="25" TextColor="#2e323f" />
+                <Label x:Name="VacProgressLabel" Text="Vaccinations" Grid.Row="0" Grid.Column="0" FontSize="25" TextColor="#2e323f" />
                 <ProgressBar x:Name="progressBar1"/>
-                <Label Text="Warnings" Grid.Row="0" Grid.Column="0" FontSize="25" TextColor="#2e323f" />
+                <Label x:Name="WarningLabel" Text="Warnings" Grid.Row="0" Grid.Column="0" FontSize="25" TextColor="#2e323f" />
                 <ListView x:Name="listView1">
                     <ListView.ItemTemplate>
                         <DataTemplate>
