@@ -1,26 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms" 
-    xmlns:local="clr-namespace: ChildGrowth;assembly=ChildGrowth" 
-    xmlns:statics="clr-namespace:ChildGrowth.Statics" 
-    xmlns:converters="clr-namespace:ChildGrowth.Converters" 
-    xmlns:sys="clr-namespace:System;assembly=mscorlib" 
-    xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms" 
-    xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
-    x:Class="ChildGrowth.MainPage" 
-    > 
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms" xmlns:local="clr-namespace: ChildGrowth;assembly=ChildGrowth" xmlns:statics="clr-namespace:ChildGrowth.Statics" xmlns:converters="clr-namespace:ChildGrowth.Converters" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms" xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms" x:Class="ChildGrowth.MainPage">
     <ContentPage.ToolbarItems>
         <ToolbarItem Name="Settings" Order="Primary" Clicked="OnSettingsClicked" Icon="settings.png" Priority="0" />
     </ContentPage.ToolbarItems>
-
     <StackLayout.BindingContext>
         <local:ViewModel x:Name="viewModel" />
     </StackLayout.BindingContext>
     <ScrollView>
         <StackLayout>
             <StackLayout>
-                <Label x:Name="MeasurementTitle" Text="Measurements" TextColor="Black" FontSize="40" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" />
+                <Label x:Name="MeasurementTitle" Text="Measurements" TextColor="#2e323f" FontSize="40" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" />
                 <Grid Margin="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40" />
@@ -30,20 +19,16 @@
                         <ColumnDefinition Width="98" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <controls:ImageButton x:Name="weightButton" Source="weightunclicked" Grid.Column="0" Grid.Row="0" Clicked="OnWeightClicked"
-                                          BackgroundColor="Transparent"  ImageHeightRequest="80" ImageWidthRequest="165" />
-                    <controls:ImageButton x:Name="heightButton" Source="height_unclicked" Grid.Column="1" Grid.Row="0" Clicked="OnHeightClicked"
-                                          BackgroundColor="Transparent"  ImageHeightRequest="80" ImageWidthRequest="180"/>
-                    <controls:ImageButton x:Name="headButton" Source="head_circumference_unclicked" Grid.Column="2" Grid.Row="0" Clicked="OnHeadClicked"
-                                          BackgroundColor="Transparent"  ImageHeightRequest="80" ImageWidthRequest="310" />
+                    <controls:ImageButton x:Name="weightButton" Source="weightunclicked" Grid.Column="0" Grid.Row="0" Clicked="OnWeightClicked" BackgroundColor="Transparent" ImageHeightRequest="80" ImageWidthRequest="165" />
+                    <controls:ImageButton x:Name="heightButton" Source="height_unclicked" Grid.Column="1" Grid.Row="0" Clicked="OnHeightClicked" BackgroundColor="Transparent" ImageHeightRequest="80" ImageWidthRequest="180" />
+                    <controls:ImageButton x:Name="headButton" Source="head_circumference_unclicked" Grid.Column="2" Grid.Row="0" Clicked="OnHeadClicked" BackgroundColor="Transparent" ImageHeightRequest="80" ImageWidthRequest="310" />
                     <!--<Button x:Name="WeightButton" Grid.Column="0" Grid.Row="0" Image="weightunclicked.png" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" Clicked="OnWeightClicked" />-->
                     <!--<Button x:Name="HeightButton" Grid.Column="1" Grid.Row="0" Image="height_unclicked.png" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" Clicked="OnHeightClicked" />-->
                     <!--<Button x:Name="HeadButton" Grid.Column="2" Grid.Row="0" Image="head_circumference_unclicked.png" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" Clicked="OnHeadClicked" />-->
                 </Grid>
                 <chart:SfChart>
-
                     <chart:SfChart.HeightRequest>
-                        <OnPlatform x:TypeArguments="x:Double" iOS="400" Android="300" WinPhone="400" />
+                        <OnPlatform x:TypeArguments="x:Double" iOS="400" Android="300" WinPhone="150" />
                     </chart:SfChart.HeightRequest>
                     <chart:SfChart.BackgroundColor>
                         <OnPlatform x:TypeArguments="Color" Android="Transparent" />
@@ -58,11 +43,11 @@
                     </chart:SfChart.PrimaryAxis>
                     <chart:SfChart.SecondaryAxis>
                         <chart:NumericalAxis>
-                            <chart:ChartAxisTitle Text="Measurement"/>
+                            <chart:ChartAxisTitle Text="Measurement" />
                         </chart:NumericalAxis>
                     </chart:SfChart.SecondaryAxis>
                     <chart:SfChart.Series>
-                        <chart:SplineSeries ListenPropertyChange="True" ItemsSource="{Binding InputData}" XBindingPath="Age" YBindingPath="Val" x:Name="series0" Label="Input"/>
+                        <chart:SplineSeries ListenPropertyChange="True" ItemsSource="{Binding InputData}" XBindingPath="Age" YBindingPath="Val" x:Name="series0" Label="Input" />
                         <chart:SplineSeries StrokeWidth="2" ListenPropertyChange="True" ItemsSource="{Binding LineData3}" XBindingPath="Age" YBindingPath="Val" x:Name="series1" Label="P3" />
                         <chart:SplineSeries StrokeWidth="2" ListenPropertyChange="True" ItemsSource="{Binding LineData5}" XBindingPath="Age" YBindingPath="Val" x:Name="series2" Label="P5" />
                         <chart:SplineSeries StrokeWidth="2" ListenPropertyChange="True" ItemsSource="{Binding LineData10}" XBindingPath="Age" YBindingPath="Val" x:Name="series3" Label="P10" />
@@ -70,13 +55,10 @@
                         <chart:SplineSeries StrokeWidth="2" ListenPropertyChange="True" ItemsSource="{Binding LineData50}" XBindingPath="Age" YBindingPath="Val" x:Name="series5" Label="P50" />
                         <chart:SplineSeries StrokeWidth="2" ListenPropertyChange="True" ItemsSource="{Binding LineData75}" XBindingPath="Age" YBindingPath="Val" x:Name="series6" Label="P75" />
                         <chart:SplineSeries StrokeWidth="2" ListenPropertyChange="True" ItemsSource="{Binding LineData90}" XBindingPath="Age" YBindingPath="Val" x:Name="series7" Label="P90" />
-                        
                     </chart:SfChart.Series>
                     <chart:SfChart.Legend>
-
-                        <chart:ChartLegend ToggleSeriesVisibility = "true"/>
-
-                    </chart:SfChart.Legend> 
+                        <chart:ChartLegend ToggleSeriesVisibility="true" />
+                    </chart:SfChart.Legend>
                 </chart:SfChart>
                 <TableView Intent="Form">
                     <TableSection x:Name="TableTitle" Title="Date and Time">
@@ -108,7 +90,7 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Button x:Name="submitButton" Text="Submit" Grid.Column="0" Grid.Row="0" Clicked="OnSubmitClicked" />
-                                <Button x:Name="cancelButton" Text="Cancel" Grid.Column="1" Grid.Row="0"  Clicked="OnCancelClicked" />
+                                <Button x:Name="cancelButton" Text="Cancel" Grid.Column="1" Grid.Row="0" Clicked="OnCancelClicked" />
                             </Grid>
                         </ViewCell>
                     </TableSection>
@@ -116,4 +98,5 @@
             </StackLayout>
         </StackLayout>
     </ScrollView>
+
 </ContentPage>

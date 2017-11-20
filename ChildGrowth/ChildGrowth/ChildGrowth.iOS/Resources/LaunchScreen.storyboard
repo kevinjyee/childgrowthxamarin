@@ -16,16 +16,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" image="Icon-60.png" translatesAutoresizingMaskIntoConstraints="NO" id="23">
-                                <rect key="frame" x="270" y="270" width="60" height="60"/>
-                                <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="244" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" image="splashscreen_ios_1024.png">
+                                <rect key="frame" x="0.0" y="0.0" width="400" height="800"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.20392156862745098" green="0.59607843137254901" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="23" firstAttribute="centerY" secondItem="yd7-JS-zBw" secondAttribute="centerY" priority="1" id="39"/>
-                            <constraint firstItem="23" firstAttribute="centerX" secondItem="yd7-JS-zBw" secondAttribute="centerX" priority="1" id="41"/>
-                        </constraints>
+                        <color key="backgroundColor" colorSpace="calibratedRGB" red="0.062745098039215685" green="0.49803921568627452" blue="0.50196078431372548" alpha="1"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XAI-xm-WK6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -34,6 +29,96 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Icon-60.png" width="180" height="180"/>
+        <image name="Icon-60.png" width="60" height="60"/>
+        <image name="head_circumference_clicked.png" width="316" height="67"/>
+        <image name="head_circumference_unclicked.png" width="316" height="67"/>
+        <image name="height_clicked.png" width="142" height="67"/>
+        <image name="height_unclicked.png" width="142" height="67"/>
+        <image name="weight_clicked.png" width="172" height="67"/>
+        <image name="weightunclicked.png" width="172" height="67"/>
+        <image name="menu_button.png" width="26" height="18"/>
+        <image name="b_cal.png" width="115" height="118"/>
+        <image name="b_caret.png" width="121" height="70"/>
+        <image name="behavior.png" width="346" height="163"/>
+        <image name="black_empty.png" width="346" height="163"/>
+        <image name="blue_empty.png" width="346" height="163"/>
+        <image name="check_1.png" width="346" height="163"/>
+        <image name="circle.png" width="346" height="163"/>
+        <image name="cm_kg_outline.png" width="84" height="42"/>
+        <image name="cm_kg_white.png" width="81" height="39"/>
+        <image name="cognitive.png" width="128" height="103"/>
+        <image name="diseases.png" width="346" height="163"/>
+        <image name="doctor_visits.png" width="346" height="163"/>
+        <image name="edit.png" width="112" height="112"/>
+        <image name="english_outline.png" width="84" height="42"/>
+        <image name="english_white.png" width="81" height="39"/>
+        <image name="filter.png" width="346" height="163"/>
+        <image name="inch_lb_outline.png" width="84" height="42"/>
+        <image name="inch_lb_white.png" width="81" height="39"/>
+        <image name="infant.png" width="346" height="164"/>
+        <image name="languagecommunication.png" width="115" height="118"/>
+        <image name="learning.png" width="346" height="163"/>
+        <image name="log_in.png" width="346" height="163"/>
+        <image name="minus.png" width="82" height="6"/>
+        <image name="movement.png" width="131" height="102"/>
+        <image name="no_black.png" width="81" height="39"/>
+        <image name="no_blue.png" width="49" height="24"/>
+        <image name="no_white_outline.png" width="83" height="41"/>
+        <image name="play.png" width="346" height="163"/>
+        <image name="safety.png" width="346" height="164"/>
+        <image name="save.png" width="346" height="164"/>
+        <image name="settings.png" width="31" height="31"/>
+        <image name="socialemotional.png" width="103" height="114"/>
+        <image name="spanish_outline.png" width="84" height="42"/>
+        <image name="spanish_white.png" width="81" height="39"/>
+        <image name="toddler12.png" width="346" height="163"/>
+        <image name="toddler23.png" width="346" height="164"/>
+        <image name="toilet_training.png" width="346" height="163"/>
+        <image name="w_cal.png" width="115" height="117"/>
+        <image name="w_caret.png" width="122" height="71"/>
+        <image name="wborder_no.png" width="351" height="168"/>
+        <image name="wborder_yes.png" width="351" height="169"/>
+        <image name="white_no.png" width="346" height="163"/>
+        <image name="white_yes.png" width="346" height="163"/>
+        <image name="yes_black.png" width="81" height="39"/>
+        <image name="yes_blue.png" width="49" height="24"/>
+        <image name="yes_white_outline.png" width="83" height="41"/>
+        <image name="behavior_sp.png" width="346" height="163"/>
+        <image name="diseases_sp.png" width="346" height="164"/>
+        <image name="doctor_visits_sp.png" width="346" height="164"/>
+        <image name="head_circumference_sp.png" width="316" height="67"/>
+        <image name="height_sp.png" width="142" height="67"/>
+        <image name="learning_sp.png" width="346" height="163"/>
+        <image name="play_sp.png" width="346" height="163"/>
+        <image name="safety_sp.png" width="346" height="163"/>
+        <image name="splashscreen_ios_1x.png" width="320" height="480"/>
+        <image name="splashscreen_ios_2x.png" width="640" height="960"/>
+        <image name="splashscreen_ios_512.png" width="512" height="512"/>
+        <image name="splashscreen_ios_1024.png" width="1024" height="1024"/>
+        <image name="splashscreen_ios_retina.png" width="640" height="1136"/>
+        <image name="splashscreen.png" width="722" height="1282"/>
+        <image name="toilet_training_sp.png" width="346" height="164"/>
+        <image name="weight_sp.png" width="173" height="67"/>
+        <image name="head_circumference_unclicked_sp.png" width="316" height="67"/>
+        <image name="height_unclicked_sp.png" width="142" height="67"/>
+        <image name="weightunclicked_sp.png" width="173" height="67"/>
+        <image name="measurements.png" width="34" height="28"/>
+        <image name="splashSlice.png" width="2160" height="566"/>
+        <image name="insights.png" width="23" height="34"/>
+        <image name="milestones.png" width="25" height="29"/>
+        <image name="vaccinations.png" width="28" height="27"/>
+        <image name="education.png" width="27" height="30"/>
+        <image name="submit.png" width="423" height="163"/>
+        <image name="blue_no.png" width="80" height="38"/>
+        <image name="blue_yes.png" width="80" height="38"/>
+        <image name="class-project.gif" width="700" height="516"/>
+        <image name="right.png" width="24" height="24"/>
+        <image name="X.png" width="24" height="24"/>
+        <image name="cm_kg.png" width="81" height="39"/>
+        <image name="english.png" width="81" height="39"/>
+        <image name="inch_lb.png" width="81" height="39"/>
+        <image name="spanish.png" width="81" height="39"/>
+        <image name="Icon-Small.png" width="29" height="29"/>
+        <image name="Icon-Small-40.png" width="40" height="40"/>
     </resources>
 </document>

@@ -12,8 +12,8 @@
                             <DataTemplate>
                                 <ViewCell>
                                     <ViewCell.ContextActions>
-                                        <MenuItem x:Name="DeleteBut" Clicked="OnDelete" CommandParameter="{Binding .}" Text="{Binding DeleteBut}" IsDestructive="True" />
-                                        <MenuItem x:Name="EditBut" Clicked="OnEdit" CommandParameter="{Binding .}" Text="{Binding EditBut}" IsDestructive="false" />
+                                        <MenuItem x:Name="DeleteBut" Clicked="OnDelete" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+                                        <MenuItem x:Name="EditBut" Clicked="OnEdit" CommandParameter="{Binding .}" Text="Edit" IsDestructive="false" />
                                     </ViewCell.ContextActions>
                                     <StackLayout Padding="15,15">
                                         <Label Text="{Binding Name}" />
