@@ -5,11 +5,38 @@ using ChildGrowth.Models.Settings;
 using ChildGrowth.Persistence;
 using Xamarin.Forms;
 using static Child;
+using ChildGrowth.Pages.Menu;
 
 namespace ChildGrowth.Pages.AddChild
 {
     public partial class EditChild : ContentPage
     {
+        private Language _currentLanguage { get; set; }
+
+        public Language CurrentLanguage
+        {
+            get
+            {
+                return _currentLanguage;
+            }
+            set
+            {
+                if (value != _currentLanguage)
+                {
+                    OnPropertyChanged("CurrentLanguage");
+                }
+                if (value == Language.ENGLISH)
+                {
+                    _currentLanguage = value;
+                    SetEnglish();
+                }
+                else
+                {
+                    SetSpanish();
+                }
+            }
+        }
+
         private Context CurrentContext { get; set; }
         public EditChild()
         {

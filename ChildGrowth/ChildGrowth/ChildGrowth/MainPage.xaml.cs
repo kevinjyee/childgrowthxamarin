@@ -13,13 +13,17 @@ using ChildGrowth.Constants;
 using ChildGrowth.Pages.Settings;
 using ChildGrowth.Models.Settings;
 using System.Runtime.CompilerServices;
+using ChildGrowth.Pages.Menu;
 
 namespace ChildGrowth
 {
     public partial class MainPage : ContentPage, INotifyPropertyChanged
     {
+        private MenuMasterDetailPage MasterPage { get; set; }
         private Child _currentChild;
         private DateTime _currentChildBirthday;
+        private Language _currentLanguage;
+
         DateTime CurrentChildBirthday
         {
             get
@@ -63,6 +67,30 @@ namespace ChildGrowth
             }
         }
 
+        public Language CurrentLanguage
+        {
+            get
+            {
+                return _currentLanguage;
+            }
+            set
+            {
+                if(value != _currentLanguage)
+                {
+                    OnPropertyChanged("CurrentLanguage");
+                }
+                if (value == Language.ENGLISH)
+                {
+                    _currentLanguage = value;
+                    SetEnglish();
+                }
+                else
+                {
+                    SetSpanish();
+                }
+            }
+        }
+
         public void SetCurrentChild(Child c)
         {
             this.CurrentChild = c;
@@ -75,6 +103,21 @@ namespace ChildGrowth
         {
             InitializeComponent();
             UpdateDateSelectionEnabledStatus(false);
+            if (CurrentContext == null)
+            {
+                CurrentContext = Context.LoadCurrentContext();
+            }
+            if (CurrentChild != null)
+            {
+                TryLoadingMeasurementDataForDateAndChild(this.EntryDate.Date, CurrentChild);
+            }
+        }
+
+        public MainPage(MenuMasterDetailPage Page)
+        {
+            InitializeComponent();
+            UpdateDateSelectionEnabledStatus(false);
+            MasterPage = Page;
             if (CurrentContext == null)
             {
                 CurrentContext = Context.LoadCurrentContext();
@@ -162,6 +205,12 @@ namespace ChildGrowth
                 if (CurrentContext == null)
                 {
                     CurrentContext = Context.LoadCurrentContext();
+                }
+                if(CurrentChild == null)
+                {
+                    HeightEntry.Text = "";
+                    WeightEntry.Text = "";
+                    HeadEntry.Text = "";
                 }
                 OnMeasurementClicked(CurrentMeasurementType);
             });
@@ -287,7 +336,7 @@ namespace ChildGrowth
 
         void OnSettingsClicked(object sender, System.EventArgs e)
         {
-            Navigation.PushAsync(new SettingsPage());
+            Navigation.PushAsync(new SettingsPage(MasterPage));
         }
 
         /// <summary>

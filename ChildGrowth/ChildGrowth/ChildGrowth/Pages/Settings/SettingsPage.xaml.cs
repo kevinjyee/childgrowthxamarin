@@ -9,13 +9,14 @@ using Xamarin.Forms.Xaml;
 
 using ChildGrowth.Models.Settings;
 using ChildGrowth.Persistence;
+using ChildGrowth.Pages.Menu;
 
 namespace ChildGrowth.Pages.Settings
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SettingsPage : ContentPage
     {
-
+        MenuMasterDetailPage MasterPage { get; set; }
         Context CurrentContext { get; set; }
         public SettingsPage()
         {
@@ -23,6 +24,15 @@ namespace ChildGrowth.Pages.Settings
             contextTask.Wait();
             InitializeComponent();
             SetButtons();
+        }
+
+        public SettingsPage(MenuMasterDetailPage Page)
+        {
+            Task contextTask = Task.Run(async () => { await getCurrentContext(); });
+            contextTask.Wait();
+            InitializeComponent();
+            SetButtons();
+            MasterPage = Page;
         }
 
         async private Task<Boolean> getCurrentContext()
@@ -81,8 +91,20 @@ namespace ChildGrowth.Pages.Settings
         {
             ContextDatabaseAccess database = new ContextDatabaseAccess();
             await database.InitializeAsync();
+            if(CurrentContext == null)
+            {
+                CurrentContext = Context.LoadCurrentContext();
+            }
             CurrentContext.CurrentLanguage = l;
             await database.SaveContextAsync(CurrentContext);
+            try
+            {
+                MasterPage.UpdateLanguage(l);
+            }
+            catch(Exception e)
+            {
+                // TODO:
+            }
         }
 
         async Task setUnits(Units u)

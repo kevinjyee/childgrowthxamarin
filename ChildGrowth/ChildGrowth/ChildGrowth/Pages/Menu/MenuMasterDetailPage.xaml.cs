@@ -13,23 +13,27 @@ namespace ChildGrowth.Pages.Menu
     {
         
         private Page MainPage { get; set; }
-        private MainPage CastMainPage { get; set; }
+        private static MainPage CastMainPage { get; set; }
         private Page Milestones { get; set; }
-        private Milestones.Milestones CastMilestonesPage { get; set; }
+        private static Milestones.Milestones CastMilestonesPage { get; set; }
         private Page Vaccinations { get; set; }
-        private Vaccinations.Vaccinations CastVaccinationsPage { get; set; }
+        private static Vaccinations.Vaccinations CastVaccinationsPage { get; set; }
         private Page Education { get; set; }
+        private static Education.Education CastEducationPage { get; set; }
         private Page Insights { get; set; }
-        private Insights.Insights CastInsightsPage { get; set; }
+        private static Insights.Insights CastInsightsPage { get; set; }
+        private static ChildEntry CastChildEntryPage { get; set; }
+        private static EditChild CastEditChildPage { get; set; }
         private Context CurrentContext { get; set; }
 
         public MenuMasterDetailPage()
         {
             InitializeComponent();
-            CastMainPage = new MainPage();
+            CastMainPage = new MainPage(this);
             CastMilestonesPage = new Milestones.Milestones();
             CastVaccinationsPage = new Vaccinations.Vaccinations();
-            CastInsightsPage = new Insights.Insights();
+            CastEducationPage = new Education.Education(this);
+            CastInsightsPage = new Insights.Insights(this);
             if (CurrentContext == null)
             {
                 CurrentContext = Context.LoadCurrentContext();
@@ -39,7 +43,7 @@ namespace ChildGrowth.Pages.Menu
                 MainPage = (new NavigationPage(CastMainPage) { Icon = "measurements.png", Title = "Measurements" });
                 Milestones = (new NavigationPage(CastMilestonesPage) { Icon = "milestones.png", Title = "Milestones" });
                 Vaccinations = (new NavigationPage(CastVaccinationsPage) { Icon = "vaccinations.png", Title = "Vaccinations" });
-                Education = (new NavigationPage(new Education.Education()) { Icon = "education.png", Title = "Education" });
+                Education = (new NavigationPage(CastEducationPage) { Icon = "education.png", Title = "Education" });
                 Insights = (new NavigationPage(CastInsightsPage) { Icon = "insights.png", Title = "Insights" });
             }
             else
@@ -108,6 +112,21 @@ namespace ChildGrowth.Pages.Menu
             CastMilestonesPage.CurrentChild = c;
             CastVaccinationsPage.CurrentChild = c;
             CastInsightsPage.CurrentChild = c;
+        }
+
+        void NotifyPagesOfLanguageUpdate(Language language)
+        {
+            CastMainPage.CurrentLanguage = language;
+            CastEducationPage.CurrentLanguage = language;
+            CastInsightsPage.CurrentLanguage = language;
+            if(CastEditChildPage != null)
+            {
+                CastEditChildPage.CurrentLanguage = language;
+            }
+            if(CastChildEntryPage != null)
+            {
+                CastChildEntryPage.CurrentLanguage = language;
+            }
         }
 
         async private Task<Boolean> UpdateChild(Child child)
@@ -221,17 +240,42 @@ namespace ChildGrowth.Pages.Menu
             UpdateChildList();
         }
 
+        public void UpdateLanguage(Language language)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                if(language == Language.ENGLISH)
+                {
+                    SetEnglish();
+                }
+                else
+                {
+                    SetSpanish();
+                }
+                NotifyPagesOfLanguageUpdate(language);
+            });
+        }
+
         private void SetEnglish()
         {
             ListTitle.Text = "Children";
             AddButton.Text = "Add New Children";
-
+            MainPage.Title = "Measurements";
+            Milestones.Title = "Milestones";
+            Vaccinations.Title = "Vaccinations";
+            Education.Title = "Education";
+            Insights.Title = "Insights";
         }
 
         private void SetSpanish()
         {
             ListTitle.Text = "Niños";
             AddButton.Text = "Añadir un nuevo niño";
+            MainPage.Title = "Medidas";
+            Milestones.Title = "Hito";
+            Vaccinations.Title = "Vacunas";
+            Education.Title = "Educación";
+            Insights.Title = "Resumen";
         }
 
         async void OnEdit(object sender, System.EventArgs e)

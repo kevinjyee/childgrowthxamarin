@@ -10,12 +10,15 @@ using ChildGrowth.Models.Settings;
 using ChildGrowth.Persistence;
 using ChildGrowth.Models.Milestones;
 using ChildGrowth.Models.Vaccinations;
+using ChildGrowth.Pages.Menu;
 
 namespace ChildGrowth.Pages.Insights
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Insights : ContentPage
     {
+        private MenuMasterDetailPage MasterPage { get; set; }
+
         private Child _currentChild;
 
         public Child CurrentChild
@@ -36,6 +39,33 @@ namespace ChildGrowth.Pages.Insights
             }
         }
 
+        private Language _currentLanguage { get; set; }
+
+        public Language CurrentLanguage
+        {
+            get
+            {
+                return _currentLanguage;
+            }
+            set
+            {
+                if (value != _currentLanguage)
+                {
+                    OnPropertyChanged("CurrentLanguage");
+                }
+                if (value == Language.ENGLISH)
+                {
+                    _currentLanguage = value;
+                    SetEnglish();
+                }
+                else
+                {
+                    SetSpanish();
+                }
+                updateFields();
+            }
+        }
+
         public Context CurrentContext { get; set; }
 
         override
@@ -45,49 +75,59 @@ namespace ChildGrowth.Pages.Insights
             Load.Wait();
             if (CurrentContext.CurrentLanguage == Language.ENGLISH)
             {
-                MainTitle.Text = "Insights";
-                AlertsTitle.Text = "Alerts";
-                MeasurementsTitle.Text = "Measurements";
-                MeasurementsAlert.Text = "Height, weight, head circumference needed";
-                MilestonesTitle.Text = "Milestones";
-                VaccinationsTitle.Text = "Vaccinations";
-                SummaryTitle.Text = "Summary";
-                HeightLebel.Text = "Height: ";
-                WeightLabel.Text = "Weight: ";
-                HeadLabel.Text = "Head Circumference: ";
-                BirthLabel.Text = "Birthday";
-                MeasurementsLabel.Text = "Measurements";
-                MilestonesSummary.Text = "Milestones";
-                PGLabel.Text = "Physical Growth";
-                TRLabel.Text = "Thinking & Reasoning";
-                ESDLabel.Text = "Emotional & Social Development";
-                LDLabel.Text = "Language Development";
-                SMLabel.Text = "Sensory & Motory Development";
+                SetEnglish();
             }
             else
             {
-                MainTitle.Text = "Resumen";
-                AlertsTitle.Text = "Notificaciones";
-                MeasurementsTitle.Text = "Medidas";
-                MeasurementsAlert.Text = "Falta Estatura, peso, circunferencia de la cabeza";
-                MilestonesTitle.Text = "Hitos";
-                VaccinationsTitle.Text = "Vacunas";
-                SummaryTitle.Text = "Resumen";
-                HeightLebel.Text = "Estatura: ";
-                WeightLabel.Text = "Peso: ";
-                HeadLabel.Text = "Circunferencia de la Cabeza: ";
-                BirthLabel.Text = "Cumpleaños";
-                MeasurementsLabel.Text = "Medidas";
-                MilestonesSummary.Text = "Hitos";
-                PGLabel.Text = "Crecimiento Físico";
-                TRLabel.Text = "Pensamiento y Razonamiento";
-                ESDLabel.Text = "Desarrollo Emocional y Social";
-                LDLabel.Text = "Desarrollo del Lenguage";
-                SMLabel.Text = "Desarrollo Sensor y Motor";
+                SetSpanish();
             }
 
             UpdateTitle();
             UpdateInsights();
+        }
+
+        private void SetEnglish()
+        {
+            MainTitle.Text = "Insights";
+            AlertsTitle.Text = "Alerts";
+            MeasurementsTitle.Text = "Measurements";
+            MeasurementsAlert.Text = "Height, weight, head circumference needed";
+            MilestonesTitle.Text = "Milestones";
+            VaccinationsTitle.Text = "Vaccinations";
+            SummaryTitle.Text = "Summary";
+            HeightLebel.Text = "Height: ";
+            WeightLabel.Text = "Weight: ";
+            HeadLabel.Text = "Head Circumference: ";
+            BirthLabel.Text = "Birthday";
+            MeasurementsLabel.Text = "Measurements";
+            MilestonesSummary.Text = "Milestones";
+            PGLabel.Text = "Physical Growth";
+            TRLabel.Text = "Thinking & Reasoning";
+            ESDLabel.Text = "Emotional & Social Development";
+            LDLabel.Text = "Language Development";
+            SMLabel.Text = "Sensory & Motory Development";
+        }
+
+        private void SetSpanish()
+        {
+            MainTitle.Text = "Resumen";
+            AlertsTitle.Text = "Notificaciones";
+            MeasurementsTitle.Text = "Medidas";
+            MeasurementsAlert.Text = "Falta Estatura, peso, circunferencia de la cabeza";
+            MilestonesTitle.Text = "Hitos";
+            VaccinationsTitle.Text = "Vacunas";
+            SummaryTitle.Text = "Resumen";
+            HeightLebel.Text = "Estatura: ";
+            WeightLabel.Text = "Peso: ";
+            HeadLabel.Text = "Circunferencia de la Cabeza: ";
+            BirthLabel.Text = "Cumpleaños";
+            MeasurementsLabel.Text = "Medidas";
+            MilestonesSummary.Text = "Hitos";
+            PGLabel.Text = "Crecimiento Físico";
+            TRLabel.Text = "Pensamiento y Razonamiento";
+            ESDLabel.Text = "Desarrollo Emocional y Social";
+            LDLabel.Text = "Desarrollo del Lenguage";
+            SMLabel.Text = "Desarrollo Sensor y Motor";
         }
 
         // Load context and set value for current child if it exists.
@@ -132,6 +172,12 @@ namespace ChildGrowth.Pages.Insights
         public Insights()
         {
             InitializeComponent();
+        }
+
+        public Insights(MenuMasterDetailPage Page)
+        {
+            InitializeComponent();
+            MasterPage = Page;
         }
 
         private void UpdateInsights()
@@ -273,7 +319,7 @@ namespace ChildGrowth.Pages.Insights
 
         void OnSettingsClicked(object sender, System.EventArgs e)
         {
-            Navigation.PushAsync(new SettingsPage());
+            Navigation.PushAsync(new SettingsPage(MasterPage));
         }
     }
 }

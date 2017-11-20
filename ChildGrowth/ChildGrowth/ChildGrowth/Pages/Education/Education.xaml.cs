@@ -8,19 +8,53 @@ using ChildGrowth.Pages.Settings;
 using ChildGrowth.Persistence;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using ChildGrowth.Pages.Menu;
+using System.ComponentModel;
 
 namespace ChildGrowth.Pages.Education
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Education : ContentPage
+    public partial class Education : ContentPage, INotifyPropertyChanged
     {
+        private MenuMasterDetailPage MasterPage { get; set; }
+        private Language _currentLanguage { get; set; }
         private Child CurrentChild { get; set; }
         private Context CurrentContext { get; set; }
+
+        public Language CurrentLanguage
+        {
+            get
+            {
+                return _currentLanguage;
+            }
+            set
+            {
+                if (value != _currentLanguage)
+                {
+                    OnPropertyChanged("CurrentLanguage");
+                }
+                if (value == Language.ENGLISH)
+                {
+                    _currentLanguage = value;
+                    SetEnglish();
+                }
+                else
+                {
+                    SetSpanish();
+                }
+            }
+        }
 
         public Education()
         {
             InitializeComponent();
 
+        }
+
+        public Education(MenuMasterDetailPage Page)
+        {
+            InitializeComponent();
+            MasterPage = Page;
         }
 
         override
@@ -116,7 +150,7 @@ namespace ChildGrowth.Pages.Education
 
         void OnSettingsClicked(object sender, System.EventArgs e)
         {
-            Navigation.PushAsync(new SettingsPage());
+            Navigation.PushAsync(new SettingsPage(MasterPage));
         }
 
         async void BehaviorButtonClick(object sender, EventArgs args)

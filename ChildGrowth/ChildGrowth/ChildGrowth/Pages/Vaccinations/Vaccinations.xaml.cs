@@ -45,7 +45,22 @@ namespace ChildGrowth.Pages.Vaccinations
 
         private static int numberItemsTappedHandlersBound = 0;
 
+        ListView vaccinationListHeader = new ListView
+        {
+            RowHeight = 70
+        };
+
         ListView vaccinationList = new ListView
+        {
+            RowHeight = 70
+        };
+
+        ListView vaccinationHistoryListHeader = new ListView
+        {
+            RowHeight = 70
+        };
+
+        ListView vaccinationHistoryList = new ListView
         {
             RowHeight = 70
         };
@@ -78,6 +93,8 @@ namespace ChildGrowth.Pages.Vaccinations
 
             //Vaccines = GetVaccineHistoryForCurrentChild();
 
+            vaccinationList.ItemsSource = 
+
             vaccinationList.ItemsSource = Vaccines;
             vaccinationList.ItemTemplate = new DataTemplate(typeof(VaccinationCell));
             vaccinationList.BackgroundColor = Color.Transparent;
@@ -107,6 +124,8 @@ namespace ChildGrowth.Pages.Vaccinations
                 numberItemsTappedHandlersBound = 1;
             }
 
+            // Add new label, new list
+
             Content = new StackLayout
             {
                 VerticalOptions = LayoutOptions.FillAndExpand,
@@ -114,6 +133,7 @@ namespace ChildGrowth.Pages.Vaccinations
                 Children = {
                   vacProg,
                   vaccinationList
+                  //vaccinationHistoryList
                 }
             };
 
@@ -260,40 +280,6 @@ namespace ChildGrowth.Pages.Vaccinations
                 return true;
             }
         }
-
-
-        /*
-        public void VaccinationRepository()
-        {
-            
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 1, Name = "Hepatitis B (HepB)", Info = " ", Time = 0 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 2, Name = "Hepatitis B (HepB)", Info = " ", Time = 1 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 3, Name = "Rotavirus (RV)", Info = " ", Time = 2 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 4, Name = "Diphtheria and tetanus toxoids and acellular pertussis (DTaP)", Info = " ", Time = 2 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 5, Name = "Haemophilus influenzae type b (Hib)", Info = " ", Time = 2 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 6, Name = "Pneumococcal conjugate (PCV13)", Info = " ", Time = 2 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 7, Name = "Inactivated poliovirus (IPV:<18 yrs)", Info = " ", Time = 2 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 8, Name = "Rotavirus (RV)", Info = " ", Time = 4 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 9, Name = "Diphtheria and tetanus toxoids and acellular pertussis (DTaP)", Info = " ", Time = 4 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 10, Name = "Haemophilus influenzae type b (Hib)", Info = " ", Time = 4 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 11, Name = "Pneumococcal conjugate (PCV13)", Info = " ", Time = 4 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 12, Name = "Inactivated poliovirus (IPV:<18 yrs)", Info = " ", Time = 4 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 13, Name = "Hepatitis B (HepB)", Info = " ", Time = 6 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 14, Name = "Diphtheria and tetanus toxoids and acellular pertussis (DTaP)", Info = " ", Time = 6 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 15, Name = "Pneumococcal conjugate (PCV13)", Info = " ", Time = 6 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 16, Name = "Inactivated poliovirus (IPV:<18 yrs)", Info = " ", Time = 6 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 17, Name = "Influenza (IIV)", Info = " ", Time = 6 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 18, Name = "Haemophilus influenzae type b (Hib)", Info = " ", Time = 12 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 19, Name = "Pneumococcal conjugate (PCV13)", Info = " ", Time = 12 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 20, Name = "Measles, mumps, rubella (MMR)", Info = " ", Time = 12 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 21, Name = "Varicella (VAR)", Info = " ", Time = 12 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 22, Name = "Hepatitis A (HepA)", Info = " ", Time = 12 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 23, Name = "Diphtheria and tetanus toxoids and acellular pertussis (DTaP)", Info = " ", Time = 15 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 24, Name = "Influenza (IIV)", Info = " ", Time = 18 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 25, Name = "Hepatitis A (HepA) - Second Dose", Info = " ", Time = 24 });
-            Vaccines.Add(new VaccinationTable() { VaccinationID = 26, Name = "Influenza (IIV)", Info = " ", Time = 30 });
-        }
-        */
     }
 }
 
