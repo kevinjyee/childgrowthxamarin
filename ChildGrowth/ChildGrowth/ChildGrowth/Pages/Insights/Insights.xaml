@@ -75,12 +75,17 @@
                     <Image Source="blue_empty.png" Grid.Row="3" Grid.Column="0" />
                     <Label x:Name="LanguageDevelopment" Text="80%" Grid.Row="3" Grid.Column="0" TextColor="White" XAlign="Center" YAlign="Center" />
                     <Label x:Name="LDLabel" Text="Language Development" Grid.Row="3" Grid.Column="1" YAlign="Center" TextColor="#2e323f" />
-                    <Image Source="blue_empty.png" Grid.Row="4" Grid.Column="0" />
-                    <Label x:Name="SensoryAndMotory" Text="80%" Grid.Row="4" Grid.Column="0" TextColor="White" XAlign="Center" YAlign="Center" />
-                        <Label x:Name="SMLabel" Text="Sensory &amp; Motory Development" Grid.Row="4" Grid.Column="1" YAlign="Center" TextColor="#2e323f" />
                 </Grid>
                 <Label Text="Vaccinations" Grid.Row="0" Grid.Column="0" FontSize="25" TextColor="#2e323f" />
                 <ProgressBar x:Name="progressBar1"/>
+                <Label Text="Warnings" Grid.Row="0" Grid.Column="0" FontSize="25" TextColor="#2e323f" />
+                <ListView x:Name="listView1">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding WarningName}" TextColor="#2e323f"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackLayout>
         </StackLayout>
     </ScrollView>

@@ -78,6 +78,12 @@ namespace ChildGrowth.Pages.Vaccinations
             Scale = 2f
         };
 
+        Label progBarTitle = new Label
+        {
+            Text = "Vaccination Progress",
+            FontSize = 20,
+            TextColor = Color.WhiteSmoke
+        };
 
         public Vaccinations()
         {
@@ -131,6 +137,7 @@ namespace ChildGrowth.Pages.Vaccinations
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 Padding = new Thickness(0, 10, 0, 10),
                 Children = {
+                  progBarTitle,
                   vacProg,
                   vaccinationList
                   //vaccinationHistoryList
