@@ -403,12 +403,26 @@ namespace ChildGrowth.Pages.Insights
                 Tuple<double, double> acceptable = acceptableRange(data.weightPercentile);
                 if (wt < acceptable.Item1)
                 {
-                    warning.Add(new Warning { WarningName = CurrentChild.Name + " " + "is under the 5th percentile in weight" });
+                    if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+                    {
+                        warning.Add(new Warning { WarningName = CurrentChild.Name + " " + "is under the 5th percentile in weight" });
+                    }
+                    else
+                    {
+                        warning.Add(new Warning { WarningName = CurrentChild.Name + " " + "está bajo el 5 por ciento en peso" });
+                    }
                 }
 
                 if (wt > acceptable.Item2)
                 {
-                    warning.Add(new Warning { WarningName = CurrentChild.Name + " " + "is over the 95th percentile in weight" });
+                    if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+                    {
+                        warning.Add(new Warning { WarningName = CurrentChild.Name + " " + "is over the 95th percentile in weight" });
+                    }
+                    else
+                    {
+                        warning.Add(new Warning { WarningName = CurrentChild.Name + " " + "está sobre el 95 por ciento en peso" });
+                    }
                 }
             }
 
@@ -418,7 +432,14 @@ namespace ChildGrowth.Pages.Insights
                 Tuple<double, double> acceptable = acceptableRange(data.heightPercentile);
                 if (ht < acceptable.Item1)
                 {
-                    warning.Add(new Warning { WarningName = CurrentChild.Name + " " + "is under the 5th percentile in height" });
+                    if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+                    {
+                        warning.Add(new Warning { WarningName = CurrentChild.Name + " " + "is under the 5th percentile in height" });
+                    }
+                    else
+                    {
+                        warning.Add(new Warning { WarningName = CurrentChild.Name + " " + "está bajo el 5 por ciento en estatura" });
+                    }
                 }
             }
 
@@ -427,12 +448,27 @@ namespace ChildGrowth.Pages.Insights
                 Tuple<double, double> acceptable = acceptableRange(data.headPercentile);
                 if (hd < acceptable.Item1)
                 {
-                    warning.Add(new Warning { WarningName = CurrentChild.Name + " " + "is under the 5th percentile in head circumference" });
+
+                    if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+                    {
+                        warning.Add(new Warning { WarningName = CurrentChild.Name + " " + "is under the 5th percentile in head circumference" });
+                    }
+                    else
+                    {
+                        warning.Add(new Warning { WarningName = CurrentChild.Name + " " + "está bajo el 5 por ciento en circunferencia de cabeza" });
+                    }
                 }
 
                 if (hd > acceptable.Item2)
                 {
-                    warning.Add(new Warning { WarningName = CurrentChild.Name + " " + "is over the 95th percentile in head circumference" });
+                    if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+                    {
+                        warning.Add(new Warning { WarningName = CurrentChild.Name + " " + "is over the 95th percentile in head circumference" });
+                    }
+                    else
+                    {
+                        warning.Add(new Warning { WarningName = CurrentChild.Name + " " + "está sobre el 95 por ciento en circunferencia de cabeza" });
+                    }
                 }
             }
         }
