@@ -69,7 +69,7 @@ namespace ChildGrowth.Pages.Settings
 
         private void SetSpanish()
         {
-            SettingsTitle.Text = "Configuranción";
+            SettingsTitle.Text = "Configuración";
             LanguageTitle.Text = "Idioma";
             UnitsTitle.Text = "Sistema de Medidas";
         }
@@ -83,8 +83,8 @@ namespace ChildGrowth.Pages.Settings
             }
             else
             {
-                English.Source = ImageSource.FromFile("ingles.png");
-                Spanish.Source = ImageSource.FromFile("español_white.png");
+                English.Source = ImageSource.FromFile("english_sp_outline.png");
+                Spanish.Source = ImageSource.FromFile("spanish_sp_white.png");
             }
             if (CurrentContext.CurrentUnits.DistanceUnits == DistanceUnits.IN)
             {
@@ -125,8 +125,8 @@ namespace ChildGrowth.Pages.Settings
         void SpanishClicked(object sender, System.EventArgs e)
         {
             SetSpanish();
-            English.Source = ImageSource.FromFile("ingles.png");
-            Spanish.Source = ImageSource.FromFile("español_white.png");
+            English.Source = ImageSource.FromFile("english_sp_outline.png");
+            Spanish.Source = ImageSource.FromFile("spanish_sp_white.png");
             Task LanguageTask = Task.Run(async () => { await setLanguage(Language.SPANISH); });
             LanguageTask.Wait();
 
