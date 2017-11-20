@@ -84,6 +84,14 @@
                 </Grid>
                 <Label Text="Vaccinations" Grid.Row="0" Grid.Column="0" FontSize="25" TextColor="#2e323f" />
                 <ProgressBar x:Name="progressBar1"/>
+                <Label Text="Warnings" Grid.Row="0" Grid.Column="0" FontSize="25" TextColor="#2e323f" />
+                <ListView x:Name="listView1">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding WarningName}" TextColor="#2e323f"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackLayout>
         </StackLayout>
     </ScrollView>
