@@ -75,6 +75,10 @@ namespace ChildGrowth
         {
             InitializeComponent();
             UpdateDateSelectionEnabledStatus(false);
+            if (CurrentContext == null)
+            {
+                CurrentContext = Context.LoadCurrentContext();
+            }
             if (CurrentChild != null)
             {
                 TryLoadingMeasurementDataForDateAndChild(this.EntryDate.Date, CurrentChild);
@@ -86,6 +90,14 @@ namespace ChildGrowth
         {
             Task Load = Task.Run(async () => { await LoadContext(); });
             Load.Wait();
+            if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+            {
+                SetEnglish();
+            }
+            else
+            {
+                SetSpanish(); 
+            }
             if (CurrentChild != null)
             {
                 TryLoadingMeasurementDataForDateAndChild(this.EntryDate.Date, CurrentChild);
@@ -101,7 +113,12 @@ namespace ChildGrowth
             }
             else
             {
-                this.Title = "Please Select a Child";
+                if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+                {
+                    this.Title = "Please Select a Child";
+                } else{
+                    this.Title = "Porfavor Seleccione un Niño";
+                }
                 UpdateDateSelectionEnabledStatus(false);
             }
             */
@@ -124,6 +141,10 @@ namespace ChildGrowth
             //OnMeasurementClicked(CurrentMeasurementType);
             Device.BeginInvokeOnMainThread(() =>
             {
+                if (CurrentContext == null)
+                {
+                    CurrentContext = Context.LoadCurrentContext();
+                }
                 if (CurrentChild != null)
                 {
                     TryLoadingMeasurementDataForDateAndChild(this.EntryDate.Date, CurrentChild);
@@ -138,6 +159,10 @@ namespace ChildGrowth
         {
             Device.BeginInvokeOnMainThread(() =>
             {
+                if (CurrentContext == null)
+                {
+                    CurrentContext = Context.LoadCurrentContext();
+                }
                 OnMeasurementClicked(CurrentMeasurementType);
             });
         }
@@ -146,6 +171,10 @@ namespace ChildGrowth
         {
             Device.BeginInvokeOnMainThread(() =>
             {
+                if (CurrentContext == null)
+                {
+                    CurrentContext = Context.LoadCurrentContext();
+                }
                 if (CurrentChild != null)
                 {
                     this.Title = CurrentChild.Name;
@@ -153,7 +182,14 @@ namespace ChildGrowth
                 }
                 else
                 {
-                    this.Title = "Please Select a Child";
+                    if (CurrentContext?.CurrentLanguage == Language.ENGLISH)
+                    {
+                        this.Title = "Please Select a Child";
+                    }
+                    else
+                    {
+                        this.Title = "Porfavor Seleccione un Niño";
+                    }
                     UpdateDateSelectionEnabledStatus(false);
                 }
             });
@@ -198,6 +234,55 @@ namespace ChildGrowth
                 return true;
             }
 
+        }
+
+        private void SetEnglish()
+        {
+            MeasurementTitle.Text = "Measurements";
+            weightButton.Source = ImageSource.FromFile("weightunclicked.png");
+            heightButton.Source = ImageSource.FromFile("height_unclicked.png");
+            headButton.Source = ImageSource.FromFile("head_circumference_unclicked.png");
+            TableTitle.Title = "Date";
+            DateLabel.Text = "Entry Date:";
+            TableTitleTwo.Title = "Measurements";
+            if (CurrentContext.CurrentUnits.DistanceUnits == DistanceUnits.CM){
+                HeightEntry.Label = "Height (cm): ";
+                WeightEntry.Label = "Weight (oz): ";
+                HeadEntry.Label = "Head Circumeference (cm): ";
+            } 
+            else
+            {
+                HeightEntry.Label = "Height (in): ";
+                WeightEntry.Label = "Weight (lbs): ";
+                HeadEntry.Label = "Head Circumeference (in): ";
+            }
+            submitButton.Text = "Submit";
+            cancelButton.Text = "Cancel";
+        }
+
+        private void SetSpanish()
+        {
+            MeasurementTitle.Text = "Medidas";
+            weightButton.Source = ImageSource.FromFile("weightunclicked_sp.png");
+            heightButton.Source = ImageSource.FromFile("height_unclicked_sp.png");
+            headButton.Source = ImageSource.FromFile("head_circumference_unclicked_sp.png");
+            TableTitle.Title = "Fecha";
+            DateLabel.Text = "Fecha:";
+            TableTitleTwo.Title = "Medidas";
+            if (CurrentContext.CurrentUnits.DistanceUnits == DistanceUnits.CM)
+            {
+                HeightEntry.Label = "Estatura (cm): ";
+                WeightEntry.Label = "Peso (oz): ";
+                HeadEntry.Label = "Circunferencia de Cabeza (cm): ";
+            }
+            else
+            {
+                HeightEntry.Label = "Estatura (in): ";
+                WeightEntry.Label = "Peso (lbs): ";
+                HeadEntry.Label = "Circunferencia de Cabeza (in): ";
+            }
+            submitButton.Text = "Guardar";
+            cancelButton.Text = "Cancelar";
         }
 
         void OnSettingsClicked(object sender, System.EventArgs e)
@@ -276,6 +361,17 @@ namespace ChildGrowth
                 {
                     
                 }
+
+                List<Points> points = _currentChild.GetSortedMeasurementListByType(MeasurementType.WEIGHT);
+                if (points == null)
+                {
+                    _currentChild.AddMeasurementForDateAndType(_currentChild.Birthday, MeasurementType.WEIGHT, CurrentContext.CurrentUnits, 0.0);
+                    return;
+                }
+                foreach (Points pt in points)
+                {
+                    viewModel.InputData.Add(pt);
+                }
             }
             
           
@@ -284,7 +380,7 @@ namespace ChildGrowth
         async Task OnMeasurementClicked(MeasurementType measurementType)
         {
             CurrentMeasurementType = measurementType;
-            String measurementTitle = MeasurementEnums.MeasurementTypeAsString(measurementType);
+            String measurementTitle = MeasurementEnums.MeasurementTypeAsString(measurementType, CurrentContext.CurrentLanguage);
             viewModel.ChartTitle = measurementTitle;
             GrowthChart.Text = measurementTitle;
             try
@@ -297,9 +393,28 @@ namespace ChildGrowth
                 viewModel = new ViewModel();
                 viewModel.ChartTitle = measurementTitle;
             }
-            if(CurrentChild == null)
+            if (CurrentChild == null)
             {
                 return;
+            }
+            GrowthChart.Text = measurementTitle;
+            viewModel.InputData.Clear();
+            if(CurrentChild == null)
+            {
+                if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+                {
+                    await DisplayAlert("Error",
+                                       "Please select a child",
+                                       "OK");
+                    return;
+                }
+                else
+                {
+                    await DisplayAlert("Error",
+                                       "Porfavor seleccione un niño",
+                                       "OK");
+                    return;
+                }
             }
             List<Points> points = CurrentChild.GetSortedMeasurementListByType(measurementType);
             if (points == null)

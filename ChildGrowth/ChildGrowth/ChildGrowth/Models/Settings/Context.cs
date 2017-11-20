@@ -42,7 +42,7 @@ namespace ChildGrowth.Models.Settings
         /**
          * Retrieve Child from database corresponding to the current value of ChildID. Return null if Context null or if no child selected for context.
          **/
-        public  Child GetSelectedChild()
+        public Child GetSelectedChild()
         {
             if (this == null)
             {
@@ -60,6 +60,49 @@ namespace ChildGrowth.Models.Settings
                 return null;
             }
 
+        }
+
+        public static Context LoadCurrentContext()
+        {
+            ContextDatabaseAccess contextDB = new ContextDatabaseAccess();
+            contextDB.InitializeSync();
+            Context CurrentContext;
+            try
+            {
+                CurrentContext = contextDB.GetContextSync();
+            }
+            // Can't find definitions for SQLiteNetExtensions exceptions, so catch generic Exception e and assume there is no context.
+            catch (Exception e)
+            {
+                CurrentContext = null;
+                //contextDB.CloseSyncConnection();
+            }
+            // If context doesn't exist, create it, save it, and populate vaccine/milestones databases.
+            if (CurrentContext == null)
+            {
+                CurrentContext = new Context();
+                // Exception probably broke the synchronous connection.
+                //contextDB.InitializeSync();
+                ContextDatabaseAccess newContextDB = new ContextDatabaseAccess();
+                newContextDB.InitializeSync();
+                newContextDB.SaveFirstContextSync(CurrentContext);
+                newContextDB.CloseSyncConnection();
+                Task tVaccine = Task.Run(async () =>
+                {
+                    await VaccineTableConstructor.ConstructVaccineTable();
+                });
+                tVaccine.Wait();
+                Task tMilestone = Task.Run(async () =>
+                {
+                    MilestonesTableConstructor.ConstructMilestonesTable();
+                });
+                tMilestone.Wait();
+                return CurrentContext;
+            }
+            else
+            {
+                return CurrentContext;
+            }
         }
 
         public Context()

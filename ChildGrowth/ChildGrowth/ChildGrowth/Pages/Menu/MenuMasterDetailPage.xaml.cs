@@ -11,6 +11,7 @@ namespace ChildGrowth.Pages.Menu
 {
     public partial class MenuMasterDetailPage : MasterDetailPage
     {
+        
         private Page MainPage { get; set; }
         private MainPage CastMainPage { get; set; }
         private Page Milestones { get; set; }
@@ -20,19 +21,35 @@ namespace ChildGrowth.Pages.Menu
         private Page Education { get; set; }
         private Page Insights { get; set; }
         private Insights.Insights CastInsightsPage { get; set; }
+        private Context CurrentContext { get; set; }
+
         public MenuMasterDetailPage()
         {
             InitializeComponent();
             CastMainPage = new MainPage();
-            MainPage = (new NavigationPage(CastMainPage){ Icon = "measurements.png", Title = "Measurements" });
             CastMilestonesPage = new Milestones.Milestones();
-            Milestones = (new NavigationPage(CastMilestonesPage) { Icon = "milestones.png", Title = "Milestones" });
             CastVaccinationsPage = new Vaccinations.Vaccinations();
-            Vaccinations = (new NavigationPage(CastVaccinationsPage){ Icon = "vaccinations.png", Title = "Vaccinations" });
-            Education = (new NavigationPage(new Education.Education()) { Icon = "education.png", Title = "Education" });
             CastInsightsPage = new Insights.Insights();
-            Insights = (new NavigationPage(CastInsightsPage) { Icon = "insights.png", Title = "Insights" }); 
-
+            if (CurrentContext == null)
+            {
+                CurrentContext = Context.LoadCurrentContext();
+            }
+            if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+            {
+                MainPage = (new NavigationPage(CastMainPage) { Icon = "measurements.png", Title = "Measurements" });
+                Milestones = (new NavigationPage(CastMilestonesPage) { Icon = "milestones.png", Title = "Milestones" });
+                Vaccinations = (new NavigationPage(CastVaccinationsPage) { Icon = "vaccinations.png", Title = "Vaccinations" });
+                Education = (new NavigationPage(new Education.Education()) { Icon = "education.png", Title = "Education" });
+                Insights = (new NavigationPage(CastInsightsPage) { Icon = "insights.png", Title = "Insights" });
+            }
+            else
+            {
+                MainPage = (new NavigationPage(CastMainPage) { Icon = "measurements.png", Title = "Medidas" });
+                Milestones = (new NavigationPage(CastMilestonesPage) { Icon = "milestones.png", Title = "Hito" });
+                Vaccinations = (new NavigationPage(CastVaccinationsPage) { Icon = "vaccinations.png", Title = "Vacunas" });
+                Education = (new NavigationPage(new Education.Education()) { Icon = "education.png", Title = "Educación" });
+                Insights = (new NavigationPage(CastInsightsPage) { Icon = "insights.png", Title = "Resumen" });  
+            }
             TabbedPage.Children.Add(MainPage);
             TabbedPage.Children.Add(Milestones);
             TabbedPage.Children.Add(Vaccinations);
@@ -93,7 +110,8 @@ namespace ChildGrowth.Pages.Menu
             CastInsightsPage.CurrentChild = c;
         }
 
-        async private Task<Boolean> UpdateChild(Child child){
+        async private Task<Boolean> UpdateChild(Child child)
+        {
             Context CurrentContext;
             ContextDatabaseAccess contextDB = new ContextDatabaseAccess();
             contextDB.InitializeSync();
@@ -106,7 +124,6 @@ namespace ChildGrowth.Pages.Menu
             {
                 CurrentContext = null;
             }
-            // If context doesn't exist, create it and pass child selected with default units.
             if (CurrentContext == null)
             {
                 if (child == null)
@@ -122,8 +139,9 @@ namespace ChildGrowth.Pages.Menu
                 contextDB.CloseSyncConnection();
                 return true;
             }
-            else{
-                if(child == null)
+            else
+            {
+                if (child == null)
                 {
                     CurrentContext.ChildId = -1;
                 }
@@ -138,7 +156,6 @@ namespace ChildGrowth.Pages.Menu
             }
         }
 
-      
         async private void UpdateChildList()
         {
             ChildDatabaseAccess childDatabase = new ChildDatabaseAccess();
@@ -153,10 +170,75 @@ namespace ChildGrowth.Pages.Menu
             await Navigation.PushModalAsync(childEntryPage);
         }
 
+        async private Task SetContext()
+        {
+            ContextDatabaseAccess contextDB = new ContextDatabaseAccess();
+            await contextDB.InitializeAsync();
+            try
+            {
+                CurrentContext = contextDB.GetContextAsync().Result;
+            }
+            // Can't find definitions for SQLiteNetExtensions exceptions, so catch generic Exception e and assume there is no context.
+            catch (Exception e)
+            {
+                CurrentContext = null;
+            }
+            if (CurrentContext == null)
+            {
+                CurrentContext = new Context(-1, Language.ENGLISH, new Units(DistanceUnits.IN, WeightUnits.OZ));
+            }
+            await contextDB.SaveContextAsync(CurrentContext);
+        }
+
+        protected override void OnDisappearing()
+        {
+            Task set = Task.Run(async () => { await SetContext(); });
+            set.Wait();
+            if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+            {
+                SetEnglish();
+            }
+            else
+            {
+                SetSpanish();
+            }
+            UpdateChildList();
+        }
+
         override
         protected void OnAppearing()
         {
+            Task set = Task.Run(async () => { await SetContext(); });
+            set.Wait();
+            if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+            {
+                SetEnglish();
+            }
+            else 
+            {
+                SetSpanish();
+            }
             UpdateChildList();
+        }
+
+        private void SetEnglish()
+        {
+            ListTitle.Text = "Children";
+            AddButton.Text = "Add New Children";
+
+        }
+
+        private void SetSpanish()
+        {
+            ListTitle.Text = "Niños";
+            AddButton.Text = "Añadir un nuevo niño";
+        }
+
+        async void OnEdit(object sender, System.EventArgs e)
+        {
+            MenuItem item = (MenuItem)sender;
+            Child C = (Child)item.CommandParameter;
+            await Navigation.PushModalAsync(new EditChild(C));
         }
 
         async void OnDelete(object sender, System.EventArgs e)

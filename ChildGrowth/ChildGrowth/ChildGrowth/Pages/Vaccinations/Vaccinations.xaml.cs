@@ -39,6 +39,8 @@ namespace ChildGrowth.Pages.Vaccinations
             }
         }
 
+        private Context CurrentContext { get; set; }
+
         public static List<Vaccine> Vaccines = new List<Vaccine>();
 
         private static int numberItemsTappedHandlersBound = 0;
@@ -58,7 +60,8 @@ namespace ChildGrowth.Pages.Vaccinations
         ProgressBar vacProg = new ProgressBar
         {
             Progress = percentprog,
-        };
+            MinimumHeightRequest = 12f
+    };
 
 
         public Vaccinations()
@@ -136,6 +139,14 @@ namespace ChildGrowth.Pages.Vaccinations
             UpdateVaccineList();
             UpdateProgressBar();
             /*
+            if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+            {
+                SetEnglish();
+            }
+            else
+            {
+                SetSpanish();
+            }
             if (CurrentChild != null)
             {
                 this.Title = CurrentChild.Name;
@@ -145,7 +156,14 @@ namespace ChildGrowth.Pages.Vaccinations
             }
             else
             {
-                this.Title = "Please Select a Child";
+                if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+                {
+                    this.Title = "Please Select a Child";
+                } 
+                else
+                {
+                    this.Title = "Porfavor Seleccione un niño";
+                }
                 Vaccines = new List<Vaccine>();
                 initializeVaccinations();
                 updateProgBar();
@@ -157,13 +175,25 @@ namespace ChildGrowth.Pages.Vaccinations
         {
             Device.BeginInvokeOnMainThread(() =>
             {
+                if (CurrentContext == null)
+                {
+                    CurrentContext = Context.LoadCurrentContext();
+                }
                 if (CurrentChild != null)
                 {
                     this.Title = CurrentChild.Name;
+
                 }
                 else
                 {
-                    this.Title = "Please Select a Child";
+                    if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+                    {
+                        this.Title = "Please Select a Child";
+                    }
+                    else
+                    {
+                        this.Title = "Porfavor Seleccione un niño";
+                    }
                 }
             });
         }
@@ -195,7 +225,6 @@ namespace ChildGrowth.Pages.Vaccinations
 
         private async Task<Boolean> LoadContext()
         {
-            Context CurrentContext;
             ContextDatabaseAccess contextDB = new ContextDatabaseAccess();
             await contextDB.InitializeAsync();
             try

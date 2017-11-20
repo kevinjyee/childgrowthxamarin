@@ -50,7 +50,8 @@ namespace ChildGrowth.Pages.Milestones
                 foreach(MilestoneWithResponse item in responseList)
                 {
                     Milestone m = item.Milestone;
-                    milestonesInfo.Add(new MilestonesInfo { MonthDue = m.MilestoneDueDate,
+                    milestonesInfo.Add(new MilestonesInfo { ID = m.ID,
+                                                            MonthDue = m.MilestoneDueDate,
                                                             CategoryName = m.Category,
                                                             CategoryDescription = m.QuestionText,
                                                             ImageURL = m.Media,

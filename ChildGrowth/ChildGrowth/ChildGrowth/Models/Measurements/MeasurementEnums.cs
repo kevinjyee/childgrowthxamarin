@@ -1,39 +1,45 @@
-﻿using System;
+﻿using ChildGrowth.Models.Settings;
+using System;
 
 public static class MeasurementEnums
 {
 
-    public static String MeasurementTypeAsString(MeasurementType measurementType)
+    public static String MeasurementTypeAsString(MeasurementType measurementType, Language language)
     {
+        if(language == null || language == Language.ENGLISH)
+        {
+            switch (measurementType)
+            {
+                case MeasurementType.HEIGHT:
+                    return HEIGHT_STRING_ENG;
+                case MeasurementType.WEIGHT:
+                    return WEIGHT_STRING_ENG;
+                case MeasurementType.HEAD_CIRCUMFERENCE:
+                    return HEAD_CIRCUMFERENCE_STRING_ENG;
+                default:
+                    return "";
+            }
+        }
+        // Spanish language settings.
         switch(measurementType)
         {
             case MeasurementType.HEIGHT:
-                return HEIGHT_STRING;
+                return HEIGHT_STRING_SPANISH;
             case MeasurementType.WEIGHT:
-                return WEIGHT_STRING;
+                return WEIGHT_STRING_SPANISH;
             case MeasurementType.HEAD_CIRCUMFERENCE:
-                return HEAD_CIRCUMFERENCE_STRING;
+                return HEAD_CIRCUMFERENCE_STRING_SPANISH;
             default:
                 return "";
         }
-        if (measurementType == MeasurementType.HEIGHT)
-        {
-            return HEIGHT_STRING;
-        }
-        if (measurementType == MeasurementType.WEIGHT)
-        {
-            return WEIGHT_STRING;
-        }
-        if (measurementType == MeasurementType.HEAD_CIRCUMFERENCE)
-        {
-            return HEAD_CIRCUMFERENCE_STRING;
-        }
-        else return "";
     }
 
-    public static readonly String HEIGHT_STRING = "Height";
-    public static readonly String WEIGHT_STRING = "Weight";
-    public static readonly String HEAD_CIRCUMFERENCE_STRING = "Head Circumference";
+    public static readonly String HEIGHT_STRING_ENG = "Height";
+    public static readonly String HEIGHT_STRING_SPANISH = "Estatura";
+    public static readonly String WEIGHT_STRING_ENG = "Weight";
+    public static readonly String WEIGHT_STRING_SPANISH = "Peso";
+    public static readonly String HEAD_CIRCUMFERENCE_STRING_ENG = "Head Circumference";
+    public static readonly String HEAD_CIRCUMFERENCE_STRING_SPANISH = "Circunferencia de la Cabeza";
 
 }
 

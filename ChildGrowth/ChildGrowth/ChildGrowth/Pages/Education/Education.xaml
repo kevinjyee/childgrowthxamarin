@@ -9,7 +9,7 @@
     <ContentPage.Content>
         <StackLayout Padding="20, 30, 20, 30">
 
-            <Label Text="Education Page" FontSize="Large" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
+            <Label x:Name="PageTitle" Text="Education" TextColor="Black" FontSize="40" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
 
 
             <Grid ColumnSpacing ="0">
@@ -43,28 +43,28 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Row 0 Behavior and Learning -->
-                <controls:ImageButton Source="behavior" Grid.Column="0" Grid.Row="0" Clicked="BehaviorButtonClick" Orientation="ImageOnBottom"
+                <controls:ImageButton x:Name="BehaviorButton" Source="behavior" Grid.Column="0" Grid.Row="0" Clicked="BehaviorButtonClick" Orientation="ImageOnBottom"
                                       BackgroundColor="Transparent" HeightRequest="150" WidthRequest="380" ImageHeightRequest="150" ImageWidthRequest="300" />
 
-                <controls:ImageButton Source="learning" Grid.Column="1" Grid.Row="0" Clicked="LearningButtonClick" Orientation="ImageOnBottom"
+                <controls:ImageButton x:Name="LearningButton" Source="learning" Grid.Column="1" Grid.Row="0" Clicked="LearningButtonClick" Orientation="ImageOnBottom"
                                       BackgroundColor="Transparent" HeightRequest="150" WidthRequest="380" ImageHeightRequest="150" ImageWidthRequest="300" />
 
                 <!-- Row 1 Safety and Playing -->
-                <controls:ImageButton Source="safety" Grid.Column="0" Grid.Row="1" Clicked="SafetyButtonClick" Orientation="ImageOnBottom"
+                <controls:ImageButton x:Name="SafetyButton" Source="safety" Grid.Column="0" Grid.Row="1" Clicked="SafetyButtonClick" Orientation="ImageOnBottom"
                                       BackgroundColor="Transparent" HeightRequest="150" WidthRequest="300" ImageHeightRequest="150" ImageWidthRequest="300" />
 
-                <controls:ImageButton Source="play" Grid.Column="1" Grid.Row="1" Clicked="PlayButtonClick" Orientation="ImageOnBottom"
+                <controls:ImageButton x:Name="PlayButton" Source="play" Grid.Column="1" Grid.Row="1" Clicked="PlayButtonClick" Orientation="ImageOnBottom"
                                       BackgroundColor="Transparent" HeightRequest="150" WidthRequest="300" ImageHeightRequest="150" ImageWidthRequest="300" />
 
                 <!-- Row 2 Toilet and Diseases-->
-                <controls:ImageButton Source="toilet_training" Grid.Column="0" Grid.Row="2" Clicked="ToiletTrainingButtonClick" Orientation="ImageOnBottom"
+                <controls:ImageButton x:Name="ToiletButton" Source="toilet_training" Grid.Column="0" Grid.Row="2" Clicked="ToiletTrainingButtonClick" Orientation="ImageOnBottom"
                                       BackgroundColor="Transparent" HeightRequest="150" WidthRequest="300" ImageHeightRequest="150" ImageWidthRequest="300" />
 
-                <controls:ImageButton Source="diseases" Grid.Column="1" Grid.Row="2" Clicked="DiseasesButtonClick" Orientation="ImageOnBottom"
+                <controls:ImageButton x:Name="DiseasesButton" Source="diseases" Grid.Column="1" Grid.Row="2" Clicked="DiseasesButtonClick" Orientation="ImageOnBottom"
                                       BackgroundColor="Transparent" HeightRequest="150" WidthRequest="300" ImageHeightRequest="150" ImageWidthRequest="300" />
 
                 <!-- Row 3 Doctor Visits and Year 1 Buttons-->
-                <controls:ImageButton Source="doctor_visits" Grid.Column="0" Grid.Row="3" Clicked="DoctorVisitsButtonClick" Orientation="ImageOnBottom"
+                <controls:ImageButton x:Name="DoctorButton" Source="doctor_visits" Grid.Column="0" Grid.Row="3" Clicked="DoctorVisitsButtonClick" Orientation="ImageOnBottom"
                                       BackgroundColor="Transparent" HeightRequest="150" WidthRequest="300" ImageHeightRequest="150" ImageWidthRequest="300" />
 
 
