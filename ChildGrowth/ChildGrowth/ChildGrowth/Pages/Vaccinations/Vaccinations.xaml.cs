@@ -114,6 +114,7 @@ namespace ChildGrowth.Pages.Vaccinations
         {
             Progress = percentprog,
             Scale = 2f
+            //Color = Color.FromRgb(94 - 50, 196 - 50, 225 - 50)
         };
 
         Label progBarTitle = new Label

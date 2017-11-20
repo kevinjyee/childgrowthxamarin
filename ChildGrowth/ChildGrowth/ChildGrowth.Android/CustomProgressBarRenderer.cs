@@ -17,6 +17,7 @@ namespace ChildGrowth.Android.Renderers
 
             //Control.ProgressTintList = Android.Content.Res.ColorStateList.ValueOf(Color.AliceBlue()); //Change the color
             Control.ScaleY = 30; //Changes the height
+            Control.ScaleX = 0.5f;
 
         }
     }
