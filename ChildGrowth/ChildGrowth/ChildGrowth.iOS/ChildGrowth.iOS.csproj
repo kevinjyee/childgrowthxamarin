@@ -179,6 +179,10 @@
     <BundleResource Include="Resources\weightunclicked_sp.png" />
     <BundleResource Include="Resources\120x120.png" />
     <BundleResource Include="Resources\180x180.png" />
+    <BundleResource Include="Resources\español_white.png" />
+    <BundleResource Include="Resources\español.png" />
+    <BundleResource Include="Resources\ingles_white.png" />
+    <BundleResource Include="Resources\ingles.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ExifLib, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">

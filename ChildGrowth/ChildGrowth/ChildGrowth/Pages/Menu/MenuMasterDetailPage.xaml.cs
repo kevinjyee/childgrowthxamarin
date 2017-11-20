@@ -35,7 +35,7 @@ namespace ChildGrowth.Pages.Menu
             else
             {
                 MainPage = (new NavigationPage(new MainPage()) { Icon = "measurements.png", Title = "Medidas" });
-                Milestones = (new NavigationPage(new Milestones.Milestones()) { Icon = "milestones.png", Title = "Hito" });
+                Milestones = (new NavigationPage(new Milestones.Milestones()) { Icon = "milestones.png", Title = "Alcances" });
                 Vaccinations = (new NavigationPage(new Vaccinations.Vaccinations()) { Icon = "vaccinations.png", Title = "Vacunas" });
                 Education = (new NavigationPage(new Education.Education()) { Icon = "education.png", Title = "Educación" });
                 Insights = (new NavigationPage(new Insights.Insights()) { Icon = "insights.png", Title = "Resumen" });  
