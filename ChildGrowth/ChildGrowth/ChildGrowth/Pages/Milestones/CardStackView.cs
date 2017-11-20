@@ -302,7 +302,7 @@ namespace ChildGrowth.Pages.Milestones
                 topCard.TranslateTo(0, -topCard.Y, 0);
 
                 // set the data
-                topCard.Name.Text = ItemsSource[itemIndex].Name;
+                topCard.Name.Text = GetNameFromCategory(ItemsSource[itemIndex].Name);
                 topCard.Description.Text = ItemsSource[itemIndex].Description;
 
                 topCard.Photo.Source = ImageSource.FromUri(ItemsSource[itemIndex].Photo);

@@ -50,7 +50,7 @@ namespace ChildGrowth.Models
             }
             catch(Exception e)
             {
-                return "";
+                return categoryString;
             }
         }
 

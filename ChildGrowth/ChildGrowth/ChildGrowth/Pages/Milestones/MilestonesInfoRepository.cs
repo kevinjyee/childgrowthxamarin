@@ -52,7 +52,7 @@ namespace ChildGrowth.Pages.Milestones
                     Milestone m = item.Milestone;
                     milestonesInfo.Add(new MilestonesInfo { ID = m.ID,
                                                             MonthDue = m.MilestoneDueDate,
-                                                            CategoryName = m.Category,
+                                                            CategoryName = MilestoneCategoryStringConverter.GetStringForCategoryString(m.Category),
                                                             CategoryDescription = m.QuestionText,
                                                             ImageURL = m.Media,
                                                             Answer = item.Answer});
