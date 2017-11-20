@@ -148,6 +148,7 @@ namespace ChildGrowth
             UpdateTitle();
             UpdateGraph();
             UpdateSelectedMeasurements();
+            UpdateButtons();
             /*
             if (CurrentChild != null)
             {
@@ -166,6 +167,56 @@ namespace ChildGrowth
             }
             */
         }
+
+        protected void UpdateButtons()
+        {
+            if (CurrentMeasurementType == MeasurementType.WEIGHT)
+            {
+                if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+                {
+                    weightButton.Source = ImageSource.FromFile("weight_clicked.png");
+                    heightButton.Source = ImageSource.FromFile("height_unclicked.png");
+                    headButton.Source = ImageSource.FromFile("head_circumference_unclicked.png");
+                }
+                else
+                {
+                    weightButton.Source = ImageSource.FromFile("weight_sp_blue.png");
+                    heightButton.Source = ImageSource.FromFile("height_unclicked_sp.png");
+                    headButton.Source = ImageSource.FromFile("head_circumference_unclicked_sp.png");
+                }
+            }
+            else if (CurrentMeasurementType == MeasurementType.HEIGHT)
+            {
+                if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+                {
+                    weightButton.Source = ImageSource.FromFile("weightunclicked.png");
+                    heightButton.Source = ImageSource.FromFile("height_clicked.png");
+                    headButton.Source = ImageSource.FromFile("head_circumference_unclicked.png");
+                }
+                else
+                {
+                    weightButton.Source = ImageSource.FromFile("weight_sp.png");
+                    heightButton.Source = ImageSource.FromFile("height_sp_blue.png");
+                    headButton.Source = ImageSource.FromFile("head_circumference_unclicked_sp.png");
+                }
+            }
+            else
+            {
+                if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+                {
+                    weightButton.Source = ImageSource.FromFile("weightunclicked.png");
+                    heightButton.Source = ImageSource.FromFile("height_unclicked.png");
+                    headButton.Source = ImageSource.FromFile("head_circumference_clicked.png");
+                }
+                else
+                {
+                    weightButton.Source = ImageSource.FromFile("weight_sp.png");
+                    heightButton.Source = ImageSource.FromFile("height_sp.png");
+                    headButton.Source = ImageSource.FromFile("head_circumference_sp_blue.png");
+                }
+            }
+        }
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -537,18 +588,54 @@ namespace ChildGrowth
 
        async void OnWeightClicked(object sender, EventArgs args)
         {
+            if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+            {
+                weightButton.Source = ImageSource.FromFile("weight_clicked.png");
+                heightButton.Source = ImageSource.FromFile("height_unclicked.png");
+                headButton.Source = ImageSource.FromFile("head_circumference_unclicked.png");
+            }
+            else
+            {
+                weightButton.Source = ImageSource.FromFile("weight_sp_blue.png");
+                heightButton.Source = ImageSource.FromFile("height_unclicked_sp.png");
+                headButton.Source = ImageSource.FromFile("head_circumference_unclicked_sp.png");
+            }
             await OnMeasurementClicked(MeasurementType.WEIGHT);
         }
 
         //TODO STEFAN: Prompt a change of graph
         async void OnHeightClicked(object sender, EventArgs args)
         {
+            if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+            {
+                weightButton.Source = ImageSource.FromFile("weightunclicked.png");
+                heightButton.Source = ImageSource.FromFile("height_clicked.png");
+                headButton.Source = ImageSource.FromFile("head_circumference_unclicked.png");
+            }
+            else
+            {
+                weightButton.Source = ImageSource.FromFile("weight_sp.png");
+                heightButton.Source = ImageSource.FromFile("height_sp_blue.png");
+                headButton.Source = ImageSource.FromFile("head_circumference_unclicked_sp.png");
+            }
             await OnMeasurementClicked(MeasurementType.HEIGHT);
         }
 
         //TODO STEFAN: Prompt a change of graph
         async void OnHeadClicked(object sender, EventArgs args)
         {
+            if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+            {
+                weightButton.Source = ImageSource.FromFile("weightunclicked.png");
+                heightButton.Source = ImageSource.FromFile("height_unclicked.png");
+                headButton.Source = ImageSource.FromFile("head_circumference_clicked.png");
+            }
+            else
+            {
+                weightButton.Source = ImageSource.FromFile("weight_sp.png");
+                heightButton.Source = ImageSource.FromFile("height_sp.png");
+                headButton.Source = ImageSource.FromFile("head_circumference_sp_blue.png");
+            }
             await OnMeasurementClicked(MeasurementType.HEAD_CIRCUMFERENCE);
         }
 

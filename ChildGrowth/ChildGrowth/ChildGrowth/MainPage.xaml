@@ -30,7 +30,7 @@
                             <ColumnDefinition Width="98" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <controls:ImageButton x:Name="weightButton" Source="weightunclicked" Grid.Column="0" Grid.Row="0" Clicked="OnWeightClicked"
+                        <controls:ImageButton x:Name="weightButton" Source="weightclicked" Grid.Column="0" Grid.Row="0" Clicked="OnWeightClicked"
                                           BackgroundColor="Transparent"  ImageHeightRequest="80" ImageWidthRequest="165" />
                         <controls:ImageButton x:Name="heightButton" Source="height_unclicked" Grid.Column="1" Grid.Row="0" Clicked="OnHeightClicked"
                                           BackgroundColor="Transparent"  ImageHeightRequest="80" ImageWidthRequest="180"/>
