@@ -40,8 +40,8 @@ namespace ChildGrowth.Pages.Vaccinations
         ProgressBar vacProg = new ProgressBar
         {
             Progress = percentprog,
-            MinimumHeightRequest = 12f
-    };
+            Scale = 2f
+        };
 
 
         public Vaccinations()
