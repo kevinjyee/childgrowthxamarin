@@ -10,6 +10,7 @@ using ChildGrowth.Models.Settings;
 using ChildGrowth.Persistence;
 using ChildGrowth.Models.Milestones;
 using ChildGrowth.Models.Vaccinations;
+using System.Collections.ObjectModel;
 
 namespace ChildGrowth.Pages.Insights
 {
@@ -18,6 +19,7 @@ namespace ChildGrowth.Pages.Insights
     {
         public Child CurrentChild { get; set; }
         public Context CurrentContext { get; set; }
+        ObservableCollection<Warning> warning = new ObservableCollection<Warning>();
 
         override
         protected void OnAppearing()
@@ -230,13 +232,174 @@ namespace ChildGrowth.Pages.Insights
                     heightMeasurement.Text = maxDateofHeight == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofHeight, MeasurementType.HEIGHT).Value.ToString() + " in";
                     headCircumferenceMeasurement.Text = maxDateofHead == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofHead, MeasurementType.HEAD_CIRCUMFERENCE).Value.ToString() + " in";   
                 }
+
+                childBirthday.Text = CurrentChild.Birthday.ToString();
+                
+                // Update weights
+                weightMeasurement.Text = maxDateofWeight == DateTime.MinValue ? "NaN" :CurrentChild.GetMeasurementForDateAndType(maxDateofWeight, MeasurementType.WEIGHT).Value.ToString() + " oz";
+                heightMeasurement.Text = maxDateofHeight == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofHeight, MeasurementType.HEIGHT).Value.ToString() + " cm";
+                headCircumferenceMeasurement.Text = maxDateofHead == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofHead, MeasurementType.HEAD_CIRCUMFERENCE).Value.ToString()+ " cm";
+
+               Dictionary<Models.MilestoneCategory,List<MilestoneWithResponse>> milestonesPercDict = CurrentChild.GetMilestoneHistory();
+
+                List<MilestoneWithResponse> socialMilestones;
+                List<MilestoneWithResponse> cognitiveMilestones;
+                List<MilestoneWithResponse> commMilestones;
+                List<MilestoneWithResponse> movementMilestones;
+
+                milestonesPercDict.TryGetValue(Models.MilestoneCategory.SOCIAL_AND_EMOTIONAL, out socialMilestones);
+                milestonesPercDict.TryGetValue(Models.MilestoneCategory.COGNITIVE, out cognitiveMilestones);
+                milestonesPercDict.TryGetValue(Models.MilestoneCategory.COMMUNICATION, out commMilestones);
+                milestonesPercDict.TryGetValue(Models.MilestoneCategory.MOVEMENT, out movementMilestones);
+
+                emotionalAndSocial.Text = returnMilestonesPerc(socialMilestones).ToString() +"%";
+                physicalGrowth.Text = returnMilestonesPerc(movementMilestones).ToString() + "%";
+                LanguageDevelopment.Text = returnMilestonesPerc(commMilestones).ToString() + "%";
+                ThinkingAndReasoning.Text = returnMilestonesPerc(cognitiveMilestones).ToString() + "%";
+
+                progressBar1.Progress = CurrentChild.GetVaccinationCompletionPercentage();
+
+                listView1.ItemsSource = warning;
+                TimeSpan diff = DateTime.Today.Date - CurrentChild.Birthday.Date;
+                if (diff.Days < 365*3 )
+                {
+                    warning.Clear();
+                    findWarnings();
+                }
+                
+                if(warning.Count == 0)
+                {
+                    warning.Add(new Warning { WarningName = "No Warnings to show" });
+                }
+            }        
+
             }
             
-        }
+        
 
         void OnSettingsClicked(object sender, System.EventArgs e)
         {
             Navigation.PushAsync(new SettingsPage());
         }
+
+        double returnMilestonesPerc(List<MilestoneWithResponse> milestoneList)
+        {
+            if(milestoneList.Count ==0)
+            {
+                return 0;
+            }
+            return Math.Floor(((double) milestoneList.FindAll(p => p.Answer == BinaryAnswer.YES).Count() / milestoneList.Count())*100);
+        }
+
+        void findWarnings()
+        {
+            warning.Clear();
+
+            //Measurement Anonamlies
+            DateTime maxDateofWeight = CurrentChild.Measurements.weightData.Keys.Count == 0 ? DateTime.MinValue : CurrentChild.Measurements.weightData.Keys.Max();
+            DateTime maxDateofHeight = CurrentChild.Measurements.heightData.Keys.Count == 0 ? DateTime.MinValue : CurrentChild.Measurements.heightData.Keys.Max();
+            DateTime maxDateofHead = CurrentChild.Measurements.headCircumferenceData.Keys.Count == 0 ? DateTime.MinValue : CurrentChild.Measurements.headCircumferenceData.Keys.Max();
+
+            // Update weights
+            double wt = maxDateofWeight == DateTime.MinValue ? -1 : CurrentChild.GetMeasurementForDateAndType(maxDateofWeight, MeasurementType.WEIGHT).Value;
+            double ht = maxDateofHeight == DateTime.MinValue ? -1 : CurrentChild.GetMeasurementForDateAndType(maxDateofHeight, MeasurementType.HEIGHT).Value;
+            double hd = maxDateofHead == DateTime.MinValue ? -1 : CurrentChild.GetMeasurementForDateAndType(maxDateofHead, MeasurementType.HEAD_CIRCUMFERENCE).Value;
+            WHOData data = new WHOData();
+            
+            if (wt != -1)
+            {
+                Tuple<double, double> acceptable = acceptableRange(data.weightPercentile);
+                if (wt < acceptable.Item1)
+                {
+                    warning.Add(new Warning { WarningName = CurrentChild.Name +" " + "is under the 5th percentile in weight" });
+                }
+
+                if(wt > acceptable.Item2)
+                {
+                    warning.Add(new Warning { WarningName = CurrentChild.Name + " " + "is over the 95th percentile in weight" });
+                }
+            }
+
+            
+            if(ht != -1)
+            {
+                Tuple<double, double> acceptable = acceptableRange(data.heightPercentile);
+                if (ht < acceptable.Item1)
+                {
+                    warning.Add(new Warning { WarningName = CurrentChild.Name + " " + "is under the 5th percentile in height" });
+                }
+            }
+
+            if(hd != -1)
+            {
+                Tuple<double, double> acceptable = acceptableRange(data.headPercentile);
+                if (hd < acceptable.Item1)
+                {
+                    warning.Add(new Warning { WarningName = CurrentChild.Name + " " + "is under the 5th percentile in head circumference" });
+                }
+
+                if (hd > acceptable.Item2)
+                {
+                    warning.Add(new Warning { WarningName = CurrentChild.Name + " " + "is over the 95th percentile in head circumference" });
+                }
+            }
+        }
+
+        Tuple<double,double> acceptableRange(Dictionary<WHOData.Sex,Dictionary<WHOData.Percentile,List<double>>> data)
+        {
+            //Measurement Anonamlies
+            DateTime maxDateofWeight = CurrentChild.Measurements.weightData.Keys.Count == 0 ? DateTime.MinValue : CurrentChild.Measurements.weightData.Keys.Max();
+            DateTime maxDateofHeight = CurrentChild.Measurements.heightData.Keys.Count == 0 ? DateTime.MinValue : CurrentChild.Measurements.heightData.Keys.Max();
+            DateTime maxDateofHead = CurrentChild.Measurements.headCircumferenceData.Keys.Count == 0 ? DateTime.MinValue : CurrentChild.Measurements.headCircumferenceData.Keys.Max();
+
+            TimeSpan diff = maxDateofWeight - CurrentChild.Birthday;
+            double months = diff.TotalDays / 30.4;
+            
+            Dictionary<WHOData.Percentile, List<double>> weightData;
+
+            if (CurrentChild.ChildGender == Child.Gender.MALE)
+            {
+                data.TryGetValue(WHOData.Sex.Male, out weightData);
+            }
+            else
+            {
+                data.TryGetValue(WHOData.Sex.Female, out weightData);
+            }
+
+            List<double> P5WeightList;
+            List<double> P95WeightList;
+
+            weightData.TryGetValue(WHOData.Percentile.P5, out P5WeightList);
+            weightData.TryGetValue(WHOData.Percentile.P95, out P95WeightList);
+
+            double x = Math.Round(months * 2, MidpointRounding.AwayFromZero) / 2;
+
+            double acceptableP5Weight;
+            double acceptableP95Weight;
+
+            WHOData ageData = new WHOData();
+            if (x % 1 == 0)
+            {
+                double lowX = x - 0.5;
+                double highX = x + 0.5;
+                int ageLow = ageData.ageList.IndexOf(lowX);
+                int ageHigh = ageData.ageList.IndexOf(highX);
+                acceptableP5Weight = (P5WeightList[ageLow] + P5WeightList[ageHigh]) / 2;
+                acceptableP95Weight = (P95WeightList[ageLow] + P95WeightList[ageHigh]) / 2;
+            }
+            else
+            {
+                int age = ageData.ageList.IndexOf(x);
+                acceptableP5Weight = P5WeightList[age];
+                acceptableP95Weight = P95WeightList[age];
+            }
+
+            return new Tuple<double, double>(acceptableP5Weight, acceptableP95Weight);
+        }
+    }
+
+    public class Warning
+    {
+        public string WarningName { get; set; }
     }
 }
