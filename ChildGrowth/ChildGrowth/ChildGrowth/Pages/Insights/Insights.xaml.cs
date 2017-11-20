@@ -315,6 +315,7 @@ namespace ChildGrowth.Pages.Insights
                 }
                 childBirthday.Text = CurrentChild.Birthday.ToString();
 
+                /*
                 if (CurrentContext.CurrentUnits.DistanceUnits == DistanceUnits.CM)
                 {
                     weightMeasurement.Text = maxDateofWeight == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofWeight, MeasurementType.WEIGHT).Value.ToString() + " oz";
@@ -323,10 +324,10 @@ namespace ChildGrowth.Pages.Insights
                 }
                 else
                 {
-                    weightMeasurement.Text = maxDateofWeight == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofWeight, MeasurementType.WEIGHT).Value.ToString() + " lbs";
-                    heightMeasurement.Text = maxDateofHeight == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofHeight, MeasurementType.HEIGHT).Value.ToString() + " in";
-                    headCircumferenceMeasurement.Text = maxDateofHead == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofHead, MeasurementType.HEAD_CIRCUMFERENCE).Value.ToString() + " in";
-                }
+                */
+                weightMeasurement.Text = maxDateofWeight == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofWeight, MeasurementType.WEIGHT).Value.ToString() + " lbs";
+                heightMeasurement.Text = maxDateofHeight == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofHeight, MeasurementType.HEIGHT).Value.ToString() + " in";
+                headCircumferenceMeasurement.Text = maxDateofHead == DateTime.MinValue ? "NaN" : CurrentChild.GetMeasurementForDateAndType(maxDateofHead, MeasurementType.HEAD_CIRCUMFERENCE).Value.ToString() + " in";
 
                 childBirthday.Text = CurrentChild.Birthday.ToString();
 
