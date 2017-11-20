@@ -89,6 +89,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CustomProgressBarRenderer.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Persistence\iOSSQLiteConnectionInputGenerator.cs" />
@@ -326,8 +327,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\" />
     <Folder Include="Assets.xcassets\IconImage.appiconset\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\blue_no.png" />
