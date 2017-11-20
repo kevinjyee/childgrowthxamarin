@@ -1,7 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib" x:Class="ChildGrowth.Pages.AddChild.ChildEntry" BackgroundColor="#06A5BD">
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    x:Class="ChildGrowth.Pages.AddChild.EditChild"
+    BackgroundColor="#06A5BD">
     <StackLayout Margin="30, 30, 30, 30" Padding="0,50,0,0">
-        <Label x:Name="Title" Text="Add Child" TextColor="White" FontSize="40" XAlign="Center" />
+        <Label x:Name="Title" Text="Edit Child" TextColor="White" FontSize="40" XAlign="Center" />
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -10,9 +14,9 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label x:Name="NameLabel" Text="Name:" TextColor="White" FontSize="Medium" Grid.Row="0" Grid.Column="0" />
+            <Label x:Name="NameLabel" Text="Name:" TextColor="White" FontSize="Medium" Grid.Row="0" Grid.Column="0"  />
             <Entry x:Name="nameEntry" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" />
-            <Label x:Name="BirthLabel" Text="Date of Birth:" TextColor="White" FontSize="Medium" Grid.Row="1" Grid.Column="0" />
+            <Label x:Name="BirthLabel" Text="Date of Birth:" TextColor="White" FontSize="Medium" Grid.Row="1" Grid.Column="0"  />
             <DatePicker x:Name="birthdayEntry" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Date="{x:Static sys:DateTime.Now}" Format="MMM d yyyy" MaximumDate="{x:Static sys:DateTime.Now}">
                 <DatePicker.MinimumDate>
                     <sys:DateTime x:FactoryMethod="Parse">
@@ -22,7 +26,7 @@
                     </sys:DateTime>
                 </DatePicker.MinimumDate>
             </DatePicker>
-            <Label x:Name="SexLabel" Text="Sex" TextColor= "White" Grid.Row="2" Grid.Column="0" />           
+            <Label x:Name="SexLabel" Text="Sex:" TextColor= "White" Grid.Row="2" Grid.Column="0" />           
                 <Picker x:Name="SexEntry" Title="Select Sex" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
@@ -31,7 +35,8 @@
                     </x:Array>
                 </Picker.ItemsSource>
             </Picker>
-            <Button x:Name="AddChildButton" BackgroundColor="White" Text="Add Child" Clicked="AddChildButton_Clicked" Grid.Row="3" Grid.Column="2"/>
+            <Button x:Name="SaveChildButton" BackgroundColor="White" Text="Save" Clicked="SaveButton_Clicked" Grid.Row="3" Grid.Column="2"/>
         </Grid>
     </StackLayout>
+    
 </ContentPage>

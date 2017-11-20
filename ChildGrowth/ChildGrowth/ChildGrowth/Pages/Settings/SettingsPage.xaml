@@ -3,15 +3,21 @@
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="ChildGrowth.Pages.Settings.SettingsPage"
+    xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
     BackgroundColor="#06A5BD">
     <Grid Padding="20,20,20,20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <!--<RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>-->
             <RowDefinition Height="20"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="65"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="65"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -20,11 +26,25 @@
         </Grid.ColumnDefinitions>
         <Label Text="Settings" FontSize="40" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" XAlign="Center" TextColor="White" YAlign="Center"/>
         <Label Text="Language" FontSize="30" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" TextColor="White"/>
-        <Button x:Name="English" Image = "english_outline.png" Clicked="EnglishClicked" Grid.Row="3" Grid.Column="1"/>
-        <Button x:Name="Spanish" Image = "spanish_white.png" Clicked="SpanishClicked" Grid.Row="3" Grid.Column="2"/>
+        <!--<Button x:Name="English" Image = "english_outline.png" Clicked="EnglishClicked" Grid.Row="3" Grid.Column="1"/>-->
+
+        <controls:ImageButton x:Name="English" Source="english_white" Grid.Column="1" Grid.Row="3" Clicked="EnglishClicked" Orientation="ImageOnTop"
+                                      BackgroundColor="Transparent" ImageHeightRequest="113" ImageWidthRequest="240" />
+
+        <controls:ImageButton x:Name="Spanish" Source="spanish_outline" Grid.Column="2" Grid.Row="3" Clicked="SpanishClicked" Orientation="ImageOnTop"
+                                      BackgroundColor="Transparent" ImageHeightRequest="113" ImageWidthRequest="240" />
+
+        <!--<Button x:Name="Spanish" Image = "spanish_white.png" Clicked="SpanishClicked" Grid.Row="3" Grid.Column="2"/>-->
         <Label Text="Unit System" FontSize="30" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" TextColor="White"/>
-        <Button x:Name="Metric" Image = "cm_kg_white.png" Clicked="MetricClicked" Grid.Row="5" Grid.Column="2"/>
-        <Button x:Name="Imperial" Image = "inch_lb_outline.png" Clicked="ImperialClicked" Grid.Row="5" Grid.Column="1"/>
+        <!--<Button x:Name="Metric" Image = "cm_kg_white.png" Clicked="MetricClicked" Grid.Row="5" Grid.Column="2"/>-->
+
+        <controls:ImageButton x:Name="Imperial" Source="inch_lb_white" Grid.Column="1" Grid.Row="5" Clicked="ImperialClicked" Orientation="ImageOnTop"
+                                      BackgroundColor="Transparent" ImageHeightRequest="113" ImageWidthRequest="240" />
+
+        <controls:ImageButton x:Name="Metric" Source="cm_kg_outline" Grid.Column="2" Grid.Row="5" Clicked="MetricClicked" Orientation="ImageOnTop"
+                                      BackgroundColor="Transparent" ImageHeightRequest="113" ImageWidthRequest="240" />
+
+        <!--<Button x:Name="Imperial" Image = "inch_lb_outline.png" Clicked="ImperialClicked" Grid.Row="5" Grid.Column="1" HeightRequest="150" WidthRequest="380"/>-->
 
     </Grid>
 </ContentPage>

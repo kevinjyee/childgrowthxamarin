@@ -59,8 +59,9 @@
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: jdbravol@utexas.edu (SXEBE62444)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <CodesignProvision>iOS Team Provisioning Profile: com.yourcompany.childgrowth</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>none</DebugType>
@@ -164,6 +165,25 @@
     <BundleResource Include="Resources\yes_black.png" />
     <BundleResource Include="Resources\yes_blue.png" />
     <BundleResource Include="Resources\yes_white_outline.png" />
+    <BundleResource Include="Resources\behavior_sp.png" />
+    <BundleResource Include="Resources\diseases_sp.png" />
+    <BundleResource Include="Resources\doctor_visits_sp.png" />
+    <BundleResource Include="Resources\head_circumference_sp.png" />
+    <BundleResource Include="Resources\height_sp.png" />
+    <BundleResource Include="Resources\learning_sp.png" />
+    <BundleResource Include="Resources\play_sp.png" />
+    <BundleResource Include="Resources\safety_sp.png" />
+    <BundleResource Include="Resources\splashscreen_ios_1x.png" />
+    <BundleResource Include="Resources\splashscreen_ios_2x.png" />
+    <BundleResource Include="Resources\splashscreen_ios_512.png" />
+    <BundleResource Include="Resources\splashscreen_ios_1024.png" />
+    <BundleResource Include="Resources\splashscreen_ios_retina.png" />
+    <BundleResource Include="Resources\splashscreen.png" />
+    <BundleResource Include="Resources\toilet_training_sp.png" />
+    <BundleResource Include="Resources\weight_sp.png" />
+    <BundleResource Include="Resources\head_circumference_unclicked_sp.png" />
+    <BundleResource Include="Resources\height_unclicked_sp.png" />
+    <BundleResource Include="Resources\weightunclicked_sp.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ExifLib, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -355,6 +375,10 @@
     <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\splashscreen_ios_retina.png">
       <InProject>false</InProject>
     </ImageAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\no_blue_big.png" />
+    <AndroidResource Include="Resources\yes_blue_big.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />

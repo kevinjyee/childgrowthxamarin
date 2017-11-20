@@ -15,9 +15,55 @@ namespace ChildGrowth.Pages.AddChild
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ChildEntry : ContentPage
     {
+        private Context CurrentContext { get; set; }
+
         public ChildEntry()
         {
+            Task Load = Task.Run(async () => { await LoadContext(); });
+            Load.Wait();
             InitializeComponent();
+        }
+        private void SetSpanish()
+        {
+            Title.Text = "Agregar Niño";
+            NameLabel.Text = "Nombre:";
+            BirthLabel.Text = "Fecha de Nacimiento:";
+            SexLabel.Text = "Sexo:";
+            AddChildButton.Text = "Guardar";
+        }
+
+        private void SetEnglish()
+        {
+            Title.Text = "Edit Child";
+            NameLabel.Text = "Name:";
+            BirthLabel.Text = "Date of Birth:";
+            SexLabel.Text = "Sex:";
+            AddChildButton.Text = "Save";
+        }
+
+        private async Task LoadContext()
+        {
+            ContextDatabaseAccess contextDB = new ContextDatabaseAccess();
+            await contextDB.InitializeAsync();
+            try
+            {
+                CurrentContext = contextDB.GetContextAsync().Result;
+            }
+            // Can't find definitions for SQLiteNetExtensions exceptions, so catch generic Exception e and assume there is no context.
+            catch (Exception e)
+            {
+                CurrentContext = null;
+            }
+            // If context doesn't exist, create it, save it, and populate milestones databases.
+            if (CurrentContext == null)
+            {
+                CurrentContext = new Context();
+                // Exception probably broke the synchronous connection.
+                //contextDB.InitializeSync();
+                ContextDatabaseAccess newContextDB = new ContextDatabaseAccess();
+                await newContextDB.InitializeAsync();
+                newContextDB.SaveFirstContextAsync(CurrentContext);
+            }
         }
 
         async void AddChildButton_Clicked(object sender, EventArgs e)
@@ -67,7 +113,7 @@ namespace ChildGrowth.Pages.AddChild
                 }
                 ChildDatabaseAccess childDatabase = new ChildDatabaseAccess();
                 childDatabase.InitializeSync();
-                Child newChild = new Child(nameEntered, birthdayEntered, genderSelected);
+                Child newChild = new Child(nameEntered, birthdayEntered, newChildGender);
                 childDatabase.SaveUserChildSync(newChild);
                 childDatabase.CloseSyncConnection();
                 ContextDatabaseAccess contextDB = new ContextDatabaseAccess();
@@ -82,20 +128,5 @@ namespace ChildGrowth.Pages.AddChild
         }
 
         private static Gender newChildGender = Gender.UNSPECIFIED;
-
-        private async void DeleteAllChildrenButton_Clicked(object sender, EventArgs e)
-        {
-            ChildDatabaseAccess childDatabase = new ChildDatabaseAccess();
-            childDatabase.InitializeSync();
-            List<Child> children = childDatabase.GetAllUserChildrenSync();
-            childDatabase.DeleteAllUserChildrenSync(children);
-            childDatabase.CloseSyncConnection();
-            ContextDatabaseAccess contextDatabase = new ContextDatabaseAccess();
-            contextDatabase.InitializeSync();
-            Context c = contextDatabase.GetContextSync();
-            c.ChildId = -1;
-            contextDatabase.SaveContextSync(c);
-            contextDatabase.CloseSyncConnection();
-        }
     }
 }

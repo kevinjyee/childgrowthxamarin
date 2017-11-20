@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using XLabs.Forms.Controls;
 
 namespace ChildGrowth.iOS
 {
@@ -23,8 +24,9 @@ namespace ChildGrowth.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            new Syncfusion.SfChart.XForms.iOS.Renderers.SfChartRenderer();
+            new ImageButtonRenderer();
             LoadApplication(new App());
-
             return base.FinishedLaunching(app, options);
         }
     }

@@ -19,6 +19,8 @@ namespace ChildGrowth.Pages.Vaccinations
     {
         private Child CurrentChild { get; set; }
 
+        private Context CurrentContext { get; set; }
+
         public static List<Vaccine> Vaccines = new List<Vaccine>();
 
         private static int numberItemsTappedHandlersBound = 0;
@@ -38,6 +40,7 @@ namespace ChildGrowth.Pages.Vaccinations
         ProgressBar vacProg = new CustomProgressBar
         {
             Progress = percentprog,
+            Scale = 2f
         };
 
         Label progBarTitle = new Label
@@ -119,6 +122,14 @@ namespace ChildGrowth.Pages.Vaccinations
         {
             Task Load = Task.Run(async () => { await LoadContext(); });
             Load.Wait();
+            if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+            {
+                SetEnglish();
+            }
+            else
+            {
+                SetSpanish();
+            }
             if (CurrentChild != null)
             {
                 this.Title = CurrentChild.Name;
@@ -128,16 +139,32 @@ namespace ChildGrowth.Pages.Vaccinations
             }
             else
             {
-                this.Title = "Please Select a Child";
+                if (CurrentContext.CurrentLanguage == Language.ENGLISH)
+                {
+                    this.Title = "Please Select a Child";
+                } 
+                else
+                {
+                    this.Title = "Porfavor Seleccione un niño";
+                }
                 Vaccines = new List<Vaccine>();
                 initializeVaccinations();
                 updateProgBar();
             }
         }
 
+        private void SetEnglish()
+        {
+            
+        }
+
+        private void SetSpanish()
+        {
+            
+        }
+
         private async Task<Boolean> LoadContext()
         {
-            Context CurrentContext;
             ContextDatabaseAccess contextDB = new ContextDatabaseAccess();
             await contextDB.InitializeAsync();
             try
