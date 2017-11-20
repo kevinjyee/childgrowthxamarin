@@ -297,10 +297,16 @@ namespace ChildGrowth
                 viewModel = new ViewModel();
                 viewModel.ChartTitle = measurementTitle;
             }
+            if(CurrentChild == null)
+            {
+                return;
+            }
             List<Points> points = CurrentChild.GetSortedMeasurementListByType(measurementType);
             if (points == null)
             {
-                CurrentChild.AddMeasurementForDateAndType(CurrentChild.Birthday, measurementType, CurrentContext.CurrentUnits, 0.0);
+                CurrentChild.AddMeasurementForDateAndType(CurrentChild.Birthday, MeasurementType.HEIGHT, CurrentContext.CurrentUnits, 0.0);
+                CurrentChild.AddMeasurementForDateAndType(CurrentChild.Birthday, MeasurementType.WEIGHT, CurrentContext.CurrentUnits, 0.0);
+                CurrentChild.AddMeasurementForDateAndType(CurrentChild.Birthday, MeasurementType.HEAD_CIRCUMFERENCE, CurrentContext.CurrentUnits, 0.0);
                 return;
             }
             foreach (Points pt in points)

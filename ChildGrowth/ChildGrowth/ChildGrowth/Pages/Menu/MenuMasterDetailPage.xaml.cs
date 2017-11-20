@@ -90,6 +90,7 @@ namespace ChildGrowth.Pages.Menu
             CastMainPage.CurrentChild = c;
             CastMilestonesPage.CurrentChild = c;
             CastVaccinationsPage.CurrentChild = c;
+            CastInsightsPage.CurrentChild = c;
         }
 
         async private Task<Boolean> UpdateChild(Child child){

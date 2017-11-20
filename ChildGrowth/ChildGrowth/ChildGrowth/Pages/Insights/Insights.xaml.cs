@@ -16,7 +16,26 @@ namespace ChildGrowth.Pages.Insights
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Insights : ContentPage
     {
-        public Child CurrentChild { get; set; }
+        private Child _currentChild;
+
+        public Child CurrentChild
+        {
+            get
+            {
+                return _currentChild;
+            }
+            set
+            {
+                if (_currentChild?.ID != value?.ID)
+                {
+                    _currentChild = value;
+                    OnPropertyChanged("CurrentChild");
+                    UpdateTitle();
+                    UpdateInsights();
+                }
+            }
+        }
+
         public Context CurrentContext { get; set; }
 
         override
@@ -24,17 +43,8 @@ namespace ChildGrowth.Pages.Insights
         {
             Task Load = Task.Run(async () => { await LoadContext(); });
             Load.Wait();
-            if (CurrentChild != null)
-            {
-                this.Title = CurrentChild.Name;
-                updateFields();
-            }
-            else
-            {
-                this.Title = "Please Select a Child";
-                updateFields();
-
-            }
+            UpdateTitle();
+            UpdateInsights();
         }
 
         // Load context and set value for current child if it exists.
@@ -79,6 +89,29 @@ namespace ChildGrowth.Pages.Insights
         public Insights()
         {
             InitializeComponent();
+        }
+
+        private void UpdateInsights()
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                updateFields();
+            });
+        }
+
+        void UpdateTitle()
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                if (CurrentChild != null)
+                {
+                    this.Title = CurrentChild.Name;
+                }
+                else
+                {
+                    this.Title = "Please Select a Child";
+                }
+            });
         }
 
         private void updateFields()

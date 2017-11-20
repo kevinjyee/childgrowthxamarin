@@ -33,6 +33,7 @@ namespace ChildGrowth.Pages.Milestones
             {
                 if (_currentChild?.ID != value?.ID)
                 {
+                    _currentChild = value;
                     //_currentChild = value;
                     //OnPropertyChanged("CurrentChild");
                     //UpdateTitle();
@@ -62,7 +63,7 @@ namespace ChildGrowth.Pages.Milestones
             }
             viewModel = new MainPageViewModel();
             //UpdateMilestones();
-            UpdateTitle();
+            //UpdateTitle();
             initializeMilestones();
         }
 
