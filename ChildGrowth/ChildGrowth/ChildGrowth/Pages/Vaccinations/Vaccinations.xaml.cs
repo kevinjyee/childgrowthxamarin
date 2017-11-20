@@ -10,6 +10,7 @@ using Xamarin.Forms.Xaml;
 using ChildGrowth.Pages.Settings;
 using ChildGrowth.Persistence;
 using ChildGrowth.Models.Settings;
+using ChildGrowth.Pages.Menu;
 using ChildGrowth.Models.Vaccinations;
 
 namespace ChildGrowth.Pages.Vaccinations
@@ -17,6 +18,7 @@ namespace ChildGrowth.Pages.Vaccinations
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Vaccinations : ContentPage
     {
+        private MenuMasterDetailPage MasterPage { get; set; }
 
         private Child _currentChild;
 
@@ -39,15 +41,48 @@ namespace ChildGrowth.Pages.Vaccinations
             }
         }
 
+        private Language _currentLanguage { get; set; }
+
+        public Language CurrentLanguage
+        {
+            get
+            {
+                return _currentLanguage;
+            }
+            set
+            {
+                if (value != _currentLanguage)
+                {
+                    OnPropertyChanged("CurrentLanguage");
+                }
+                if (value == Language.ENGLISH)
+                {
+                    _currentLanguage = value;
+                    SetEnglish();
+                }
+                else
+                {
+                    SetSpanish();
+                }
+            }
+        }
+
         private Context CurrentContext { get; set; }
 
         public static List<Vaccine> Vaccines = new List<Vaccine>();
 
+        public static List<Vaccine> HistoricalVaccines = new List<Vaccine>();
+
         private static int numberItemsTappedHandlersBound = 0;
 
-        ListView vaccinationListHeader = new ListView
+        private static int numberHistoricalItemsTappedHandlersBound = 0;
+
+        Label vaccinationListHeader = new Label
         {
-            RowHeight = 70
+            Text = "Vaccinations Pending",
+            FontSize = 20,
+            TextColor = Color.WhiteSmoke,
+            BackgroundColor = Color.FromRgb(94 - 50, 196 - 50, 225 - 50)
         };
 
         ListView vaccinationList = new ListView
@@ -55,9 +90,12 @@ namespace ChildGrowth.Pages.Vaccinations
             RowHeight = 70
         };
 
-        ListView vaccinationHistoryListHeader = new ListView
+        Label vaccinationHistoryListHeader = new Label
         {
-            RowHeight = 70
+            Text = "Vaccinations Received",
+            FontSize = 20,
+            TextColor = Color.WhiteSmoke,
+            BackgroundColor = Color.FromRgb(94 - 50, 196 - 50, 225 - 50)
         };
 
         ListView vaccinationHistoryList = new ListView
@@ -67,7 +105,7 @@ namespace ChildGrowth.Pages.Vaccinations
 
         void OnSettingsClicked(object sender, System.EventArgs e)
         {
-            Navigation.PushAsync(new SettingsPage());
+            Navigation.PushAsync(new SettingsPage(MasterPage));
         }
 
         static double percentprog = 0.2;
@@ -82,13 +120,20 @@ namespace ChildGrowth.Pages.Vaccinations
         {
             Text = "Vaccination Progress",
             FontSize = 20,
-            TextColor = Color.WhiteSmoke
+            TextColor = Color.WhiteSmoke,
+            BackgroundColor = Color.FromRgb(94 - 50, 196 - 50, 225 - 50)
         };
 
         public Vaccinations()
         {
             //initializeVaccinations();
 
+        }
+
+        public Vaccinations(MenuMasterDetailPage Page)
+        {
+            //InitializeComponent();
+            MasterPage = Page;
         }
 
         private void initializeVaccinations()
@@ -99,12 +144,15 @@ namespace ChildGrowth.Pages.Vaccinations
 
             //Vaccines = GetVaccineHistoryForCurrentChild();
 
-            vaccinationList.ItemsSource = 
-
             vaccinationList.ItemsSource = Vaccines;
             vaccinationList.ItemTemplate = new DataTemplate(typeof(VaccinationCell));
             vaccinationList.BackgroundColor = Color.Transparent;
             vaccinationList.SeparatorColor = Color.White;
+
+            vaccinationHistoryList.ItemsSource = HistoricalVaccines;
+            vaccinationHistoryList.ItemTemplate = new DataTemplate(typeof(VaccinationCell));
+            vaccinationHistoryList.BackgroundColor = Color.Transparent;
+            vaccinationHistoryList.SeparatorColor = Color.White;
 
             /*
             vaccinationList.ItemSelected += (sender, e) =>
@@ -130,6 +178,23 @@ namespace ChildGrowth.Pages.Vaccinations
                 numberItemsTappedHandlersBound = 1;
             }
 
+            EventHandler<ItemTappedEventArgs> historicalItemTapHandler = null;
+            historicalItemTapHandler = (Sender, Event) =>
+            {
+                vaccinationHistoryList.ItemTapped -= historicalItemTapHandler;
+                numberHistoricalItemsTappedHandlersBound--;
+
+                var V_hist = (Vaccine)Event.Item;
+
+                Navigation.PushAsync(new VaccinationInfoView(V_hist, CurrentChild));
+            };
+            // pot race cond.
+            if (numberHistoricalItemsTappedHandlersBound <= 0)
+            {
+                vaccinationHistoryList.ItemTapped += historicalItemTapHandler;
+                numberHistoricalItemsTappedHandlersBound = 1;
+            }
+
             // Add new label, new list
 
             Content = new StackLayout
@@ -139,8 +204,10 @@ namespace ChildGrowth.Pages.Vaccinations
                 Children = {
                   progBarTitle,
                   vacProg,
-                  vaccinationList
-                  //vaccinationHistoryList
+                  vaccinationListHeader,
+                  vaccinationList,
+                  vaccinationHistoryListHeader,
+                  vaccinationHistoryList
                 }
             };
 
@@ -154,6 +221,10 @@ namespace ChildGrowth.Pages.Vaccinations
             else
             {
                 await vacProg.ProgressTo(0, 250, Easing.Linear);
+            }
+            if(CurrentContext == null)
+            {
+
             }
         }
 
@@ -219,10 +290,24 @@ namespace ChildGrowth.Pages.Vaccinations
                     }
                     else
                     {
-                        this.Title = "Porfavor Seleccione un niño";
+                        this.Title = "Porfavor Seleccione un Niño";
                     }
                 }
             });
+        }
+
+        void SetEnglish()
+        {
+            progBarTitle.Text = "Vaccination Progress";
+            vaccinationListHeader.Text = "Vaccinations Pending";
+            vaccinationHistoryListHeader.Text = "Vaccinations Received";
+        }
+
+        void SetSpanish()
+        {
+            progBarTitle.Text = "Progreso de las Vacunas";
+            vaccinationListHeader.Text = "Vacunas Pendientes";
+            vaccinationHistoryListHeader.Text = "Vacunas Recibidas";
         }
 
         void UpdateVaccineList()
@@ -232,11 +317,13 @@ namespace ChildGrowth.Pages.Vaccinations
                 if (CurrentChild != null)
                 {
                     Vaccines = CurrentChild.GetListOfDueVaccines();
+                    HistoricalVaccines = CurrentChild.GetVaccineHistory();
                     initializeVaccinations();
                 }
                 else
                 {
                     Vaccines = new List<Vaccine>();
+                    HistoricalVaccines = new List<Vaccine>();
                     initializeVaccinations();
                 }
             });

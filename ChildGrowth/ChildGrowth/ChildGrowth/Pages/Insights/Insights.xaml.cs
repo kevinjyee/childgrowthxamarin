@@ -212,7 +212,7 @@ namespace ChildGrowth.Pages.Insights
                     }
                     else
                     {
-                        this.Title = "Porfavor Seleccione un niño";
+                        this.Title = "Porfavor Seleccione un Niño";
                     }
                 }
             });

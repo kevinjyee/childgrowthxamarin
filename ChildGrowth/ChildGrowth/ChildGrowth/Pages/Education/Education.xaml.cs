@@ -81,7 +81,7 @@ namespace ChildGrowth.Pages.Education
                 }
                 else
                 {
-                    this.Title = "Porfavor Seleccione un niño";
+                    this.Title = "Porfavor Seleccione un Niño";
                 }
             }
         }

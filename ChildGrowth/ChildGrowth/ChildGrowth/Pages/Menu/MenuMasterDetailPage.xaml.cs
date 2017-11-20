@@ -31,7 +31,7 @@ namespace ChildGrowth.Pages.Menu
             InitializeComponent();
             CastMainPage = new MainPage(this);
             CastMilestonesPage = new Milestones.Milestones();
-            CastVaccinationsPage = new Vaccinations.Vaccinations();
+            CastVaccinationsPage = new Vaccinations.Vaccinations(this);
             CastEducationPage = new Education.Education(this);
             CastInsightsPage = new Insights.Insights(this);
             if (CurrentContext == null)
@@ -117,6 +117,7 @@ namespace ChildGrowth.Pages.Menu
         void NotifyPagesOfLanguageUpdate(Language language)
         {
             CastMainPage.CurrentLanguage = language;
+            CastVaccinationsPage.CurrentLanguage = language;
             CastEducationPage.CurrentLanguage = language;
             CastInsightsPage.CurrentLanguage = language;
             if(CastEditChildPage != null)

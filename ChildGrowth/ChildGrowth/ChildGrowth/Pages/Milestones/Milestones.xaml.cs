@@ -66,7 +66,7 @@ namespace ChildGrowth.Pages.Milestones
                 }
                 else
                 {
-                    this.Title = "Porfavor Seleccione un niño";
+                    this.Title = "Porfavor Seleccione un Niño";
                 }
             }
             viewModel = new MainPageViewModel();
@@ -103,7 +103,7 @@ namespace ChildGrowth.Pages.Milestones
                     }
                     else
                     {
-                        this.Title = "Porfavor Seleccione un niño";
+                        this.Title = "Porfavor Seleccione un Niño";
                     }
                 }
             });
