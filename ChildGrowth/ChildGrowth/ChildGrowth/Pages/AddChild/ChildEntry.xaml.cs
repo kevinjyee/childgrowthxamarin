@@ -2,6 +2,7 @@
 using ChildGrowth.Persistence;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ namespace ChildGrowth.Pages.AddChild
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ChildEntry : ContentPage
     {
+        private bool DebugMode = true;
+
         private Language _currentLanguage { get; set; }
 
         public Language CurrentLanguage
@@ -129,7 +132,7 @@ namespace ChildGrowth.Pages.AddChild
             else
             {
                 sex = (string)SexEntry.ItemsSource[index];
-                if(sex == "Male")
+                if (sex == "Male")
                 {
                     newChildGender = Gender.MALE;
 
@@ -137,6 +140,8 @@ namespace ChildGrowth.Pages.AddChild
                 {
                     newChildGender = Gender.FEMALE;
                 }
+               
+                
                 ChildDatabaseAccess childDatabase = new ChildDatabaseAccess();
                 childDatabase.InitializeSync();
                 Child newChild = new Child(nameEntered, birthdayEntered, newChildGender);
@@ -148,6 +153,33 @@ namespace ChildGrowth.Pages.AddChild
                 context.ChildId = newChild.ID;
                 contextDB.SaveContextSync(context);
                 contextDB.CloseSyncConnection();
+
+                if (DebugMode)
+                {
+                    childDatabase = new ChildDatabaseAccess();
+                    childDatabase.InitializeSync();
+                    newChild = new Child(nameEntered, birthdayEntered, newChildGender);
+                    childDatabase.SaveUserChildSync(newChild);
+                    childDatabase.CloseSyncConnection();
+                    contextDB = new ContextDatabaseAccess();
+
+                    var stopwatch = new Stopwatch();
+                    for(int i =0;  i < 1000; i++)
+                    {
+
+                        stopwatch.Start();
+                    contextDB.InitializeSync();
+                    context = contextDB.GetContextSync();
+                    context.ChildId = newChild.ID;
+                    contextDB.SaveContextSync(context);
+                        stopwatch.Stop();
+                        TimeSpan ts = stopwatch.Elapsed;
+                        Debug.WriteLine("Add Child (ms): " + ts.TotalMilliseconds);
+
+                    }
+
+                    contextDB.CloseSyncConnection();
+                }
             }
 
             await Navigation.PopModalAsync();
